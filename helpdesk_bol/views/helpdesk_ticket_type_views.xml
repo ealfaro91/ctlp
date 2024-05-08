@@ -1,0 +1,29 @@
+<odoo>
+
+    <!-- FORM VIEW -->
+
+   <record id="helpdesk_ticket_type_form_inh" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.type.form.inh</field>
+        <field name="model">helpdesk.ticket.type</field>
+        <field name="inherit_id" ref="helpdesk_type.helpdesk_ticket_type_form"/>
+        <field name="arch" type="xml">
+           <field name="name" position="after">
+                <field name="category_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+
+    <record id="helpdesk_ticket_type_tree_inh" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.type.tree.inh</field>
+        <field name="model">helpdesk.ticket.type</field>
+        <field name="inherit_id" ref="helpdesk_type.helpdesk_ticket_type_tree"/>
+        <field name="arch" type="xml">
+           <field name="name" position="after">
+                <field name="category_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

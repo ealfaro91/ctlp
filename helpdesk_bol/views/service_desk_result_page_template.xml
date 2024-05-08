@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ticket_form_result" name="Ticket Received">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                Su número de ticket es <a t-attf-href="/helpdesk/ticket/#{ticket_id}">#<span t-esc="ticket_id"/></a>
+                            </h1>
+                        </div>
+                        <div class="col-12">
+                            <h1 class="text-center">Gracias por enviar tu problema, ¡nuestro equipo se encargará de ello!</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

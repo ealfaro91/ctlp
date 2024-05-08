@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ticket_form" name="Registre su Ticket">
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-4">
+                <h1>Register your requirement</h1><br/>
+                <t t-if="error_message">
+                    <span class="text-danger" t-esc="error_message"/>
+                </t>
+                <form action="/service_desk_close" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-2 col-form-label">Requester</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="area" class="col-md-2 col-form-label">Requester Area</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="area" required="required" t-att-value="user.email" readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="title" class="col-md-2 col-form-label">Title</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="title" required="required"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="description" class="col-md-2 col-form-label">Request description</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="description" required="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-3">Incident type</div>
+                      <div class="col-6">
+                        <select class="form-control" name="type_id">
+                          <option value=""></option>
+                          <t t-foreach="types" t-as="type">
+                            <option t-att-value="type.id">
+                              <t t-esc="type.name"/>
+                            </option>
+                          </t>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">Category</div>
+                        <div class="col-6">
+                            <select class="form-control" name="category_id">
+                                <option value=""></option>
+                                <t t-foreach="categories" t-as="category">
+                                    <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
+                                        <t t-esc="category.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="attachments" class="col-md-2 col-form-label">Attachment(s)</label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" name="attachments" multiple="true"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+<!--                &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
+<!--                &lt;!&ndash; The Modal &ndash;&gt;-->
+<!--                <div class="modal fade" id="popupWarning">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--                            <div class="modal-body text-center">-->
+<!--                                <img src="/xma_service_desk/static/src/img/advisor.png" alt="advertencia"/>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Modal footer &ndash;&gt;-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button type="button" class="btn btn-primary" data-dismiss="modal">No, deseo regresar</button>-->
+<!--                                <a href="/my/tickets" class="btn btn-primary">Sí, estoy seguro</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </t>
+    </template>
+
+    <template id="ticket_thank_you" name="Ficha Thank You">
+        <t t-call="website.layout">
+            <section>
+                <div class="container mt-5">
+                    <div class="row"/>
+                    <div class="row">
+                        Your ticket has been registered successfully.
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+</odoo>

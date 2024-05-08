@@ -1,0 +1,17 @@
+<odoo noupdate="1">
+
+  <record id="precierre_stage" model="helpdesk.stage">
+      <field name="name">Precierre</field>
+      <field name="sequence">2</field>
+      <field name="template_id" ref="xma_service_desk.notificacion_precierre_ti"/>
+  </record>
+
+  <record id="helpdesk.stage_solved" model="helpdesk.stage">
+      <field name="sequence">3</field>
+  </record>
+
+  <record id="helpdesk.stage_cancelled" model="helpdesk.stage">
+      <field name="sequence">4</field>
+  </record>
+
+</odoo>

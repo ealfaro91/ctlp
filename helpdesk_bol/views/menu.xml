@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_open_url_service_desk" model="ir.actions.act_url">
+        <field name="name">URL</field>
+        <field name="type">ir.actions.act_url</field>
+        <field name="target">self</field>
+        <field name="url">/service_desk</field>
+    </record>
+
+    <menuitem
+            id="service_desk_url_menu_root"
+            name="Service Desk"
+			web_icon="xma_service_desk,static/description/icon.png"
+			action="action_open_url_service_desk"
+			groups="xma_service_desk.group_helpdesk_applicant"/>
+
+</odoo>

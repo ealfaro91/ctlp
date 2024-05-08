@@ -1,0 +1,4 @@
+id,name,type_id
+network_category,Networks,helpdesk_bol.incident_type
+sapsystem_category,SAP system,helpdesk_bol.service_request_type
+loan_category,Loan,helpdesk_bol.service_request_type

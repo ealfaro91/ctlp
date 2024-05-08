@@ -1,0 +1,216 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* helpdesk_bol
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240325\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-22 17:19+0000\n"
+"PO-Revision-Date: 2024-04-22 17:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__active
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__name
+msgid "Area"
+msgstr "Área"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Attachment(s)"
+msgstr "Adjunto(s)"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__attention_time_state
+msgid "Attention time state"
+msgstr "Estado de atención"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__category_ids
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__category_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__category_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Category"
+msgstr "Categoría"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__create_uid
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__create_date
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__delayed
+msgid "Delayed"
+msgstr "Retrasado"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__display_name
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__elapsed_attention_time
+msgid "Elapsed Attention Time"
+msgstr "Tiempo de atención transcurrido"
+
+#. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket
+msgid "Helpdesk Ticket"
+msgstr "Solicitud del servicio de asistencia"
+
+#. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_category
+msgid "Helpdesk Ticket Category"
+msgstr "Categoría de ticket"
+
+#. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_type
+msgid "Helpdesk Ticket Type"
+msgstr "Tipo de tickets del Helpdesk"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__id
+msgid "ID"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Incident type"
+msgstr "Tipo de incidente"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__write_uid
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__write_date
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__max_attention_time
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__max_attention_time
+msgid "Max attention time"
+msgstr "Tiempo máximo de atención"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__on_time
+msgid "On time"
+msgstr "En plazo"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Register your requirement"
+msgstr "Registre su requerimiento"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Request description"
+msgstr "Descripción"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Requester"
+msgstr "Nombre del solicitante"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Requester Area"
+msgstr "Área del solicitante"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__resolution
+msgid "Resolution"
+msgstr "Resolución"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__name
+msgid "Sub-Category"
+msgstr "Sub-Categoría"
+
+#. module: helpdesk_bol
+#: model:ir.actions.act_window,name:helpdesk_bol.helpdesk_ticket_subcategory_action
+msgid "Sub-category"
+msgstr "Sub-Categoría"
+
+#. module: helpdesk_bol
+#: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_subcategory_menu
+msgid "SubCategories"
+msgstr "Sub-Categorías"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__subcategory_id
+msgid "Subcategory"
+msgstr "Sub-categoría"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Submit"
+msgstr "Enviar"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph
+msgid "Tickets"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__type_id
+msgid "Tipo ticket"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Title"
+msgstr "Título"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
+msgid "Your ticket has been registered successfully."
+msgstr "Su ticket ha sido registrado exitosamente."
+
+#. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_area
+msgid "helpdesk.ticket.area"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_subcategory
+msgid "helpdesk.ticket.subcategory"
+msgstr ""

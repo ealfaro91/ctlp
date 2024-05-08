@@ -1,0 +1,92 @@
+<odoo>
+
+    <!-- FORM VIEW INHERIT -->
+
+    <record id="service_desk_helpdesk_ticket_form_view" model="ir.ui.view">
+        <field name="name">service.desk.helpdesk.ticket.form.view</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="type_id" position="attributes">
+                <attribute name="required">True</attribute>
+            </field>
+            <field name="category_id" position="attributes">
+                <attribute name="required">True</attribute>
+            </field>
+            <field name="category_id" position="after">
+                <field name="subcategory_id"/>
+                <field name="max_attention_time"/>
+            </field>
+            <field name="closed_date" position="after">
+                <field name="resolution"/>
+            </field>
+            <field name="priority" position="after">
+                <field name="attention_time_state" widget="badget" readonly="1"/>
+                <field name="elapsed_attention_time"/>
+            </field>
+        </field>
+    </record>
+
+     <record id="helpdesk_ticket_view_graph1" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.graph1</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <graph string="Tickets" sample="1" type="pie">
+                <field name="stage_id"/>
+<!--                <field name="user_id"/>-->
+            </graph>
+          </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_graph2" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.graph2</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <graph string="Tickets" sample="1" type="bar">
+                <field name="user_id"/>
+            </graph>
+        </field>
+    </record>
+
+<!--    &lt;!&ndash; SEARCH VIEW INHERIT &ndash;&gt;-->
+
+<!--    <record id="service_desk_helpdesk_ticket_search2_view" model="ir.ui.view">-->
+<!--        <field name="name">service.desk.helpdesk.ticket.search2.view</field>-->
+<!--        <field name="model">helpdesk.ticket</field>-->
+<!--        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='sla_deadline']" position="after">-->
+<!--                <field name="technical_category_id"/>-->
+<!--                <field name="level"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//search" position="inside">-->
+<!--                <filter string="Categoría técnica" name="technical_category_id" domain="[('technical_category_id','!=',False)]"/>-->
+<!--                <filter string="Nivel 1" name="filter_level_1" domain="[('level', '=', 'level_1')]"/>-->
+<!--                <filter string="Nivel 2" name="filter_level_2" domain="[('level', '=', 'level_2')]"/>-->
+<!--                <filter string="Nivel 3" name="filter_level_3" domain="[('level', '=', 'level_3')]"/>-->
+<!--                <filter string="Nivel 4" name="filter_level_4" domain="[('level', '=', 'level_4')]"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//search//group" position="inside">-->
+<!--                <filter string="Categoría técnica" name="technical_category_id" context="{'group_by':'technical_category_id'}" />-->
+<!--                <filter string="Nivel" name="level" context="{'group_by':'level'}" />-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    &lt;!&ndash; KANBAN VIEW INHERIT &ndash;&gt;-->
+
+<!--    <record id="service_desk_helpdesk_ticket_kanban_view" model="ir.ui.view">-->
+<!--        <field name="name">service.desk.helpdesk.ticket.kanban.view</field>-->
+<!--        <field name="model">helpdesk.ticket</field>-->
+<!--        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//div[1]/div[2]/div[3]" position="after">-->
+<!--                <field name="user_id"/>-->
+<!--            </xpath>-->
+<!--      </field>-->
+<!--    </record>-->
+
+</odoo>

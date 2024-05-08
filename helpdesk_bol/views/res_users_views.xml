@@ -1,0 +1,33 @@
+<odoo>
+
+    <!-- FORM VIEW INHERIT -->
+
+    <record id="res_users_form_view" model="ir.ui.view">
+        <field name="name">service.desk.helpdesk.ticket.form.view</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="type_id" position="attributes">
+                <attribute name="readonly">id != False</attribute>
+            </field>
+            <field name="category_id" position="attributes">
+                <attribute name="readonly">id != False</attribute>
+            </field>
+            <field name="category_id" position="after">
+                <field name="subcategory_id"/>
+                <field name="max_attention_time"/>
+            </field>
+            <field name="closed_date" position="after">
+                <field name="resolution"/>
+            </field>
+            <field name="priority" position="after">
+                <field name="attention_time_state" widget="badget" readonly="1"/>
+                <field name="elapsed_attention_time"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

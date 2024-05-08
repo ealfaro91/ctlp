@@ -1,0 +1,19 @@
+<odoo>
+      <!-- FORM VIEW INHERIT -->
+
+    <record id="service_desk_helpdesk_stage_form_view" model="ir.ui.view">
+        <field name="name">service.desk.helpdesk.stage.form.view</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="survey_id"/>
+            </field>
+            <field name="is_close" position="after">
+                <field name="is_solved"/>
+                <field name="is_process"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
