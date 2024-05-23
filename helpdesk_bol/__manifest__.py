@@ -7,8 +7,9 @@
     'category': 'Helpdesk',
     'version': '17.0',
     'depends': [
-      'helpdesk_type',
-      'website',
+        'auth_ldap',
+        'helpdesk_type',
+        'website',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -24,7 +25,7 @@
         'views/helpdesk_ticket_subcategory_views.xml',
         'views/helpdesk_ticket_views.xml',
         'views/service_desk_page_template.xml',
-        #'views/res_users_views.xml',
+        'views/res_users_views.xml',
         #'views/service_desk_result_page_template.xml',
 
     ],

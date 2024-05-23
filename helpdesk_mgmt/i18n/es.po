@@ -822,10 +822,14 @@ msgstr "Tiene mensajes"
 
 #. module: helpdesk_mgmt
 #: model:ir.module.category,name:helpdesk_mgmt.module_helpdesk_category
-#: model:ir.ui.menu,name:helpdesk_mgmt.helpdesk_ticket_main_menu
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.res_config_settings_view_form
 msgid "Helpdesk"
-msgstr "Servicio de asistencia"
+msgstr "Helpdesk"
+
+#. module: helpdesk_mgmt
+#: model:ir.ui.menu,name:helpdesk_mgmt.helpdesk_ticket_main_menu
+msgid "Helpdesk"
+msgstr "Help Desk"
 
 #. module: helpdesk_mgmt
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.view_helpdesk_ticket_category_search

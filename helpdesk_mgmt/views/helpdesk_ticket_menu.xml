@@ -52,7 +52,7 @@
     <!-- Menus -->
     <menuitem
         id="helpdesk_ticket_main_menu"
-        name="Helpdesk"
+        name="Help Desk"
         sequence="16"
         web_icon="helpdesk_mgmt,static/description/icon.png"
         groups="group_helpdesk_user_own"

@@ -7,5 +7,5 @@ from . import helpdesk_ticket
 from . import helpdesk_ticket_category
 from . import helpdesk_ticket_type
 from . import helpdesk_ticket_subcategory
-#from . import res_users
+from . import res_users
 
