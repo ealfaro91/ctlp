@@ -1,39 +1,22 @@
 <odoo noupdate="0">
 
-    <!-- TEMPLATE PRECIERRE -->
+    <!-- TEMPLATE CREATION -->
 
-    <record id="notificacion_precierre_ti" model="mail.template">
-        <field name="name">Ticket:PRECIERRE</field>
+    <record id="ticket_creation" model="mail.template">
+        <field name="name">Help Desk Ticket Creation</field>
         <field name="model_id" ref="helpdesk.model_helpdesk_ticket"/>
         <field name="auto_delete" eval="False"/>
-        <field name="email_from">${object.partner_email}</field>
-        <field name="email_to">${object.user_id.login}</field>
-        <field name="lang">${object.lang}</field>
-        <field name="subject">${object.name}</field>
+        <field name="email_from">{{ (object.company_id.email) }}</field>
+        <field name="email_to">{{ (object.partner_email) }}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="subject">Ticket Creation : {{ (object.name) }}</field>
         <field name="body_html" type="html">
-            <p>Estimado/a ${object.partner_id.name}</p>
+            <p>Dear {{ (object.partner_id.name) }}</p>
             <br/>
-            <p>Este mensaje automático es para avisarle que hemos cerrado su ticket (reference ${object.id}}). Esperamos que el servicio proporcionado cumpla sus</p>
-            <p>expectativas. si tiene preguntas o comentarios, no dude en responder a este mensaje.</p>
+            <p>This automatic message is to notify that your ticket {{ (object.number) }} with subject {{ (object.name) }} has been received.</p>
+            <p>Creation datetime: ${object.create_date.strftime('%Y-%m-%d %H:%M:%S')}</p>
             <br/>
-            <p>Resumen del Ticket</p>
-            <br/>
-            <p>Fecha y hora de apertura: ${object.create_date.strftime('%Y-%m-%d %H:%M:%S')}/ Fecha y hora de cierre: ${object.solution_date.strftime('%Y-%m-%d %H:%M:%S')}</p>
-            <br/>
-            <p>Detalle de la Resolución: ${object.solution_description or ' '}</p>
-            <br/>
-            <p>En caso de que se encuentre conforme con el servicio, por favor, le pedimos pueda cerrar definitivamente el Ticket, caso contrario, puede reaperturarlo:</p>
-            <br/>
-            <div style="text-align: center;">
-                <a href="/change_stage/${object.id}/1" style="color:#eee; padding:8px; boder:solid 1px; border-radius: 4px; background-color: #1a8d40;">CIERRE DEFINITIVO</a>
-                <a href="/change_stage/${object.id}/2" style="color:#eee; padding:8px; boder:solid 1px; border-radius: 4px; background-color: #802249;">REAPERTURA TICKET</a>
-            </div>
-            <br/>
-            <br/>
-            <p>Asi mismo, le invitamos a llenar la siguiente encuesta de satisfacción.</p>
-            <a href="/survey/results/encuesta-de-satisfaccion-1">Encuesta de satisfaccion</a>
-            <p>Gracias por su cooperación.</p>
-            <p>Saludos cordiales.</p>
+            <p>Greetings.</p>
             <br/>
             <p>El equipo ${object.team_id.name}.</p>
         </field>

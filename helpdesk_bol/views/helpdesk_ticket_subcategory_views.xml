@@ -12,6 +12,8 @@
                         <group>
                             <field name="name"/>
                             <field name="category_id"/>
+                            <field name="max_attention_time"/>
+                            <field name="user_id"/>
                         </group>
                     </group>
                 </sheet>
@@ -29,6 +31,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="category_id"/>
+
             </tree>
         </field>
     </record>

@@ -23,7 +23,6 @@ class CompanyLDAP(models.Model):
         :return: parameters for a new resource of model res_users
         :rtype: dict
         """
-        raise ValidationError()
         return {
             'name': tools.ustr(ldap_entry[1]['cn'][0]),
             'login': login,

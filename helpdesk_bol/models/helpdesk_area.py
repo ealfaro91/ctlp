@@ -8,3 +8,4 @@ class HelpdeskTicketArea(models.Model):
 
     active = fields.Boolean(default=True)
     name = fields.Char(string="Area")
+    area_type = fields.Selection([('TI', 'TI')], string="Area")

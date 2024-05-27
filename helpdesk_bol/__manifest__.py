@@ -17,7 +17,7 @@
       #  'data/helpdesk.ticket.category.csv',
       #  'data/helpdesk.ticket.subcategory.csv',
         #'data/mail_template_data.xml',
-        #'data/helpdesk_stage_data.xml',
+        'data/helpdesk_ticket_data.xml',
         #'views/change_stage_page_template.xml',
         #'views/helpdesk_stage_views.xml',
         'views/helpdesk_ticket_category_views.xml',

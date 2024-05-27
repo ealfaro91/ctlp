@@ -1,0 +1,8 @@
+<odoo>
+
+  <record id="helpdesk_ticket_area_ti" model="helpdesk.ticket.area">
+      <field name="name">TI</field>
+      <field name="area_type">TI</field>
+  </record>
+
+</odoo>

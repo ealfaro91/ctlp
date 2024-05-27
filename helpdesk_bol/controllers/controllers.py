@@ -22,7 +22,7 @@ headers = {"content-type": "application/json;charset=utf-8"}
 
 class ServiceDesk(http.Controller):
 
-    @http.route("/service_desk", auth="user", type="http", website=True)
+    @http.route("/help_desk", auth="user", type="http", website=True)
     def index(self, **kw):
         data = {}
         types = request.env['helpdesk.ticket.type'].sudo().search([])
@@ -34,7 +34,7 @@ class ServiceDesk(http.Controller):
         })
         return request.render("helpdesk_bol.ticket_form", data)
 
-    @http.route("/service_desk_close", type='http', auth="public",  methods=['POST'],
+    @http.route("/help_desk_close", type='http', auth="public",  methods=['POST'],
                 website=True)
     def service_desk_close(self, **kw):
         print(kw)
@@ -42,6 +42,7 @@ class ServiceDesk(http.Controller):
             'partner_name': kw.get('name'),
             'partner_id': request.env.user.partner_id.id,
             'partner_email': request.env.user.login,
+            'area': request.env.user.area,
             'name': kw.get('title'),
             'description': kw.get('description'),
             'type_id': kw.get('type_id'),

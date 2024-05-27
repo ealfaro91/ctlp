@@ -10,8 +10,6 @@
             <field name="name" position="after">
                 <group>
                     <field name="type_id"/>
-                    <field name="max_attention_time"/>
-                    <field name="user_id"/>
                 </group>
             </field>
         </field>
@@ -26,8 +24,6 @@
         <field name="arch" type="xml">
            <field name="name" position="after">
                <field name="type_id"/>
-               <field name="max_attention_time"/>
-               <field name="user_id"/>
             </field>
         </field>
     </record>

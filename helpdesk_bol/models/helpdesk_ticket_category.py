@@ -12,6 +12,5 @@ class HelpdeskTicketCategory(models.Model):
        # required=True,
         tracking=True
     )
-    max_attention_time = fields.Integer(string="Max attention time", tracking=True)
-    user_id = fields.Many2one("res.users", string="User", tracking=True)
+
 
