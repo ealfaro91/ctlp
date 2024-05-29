@@ -7,7 +7,7 @@ class HelpdeskTicketSubCategory(models.Model):
     _order = "sequence,name"
 
     active = fields.Boolean(default=True)
-    name = fields.Char(string="Sub-Category")
+    name = fields.Char(string="Sub-Category", required=True, tracking=True)
     category_id = fields.Many2one(
         "helpdesk.ticket.category",
         string="Category",
@@ -18,6 +18,6 @@ class HelpdeskTicketSubCategory(models.Model):
         string="Sequence",
         default=10
     )
-    max_attention_time = fields.Integer(string="Max attention time", tracking=True)
-    user_id = fields.Many2one("res.users", string="User", tracking=True)
+    max_attention_time = fields.Integer(string="Max attention time (hours)", tracking=True)
+    user_id = fields.Many2one("res.users", string="Responsible", required=True, tracking=True)
 

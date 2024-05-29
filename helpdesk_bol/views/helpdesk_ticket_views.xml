@@ -17,7 +17,7 @@
                 <attribute name="required">True</attribute>
             </field>
             <field name="category_id" position="after">
-                <field name="subcategory_id"/>
+                <field name="subcategory_id" required="True"/>
                 <field name="max_attention_time"/>
             </field>
             <field name="closed_date" position="after">
@@ -41,33 +41,16 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree"/>
         <field name="arch" type="xml">
-            <field name="team_id" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </field>
-            <field name="type_id" position="attributes">
-                <attribute name="required">True</attribute>
-            </field>
-            <field name="category_id" position="attributes">
-                <attribute name="required">True</attribute>
-            </field>
-            <field name="category_id" position="after">
-                <field name="subcategory_id"/>
-                <field name="max_attention_time"/>
-            </field>
-            <field name="closed_date" position="after">
-                <field name="resolution"/>
-            </field>
-            <field name="partner_email" position="after">
-                <field name="area_id" invisible="1"/>
-                <field name="area"/>
-            </field>
             <field name="priority" position="after">
-                <field name="attention_time_state" widget="badget" readonly="1"/>
-                <field name="elapsed_attention_time"/>
+                <field name="attention_time_state"/>
             </field>
+            <tree position="attributes">
+                <attribute name="decoration-primary">attention_time_state == 'on_time'</attribute>
+                <attribute name="decoration-warning">attention_time_state == 'on_hold'</attribute>
+                <attribute name="decoration-danger">attention_time_state == 'delayed'</attribute>
+            </tree>
         </field>
     </record>
-
 
      <record id="helpdesk_ticket_view_graph1" model="ir.ui.view">
         <field name="name">helpdesk.ticket.view.graph1</field>

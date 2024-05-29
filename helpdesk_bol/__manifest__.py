@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Service Desk TI",
+    'name': "Help Desk TI",
     'summary': """ Extensión de helpdesk para el control de tickets de TI """,
     'author': "",
     'website': "http://www.com",
@@ -29,4 +29,6 @@
         #'views/service_desk_result_page_template.xml',
 
     ],
+
+    'assets': {'web.assets_frontend': ['helpdesk_bol/static/src/js/**']}
 }

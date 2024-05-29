@@ -9,7 +9,7 @@ class HelpdeskTicketCategory(models.Model):
     type_id = fields.Many2one(
         "helpdesk.ticket.type",
         string="Tipo ticket",
-       # required=True,
+        required=True,
         tracking=True
     )
 

@@ -49,16 +49,16 @@ class HelpdeskTeam(models.Model):
         string="Tickets",
     )
     todo_ticket_count = fields.Integer(
-        string="Number of tickets", compute="_compute_todo_tickets"
+        string="Number of tickets", #compute="_compute_todo_tickets"
     )
     todo_ticket_count_unassigned = fields.Integer(
-        string="Number of tickets unassigned", compute="_compute_todo_tickets"
+        string="Number of tickets unassigned", #compute="_compute_todo_tickets"
     )
     todo_ticket_count_unattended = fields.Integer(
-        string="Number of tickets unattended", compute="_compute_todo_tickets"
+        string="Number of tickets unattended", #compute="_compute_todo_tickets"
     )
     todo_ticket_count_high_priority = fields.Integer(
-        string="Number of tickets in high priority", compute="_compute_todo_tickets"
+        string="Number of tickets in high priority", #compute="_compute_todo_tickets"
     )
     show_in_portal = fields.Boolean(
         string="Show in portal form",
@@ -83,34 +83,35 @@ class HelpdeskTeam(models.Model):
 
     @api.depends("ticket_ids", "ticket_ids.stage_id")
     def _compute_todo_tickets(self):
-        ticket_model = self.env["helpdesk.ticket"]
-        fetch_data = ticket_model.read_group(
-            [("team_id", "in", self.ids), ("closed", "=", False)],
-            ["team_id", "user_id", "unattended", "priority"],
-            ["team_id", "user_id", "unattended", "priority"],
-            lazy=False,
-        )
-        result = [
-            [
-                data["team_id"][0],
-                data["user_id"] and data["user_id"][0],
-                data["unattended"],
-                data["priority"],
-                data["__count"],
-            ]
-            for data in fetch_data
-        ]
-        for team in self:
-            team.todo_ticket_count = sum(r[4] for r in result if r[0] == team.id)
-            team.todo_ticket_count_unassigned = sum(
-                r[4] for r in result if r[0] == team.id and not r[1]
-            )
-            team.todo_ticket_count_unattended = sum(
-                r[4] for r in result if r[0] == team.id and r[2]
-            )
-            team.todo_ticket_count_high_priority = sum(
-                r[4] for r in result if r[0] == team.id and r[3] == "3"
-            )
+        return
+        # ticket_model = self.env["helpdesk.ticket"]
+        # fetch_data = ticket_model.read_group(
+        #     [("team_id", "in", self.ids), ("closed", "=", False)],
+        #     ["team_id", "user_id", "unattended", "priority"],
+        #     ["team_id", "user_id", "unattended", "priority"],
+        #     lazy=False,
+        # )
+        # result = [
+        #     [
+        #         data["team_id"][0],
+        #         data["user_id"] and data["user_id"][0],
+        #         data["unattended"],
+        #         data["priority"],
+        #         data["__count"],
+        #     ]
+        #     for data in fetch_data
+        # ]
+        # for team in self:
+        #     team.todo_ticket_count = sum(r[4] for r in result if r[0] == team.id)
+        #     team.todo_ticket_count_unassigned = sum(
+        #         r[4] for r in result if r[0] == team.id and not r[1]
+        #     )
+        #     team.todo_ticket_count_unattended = sum(
+        #         r[4] for r in result if r[0] == team.id and r[2]
+        #     )
+        #     team.todo_ticket_count_high_priority = sum(
+        #         r[4] for r in result if r[0] == team.id and r[3] == "3"
+        #     )
 
     def _alias_get_creation_values(self):
         values = super()._alias_get_creation_values()

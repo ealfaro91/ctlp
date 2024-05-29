@@ -28,4 +28,27 @@
         </field>
     </record>
 
+  <!-- SEARCH VIEW -->
+
+    <record id="helpdesk_ticket_category_search_view" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.category.search.view</field>
+        <field name="model">helpdesk.ticket.category</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_category_search"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="type_id"/>
+            </field>
+            <group position="inside">
+                <filter string="Type" name="groupby_type" context="{'group_by': 'type_id'}"/>
+            </group>
+        </field>
+    </record>
+
+
+    <!-- ACTION -->
+
+    <record id="helpdesk_mgmt.helpdesk_ticket_category_action" model="ir.actions.act_window">
+        <field name="context">{"search_default_groupby_type": True}</field>
+    </record>
+
 </odoo>

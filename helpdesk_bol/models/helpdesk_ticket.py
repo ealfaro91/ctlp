@@ -12,6 +12,7 @@ class HelpdeskTicket(models.Model):
         comodel_name="helpdesk.ticket.category",
         string="Category",
         domain="[('type_id', '=', type_id)]"
+
     )
     subcategory_id = fields.Many2one(
         "helpdesk.ticket.subcategory",
@@ -29,9 +30,11 @@ class HelpdeskTicket(models.Model):
     area = fields.Char(string="Area")
     area_id = fields.Many2one(
         "helpdesk.ticket.area", string="Area",
-        default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
+       # default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
     user_id = fields.Many2one(related="subcategory_id.user_id")
+
+    @api.onchange()
 
     # @api.model
     # def create(self, vals):
