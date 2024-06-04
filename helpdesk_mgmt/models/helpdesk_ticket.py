@@ -38,8 +38,8 @@ class HelpdeskTicket(models.Model):
         comodel_name="res.users",
         string="Assigned user",
         tracking=True,
-        index=True,
-        domain="team_id and [('share', '=', False),('id', 'in', user_ids)] or [('share', '=', False)]",  # noqa: B950
+        # index=True,
+        # domain="team_id and [('share', '=', False),('id', 'in', user_ids)] or [('share', '=', False)]",  # noqa: B950
     )
     user_ids = fields.Many2many(
         comodel_name="res.users", related="team_id.user_ids", string="Users",
@@ -57,12 +57,12 @@ class HelpdeskTicket(models.Model):
         index=True,
         domain="['|',('team_ids', '=', team_id),('team_ids','=',False)]",
     )
-    partner_id = fields.Many2one(comodel_name="res.partner", string="Contact")
-    partner_name = fields.Char()
-    partner_email = fields.Char(string="Email")
-    last_stage_update = fields.Datetime(default=fields.Datetime.now)
-    assigned_date = fields.Datetime()
-    closed_date = fields.Datetime()
+    partner_id = fields.Many2one(comodel_name="res.partner", string="Contact", tracking=True,)
+    partner_name = fields.Char(tracking=True)
+    partner_email = fields.Char(string="Email", tracking=True)
+    last_stage_update = fields.Datetime(default=fields.Datetime.now, tracking=True)
+    assigned_date = fields.Datetime(tracking=True)
+    closed_date = fields.Datetime(tracking=True)
     closed = fields.Boolean(related="stage_id.closed")
     unattended = fields.Boolean(related="stage_id.unattended", store=True)
     tag_ids = fields.Many2many(comodel_name="helpdesk.ticket.tag", string="Tags")
@@ -71,6 +71,7 @@ class HelpdeskTicket(models.Model):
         string="Company",
         required=True,
         default=lambda self: self.env.company,
+        tracking=True
     )
     channel_id = fields.Many2one(
         comodel_name="helpdesk.ticket.channel",
@@ -81,6 +82,7 @@ class HelpdeskTicket(models.Model):
     category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
         string="Category",
+        tracking=True
     )
     team_id = fields.Many2one(
         comodel_name="helpdesk.ticket.team",
@@ -94,6 +96,7 @@ class HelpdeskTicket(models.Model):
             ("2", "High"),
         ],
         default="1",
+        tracking=True
     )
     attachment_ids = fields.One2many(
         comodel_name="ir.attachment",
@@ -114,7 +117,7 @@ class HelpdeskTicket(models.Model):
         default=10,
         help="Gives the sequence order when displaying a list of tickets.",
     )
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(default=True, tracking=True)
 
     def name_get(self):
         res = []

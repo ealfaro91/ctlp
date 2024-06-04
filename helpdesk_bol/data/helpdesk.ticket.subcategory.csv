@@ -1,6 +1,0 @@
-id,name,type_id,max_attention_time
-wifi_subcategory,No Wi-Fi access,network_category,8
-data_subcategory,Data problem,sapsystem_category,8
-app_subcategory,Application problem,sapsystem_category,8
-laptop_loan_subcategory,Laptop loan,loan_category,2
-hdmi_loan_subcategory,HDMI Cable Loan,loan_category,2

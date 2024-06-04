@@ -23,18 +23,6 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="title" class="col-md-2 col-form-label">Title</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="title" required="required"/>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="description" class="col-md-2 col-form-label">Request description</label>
-                        <div class="col-md-6">
-                            <textarea class="form-control" name="description" required="required"></textarea>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
                         <div class="col-md-2">Incident type</div>
                         <div class="col-md-6">
                             <select class="form-control" name="type_id">
@@ -64,6 +52,18 @@
                         <label for="attachments" class="col-md-2 col-form-label">Attachment(s)</label>
                         <div class="col-md-6">
                             <input type="file" class="form-control" name="attachments" multiple="true"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="title" class="col-md-2 col-form-label">Title</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="title" required="required"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="description" class="col-md-2 col-form-label">Request description</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="description" required="required"></textarea>
                         </div>
                     </div>
                     <div class="row">

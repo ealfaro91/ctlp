@@ -22,9 +22,12 @@ class CompanyLDAP(models.Model):
         :return: parameters for a new resource of model res_users
         :rtype: dict
         """
-        return {
+        ldap_dict = {
             'name': tools.ustr(ldap_entry[1]['cn'][0]),
             'login': login,
-            'area': tools.ustr(ldap_entry[1]['department'][0]),
             'company_id': conf['company'][0]
         }
+        if ldap_entry[1].get(['department']):
+            ldap_dict['area'] = tools.ustr(ldap_entry[1]['department'][0]),
+
+        return ldap_dict

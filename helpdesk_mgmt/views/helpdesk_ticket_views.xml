@@ -130,12 +130,12 @@
         <field name="arch" type="xml">
             <form string="Helpdesk Ticket">
                 <header>
-                    <button
+                    <!-- <button
                         string="Assign to me"
                         name="assign_to_me"
                         type="object"
                         invisible="user_id != False"
-                    />
+                    /> -->
                     <field
                         name="stage_id"
                         widget="statusbar"
@@ -216,15 +216,15 @@
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="priority"/>
                 <field name="sequence" widget="handle"/>
                 <field name="number" decoration-bf="1"/>
                 <field name="name"/>
+                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                <field name="priority"/>
                 <field name="partner_id" optional="hide" widget="many2one_avatar"/>
                 <field name="partner_name" optional="show"/>
-                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
-                <field name="unattended" invisible="1"/>
-                <field name="closed" invisible="1"/>
+                <field name="unattended" column_invisible="1"/>
+                <field name="closed" column_invisible="1"/>
                 <field
                     name="tag_ids"
                     widget="many2many_tags"
@@ -368,7 +368,7 @@
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <pivot string="Pivot Analysis" disable_linking="True">
-                <field name="team_id" type="row"/>
+                <field name="user_id" type="row"/>
                 <field name="assigned_date" type="col"/>
             </pivot>
         </field>

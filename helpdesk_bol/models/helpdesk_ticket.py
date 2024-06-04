@@ -34,27 +34,25 @@ class HelpdeskTicket(models.Model):
     )
     user_id = fields.Many2one(related="subcategory_id.user_id")
 
-    @api.onchange()
 
-    # @api.model
-    # def create(self, vals):
-    #     res = super(HelpdeskTicket, self).create(vals)
-    #     template = self.env.ref('helpdesk_bol.ticket_creation')
-    #     if template:
-    #         template.send_mail(res.id, force_send=False)
-    #
-    #     return res
+    @api.model
+    def create(self, vals):
+        res = super(HelpdeskTicket, self).create(vals)
+        template = self.env.ref('helpdesk_bol.ticket_creation')
+        # if template:
+        template.send_mail(res.id, force_send=False)
+        return res
 
     def _compute_attention_time_state(self):
+        """ Compute attention time """
         for ticket in self:
             ticket.attention_time_state = "on_time"
-
+            if ticket.stage_id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id:
+                return
             today = fields.Datetime.today()
-            format = "%H:%M:%S"
-
-            if not ticket.closed_date:
-                ticket.elapsed_attention_time = 0#datetime.strptime(today, format) - (ticket.create_date, format)
-            else:
-                ticket.elapsed_attention_time = 0#datetime.strptime(ticket.closed_date, format) - (ticket.create_date, format)
-
-        # horas desde create_date hasta cambio a cerrado or resolution_date
+            format = "%Y-%m-%d %H:%M:%S"
+            date = fields.Datetime.to_string(ticket.closed_date or today)
+            ticket.elapsed_attention_time = ((datetime.strptime(date, format)
+                                              - datetime.strptime(fields.Datetime.to_string(ticket.create_date), format)).seconds / 3600)
+            if  ticket.elapsed_attention_time > ticket.max_attention_time:
+                    ticket.attention_time_state = "delayed"

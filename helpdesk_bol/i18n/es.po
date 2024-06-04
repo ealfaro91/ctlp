@@ -15,6 +15,30 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+
+#. module: helpdesk_bol
+#: model:mail.template,body_html:helpdesk_bol.ticket_creation
+msgid ""
+"<p> Dear <span style=\"font-weight:bold;\" t-out=\"object.partner_id.name or ''\"></span></p>\n"
+"           <br>\n"
+"           <p> This automatic message is to notify that your ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
+"           with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received. </p>\n"
+"           <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"           <br>\n"
+"           <p>Greetings.</p>\n"
+"           <br>\n"
+"        "
+msgstr ""
+"<p> Estimado/a <span style=\"font-weight:bold;\" t-out=\"object.partner_id.name or ''\"></span></p>\n"
+"           <br>\n"
+"           <p> Este mensaje automático es para notificar que su ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
+"           con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido recibido. </p>\n"
+"           <p> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"object.create_date.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"           <br>\n"
+"           <p>Saludos.</p>\n"
+"           <br>\n"
+"        "
+
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__active
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__active
@@ -25,6 +49,11 @@ msgstr "Activo"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__name
 msgid "Area"
 msgstr "Área"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__user_id
+msgid "Assigned user"
+msgstr "Usuario asignado"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
@@ -44,6 +73,7 @@ msgstr "Categorías"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__category_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__category_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_search_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Category"
 msgstr "Categoría"
@@ -75,6 +105,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__elapsed_attention_time
 msgid "Elapsed Attention Time"
 msgstr "Tiempo de atención transcurrido"
+
+#. module: helpdesk_bol
+#: model:mail.template,name:helpdesk_bol.ticket_creation
+msgid "Help Desk Ticket Creation"
+msgstr "Creación de Ticket de Help Desk"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket
@@ -116,9 +151,9 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__max_attention_time
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__max_attention_time
-msgid "Max attention time"
-msgstr "Tiempo máximo de atención"
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__max_attention_time
+msgid "Max attention time (hours)"
+msgstr "Tiempo máximo de atención (horas)"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__on_time
@@ -151,6 +186,11 @@ msgid "Resolution"
 msgstr "Resolución"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__user_id
+msgid "Responsible"
+msgstr "Usuario asignado"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__sequence
 msgid "Sequence"
 msgstr "Secuencia"
@@ -181,6 +221,16 @@ msgid "Submit"
 msgstr "Enviar"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket_area__area_type__ti
+msgid "TI"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:mail.template,subject:helpdesk_bol.ticket_creation
+msgid "Ticket Creation : {{ (object.name) }}"
+msgstr "Creación de Ticket : {{ (object.name) }}"
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph
 msgid "Tickets"
 msgstr ""
@@ -196,9 +246,9 @@ msgid "Title"
 msgstr "Título"
 
 #. module: helpdesk_bol
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__user_id
-msgid "User"
-msgstr "Usuario"
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_category_search_view
+msgid "Type"
+msgstr "Tipo"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you

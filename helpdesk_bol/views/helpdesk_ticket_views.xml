@@ -12,13 +12,22 @@
             </field>
             <field name="type_id" position="attributes">
                 <attribute name="required">True</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
             </field>
             <field name="category_id" position="attributes">
                 <attribute name="required">True</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="required">True</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
             </field>
             <field name="category_id" position="after">
-                <field name="subcategory_id" required="True"/>
+                <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="True"/>
                 <field name="max_attention_time"/>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="readonly">False</attribute>
             </field>
             <field name="closed_date" position="after">
                 <field name="resolution"/>
@@ -27,7 +36,7 @@
                 <field name="area_id" invisible="1"/>
                 <field name="area"/>
             </field>
-            <field name="priority" position="after">
+            <field name="user_id" position="after">
                 <field name="attention_time_state" widget="badget" readonly="1"/>
                 <field name="elapsed_attention_time"/>
             </field>
@@ -58,7 +67,8 @@
         <field name="arch" type="xml">
             <graph string="Tickets" sample="1" type="pie">
                 <field name="stage_id"/>
-<!--                <field name="user_id"/>-->
+                <field name="user_id"/>
+                <field name="area"/>
             </graph>
           </field>
     </record>
@@ -69,6 +79,7 @@
         <field name="arch" type="xml">
             <graph string="Tickets" sample="1" type="bar">
                 <field name="user_id"/>
+                <field name="area"/>
             </graph>
         </field>
     </record>

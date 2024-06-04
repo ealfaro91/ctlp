@@ -66,11 +66,11 @@
                                             valign="top"
                                             style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;"
                                         >
-                                <p>Hola <t t-out="object.partner_id.name or object.partner_name"/>,</p>
-                                <p>Su ticket "<t t-out="object.display_name"/>" ha sido cerrado. Está de acuerdo con el cierre?</p>
+                                <p>Dear <t t-out="object.partner_id.name or object.partner_name"/>,</p>
+                                <p>Your ticket "<t t-out="object.display_name"/>" has been closed. Do you agree?</p>
                                   <div style="text-align: center;">
-                                      <a href="/change_stage/${object.id}/1" style="color:#eee; padding:8px; boder:solid 1px; border-radius: 4px; background-color: #1a8d40;">CIERRE DEFINITIVO</a>
-                                      <a href="/change_stage/${object.id}/2" style="color:#eee; padding:8px; boder:solid 1px; border-radius: 4px; background-color: #802249;">REAPERTURA TICKET</a>
+                                      <a href="/change_stage/${object.id}/1" style="color:#eee; padding:8px; boder:solid 1px; border-radius: 4px; background-color: #1a8d40;">DEFINITIVE CLOSING</a>
+                                      <a href="/change_stage/${object.id}/2" style="color:#eee; padding:8px; boder:solid 1px; border-radius: 4px; background-color: #802249;">TICKET REOPENING</a>
                                   </div>
                               </td>
                             </tbody>
