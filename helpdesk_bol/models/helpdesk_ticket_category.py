@@ -3,8 +3,10 @@ from odoo import fields, models
 
 
 class HelpdeskTicketCategory(models.Model):
-    _inherit = "helpdesk.ticket.category"
+    _name = "helpdesk.ticket.category"
     _order = "sequence,name"
+    _inherit = ["mail.thread", "mail.activity.mixin", "helpdesk.ticket.category"]
+
 
     type_id = fields.Many2one(
         "helpdesk.ticket.type",

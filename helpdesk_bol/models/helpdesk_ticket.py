@@ -11,28 +11,30 @@ class HelpdeskTicket(models.Model):
     category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
         string="Category",
-        domain="[('type_id', '=', type_id)]"
-
+        domain="[('type_id', '=', type_id)]",
+        tracking=True
     )
     subcategory_id = fields.Many2one(
         "helpdesk.ticket.subcategory",
         string="Subcategory",
-        domain="[('category_id', '=', category_id)]"
+        domain="[('category_id', '=', category_id)]",
+        tracking=True
     )
     max_attention_time = fields.Integer(related="subcategory_id.max_attention_time")
-    elapsed_attention_time = fields.Integer(compute="_compute_attention_time_state")
+    elapsed_attention_time = fields.Integer(string="Elapsed Attention Time (hours)", compute="_compute_attention_time_state")
     attention_time_state = fields.Selection([
         ("on_time", "On time"), ("delayed", "Delayed"), ("on_hold", "On hold")],
         default="on_time", string="Attention time state",
         compute="_compute_attention_time_state"
     )
-    resolution = fields.Text(string="Resolution")
-    area = fields.Char(string="Area")
+    resolution = fields.Text(string="Resolution", tracking=True)
+    reopen_reason = fields.Text(string="Reopen reason", tracking=True)
+    area = fields.Char(string="Area", tracking=True)
     area_id = fields.Many2one(
-        "helpdesk.ticket.area", string="Area",
+        "helpdesk.ticket.area", string="Area", tracking=True
        # default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
-    user_id = fields.Many2one(related="subcategory_id.user_id")
+    user_id = fields.Many2one(related="subcategory_id.user_id", tracking=True)
 
 
     @api.model
@@ -47,8 +49,8 @@ class HelpdeskTicket(models.Model):
         """ Compute attention time """
         for ticket in self:
             ticket.attention_time_state = "on_time"
-            if ticket.stage_id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id:
-                return
+            if ticket.stage_id.id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id:
+                ticket.attention_time_state = "on_hold"
             today = fields.Datetime.today()
             format = "%Y-%m-%d %H:%M:%S"
             date = fields.Datetime.to_string(ticket.closed_date or today)

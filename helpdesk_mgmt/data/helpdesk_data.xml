@@ -250,13 +250,15 @@
             <field name="name">Open</field>
             <field name="unattended">False</field>
             <field name="closed">False</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.changed_stage_template"/>
             <field name="company_id" />
         </record>
         <record id="helpdesk_ticket_stage_awaiting" model="helpdesk.ticket.stage">
             <field name="sequence">3</field>
-            <field name="name">Pending answer</field>
+            <field name="name">Awaiting (Pending answer)</field>
             <field name="unattended">False</field>
             <field name="closed">False</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.changed_stage_template"/>
             <field name="company_id" />
         </record>
         <record id="helpdesk_ticket_stage_done" model="helpdesk.ticket.stage">

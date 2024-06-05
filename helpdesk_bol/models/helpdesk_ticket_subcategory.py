@@ -5,6 +5,8 @@ from odoo import fields, models
 class HelpdeskTicketSubCategory(models.Model):
     _name = "helpdesk.ticket.subcategory"
     _order = "sequence,name"
+    _inherit = ["mail.thread", "mail.activity.mixin",]
+
 
     active = fields.Boolean(default=True)
     name = fields.Char(string="Sub-Category", required=True, tracking=True)

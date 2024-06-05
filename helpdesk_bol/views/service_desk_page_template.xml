@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="ticket_form" name="Registre su Ticket">
+    <template id="ticket_form" name="Registre su requerimiento">
         <t t-call="website.layout">
             <div class="container mt-4 mb-4">
                 <h1>Register your requirement</h1><br/>
@@ -72,24 +72,33 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </t>
+    </template>
 
-<!--                &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
-<!--                &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--                <div class="modal fade" id="popupWarning">-->
-<!--                    <div class="modal-dialog">-->
-<!--                        <div class="modal-content">-->
-<!--                            &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--                            <div class="modal-body text-center">-->
-<!--                                <img src="/xma_service_desk/static/src/img/advisor.png" alt="advertencia"/>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--                            <div class="modal-footer">-->
-<!--                                <button type="button" class="btn btn-primary" data-dismiss="modal">No, deseo regresar</button>-->
-<!--                                <a href="/my/tickets" class="btn btn-primary">Sí, estoy seguro</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+
+     <template id="reopen_ticket_form" name="Motivo de reapertura">
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-4">
+                <h1>Reopen ticket reason</h1><br/>
+                <t t-if="error_message">
+                    <span class="text-danger" t-esc="error_message"/>
+                </t>
+                <form action="/help_desk_reopen" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="id" t-att-value="id"/>
+                    <div class="row mb-3">
+                        <label for="description" class="col-md-2 col-form-label">Reason</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="reopen_reason" required="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </t>
     </template>
@@ -100,7 +109,7 @@
                 <div class="container mt-5">
                     <div class="row"/>
                     <div class="row">
-                        Your ticket has been registered successfully.
+                        Your requirement has been registered successfully.
                     </div>
                 </div>
             </section>

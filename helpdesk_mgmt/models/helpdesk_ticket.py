@@ -38,6 +38,7 @@ class HelpdeskTicket(models.Model):
         comodel_name="res.users",
         string="Assigned user",
         tracking=True,
+        store=True
         # index=True,
         # domain="team_id and [('share', '=', False),('id', 'in', user_ids)] or [('share', '=', False)]",  # noqa: B950
     )
@@ -52,7 +53,7 @@ class HelpdeskTicket(models.Model):
         readonly=False,
         ondelete="restrict",
         tracking=True,
-        group_expand="_read_group_stage_ids",
+        #group_expand="_read_group_stage_ids",
         copy=False,
         index=True,
         domain="['|',('team_ids', '=', team_id),('team_ids','=',False)]",

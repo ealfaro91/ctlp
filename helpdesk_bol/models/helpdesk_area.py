@@ -4,7 +4,9 @@ from odoo import fields, models
 
 class HelpdeskTicketArea(models.Model):
     _name = "helpdesk.ticket.area"
-    _order = "sequence,name"
+    _order = "name"
+    _inherit = ["mail.thread", "mail.activity.mixin",]
+
 
     active = fields.Boolean(default=True)
     name = fields.Char(string="Area")

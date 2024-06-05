@@ -31,6 +31,7 @@
             </field>
             <field name="closed_date" position="after">
                 <field name="resolution"/>
+                <field name="reopen_reason" invisible="reopen_reason == ''" readonly="1"/>
             </field>
             <field name="partner_email" position="after">
                 <field name="area_id" invisible="1"/>
@@ -50,7 +51,7 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree"/>
         <field name="arch" type="xml">
-            <field name="priority" position="after">
+            <field name="stage_id" position="before">
                 <field name="attention_time_state"/>
             </field>
             <tree position="attributes">

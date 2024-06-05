@@ -103,8 +103,8 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__elapsed_attention_time
-msgid "Elapsed Attention Time"
-msgstr "Tiempo de atención transcurrido"
+msgid "Elapsed Attention Time (hours)"
+msgstr "Tiempo de atención transcurrido (horas)"
 
 #. module: helpdesk_bol
 #: model:mail.template,name:helpdesk_bol.ticket_creation
@@ -156,14 +156,34 @@ msgid "Max attention time (hours)"
 msgstr "Tiempo máximo de atención (horas)"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__on_hold
+msgid "On hold"
+msgstr "En espera"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__on_time
 msgid "On time"
 msgstr "En plazo"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_ticket_form
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Register your requirement"
 msgstr "Registre su requerimiento"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__reopen_reason
+msgid "Reopen reason"
+msgstr "Motivo de reapertura"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_ticket_form
+msgid "Reopen ticket reason"
+msgstr "Motivo de reapertura"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
@@ -217,6 +237,7 @@ msgstr "Sub-categoría"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_ticket_form
 msgid "Submit"
 msgstr "Enviar"
 
@@ -252,8 +273,8 @@ msgstr "Tipo"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
-msgid "Your ticket has been registered successfully."
-msgstr "Su ticket ha sido registrado exitosamente."
+msgid "Your requirement has been registered successfully."
+msgstr "Su requerimiento ha sido registrado exitosamente."
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_area

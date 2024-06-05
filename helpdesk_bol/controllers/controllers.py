@@ -36,8 +36,7 @@ class ServiceDesk(http.Controller):
 
     @http.route("/help_desk_close", type='http', auth="public",  methods=['POST'],
                 website=True)
-    def service_desk_close(self, **kw):
-        print(kw)
+    def help_desk_close(self, **kw):
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_name': kw.get('name'),
             'partner_id': request.env.user.partner_id.id,
@@ -59,6 +58,14 @@ class ServiceDesk(http.Controller):
             "datas": file_base64,
         })
         return request.render("helpdesk_bol.ticket_thank_you", {})
+    
+    @http.route("/help_desk_reopen", type='http', auth="public",  methods=['POST'], website=True)
+    def help_desk_reopen(self, **kw):
+        print(kw)
+        request.env["helpdesk.ticket"].sudo().search(
+                [("id", "=", kw.get('id'))]).write(
+                    {'reopen_reason': kw.get('reopen_reason'), 'stage_id': 2})
+        return request.render("helpdesk_bol.ticket_thank_you", {})
 
     @http.route(
         "/change_stage/<record_id>/<action>", auth="public", website=True
@@ -71,49 +78,6 @@ class ServiceDesk(http.Controller):
             request.env["helpdesk.ticket"].sudo().search(
                 [("id", "=", record_id)]).write({'stage_id': 4})
         elif int(action) == 2:
-            request.env["helpdesk.ticket"].sudo().search(
-                [("id", "=", record_id)]).write({'stage_id': 2})
-        return request.redirect("/service_desk")
-
-        #   'type_id': kw.get('type_id'),
-          #   'category_id': kw.get('category_id'),
-          #   'subcategory_id': kw.get('subcategory_id'),
-          # #  'user_id': ,
-          #   'description': kw.get('topic'),
-       # })
-    #     attachment = kw.get('attachments')
-    #     attached_file = attachment.read()
-    #     file_base64 = base64.b64encode(attached_file)
-    #     request.env["ir.attachment"].sudo().create({
-    #         "name": attachment.filename,
-    #         "res_model": helpdesk_ticket._name,
-    #         "res_id": helpdesk_ticket.id,
-    #         "type": "binary",
-    #         "datas": file_base64,
-    #     })
-
-        # tema_data = {
-        #     'tema': kw.get('tema'),
-        #     'expositor_id': kw.get('expositor_id'),
-        #     'tiempo_intervencion': float(kw.get('tiempo_intervencion')),
-        #     'adjunto': base64.b64encode(attachment),
-        #     'sector_id': kw.get('sector_id'),
-        # }
-        # if kw.get('proyecto_emblematico_relacionado') == 'on':
-        #     tema_data.update({'proyecto_emblematico_relacionado': True, })
-        # else:
-        #     tema_data.update({'proyecto_emblematico_relacionado': False, })
-        # kw.update({
-        #     'tema_ids': [(0, 0, tema_data)],
-        # })
-        # kw.update({'es_externa': True,
-        #            'duracion': float(kw.get('tiempo_intervencion'))})
-    #     ficha = request.env['buen.gobierno.ficha'].sudo().create(kw)
-    #     kw.update({
-    #         'ficha_id': ficha.id,
-    #     })
-    #
-    # @staticmethod
-    # def create_attachments(attachment, helpdesk_ticket):
-
+            print(record_id)
+            return request.render("helpdesk_bol.reopen_ticket_form", {'id' : record_id})
 
