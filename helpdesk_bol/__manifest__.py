@@ -15,6 +15,7 @@
     'data': [
         'data/mail_template_data.xml',
         'data/helpdesk_ticket_data.xml',
+        'data/helpdesk.ticket.type.csv',
         'security/ir.model.access.csv',
         'views/helpdesk_ticket_category_views.xml',
         'views/helpdesk_ticket_type_views.xml',
