@@ -27,7 +27,6 @@ class CompanyLDAP(models.Model):
             'login': login,
             'company_id': conf['company'][0]
         }
-        if ldap_entry[1].get(['department']):
-            ldap_dict['area'] = tools.ustr(ldap_entry[1]['department'][0]),
+        ldap_dict['area'] = tools.ustr(ldap_entry[1]['department'][0]),
 
         return ldap_dict

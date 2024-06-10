@@ -40,7 +40,7 @@ class ServiceDesk(http.Controller):
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_name': kw.get('name'),
             'partner_id': request.env.user.partner_id.id,
-            'partner_email': request.env.user.login,
+            'partner_email': request.env.user.partner_id.email,
             'area': request.env.user.area,
             'name': kw.get('title'),
             'description': kw.get('description'),
