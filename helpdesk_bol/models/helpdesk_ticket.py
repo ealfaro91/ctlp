@@ -56,10 +56,9 @@ class HelpdeskTicket(models.Model):
             ticket.attention_time_state = "on_time"
             if ticket.stage_id.id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id:
                 ticket.attention_time_state = "on_hold"
-            today = fields.Datetime.today()
+            today = fields.Datetime.now()
             format = "%Y-%m-%d %H:%M:%S"
             date = fields.Datetime.to_string(ticket.closed_date or today)
-            ticket.elapsed_attention_time = ((datetime.strptime(date, format)
-                                              - datetime.strptime(fields.Datetime.to_string(ticket.create_date), format)).seconds / 3600)
+            ticket.elapsed_attention_time = ((datetime.strptime(date, format) - datetime.strptime(fields.Datetime.to_string(ticket.create_date), format)).seconds / 3600)
             if  ticket.elapsed_attention_time > ticket.max_attention_time:
                     ticket.attention_time_state = "delayed"

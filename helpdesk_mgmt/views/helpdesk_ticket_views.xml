@@ -213,7 +213,7 @@
         <field name="name">helpdesk.ticket.view.tree</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <tree default_order='create_date'>
+            <tree default_order='create_date desc'>
                 <field name="sequence" widget="handle"/>
                 <field name="number" decoration-bf="1"/>
                 <field name="name"/>

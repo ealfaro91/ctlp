@@ -108,15 +108,9 @@ class HelpdeskTeam(models.Model):
         ]
         for team in self:
             team.todo_ticket_count = sum(r[4] for r in result if r[0] == team.id)
-            team.todo_ticket_count_unassigned = sum(
-                r[4] for r in result if r[0] == team.id and not r[1]
-            )
-            team.todo_ticket_count_unattended = sum(
-                r[4] for r in result if r[0] == team.id and r[2]
-            )
-            team.todo_ticket_count_high_priority = sum(
-                r[4] for r in result if r[0] == team.id and r[3] == "3"
-            )
+            team.todo_ticket_count_unassigned = self.env["helpdesk.ticket"].search_count([('user_id', '=', False)])
+            team.todo_ticket_count_unattended = self.env["helpdesk.ticket"].search_count([('priority', '=', '2')])
+            team.todo_ticket_count_high_priority = self.env["helpdesk.ticket"].search_count([('priority', '=', '2')])
 
     def _alias_get_creation_values(self):
         values = super()._alias_get_creation_values()
