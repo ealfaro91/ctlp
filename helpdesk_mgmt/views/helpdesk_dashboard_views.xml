@@ -79,7 +79,7 @@
                                                     <t
                                                         t-esc="record.todo_ticket_count_unattended.value"
                                                     /> -->
-                                                </div>
+                                                <!-- </div> -->
                                                 <div class="col-9">
                                                     <a
                                                         name="%(action_helpdesk_ticket_kanban_from_dashboard)d"
