@@ -6,11 +6,12 @@ from odoo import models, fields, api, _
 class HelpdeskStage(models.Model):
     _inherit = "helpdesk.stage"
 
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(default=True, tracking=True)
     survey_id = fields.Many2one(
         "survey.survey",
-        string="Invitación a encuesta"
+        string="Invitación a encuesta",
+        tracking=True
     )
 
-    is_solved = fields.Boolean(string="Esta resuelto?")
-    is_process = fields.Boolean(string="Esta en proceso?")
+    is_solved = fields.Boolean(string="Esta resuelto?", tracking=True)
+    is_process = fields.Boolean(string="Esta en proceso?", tracking=True)

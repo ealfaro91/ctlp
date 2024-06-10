@@ -8,7 +8,7 @@ class HelpdeskTicketSubCategory(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin",]
 
 
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(default=True, tracking=True)
     name = fields.Char(string="Sub-Category", required=True, tracking=True)
     category_id = fields.Many2one(
         "helpdesk.ticket.category",
@@ -21,5 +21,4 @@ class HelpdeskTicketSubCategory(models.Model):
         default=10
     )
     max_attention_time = fields.Integer(string="Max attention time (hours)", tracking=True)
-    user_id = fields.Many2one("res.users", string="Responsible", required=True, tracking=True)
 

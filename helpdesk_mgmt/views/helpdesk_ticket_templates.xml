@@ -33,10 +33,10 @@
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Tickets</t>
-                <t t-set="url" t-value="'/my/tickets'" />
+                <t t-set="url" t-value="'/my_tickets'"/>
                 <t t-set="placeholder_count" t-value="'ticket_count'" />
             </t>
-            <form method="POST" t-attf-action="/new/ticket">
+            <form method="POST" t-attf-action="/help_desk">
                 <input
                     type="hidden"
                     name="csrf_token"
@@ -60,7 +60,7 @@
                 <t t-set="title">Tickets</t>
             </t>
 
-            <form method="POST" t-attf-action="/new/ticket">
+            <form method="POST" t-attf-action="/help_desk">
                 <button
                     name="create_new_ticket"
                     type="action"
@@ -128,7 +128,7 @@
                                 </td>
                                 <td>
                                     <a
-                                        t-attf-href="/my/ticket/#{ticket.id}?{{ keep_query() }}"
+                                        t-attf-href="/my_ticket/#{ticket.id}?{{ keep_query() }}"
                                     >
                                         <span t-field="ticket.name" />
                                     </a>

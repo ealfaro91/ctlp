@@ -40,7 +40,7 @@ class HelpdeskTicketController(http.Controller):
             else False
         )
 
-    @http.route("/new/ticket", type="http", auth="user", website=True)
+    @http.route("/help_desk", type="http", auth="user", website=True)
     def create_new_ticket(self, **kw):
         company = request.env.company
         category_model = http.request.env["helpdesk.ticket.category"]

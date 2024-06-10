@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+ 
+    <!-- Stages -->
+        <record id="helpdesk_ticket_stage_in_progress" model="helpdesk.ticket.stage">
+            <field name="sequence">1</field>
+            <field name="name">Open</field>
+            <field name="unattended">False</field>
+            <field name="closed">False</field>
+            <field name="on_hold">False</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.changed_stage_template"/>
+            <field name="company_id" />
+        </record>
+        <record id="helpdesk_ticket_stage_onpause" model="helpdesk.ticket.stage">
+            <field name="sequence">2</field>
+            <field name="name">On hold</field>
+            <field name="unattended">False</field>
+            <field name="closed">False</field>
+            <field name="on_hold">True</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.changed_stage_template"/>
+            <field name="company_id" />
+        </record>
+        <record id="helpdesk_ticket_stage_awaiting" model="helpdesk.ticket.stage">
+            <field name="sequence">3</field>
+            <field name="name">Awaiting (Pending answer)</field>
+            <field name="unattended">False</field>
+            <field name="closed">False</field>
+            <field name="on_hold">True</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.closed_ticket_template" />
+            <field name="company_id" />
+        </record>
+        <record id="helpdesk_ticket_stage_done" model="helpdesk.ticket.stage">
+            <field name="sequence">4</field>
+            <field name="name">Closed</field>
+            <field name="unattended">False</field>
+            <field name="closed">True</field>
+            <field name="close_from_portal">True</field>
+            <field name="on_hold">False</field>
+            <field name="fold">True</field>
+            <field name="mail_template_id" ref="helpdesk_mgmt.changed_stage_template"/>
+            <field name="company_id" />
+        </record>
+
+    </data>
+</odoo>

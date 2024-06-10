@@ -2,14 +2,17 @@
 
     <!-- FORM VIEW INHERIT -->
 
-    <record id="service_desk_helpdesk_ticket_form_view" model="ir.ui.view">
-        <field name="name">service.desk.helpdesk.ticket.form.view</field>
+    <record id="help_desk_helpdesk_ticket_form_view" model="ir.ui.view">
+        <field name="name">help.desk.helpdesk.ticket.form.view</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
         <field name="arch" type="xml">
-            <field name="team_id" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </field>
+            <xpath expr="//field[@name='user_id']" position="before">
+                <xpath expr="//field[@name='team_id']" position="move"/>
+            </xpath> 
+            <xpath expr="//field[@name='team_id']" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath> 
             <field name="type_id" position="attributes">
                 <attribute name="required">True</attribute>
                 <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
@@ -28,6 +31,7 @@
             </field>
             <field name="user_id" position="attributes">
                 <attribute name="readonly">False</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
             </field>
             <field name="closed_date" position="after">
                 <field name="resolution"/>
@@ -35,19 +39,20 @@
             </field>
             <field name="partner_email" position="after">
                 <field name="area_id" invisible="1"/>
-                <field name="area"/>
+                <field name="area" readonly="1"/>
             </field>
             <field name="user_id" position="after">
-                <field name="attention_time_state" widget="badget" readonly="1"/>
+                <field name="attention_time_state" widget="badge" decoration-danger="attention_time_state=='delayed'" decoration-success="attention_time_state=='on_time'" readonly="1"/>
                 <field name="elapsed_attention_time"/>
             </field>
+            
         </field>
     </record>
 
      <!-- TREE VIEW INHERIT -->
 
-    <record id="service_desk_helpdesk_ticket_tree_view" model="ir.ui.view">
-        <field name="name">service.desk.helpdesk.ticket.tree.view</field>
+    <record id="help_desk_helpdesk_ticket_tree_view" model="ir.ui.view">
+        <field name="name">help.desk.helpdesk.ticket.tree.view</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree"/>
         <field name="arch" type="xml">
@@ -55,47 +60,79 @@
                 <field name="attention_time_state"/>
             </field>
             <tree position="attributes">
-                <attribute name="decoration-primary">attention_time_state == 'on_time'</attribute>
-                <attribute name="decoration-warning">attention_time_state == 'on_hold'</attribute>
-                <attribute name="decoration-danger">attention_time_state == 'delayed'</attribute>
+                <attribute name="decoration-info">attention_time_state == 'on_time' and not closed</attribute>
+                <attribute name="decoration-warning">attention_time_state == 'on_hold' and not closed</attribute>
+                <attribute name="decoration-danger">attention_time_state == 'delayed' and not closed</attribute>
+                <attribute name="decoration-muted">closed == True</attribute>
             </tree>
         </field>
     </record>
+
+    
+    <!-- KANBAN VIEW INHERIT -->
+
+   <record id="help_desk_helpdesk_ticket_kanban_view" model="ir.ui.view">
+       <field name="name">helpdesk.desk.helpdesk.ticket.kanban.view</field>
+       <field name="model">helpdesk.ticket</field>
+       <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_kanban"/>
+       <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]/field[@name='priority']" position="replace">
+                <field name="attention_time_state" widget="label_selection" options="{'classes': {'on_hold': 'info', 'delayed': 'danger', 'on_time': 'success'}}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- GRAPH VIEWS-->
+
+        <!-- USER-->
 
      <record id="helpdesk_ticket_view_graph1" model="ir.ui.view">
         <field name="name">helpdesk.ticket.view.graph1</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <graph string="Tickets" sample="1" type="pie">
-                <field name="stage_id"/>
                 <field name="user_id"/>
-                <field name="area"/>
             </graph>
-          </field>
+        </field>
     </record>
+
+        <!-- AREA -->
 
     <record id="helpdesk_ticket_view_graph2" model="ir.ui.view">
         <field name="name">helpdesk.ticket.view.graph2</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <graph string="Tickets" sample="1" type="bar">
-                <field name="user_id"/>
                 <field name="area"/>
             </graph>
         </field>
     </record>
 
-<!--    &lt;!&ndash; KANBAN VIEW INHERIT &ndash;&gt;-->
+        <!-- AREA -->
 
-<!--    <record id="service_desk_helpdesk_ticket_kanban_view" model="ir.ui.view">-->
-<!--        <field name="name">service.desk.helpdesk.ticket.kanban.view</field>-->
-<!--        <field name="model">helpdesk.ticket</field>-->
-<!--        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//div[1]/div[2]/div[3]" position="after">-->
-<!--                <field name="user_id"/>-->
-<!--            </xpath>-->
-<!--      </field>-->
-<!--    </record>-->
+    <record id="helpdesk_ticket_view_graph3" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.graph3</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <graph string="Tickets" sample="1" type="pie">
+                <field name="stage_id"/>
+            </graph>
+        </field>
+    </record>
+
+       <!-- TYPE ID -->
+
+    <record id="helpdesk_ticket_view_graph3" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.graph3</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <graph string="Tickets" sample="1" type="pie">
+                <field name="type_id"/>
+                <field name="category_id"/>
+            </graph>
+        </field>
+    </record>
+
+
 
 </odoo>

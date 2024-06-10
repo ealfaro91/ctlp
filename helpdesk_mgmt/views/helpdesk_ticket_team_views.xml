@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <record id="view_helpdesk_ticket_team_search" model="ir.ui.view">
         <field name="name">helpdesk.ticket.team.search</field>
         <field name="model">helpdesk.ticket.team</field>
@@ -29,6 +30,7 @@
             </search>
         </field>
     </record>
+
     <record id="view_helpdesk_team_form" model="ir.ui.view">
         <field name="name">view.helpdesk_team.form</field>
         <field name="model">helpdesk.ticket.team</field>
@@ -152,11 +154,12 @@
             </form>
         </field>
     </record>
+
     <record id="view_helpdesk_team_tree" model="ir.ui.view">
         <field name="name">view.helpdesk_team.tree</field>
         <field name="model">helpdesk.ticket.team</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="0" edit="0">
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="category_ids" widget="many2many_tags" />
@@ -180,5 +183,6 @@
                 />
             </tree>
         </field>
+
     </record>
 </odoo>

@@ -6,7 +6,7 @@ class HelpdeskTicket(models.Model):
     _name = "helpdesk.ticket"
     _description = "Helpdesk Ticket"
     _rec_name = "number"
-    _order = "priority desc, sequence, number desc, id desc"
+    _order = "create_date asc"
     _mail_post_access = "read"
     _inherit = ["mail.thread.cc", "mail.activity.mixin", "portal.mixin"]
 
@@ -38,9 +38,9 @@ class HelpdeskTicket(models.Model):
         comodel_name="res.users",
         string="Assigned user",
         tracking=True,
-        store=True
+        store=True,
         # index=True,
-        # domain="team_id and [('share', '=', False),('id', 'in', user_ids)] or [('share', '=', False)]",  # noqa: B950
+        domain="[('id', 'in', user_ids)]",
     )
     user_ids = fields.Many2many(
         comodel_name="res.users", related="team_id.user_ids", string="Users",
@@ -53,7 +53,7 @@ class HelpdeskTicket(models.Model):
         readonly=False,
         ondelete="restrict",
         tracking=True,
-        #group_expand="_read_group_stage_ids",
+        group_expand="_read_group_stage_ids",
         copy=False,
         index=True,
         domain="['|',('team_ids', '=', team_id),('team_ids','=',False)]",
@@ -66,6 +66,7 @@ class HelpdeskTicket(models.Model):
     closed_date = fields.Datetime(tracking=True)
     closed = fields.Boolean(related="stage_id.closed")
     unattended = fields.Boolean(related="stage_id.unattended", store=True)
+    on_hold = fields.Boolean(related="stage_id.on_hold", store=True)
     tag_ids = fields.Many2many(comodel_name="helpdesk.ticket.tag", string="Tags")
     company_id = fields.Many2one(
         comodel_name="res.company",
@@ -89,6 +90,7 @@ class HelpdeskTicket(models.Model):
         comodel_name="helpdesk.ticket.team",
         string="Team",
         index=True,
+        tracking=True
     )
     priority = fields.Selection(
         selection=[
@@ -105,7 +107,7 @@ class HelpdeskTicket(models.Model):
         domain=[("res_model", "=", "helpdesk.ticket")],
         string="Media Attachments",
     )
-    color = fields.Integer(string="Color Index")
+    color = fields.Integer(string="Color Index", tracking=True)
     kanban_state = fields.Selection(
         selection=[
             ("normal", "Default"),

@@ -30,7 +30,7 @@ class CustomerPortalHelpdesk(CustomerPortal):
         return values
 
     @http.route(
-        ["/my/tickets", "/my/tickets/page/<int:page>"],
+        ["/my_tickets", "/my/tickets/page/<int:page>"],
         type="http",
         auth="user",
         website=True,
@@ -102,12 +102,13 @@ class CustomerPortalHelpdesk(CustomerPortal):
                 request.env["ir.rule"]._compute_domain(HelpdeskTicket._name, "read"),
             ]
         )
-
+        # Only my tickets
+        domain += [("partner_id", "=", request.env.user.partner_id.id)]
         # count for pager
         ticket_count = HelpdeskTicket.search_count(domain)
         # pager
         pager = portal_pager(
-            url="/my/tickets",
+            url="/my_tickets",
             url_args={
                 "date_begin": date_begin,
                 "date_end": date_end,
@@ -149,7 +150,7 @@ class CustomerPortalHelpdesk(CustomerPortal):
                 "date_end": date_end,
                 "grouped_tickets": grouped_tickets,
                 "page_name": "ticket",
-                "default_url": "/my/tickets",
+                "default_url": "/my_tickets",
                 "pager": pager,
                 "searchbar_sortings": searchbar_sortings,
                 "searchbar_groupby": searchbar_groupby,
@@ -165,7 +166,7 @@ class CustomerPortalHelpdesk(CustomerPortal):
         return request.render("helpdesk_mgmt.portal_my_tickets", values)
 
     @http.route(
-        ["/my/ticket/<int:ticket_id>"], type="http", auth="public", website=True
+        ["/my_ticket/<int:ticket_id>"], type="http", auth="public", website=True
     )
     def portal_my_ticket(self, ticket_id, access_token=None, **kw):
         try:

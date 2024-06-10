@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <record id="helpdesk_ticket_kanban_view" model="ir.ui.view">
         <field name="name">helpdesk.ticket.team.kanban</field>
         <field name="model">helpdesk.ticket.team</field>
@@ -136,5 +137,6 @@
                 </templates>
             </kanban>
         </field>
+        
     </record>
 </odoo>

@@ -23,7 +23,7 @@ headers = {"content-type": "application/json;charset=utf-8"}
 class ServiceDesk(http.Controller):
 
     @http.route("/help_desk", auth="user", type="http", website=True)
-    def index(self, **kw):
+    def create_new_ticket(self, **kw):
         data = {}
         types = request.env['helpdesk.ticket.type'].sudo().search([])
         categories = request.env['helpdesk.ticket.category'].sudo().search([])
@@ -57,7 +57,7 @@ class ServiceDesk(http.Controller):
             "type": "binary",
             "datas": file_base64,
         })
-        return request.render("helpdesk_bol.ticket_thank_you", {})
+        return request.render("helpdesk_bol.ticket_thank_you", {'number': helpdesk_ticket.number})
     
     @http.route("/help_desk_reopen", type='http', auth="public",  methods=['POST'], website=True)
     def help_desk_reopen(self, **kw):
@@ -68,16 +68,16 @@ class ServiceDesk(http.Controller):
         return request.render("helpdesk_bol.ticket_thank_you", {})
 
     @http.route(
-        "/change_stage/<record_id>/<action>", auth="public", website=True
+        "/change_stage/<int:ticket_id>/<action>", auth="public", website=True
     )
-    def change_stage(self, record_id=None, action=None):
+    def change_stage(self, ticket_id=None, action=None):
         """ permite al cliente que recibe el correo cambiar el estado de ticker
             para apertura o cierre definitivo
         """
         if int(action) == 1:
-            request.env["helpdesk.ticket"].sudo().search(
-                [("id", "=", record_id)]).write({'stage_id': 4})
+            ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
+            ticket.write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
+            return request.render("helpdesk_bol.close_ticket_form", {'name' : ticket.name, 'number': ticket.number})
         elif int(action) == 2:
-            print(record_id)
-            return request.render("helpdesk_bol.reopen_ticket_form", {'id' : record_id})
+            return request.render("helpdesk_bol.reopen_ticket_form", {'id' : int(ticket_id), 'name' : ticket.name, 'number': ticket.number})
 

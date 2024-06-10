@@ -9,6 +9,8 @@ class HelpdeskType(models.Model):
     _name = "helpdesk.ticket.type"
     _description = "Helpdesk Ticket Type"
     _order = "name asc"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
+
 
     active = fields.Boolean(default=True)
     name = fields.Char(string="Name", required=True)

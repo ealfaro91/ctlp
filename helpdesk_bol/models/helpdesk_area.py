@@ -8,6 +8,6 @@ class HelpdeskTicketArea(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin",]
 
 
-    active = fields.Boolean(default=True)
-    name = fields.Char(string="Area")
-    area_type = fields.Selection([('TI', 'TI')], string="Area")
+    active = fields.Boolean(default=True, tracking=True)
+    name = fields.Char(string="Area", tracking=True)
+    area_type = fields.Selection([('TI', 'TI')], string="Area", tracking=True)

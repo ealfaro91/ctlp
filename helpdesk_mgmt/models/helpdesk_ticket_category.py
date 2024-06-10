@@ -6,8 +6,8 @@ class HelpdeskCategory(models.Model):
     _description = "Helpdesk Ticket Category"
     _order = "sequence, id"
 
-    sequence = fields.Integer(default=10)
-    active = fields.Boolean(default=True)
+    sequence = fields.Integer(default=10, tracking=True)
+    active = fields.Boolean(default=True, tracking=True)
     name = fields.Char(
         string="Category",
         required=True,
@@ -18,4 +18,5 @@ class HelpdeskCategory(models.Model):
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.company,
+        tracking=True
     )

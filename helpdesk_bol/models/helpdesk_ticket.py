@@ -34,15 +34,20 @@ class HelpdeskTicket(models.Model):
         "helpdesk.ticket.area", string="Area", tracking=True
        # default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
-    user_id = fields.Many2one(related="subcategory_id.user_id", tracking=True)
+    user_id = fields.Many2one(related="category_id.user_id", tracking=True)
 
 
     @api.model
     def create(self, vals):
         res = super(HelpdeskTicket, self).create(vals)
+        res.team_id = self.env['helpdesk.ticket.team'].search([('area_type', '=', 'TI')]).id
         template = self.env.ref('helpdesk_bol.ticket_creation')
         # if template:
         template.send_mail(res.id, force_send=False)
+        template2 = self.env.ref('helpdesk_bol.ticket_creation_assigned')
+        # if template:
+        template.send_mail(res.id, force_send=False)
+        template2.send_mail(res.id, force_send=False)
         return res
 
     def _compute_attention_time_state(self):

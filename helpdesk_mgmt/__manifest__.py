@@ -18,6 +18,8 @@
     "depends": ["mail", "portal"],
     "data": [
         "data/helpdesk_data.xml",
+        "data/helpdesk_stage_data.xml",
+        "data/helpdesk_mail_template_data.xml",
         "security/helpdesk_security.xml",
         "security/ir.model.access.csv",
         "views/res_partner_views.xml",

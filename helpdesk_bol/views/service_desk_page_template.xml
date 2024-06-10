@@ -103,14 +103,52 @@
         </t>
     </template>
 
+    <template id="close_ticket_form" name="Motivo de reapertura">
+        <t t-call="website.layout">
+            <section>
+                <div class="container mt-5">
+                    <div class="row"/>
+                        <div class="row">
+                    </div>
+                    <div class="col-12">
+                        <h1 class="text-center">
+                            <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
+                        </h1>
+                    </div>
+                    <br/>
+                    <div class="col-12">
+                        <h1 class="text-center">
+                            Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
+                        </h1>
+                    </div>
+                
+                </div>
+            </section>
+        </t>
+    </template>
+
     <template id="ticket_thank_you" name="Ficha Thank You">
         <t t-call="website.layout">
             <section>
                 <div class="container mt-5">
                     <div class="row"/>
                     <div class="row">
-                        Your requirement has been registered successfully.
                     </div>
+                      <div class="col-12">
+                            <h1 class="text-center">
+                                <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                Your requirement has been registered successfully.
+                                Your ticket number is <span t-esc="number"/>
+                            </h1>
+                        </div>
+                        <div class="col-12">
+                            <h1 class="text-center">¡Our team will work on it!</h1>
+                        </div>
                 </div>
             </section>
         </t>

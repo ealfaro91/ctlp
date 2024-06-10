@@ -62,13 +62,24 @@
                                 invisible="closed == False"
                             />
                             <field name="unattended" />
+                            <field name="on_hold"/>
                         </group>
                     </group>
                     <field name="description" widget="html" />
                 </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field
+                        name="message_ids"
+                        widget="mail_thread"
+                        options="{'post_refresh': 'recipients', 'open_attachments': True}"
+                    />
+                </div>
             </form>
         </field>
     </record>
+
     <record id="view_helpdesk_ticket_stage_tree" model="ir.ui.view">
         <field name="name">helpdesk.ticket.stage.tree</field>
         <field name="model">helpdesk.ticket.stage</field>
@@ -85,4 +96,5 @@
             </tree>
         </field>
     </record>
+    
 </odoo>
