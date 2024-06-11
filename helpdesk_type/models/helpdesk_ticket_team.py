@@ -12,4 +12,5 @@ class HelpdeskTeam(models.Model):
         string="Ticket Type",
         help="Ticket Types the team will use. This team's tickets will only "
         "be able to use those types.",
+        tracking=True
     )

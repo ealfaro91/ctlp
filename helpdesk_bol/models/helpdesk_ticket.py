@@ -42,12 +42,8 @@ class HelpdeskTicket(models.Model):
         res = super(HelpdeskTicket, self).create(vals)
         res.team_id = self.env['helpdesk.ticket.team'].search([('area_type', '=', 'TI')]).id
         template = self.env.ref('helpdesk_bol.ticket_creation')
-        # if template:
-        template.send_mail(res.id, force_send=False)
-        template2 = self.env.ref('helpdesk_bol.ticket_creation_assigned')
-        # if template:
-        template.send_mail(res.id, force_send=False)
-        template2.send_mail(res.id, force_send=False)
+        if template:
+            template.send_mail(res.id, force_send=False)
         return res
 
     def _compute_attention_time_state(self):

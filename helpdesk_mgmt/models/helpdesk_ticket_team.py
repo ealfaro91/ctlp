@@ -3,7 +3,6 @@ from odoo.tools.safe_eval import safe_eval
 
 
 class HelpdeskTeam(models.Model):
-
     _name = "helpdesk.ticket.team"
     _description = "Helpdesk Ticket Team"
     _inherit = ["mail.thread", "mail.alias.mixin"]
@@ -17,10 +16,12 @@ class HelpdeskTeam(models.Model):
         relation="helpdesk_ticket_team_res_users_rel",
         column1="helpdesk_ticket_team_id",
         column2="res_users_id",
+        tracking=True
     )
     active = fields.Boolean(default=True, tracking=True)
     category_ids = fields.Many2many(
-        comodel_name="helpdesk.ticket.category", string="Category", 
+        comodel_name="helpdesk.ticket.category",
+        string="Category", 
         tracking=True
     )
     company_id = fields.Many2one(

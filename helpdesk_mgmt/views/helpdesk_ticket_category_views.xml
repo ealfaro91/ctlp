@@ -11,12 +11,7 @@
                 <field name="name" filter_domain="[('name', 'ilike', self)]"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <group>
-                    <filter
-                        string="Company"
-                        name="company"
-                        context="{'group_by': 'company_id'}"
-                        groups="base.group_multi_company"
-                    />
+                    <filter string="Company" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
                 </group>
             </search>
         </field>
@@ -31,12 +26,7 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box"/>
-                    <widget
-                        name="web_ribbon"
-                        title="Archived"
-                        bg_color="bg-danger"
-                        invisible="active == True"
-                    />
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active == True"/>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1>
@@ -63,4 +53,5 @@
             </tree>
         </field>
     </record>
+
 </odoo>

@@ -39,11 +39,14 @@ class HelpdeskTicket(models.Model):
         string="Assigned user",
         tracking=True,
         store=True,
-        # index=True,
+        index=True,
         domain="[('id', 'in', user_ids)]",
     )
     user_ids = fields.Many2many(
-        comodel_name="res.users", related="team_id.user_ids", string="Users",
+        comodel_name="res.users", 
+        related="team_id.user_ids", 
+        string="Users",
+        tracking=True
     )
     stage_id = fields.Many2one(
         comodel_name="helpdesk.ticket.stage",
@@ -67,7 +70,7 @@ class HelpdeskTicket(models.Model):
     closed = fields.Boolean(related="stage_id.closed")
     unattended = fields.Boolean(related="stage_id.unattended", store=True)
     on_hold = fields.Boolean(related="stage_id.on_hold", store=True)
-    tag_ids = fields.Many2many(comodel_name="helpdesk.ticket.tag", string="Tags")
+    tag_ids = fields.Many2many(comodel_name="helpdesk.ticket.tag", string="Tags", tracking=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
@@ -80,6 +83,7 @@ class HelpdeskTicket(models.Model):
         string="Channel",
         help="Channel indicates where the source of a ticket"
         "comes from (it could be a phone call, an email...)",
+        tracking=True
     )
     category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
@@ -114,6 +118,7 @@ class HelpdeskTicket(models.Model):
             ("done", "Ready for next stage"),
             ("blocked", "Blocked"),
         ],
+        tracking=True
     )
     sequence = fields.Integer(
         index=True,
@@ -127,9 +132,6 @@ class HelpdeskTicket(models.Model):
         for rec in self:
             res.append((rec.id, rec.number + " - " + rec.name))
         return res
-
-    def assign_to_me(self):
-        self.write({"user_id": self.env.user.id})
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):

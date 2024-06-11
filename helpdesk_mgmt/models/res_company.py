@@ -8,13 +8,16 @@ class Company(models.Model):
     _inherit = "res.company"
 
     helpdesk_mgmt_portal_select_team = fields.Boolean(
-        string="Select team in Helpdesk portal"
+        string="Select team in Helpdesk portal",
+        tracking=True
     )
     helpdesk_mgmt_portal_team_id_required = fields.Boolean(
         string="Required Team field in Helpdesk portal",
         default=True,
+        tracking=True
     )
     helpdesk_mgmt_portal_category_id_required = fields.Boolean(
         string="Required Category field in Helpdesk portal",
         default=True,
+        tracking=True
     )

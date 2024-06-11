@@ -5,6 +5,8 @@ class HelpdeskCategory(models.Model):
     _name = "helpdesk.ticket.category"
     _description = "Helpdesk Ticket Category"
     _order = "sequence, id"
+    _inherit = ["mail.thread", "mail.activity.mixin",]
+
 
     sequence = fields.Integer(default=10, tracking=True)
     active = fields.Boolean(default=True, tracking=True)

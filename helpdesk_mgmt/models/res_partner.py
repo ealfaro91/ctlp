@@ -12,17 +12,20 @@ class ResPartner(models.Model):
 
     helpdesk_ticket_count = fields.Integer(
         compute="_compute_helpdesk_ticket_count", 
-        string="Ticket count"
+        string="Ticket count",
+        tracking=True
     )
 
     helpdesk_ticket_active_count = fields.Integer(
         compute="_compute_helpdesk_ticket_count",
-          string="Ticket active count"
+        string="Ticket active count",
+        tracking=True
     )
 
     helpdesk_ticket_count_string = fields.Char(
         compute="_compute_helpdesk_ticket_count", 
-        string="Tickets"
+        string="Tickets",
+        tracking=True
     )
 
     def _compute_helpdesk_ticket_count(self):

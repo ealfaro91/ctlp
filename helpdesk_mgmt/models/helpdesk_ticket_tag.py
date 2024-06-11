@@ -4,6 +4,7 @@ from odoo import fields, models
 class HelpdeskTicketTag(models.Model):
     _name = "helpdesk.ticket.tag"
     _description = "Helpdesk Ticket Tag"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(tracking=True)
     color = fields.Integer(string="Color Index", tracking=True)

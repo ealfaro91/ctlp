@@ -7,8 +7,14 @@ class HelpdeskTicketStage(models.Model):
     _order = "sequence, id"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    name = fields.Char(string="Stage Name", required=True, translate=True, tracking=True)
-    description = fields.Html(translate=True, sanitize_style=True, tracking=True)
+    name = fields.Char(
+        string="Stage Name", required=True, 
+        translate=True, tracking=True
+    )
+    description = fields.Html(
+        translate=True, sanitize_style=True, 
+        tracking=True
+    )
     sequence = fields.Integer(default=1, tracking=True)
     active = fields.Boolean(default=True, tracking=True)
     unattended = fields.Boolean(tracking=True)
