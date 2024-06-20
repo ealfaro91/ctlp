@@ -31,12 +31,16 @@ class HelpdeskTicket(models.Model):
     reopen_reason = fields.Text(string="Reopen reason", tracking=True)
     area = fields.Char(string="Area", tracking=True)
     area_id = fields.Many2one(
-        "helpdesk.ticket.area", string="Area", tracking=True
-       # default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
+        "helpdesk.ticket.area", string="Area", tracking=True,
+        default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
-    user_id = fields.Many2one(related="category_id.user_id", tracking=True)
+    user_id = fields.Many2one("res.users", tracking=True)
 
-
+    @api.onchange("category_id")
+    def _onchange_user_id(self):
+        for ticket in self:
+            if ticket.category_id.user_id:
+                ticket.user_id = ticket.category_id.user_id.id
     @api.model
     def create(self, vals):
         res = super(HelpdeskTicket, self).create(vals)

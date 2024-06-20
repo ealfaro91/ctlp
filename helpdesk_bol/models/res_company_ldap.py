@@ -25,8 +25,8 @@ class CompanyLDAP(models.Model):
         ldap_dict = {
             'name': tools.ustr(ldap_entry[1]['cn'][0]),
             'login': login,
-            'company_id': conf['company'][0]
+            'company_id': conf['company'][0],
+            'area': tools.ustr(ldap_entry[1]['department'][0]),
+            'email': tools.ustr(ldap_entry[1]['mail'][0]),
         }
-        ldap_dict['area'] = tools.ustr(ldap_entry[1]['department'][0]),
-
         return ldap_dict

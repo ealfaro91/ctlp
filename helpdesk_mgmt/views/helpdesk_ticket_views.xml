@@ -47,7 +47,7 @@
             </search>
         </field>
     </record>
-    
+
     <record id="ticket_view_form" model="ir.ui.view">
         <field name="name">helpdesk.ticket.view.form</field>
         <field name="model">helpdesk.ticket</field>
@@ -151,6 +151,7 @@
                 <field name="stage_id"/>
                 <field name="priority" widget="priority"/>
                 <field name="assigned_date"/>
+                <field name="create_date"/>
                 <progressbar field="activity_state"
                     colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"/>
                 <templates>
@@ -203,6 +204,7 @@
                                 <div class="oe_kanban_bottom_left">
                                     <field name="priority" widget="priority"/>
                                     <field name="activity_ids" widget="kanban_activity" related="activity_state"/>
+                                    <field name="create_date"/>
                                 </div>
                                 <div class="oe_kanban_bottom_right">
                                     <field name="kanban_state" widget="state_selection"/>

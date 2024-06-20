@@ -37,6 +37,8 @@ class ServiceDesk(http.Controller):
     @http.route("/help_desk_close", type='http', auth="public",  methods=['POST'],
                 website=True)
     def help_desk_close(self, **kw):
+        user_id = request.env['helpdesk.ticket.category'].sudo().search([
+            ('id', '=', kw.get('category_id'))]).user_id
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_name': kw.get('name'),
             'partner_id': request.env.user.partner_id.id,
@@ -46,19 +48,21 @@ class ServiceDesk(http.Controller):
             'description': kw.get('description'),
             'type_id': kw.get('type_id'),
             'category_id': kw.get('category_id'),
+            'user_id': user_id.id,
         })
-        attachment = kw.get('attachments')
-        attached_file = attachment.read()
-        file_base64 = base64.b64encode(attached_file)
-        request.env["ir.attachment"].sudo().create({
-            "name": attachment.filename,
-            "res_model": helpdesk_ticket._name,
-            "res_id": helpdesk_ticket.id,
-            "type": "binary",
-            "datas": file_base64,
-        })
+
+        attachments = kw.get('attachments')
+        print(attachments)
+        for att in attachments:
+            request.env["ir.attachment"].sudo().create({
+                "name": att.name,
+                "res_model": helpdesk_ticket._name,
+                "res_id": helpdesk_ticket.id,
+                "type": "binary",
+                "datas": base64.b64encode(att),
+            })
         return request.render("helpdesk_bol.ticket_thank_you", {'number': helpdesk_ticket.number})
-    
+
     @http.route("/help_desk_reopen", type='http', auth="public",  methods=['POST'], website=True)
     def help_desk_reopen(self, **kw):
         print(kw)
@@ -74,10 +78,12 @@ class ServiceDesk(http.Controller):
         """ permite al cliente que recibe el correo cambiar el estado de ticker
             para apertura o cierre definitivo
         """
+        ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
         if int(action) == 1:
-            ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
             ticket.write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
-            return request.render("helpdesk_bol.close_ticket_form", {'name' : ticket.name, 'number': ticket.number})
+            return request.render("helpdesk_bol.close_ticket_form",
+                                  {'name': ticket.name, 'number': ticket.number})
         elif int(action) == 2:
-            return request.render("helpdesk_bol.reopen_ticket_form", {'id' : int(ticket_id), 'name' : ticket.name, 'number': ticket.number})
+            return request.render("helpdesk_bol.reopen_ticket_form",
+                                  {'id': int(ticket_id), 'name': ticket.name, 'number': ticket.number})
 

@@ -415,8 +415,8 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
-msgid "Incident type"
-msgstr "Tipo de incidente"
+msgid "Requirement type"
+msgstr "Tipo de requerimiento"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_is_follower
