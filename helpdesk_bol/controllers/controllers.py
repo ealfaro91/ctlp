@@ -51,16 +51,17 @@ class ServiceDesk(http.Controller):
             'user_id': user_id.id,
         })
 
-        attachments = kw.get('attachments')
-        print(attachments)
-        for att in attachments:
-            request.env["ir.attachment"].sudo().create({
-                "name": att.name,
-                "res_model": helpdesk_ticket._name,
-                "res_id": helpdesk_ticket.id,
-                "type": "binary",
-                "datas": base64.b64encode(att),
-            })
+        if kw.get('attachments'):
+            attached_files = request.httprequest.files.getlist('attachments')
+            for attachment in attached_files:
+                attached_file = attachment.read()
+                request.env['ir.attachment'].sudo().create({
+                    'name': attachment.filename,
+                    'res_model': helpdesk_ticket._name,
+                    'res_id': helpdesk_ticket.id,
+                    'type': 'binary',
+                    'datas': base64.b64encode(attached_file),
+                })
         return request.render("helpdesk_bol.ticket_thank_you", {'number': helpdesk_ticket.number})
 
     @http.route("/help_desk_reopen", type='http', auth="public",  methods=['POST'], website=True)
