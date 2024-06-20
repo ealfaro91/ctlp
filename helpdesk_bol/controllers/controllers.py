@@ -66,11 +66,10 @@ class ServiceDesk(http.Controller):
 
     @http.route("/help_desk_reopen", type='http', auth="public",  methods=['POST'], website=True)
     def help_desk_reopen(self, **kw):
-        print(kw)
         request.env["helpdesk.ticket"].sudo().search(
                 [("id", "=", kw.get('id'))]).write(
                     {'reopen_reason': kw.get('reopen_reason'), 'stage_id': 2})
-        return request.render("helpdesk_bol.ticket_thank_you", {})
+        return request.render("helpdesk_bol.ticket_thank_you", {'hide_number': True})
 
     @http.route(
         "/change_stage/<int:ticket_id>/<action>", auth="public", website=True

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-10 15:12+0000\n"
-"PO-Revision-Date: 2024-06-10 15:12+0000\n"
+"POT-Creation-Date: 2024-06-20 17:12+0000\n"
+"PO-Revision-Date: 2024-06-20 17:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,95 +37,95 @@ msgstr ""
 #: model:mail.template,body_html:helpdesk_bol.ticket_creation
 msgid ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
-"            <tr>\n"
-"                <td align=\"center\">\n"
-"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
-"                        <tbody>\n"
-"                            <!-- HEADER -->\n"
-"                            <tr>\n"
-"                                <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                        <tr>\n"
-"                                            <td valign=\"middle\">\n"
-"                                                <span style=\"font-size: 10px;\">Your Account</span><br>\n"
-"                                                <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.name or ''\"></span>\n"
-"                                            </td>\n"
-"                                            <td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
-"                                                <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
-"                                            </td>\n"
-"                                        </tr>\n"
-"                                        <tr>\n"
-"                                            <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                                                <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
-"                                            </td>\n"
-"                                        </tr>\n"
-"                                    </table>\n"
-"                                </td>\n"
-"                            </tr>\n"
-"                            <!-- CONTENT -->\n"
-"                            <tr>\n"
-"                                <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                        <tr>\n"
-"                                            <td valign=\"top\" style=\"font-size: 13px;\">\n"
-"                                                <div>\n"
-"                                                    Dear <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
-"                                                    <p> This automatic message is to notify that your ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
-"                                                    with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
-"                                                    <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
-"                                                    <br>\n"
-"                                                    <p>Greetings.</p>\n"
-"                                                    <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
-"                                                        <a href=\"/my_tickets\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
-"                                                            <strong>View my tickets</strong>\n"
-"                                                        </a>\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                            <tbody>\n"
+"                                <!-- HEADER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\">\n"
+"                                                    <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.partner_id.name or ''\"></span>\n"
+"                                                </td>\n"
+"                                                <td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
+"                                                    <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                            <tr>\n"
+"                                                <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- CONTENT -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                    <div>\n"
+"                                                        Dear <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
+"                                                        <p> This automatic message is to notify that the ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
+"                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
+"                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"                                                        <br>\n"
+"                                                        <p>Greetings.</p>\n"
+"                                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                                                            <a href=\"/my_tickets\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                                                                <strong>View my tickets</strong>\n"
+"                                                            </a>\n"
+"                                                        </div>\n"
 "                                                    </div>\n"
-"                                                </div>\n"
-"                                            </td></tr>\n"
-"                                            <tr><td style=\"text-align:center;\">\n"
-"                                                <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
-"                                            </td>\n"
-"                                        </tr>\n"
-"                                    </table>\n"
-"                                </td>\n"
-"                            </tr>\n"
-"                            <!-- FOOTER -->\n"
-"                            <tr>\n"
-"                                <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                        <tr>\n"
-"                                            <td valign=\"middle\" align=\"left\">\n"
-"                                                <t t-out=\"object.user_id.company_id.name or ''\"></t>\n"
-"                                            </td>\n"
-"                                        </tr>\n"
-"                                        <tr>\n"
-"                                            <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                                                <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
-"                                                <t t-if=\"object.user_id.company_id.email\">\n"
-"                                                    | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
-"                                                </t>\n"
-"                                                <t t-if=\"object.user_id.company_id.website\">\n"
-"                                                    | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
-"                                                </t>\n"
-"                                            </td>\n"
-"                                        </tr>\n"
-"                                    </table>\n"
-"                                </td>\n"
-"                            </tr>\n"
-"                        </tbody>\n"
+"                                                </td></tr>\n"
+"                                                <tr><td style=\"text-align:center;\">\n"
+"                                                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- FOOTER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\" align=\"left\">\n"
+"                                                    <t t-out=\"object.user_id.company_id.name or ''\"></t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
+"                                                    <t t-if=\"object.user_id.company_id.email\">\n"
+"                                                        | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
+"                                                    </t>\n"
+"                                                    <t t-if=\"object.user_id.company_id.website\">\n"
+"                                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
+"                                                    </t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                <!-- POWERED BY -->\n"
+"                <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                        <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"                        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite\" style=\"color: #875A7B;\">Odoo</a>\n"
+"                        </td></tr>\n"
 "                    </table>\n"
-"                </td>\n"
-"            </tr>\n"
-"            <!-- POWERED BY -->\n"
-"            <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
-"                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
-"                    <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"                    Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite\" style=\"color: #875A7B;\">Odoo</a>\n"
-"                    </td></tr>\n"
-"                </table>\n"
-"            </td></tr>\n"
-"        </table>\n"
-"    "
+"                </td></tr>\n"
+"            </table>\n"
+"        "
 msgstr ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
@@ -135,7 +135,7 @@ msgstr ""
 "                        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                                <tr><td valign=\"middle\">\n"
-"                                    <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                    <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
 "                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.name or ''\"></span>\n"
 "                                </td><td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
 "                                    <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
@@ -206,7 +206,6 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_needaction
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_needaction
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_needaction
 msgid "Action Needed"
 msgstr ""
@@ -219,28 +218,24 @@ msgstr "Activo"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_ids
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_ids
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_ids
 msgid "Activities"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_exception_decoration
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_exception_decoration
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_exception_decoration
 msgid "Activity Exception Decoration"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_state
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_state
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_state
 msgid "Activity State"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_type_icon
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_type_icon
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_type_icon
 msgid "Activity Type Icon"
 msgstr ""
@@ -250,6 +245,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__area_type
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__name
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_team__area_type
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__area
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_area_menu
 msgid "Area"
@@ -262,7 +258,6 @@ msgstr "Usuario asignado"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_attachment_count
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_attachment_count
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -330,28 +325,24 @@ msgstr "Tiempo de atención transcurrido (horas)"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_follower_ids
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_follower_ids
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_follower_ids
 msgid "Followers"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_partner_ids
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_partner_ids
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__activity_type_icon
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__activity_type_icon
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__has_message
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__has_message
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__has_message
 msgid "Has Message"
 msgstr ""
@@ -372,6 +363,11 @@ msgid "Helpdesk Ticket Category"
 msgstr "Categoría de ticket"
 
 #. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_team
+msgid "Helpdesk Ticket Team"
+msgstr "Equipo de la solicitud del servicio de asistencia"
+
+#. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_type
 msgid "Helpdesk Ticket Type"
 msgstr "Tipo de tickets del Helpdesk"
@@ -384,21 +380,18 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_exception_icon
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_exception_icon
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_exception_icon
 msgid "Icon"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__activity_exception_icon
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__activity_exception_icon
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__message_needaction
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__message_needaction
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr ""
@@ -406,21 +399,13 @@ msgstr ""
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__message_has_error
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__message_has_sms_error
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__message_has_error
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__message_has_sms_error
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__message_has_error
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
-msgid "Requirement type"
-msgstr "Tipo de requerimiento"
-
-#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_is_follower
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_is_follower
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_is_follower
 msgid "Is Follower"
 msgstr ""
@@ -445,70 +430,60 @@ msgstr "Tiempo máximo de atención (horas)"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_has_error
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_has_error
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_has_error
 msgid "Message Delivery error"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_ids
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_ids
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_ids
 msgid "Messages"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__my_activity_date_deadline
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__my_activity_date_deadline
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_date_deadline
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_date_deadline
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_summary
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_summary
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_summary
 msgid "Next Activity Summary"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_type_id
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_type_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_type_id
 msgid "Next Activity Type"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_needaction_counter
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_needaction_counter
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_has_error_counter
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_has_error_counter
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_has_error_counter
 msgid "Number of errors"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__message_needaction_counter
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__message_needaction_counter
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__message_needaction_counter
 msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__message_has_error_counter
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__message_has_error_counter
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr ""
@@ -559,6 +534,11 @@ msgid "Requester Area"
 msgstr "Área del solicitante"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Requirement type"
+msgstr "Tipo de requerimiento"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__resolution
 msgid "Resolution"
 msgstr "Resolución"
@@ -570,14 +550,12 @@ msgstr "Responsable"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_user_id
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__activity_user_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_user_id
 msgid "Responsible User"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_has_sms_error
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__message_has_sms_error
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr ""
@@ -589,7 +567,6 @@ msgstr "Secuencia"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__activity_state
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__activity_state
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_state
 msgid ""
 "Status based on activities\n"
@@ -627,6 +604,7 @@ msgstr "Enviar"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket_area__area_type__ti
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket_team__area_type__ti
 msgid "TI"
 msgstr ""
 
@@ -638,6 +616,7 @@ msgstr "Creación de Ticket : {{ (object.name) }}"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph1
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph2
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph3
 msgid "Tickets"
 msgstr ""
 
@@ -658,7 +637,6 @@ msgstr "Tipo"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__activity_exception_decoration
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__activity_exception_decoration
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
@@ -670,206 +648,30 @@ msgstr "Usuario"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__website_message_ids
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__website_message_ids
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__website_message_ids
 msgid "Website Messages"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__website_message_ids
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_category__website_message_ids
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__website_message_ids
 msgid "Website communication history"
 msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
-msgid ""
-"Your requirement has been registered successfully.\n"
-"                                Your ticket number is"
+msgid "Your requirement has been registered successfully."
 msgstr ""
-"Su requerimiento ha sido registrado exitosamente.\n"
-"                                Su número de ticket es"
-
-#. module: helpdesk_bol
-#: model:mail.template,body_html:helpdesk_bol.ticket_creation_assigned
-msgid ""
-"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
-"                <tr>\n"
-"                    <td align=\"center\">\n"
-"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
-"                            <tbody>\n"
-"                                <!-- HEADER -->\n"
-"                                <tr>\n"
-"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                            <tr>\n"
-"                                                <td valign=\"middle\">\n"
-"                                                    <span style=\"font-size: 10px;\">Your Account</span><br>\n"
-"                                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.name or ''\"></span>\n"
-"                                                </td>\n"
-"                                                <td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
-"                                                    <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                            <tr>\n"
-"                                                <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                                                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                        </table>\n"
-"                                    </td>\n"
-"                                </tr>\n"
-"                                <!-- CONTENT -->\n"
-"                                <tr>\n"
-"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                            <tr>\n"
-"                                                <td valign=\"top\" style=\"font-size: 13px;\">\n"
-"                                                    <div>\n"
-"                                                        Dear <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
-"                                                        <p> This automatic message is to notify that the ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
-"                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been registered and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
-"                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"context_timestamp(object.create_date).strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
-"                                                        <br>\n"
-"                                                        <p>Greetings.</p>\n"
-"                                                    </div>\n"
-"                                                </td></tr>\n"
-"                                                <tr><td style=\"text-align:center;\">\n"
-"                                                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                        </table>\n"
-"                                    </td>\n"
-"                                </tr>\n"
-"                                <!-- FOOTER -->\n"
-"                                <tr>\n"
-"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                            <tr>\n"
-"                                                <td valign=\"middle\" align=\"left\">\n"
-"                                                    <t t-out=\"object.user_id.company_id.name or ''\"></t>\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                            <tr>\n"
-"                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
-"                                                    <t t-if=\"object.user_id.company_id.email\">\n"
-"                                                        | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
-"                                                    </t>\n"
-"                                                    <t t-if=\"object.user_id.company_id.website\">\n"
-"                                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
-"                                                    </t>\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                        </table>\n"
-"                                    </td>\n"
-"                                </tr>\n"
-"                            </tbody>\n"
-"                        </table>\n"
-"                    </td>\n"
-"                </tr>\n"
-"                <!-- POWERED BY -->\n"
-"                <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
-"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
-"                        <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"                        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite\" style=\"color: #875A7B;\">Odoo</a>\n"
-"                        </td></tr>\n"
-"                    </table>\n"
-"                </td></tr>\n"
-"            </table>\n"
-"        "
-msgstr ""
-"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
-"                <tr>\n"
-"                    <td align=\"center\">\n"
-"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
-"                            <tbody>\n"
-"                                <!-- HEADER -->\n"
-"                                <tr>\n"
-"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                            <tr>\n"
-"                                                <td valign=\"middle\">\n"
-"                                                    <span style=\"font-size: 10px;\">Your Account</span><br>\n"
-"                                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.name or ''\"></span>\n"
-"                                                </td>\n"
-"                                                <td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
-"                                                    <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                            <tr>\n"
-"                                                <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                                                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                        </table>\n"
-"                                    </td>\n"
-"                                </tr>\n"
-"                                <!-- CONTENT -->\n"
-"                                <tr>\n"
-"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                            <tr>\n"
-"                                                <td valign=\"top\" style=\"font-size: 13px;\">\n"
-"                                                    <div>\n"
-"                                                        Estimado/a <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
-"                                                        <p> Este mensaje automático es para notificar que el ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
-"                                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido registrado y asignado a <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
-"                                                        <p> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"context_timestamp(object.create_date).strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
-"                                                        <br>\n"
-"                                                        <p>Saludos.</p>\n"
-"                                                    </div>\n"
-"                                                </td></tr>\n"
-"                                                <tr><td style=\"text-align:center;\">\n"
-"                                                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                        </table>\n"
-"                                    </td>\n"
-"                                </tr>\n"
-"                                <!-- FOOTER -->\n"
-"                                <tr>\n"
-"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                            <tr>\n"
-"                                                <td valign=\"middle\" align=\"left\">\n"
-"                                                    <t t-out=\"object.user_id.company_id.name or ''\"></t>\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                            <tr>\n"
-"                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
-"                                                    <t t-if=\"object.user_id.company_id.email\">\n"
-"                                                        | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
-"                                                    </t>\n"
-"                                                    <t t-if=\"object.user_id.company_id.website\">\n"
-"                                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
-"                                                    </t>\n"
-"                                                </td>\n"
-"                                            </tr>\n"
-"                                        </table>\n"
-"                                    </td>\n"
-"                                </tr>\n"
-"                            </tbody>\n"
-"                        </table>\n"
-"                    </td>\n"
-"                </tr>\n"
-"                <!-- POWERED BY -->\n"
-"                <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
-"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
-"                        <tr><td style=\"text-align: center; font-size: 13px;\">\n"
-"                        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite\" style=\"color: #875A7B;\">Odoo</a>\n"
-"                        </td></tr>\n"
-"                    </table>\n"
-"                </td></tr>\n"
-"            </table>\n"
-"        "
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.close_ticket_form
 msgid "Your ticket \""
 msgstr "Su ticket \""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
+msgid "Your ticket number is"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_area

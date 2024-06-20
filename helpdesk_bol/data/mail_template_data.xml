@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo noupdate="0">
 
     <!-- TEMPLATE CREATION -->
 
@@ -25,7 +25,7 @@
                                             <tr>
                                                 <td valign="middle">
                                                     <span style="font-size: 10px;">Your Account</span><br/>
-                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.user_id.name or ''"/>
+                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''"/>
                                                 </td>
                                                 <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
                                                     <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
@@ -49,7 +49,7 @@
                                                         Dear <strong><t t-out="object.partner_id.name"/></strong>,<br/>
                                                         <p> This automatic message is to notify that the ticket <span style="font-weight:bold;" t-out="object.number or ''"/>
                                                         with subject <span style="font-weight:bold;" t-out="object.name or ''"/> has been received and assigned to <span style="font-weight:bold;" t-out="object.user_id.name or ''"/> </p>
-                                                        <p> Creation datetime: <span style="font-weight:bold;" t-out="context_timestamp(object.create_date).strftime('%Y-%m-%d %H:%M:%S') "/></p>
+                                                        <p> Creation datetime: <span style="font-weight:bold;" t-out="object.create_date.strftime('%Y-%m-%d %H:%M:%S') "/></p>
                                                         <br/>
                                                         <p>Greetings.</p>
                                                         <div style="margin: 16px 0px 16px 0px; text-align: center;">

@@ -121,7 +121,7 @@
                             Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
                         </h1>
                     </div>
-                
+
                 </div>
             </section>
         </t>
@@ -143,7 +143,7 @@
                         <div class="col-12">
                             <h1 class="text-center">
                                 Your requirement has been registered successfully.
-                                Your ticket number is <span t-esc="number"/>
+                              <span invisible="hide_number == True">  Your ticket number is <span t-esc="number"/> </span>
                             </h1>
                         </div>
                         <div class="col-12">

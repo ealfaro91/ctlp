@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
+    <data noupdate="0">
 
         <!--Email template -->
         <record id="closed_ticket_template" model="mail.template">
@@ -8,6 +8,7 @@
             <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
             <field name="email_from">{{object.company_id.partner_id.email}}</field>
             <field name="subject">The ticket {{object.number}} has been closed.</field>
+            <field name="email_cc">{{ (object.user_id.partner_id.email) }}</field>
             <field name="partner_to">{{object.partner_id.id}}</field>
             <field name="lang">{{object.partner_id.lang}}</field>
             <field name="auto_delete" eval="False"/>
@@ -24,7 +25,7 @@
                                             <tr>
                                                 <td valign="middle">
                                                     <span style="font-size: 10px;">Your Account</span><br/>
-                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.user_id.name or ''">Marc Demo</span>
+                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''">Marc Demo</span>
                                                 </td>
                                                 <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
                                                     <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
@@ -116,6 +117,7 @@
             <field name="name">Helpdesk Changed Stage notification Email</field>
             <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
             <field name="email_from">{{object.company_id.partner_id.email}}</field>
+            <field name="email_cc">{{ (object.user_id.partner_id.email) }}</field>
             <field name="subject">The ticket {{object.number}} stage has changed.</field>
             <field name="partner_to">{{object.partner_id.id}}</field>
             <field name="lang">{{object.partner_id.lang}}</field>
@@ -133,7 +135,7 @@
                                                 <tr>
                                                     <td valign="middle">
                                                         <span style="font-size: 10px;">Your Account</span><br/>
-                                                        <span style="font-size: 20px; font-weight: bold;" t-out="object.user_id.name or ''"/>
+                                                        <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''"/>
                                                     </td>
                                                     <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
                                                         <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
@@ -210,6 +212,6 @@
                 </table>
             </field>
         </record>
-        
+
     </data>
 </odoo>
