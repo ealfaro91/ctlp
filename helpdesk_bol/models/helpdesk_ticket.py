@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+
+import pytz
+
 from datetime import datetime
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class HelpdeskTicket(models.Model):
@@ -20,8 +23,11 @@ class HelpdeskTicket(models.Model):
         domain="[('category_id', '=', category_id)]",
         tracking=True
     )
-    max_attention_time = fields.Integer(related="subcategory_id.max_attention_time")
-    elapsed_attention_time = fields.Integer(string="Elapsed Attention Time (hours)", compute="_compute_attention_time_state")
+    max_attention_time = fields.Float(related="subcategory_id.max_attention_time")
+    elapsed_attention_time = fields.Float(
+        string="Elapsed Attention Time (hours)",
+        compute="_compute_attention_time_state"
+    )
     attention_time_state = fields.Selection([
         ("on_time", "On time"), ("delayed", "Delayed"), ("on_hold", "On hold")],
         default="on_time", string="Attention time state",
@@ -35,6 +41,17 @@ class HelpdeskTicket(models.Model):
         default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
     user_id = fields.Many2one("res.users", tracking=True)
+    create_date_utc = fields.Datetime(
+        compute="_get_create_date_userutc"
+    )
+
+    def _get_create_date_userutc(self):
+        user_tz = self.env.user.tz or pytz.utc
+        local = pytz.timezone(user_tz)
+        for ticket in self:
+            ticket.create_date_utc = datetime.strftime(pytz.utc.localize(
+                datetime.strptime(fields.Datetime.to_string(ticket.create_date), DEFAULT_SERVER_DATETIME_FORMAT)
+            ).astimezone(local), "%Y-%m-%d %H:%M:%S")
 
     @api.onchange("category_id")
     def _onchange_user_id(self):

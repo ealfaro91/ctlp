@@ -12,7 +12,7 @@
                         <group>
                             <field name="name"/>
                             <field name="category_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                            <field name="max_attention_time"/>
+                            <field name="max_attention_time" widget="float_time"/>
                         </group>
                     </group>
                 </sheet>
@@ -38,7 +38,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="category_id"/>
-                <field name="max_attention_time"/>
+                <field name="max_attention_time" widget="float_time"/>
             </tree>
         </field>
     </record>

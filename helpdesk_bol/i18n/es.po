@@ -72,7 +72,7 @@ msgid ""
 "                                                        Dear <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
 "                                                        <p> This automatic message is to notify that the ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
 "                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
-"                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
 "                                                        <br>\n"
 "                                                        <p>Greetings.</p>\n"
 "                                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
@@ -136,7 +136,7 @@ msgstr ""
 "                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                                <tr><td valign=\"middle\">\n"
 "                                    <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
-"                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.name or ''\"></span>\n"
+"                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.partner_id.name or ''\"></span>\n"
 "                                </td><td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
 "                                    <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
 "                                </td></tr>\n"
@@ -155,7 +155,7 @@ msgstr ""
 "                                        Estimado/a <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
 "                                        <p> Este mensaje automático es para notificar que su ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
 "                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido recibido y asignado a  <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
-"                                        <p> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"object.create_date.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"                                        <p> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
 "                                        <br>\n"
 "                                        <p>Saludos.</p>\n"
 "                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
@@ -661,7 +661,7 @@ msgstr ""
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
 msgid "Your requirement has been registered successfully."
-msgstr ""
+msgstr "Su requerimiento se ha registrado exitosamente"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.close_ticket_form
@@ -671,7 +671,7 @@ msgstr "Su ticket \""
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
 msgid "Your ticket number is"
-msgstr ""
+msgstr "Su número de ticket es"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_area

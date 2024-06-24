@@ -20,5 +20,5 @@ class HelpdeskTicketSubCategory(models.Model):
         string="Sequence",
         default=10
     )
-    max_attention_time = fields.Integer(string="Max attention time (hours)", tracking=True)
+    max_attention_time = fields.Float(string="Max attention time (hours)", tracking=True)
 
