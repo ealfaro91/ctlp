@@ -80,5 +80,5 @@ class HelpdeskTicket(models.Model):
             else:
                 date = fields.Datetime.to_string(ticket.closed_date)
             ticket.elapsed_attention_time = ((datetime.strptime(date, format) - datetime.strptime(fields.Datetime.to_string(ticket.create_date), format)).seconds / 3600)
-            if ticket.elapsed_attention_time > ticket.max_attention_time:
+            if ticket.elapsed_attention_time > ticket.max_attention_time > 0:
                     ticket.attention_time_state = "delayed"
