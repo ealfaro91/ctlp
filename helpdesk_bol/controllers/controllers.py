@@ -80,7 +80,7 @@ class ServiceDesk(http.Controller):
         """
         ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
         if int(action) == 1:
-            ticket.write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
+            ticket.sudo().write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
             return request.render("helpdesk_bol.close_ticket_form",
                                   {'name': ticket.name, 'number': ticket.number})
         elif int(action) == 2:

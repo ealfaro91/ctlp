@@ -16,6 +16,7 @@
         'data/mail_template_data.xml',
         'data/helpdesk_ticket_data.xml',
         'data/helpdesk.ticket.type.csv',
+        'data/ir_cron.xml',
         'security/ir.model.access.csv',
         'views/helpdesk_ticket_area_views.xml',
         'views/helpdesk_ticket_category_views.xml',
@@ -24,6 +25,7 @@
         'views/helpdesk_ticket_subcategory_views.xml',
         'views/helpdesk_ticket_views.xml',
         'views/service_desk_page_template.xml',
+        'views/res_config_settings_views.xml',
         'views/res_users_views.xml',
         #'views/service_desk_result_page_template.xml',
 

@@ -68,6 +68,19 @@
         </field>
     </record>
 
+    <!-- SEARCH VIEW INHERIT -->
+
+    <record id="helpdesk_ticket_view_search_inh" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.search.inh</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.helpdesk_ticket_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="attention_time_state"/>
+            </xpath>
+        </field>
+    </record>
+
 
     <!-- KANBAN VIEW INHERIT -->
 
