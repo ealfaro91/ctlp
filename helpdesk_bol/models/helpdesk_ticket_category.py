@@ -13,7 +13,9 @@ class HelpdeskTicketCategory(models.Model):
         tracking=True
     )
     user_id = fields.Many2one(
-        "res.users", string="Responsible", required=True,
+        "res.users",
+        string="Responsible",
+        required=True,
         tracking=True,
     )
 

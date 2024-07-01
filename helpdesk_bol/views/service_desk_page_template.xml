@@ -68,7 +68,15 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" style="border:none;">Submit</button>
+                            <form method="POST" t-attf-action="/my_tickets">
+                                <button
+                                    name="view"
+                                    type="action"
+                                    class="btn btn-primary"
+                                    style="display: inline-block; background-color: #a84551; color: #fff; border-radius: 5px; border:none;float:right">My tickets</button>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            </form>
                         </div>
                     </div>
                 </form>
@@ -112,7 +120,7 @@
                     </div>
                     <div class="col-12">
                         <h1 class="text-center">
-                            <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
+                            <i class="fa fa-check-circle fa-1x text-success" role="img" aria-label="Success" title="Success"/>
                         </h1>
                     </div>
                     <br/>
@@ -127,28 +135,45 @@
         </t>
     </template>
 
-    <template id="ticket_thank_you" name="Ficha Thank You">
+    <template id="ticket_thank_you" name="Su requerimiento ha sido registrado">
         <t t-call="website.layout">
             <section>
                 <div class="container mt-5">
                     <div class="row"/>
-                    <div class="row">
+                    <div class="row"/>
+                    <div class="col-12">
+                        <h1 class="text-center">
+                            <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
+                        </h1>
                     </div>
-                      <div class="col-12">
-                            <h1 class="text-center">
-                                <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
-                            </h1>
-                        </div>
-                        <br/>
-                        <div class="col-12">
-                            <h1 class="text-center">
-                                Your requirement has been registered successfully.
-                              <span invisible="hide_number == True">  Your ticket number is <span t-esc="number"/> </span>
-                            </h1>
-                        </div>
-                        <div class="col-12">
-                            <h1 class="text-center">¡Our team will work on it!</h1>
-                        </div>
+                    <br/>
+                    <div class="col-12">
+                        <h1 class="text-center">
+                            Your requirement has been registered successfully.
+                            <span invisible="hide_number == True">  Your ticket number is <span t-esc="number"/> </span>
+                        </h1>
+                    </div>
+                    <div class="col-12">
+                        <h1 class="text-center">¡Our team will work on it!</h1>
+                    </div>
+                    <div class="container w-50 text-center" style="margin-top:50px">
+                        <form method="POST" t-attf-action="/help_desk">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <button
+                                name="create_new_ticket"
+                                type="action"
+                                class="btn btn-primary"
+                                style="background-color: #28a745; color: #fff; border-radius: 5px;border:none; float:left">New Ticket</button>
+                        </form>
+                        <form method="POST" t-attf-action="/my_tickets">
+                            <button
+                                name="view"
+                                type="action"
+                                class="btn btn-primary"
+                                style="background-color: #a84551; color: #fff; border-radius: 5px; border:none; float:right">My tickets</button>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        </form>
+                    </div>
                 </div>
             </section>
         </t>

@@ -31,7 +31,7 @@ class HelpdeskTicket(models.Model):
         compute="_compute_attention_time_state",
     )
     attention_time_state = fields.Selection([
-        ("on_time", "On time"), ("delayed", "Delayed"), ("on_hold", "On hold")],
+        ("on_time", "On time"), ("delayed", "Delayed")],
         default="on_time", string="Attention time state",
         compute="_compute_attention_time_state",
         search="_search_attention_time_state"
@@ -40,7 +40,9 @@ class HelpdeskTicket(models.Model):
     reopen_reason = fields.Text(string="Reopen reason", tracking=True)
     area = fields.Char(string="Area", tracking=True)
     area_id = fields.Many2one(
-        "helpdesk.ticket.area", string="Area", tracking=True,
+        "helpdesk.ticket.area",
+        string="Area",
+        tracking=True,
         default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
     user_id = fields.Many2one("res.users", tracking=True)
@@ -49,17 +51,14 @@ class HelpdeskTicket(models.Model):
     )
 
     def _search_attention_time_state(self, operator, value):
-        waiting = [self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id,
-                   self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_onpause').id]
-        waiting_ids = self.search([('stage_id.id', 'in', waiting)])
-        other_record_ids = self.search([('stage_id.id', 'not in', waiting)])
+        # FIX
+        other_record_ids = self.search([])
         delayed_ids = other_record_ids.filtered(lambda x: 0 < x.max_attention_time < (
                 (datetime.strptime(fields.Datetime.to_string(x.closed_date or TODAY), DEFAULT_SERVER_DATETIME_FORMAT)
                  - datetime.strptime(fields.Datetime.to_string(x.create_date), DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
-            ))
-        if value == "on_hold":
-            return [('id', 'in', waiting_ids.ids)]
-        elif value == "delayed":
+        ))
+
+        if value == "delayed":
             return [('id', 'in', delayed_ids.ids)]
         elif value == "on_time":
             return [('id', 'in', (other_record_ids - delayed_ids).ids)]
@@ -77,6 +76,7 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             if ticket.category_id.user_id:
                 ticket.user_id = ticket.category_id.user_id.id
+
     @api.model
     def create(self, vals):
         res = super(HelpdeskTicket, self).create(vals)
@@ -98,7 +98,6 @@ class HelpdeskTicket(models.Model):
             waiting = [self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id,
                        self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_onpause').id]
             if ticket.stage_id.id in waiting:
-                ticket.attention_time_state = "on_hold"
                 continue
             else:
                 if ticket.stage_id.id != self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id:

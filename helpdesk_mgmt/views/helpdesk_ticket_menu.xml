@@ -3,7 +3,7 @@
 
     <!-- Actions -->
     <record id="helpdesk_ticket_dashboard_action" model="ir.actions.act_window">
-        <field name="name">Dashboard</field>
+        <field name="name">Work team</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">helpdesk.ticket.team</field>
         <field name="view_mode">kanban</field>
@@ -60,7 +60,7 @@
         groups="group_helpdesk_user_own"/>
     <menuitem
         id="helpdesk_ticket_dashboard_menu"
-        name="Dashboard"
+        name="Work team"
         parent="helpdesk_ticket_main_menu"
         action="helpdesk_ticket_dashboard_action"
         sequence="1"/>
@@ -124,5 +124,5 @@
         parent="helpdesk_ticket_config_main_menu"
         action="helpdesk_ticket_tag_action"
         sequence="45"/>
-        
+
 </odoo>

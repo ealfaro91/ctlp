@@ -34,7 +34,7 @@ class ServiceDesk(http.Controller):
         })
         return request.render("helpdesk_bol.ticket_form", data)
 
-    @http.route("/help_desk_close", type='http', auth="public",  methods=['POST'],
+    @http.route("/help_desk_close", type='http', auth="user",  methods=['POST'],
                 website=True)
     def help_desk_close(self, **kw):
         user_id = request.env['helpdesk.ticket.category'].sudo().search([
@@ -64,7 +64,7 @@ class ServiceDesk(http.Controller):
                 })
         return request.render("helpdesk_bol.ticket_thank_you", {'number': helpdesk_ticket.number})
 
-    @http.route("/help_desk_reopen", type='http', auth="public",  methods=['POST'], website=True)
+    @http.route("/help_desk_reopen", type='http', auth="user",  methods=['POST'], website=True)
     def help_desk_reopen(self, **kw):
         request.env["helpdesk.ticket"].sudo().search(
                 [("id", "=", kw.get('id'))]).write(
@@ -72,7 +72,7 @@ class ServiceDesk(http.Controller):
         return request.render("helpdesk_bol.ticket_thank_you", {'hide_number': True})
 
     @http.route(
-        "/change_stage/<int:ticket_id>/<action>", auth="public", website=True
+        "/change_stage/<int:ticket_id>/<action>", auth="user", website=True
     )
     def change_stage(self, ticket_id=None, action=None):
         """ permite al cliente que recibe el correo cambiar el estado de ticker

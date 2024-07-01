@@ -7,16 +7,16 @@
             <field name="description">Helps you handle your helpdesk security.</field>
             <field name="sequence">9</field>
         </record>
-   
+
         <!-- Sequence -->
         <record id="helpdesk_ticket_sequence" model="ir.sequence">
             <field name="name">Helpdesk Ticket Sequence</field>
             <field name="code">helpdesk.ticket.sequence</field>
-            <field name="prefix">HT</field>
+            <field name="prefix">SD</field>
             <field name="padding">5</field>
             <field name="company_id" />
         </record>
-     
+
         <!-- Channels -->
         <record id="helpdesk_ticket_channel_web" model="helpdesk.ticket.channel">
             <field name="name">Web</field>
@@ -55,6 +55,6 @@
             <field name="parent_id" ref="hlp_tck_created" />
             <field name="relation_field">team_id</field>
         </record>
-        
+
     </data>
 </odoo>

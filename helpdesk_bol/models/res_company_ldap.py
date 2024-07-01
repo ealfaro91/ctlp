@@ -4,6 +4,7 @@
 import logging
 
 from odoo import _, api, fields, models, tools
+from odoo.exceptions import ValidationError
 
 
 _logger = logging.getLogger(__name__)
@@ -29,4 +30,8 @@ class CompanyLDAP(models.Model):
             'area': tools.ustr(ldap_entry[1]['department'][0]),
             'email': tools.ustr(ldap_entry[1]['mail'][0]),
         }
+        if not ldap_entry[1]['department']:
+            raise ValidationError("The department is not configured for the user. Please adjust it")
+        if not ldap_entry[1]['mail']:
+            raise ValidationError("The mail is not configured for the user. Please adjust it")
         return ldap_dict

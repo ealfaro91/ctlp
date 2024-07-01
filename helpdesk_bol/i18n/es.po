@@ -273,6 +273,11 @@ msgid "Attention time state"
 msgstr "Estado de atención"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__time_to_close_ticket
+msgid "Automatic ticket closure time (hours)"
+msgstr "Tiempo de cierre automático(horas)"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__category_ids
 msgid "Categories"
 msgstr "Categorías"
@@ -453,6 +458,17 @@ msgid "Next Activity Deadline"
 msgstr ""
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
+msgid "My tickets"
+msgstr "Mis tickets"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_thank_you
+msgid "New Ticket"
+msgstr "Nueva solicitud"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__activity_summary
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__activity_summary
 msgid "Next Activity Summary"
@@ -619,6 +635,11 @@ msgstr "Creación de Ticket : {{ (object.name) }}"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph3
 msgid "Tickets"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_config_settings_view_form
+msgid "Time for closure"
+msgstr "Tiempo para cierre"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__type_id

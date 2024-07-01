@@ -7,7 +7,6 @@ class HelpdeskTicketSubCategory(models.Model):
     _order = "sequence,name"
     _inherit = ["mail.thread", "mail.activity.mixin",]
 
-
     active = fields.Boolean(default=True, tracking=True)
     name = fields.Char(string="Sub-Category", required=True, tracking=True)
     category_id = fields.Many2one(

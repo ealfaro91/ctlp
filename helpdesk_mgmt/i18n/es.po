@@ -646,8 +646,8 @@ msgstr ""
 
 #. module: helpdesk_mgmt
 #: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_awaiting
-msgid "Awaiting (Pending answer)"
-msgstr "Pendiente de respuesta"
+msgid "Closed"
+msgstr "Cerrado"
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields.selection,name:helpdesk_mgmt.selection__helpdesk_ticket__kanban_state__blocked
@@ -708,11 +708,15 @@ msgid "Close From Portal"
 msgstr "Cerrar desde el portal"
 
 #. module: helpdesk_mgmt
-#: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_done
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__closed
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_stage__closed
 msgid "Closed"
 msgstr "Cerrado"
+
+#. module: helpdesk_mgmt
+#: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_done
+msgid "Closed for compliance"
+msgstr "Conformidad"
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__closed_date
@@ -824,8 +828,8 @@ msgstr "URL Portal Cliente"
 #. module: helpdesk_mgmt
 #: model:ir.actions.act_window,name:helpdesk_mgmt.helpdesk_ticket_dashboard_action
 #: model:ir.ui.menu,name:helpdesk_mgmt.helpdesk_ticket_dashboard_menu
-msgid "Dashboard"
-msgstr "Tablero"
+msgid "Work team"
+msgstr "Equipo de trabajo"
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields.selection,name:helpdesk_mgmt.selection__helpdesk_ticket__kanban_state__normal
@@ -1424,7 +1428,7 @@ msgstr "En pausa"
 #: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_in_progress
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.helpdesk_ticket_view_search
 msgid "Open"
-msgstr "En progreso"
+msgstr "Abierto"
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields,help:helpdesk_mgmt.field_helpdesk_ticket_team__alias_force_thread_id

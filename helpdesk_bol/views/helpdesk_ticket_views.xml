@@ -61,7 +61,6 @@
             </field>
             <tree position="attributes">
                 <attribute name="decoration-info">attention_time_state == 'on_time' and not closed</attribute>
-                <attribute name="decoration-warning">attention_time_state == 'on_hold' and not closed</attribute>
                 <attribute name="decoration-danger">attention_time_state == 'delayed' and not closed</attribute>
                 <attribute name="decoration-muted">closed == True</attribute>
             </tree>
@@ -90,16 +89,15 @@
        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_kanban"/>
        <field name="arch" type="xml">
             <xpath expr="//div[hasclass('oe_kanban_bottom_left')]/field[@name='priority']" position="replace">
-                <field name="attention_time_state" widget="label_selection" options="{'classes': {'on_hold': 'info', 'delayed': 'danger', 'on_time': 'success'}}"/>
+                <field name="attention_time_state" widget="label_selection" options="{'classes': {'delayed': 'danger', 'on_time': 'success'}}"/>
             </xpath>
         </field>
-    </record>
+   </record>
 
     <!-- GRAPH VIEWS-->
 
         <!-- USER-->
-
-     <record id="helpdesk_ticket_view_graph1" model="ir.ui.view">
+    <record id="helpdesk_ticket_view_graph1" model="ir.ui.view">
         <field name="name">helpdesk.ticket.view.graph1</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
