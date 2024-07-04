@@ -1,0 +1,31 @@
+<odoo>
+
+    <!-- FORM VIEW INHERIT -->
+
+    <record id="res_partner_form_view" model="ir.ui.view">
+        <field name="name">res.partner.area.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="area"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- FORM VIEW INHERIT -->
+
+    <record id="res_partner_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.area.tree.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="area"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

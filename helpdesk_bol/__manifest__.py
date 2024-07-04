@@ -26,8 +26,8 @@
         'views/helpdesk_ticket_views.xml',
         'views/service_desk_page_template.xml',
         'views/res_config_settings_views.xml',
+        'views/res_partner_views.xml',
         'views/res_users_views.xml',
-        #'views/service_desk_result_page_template.xml',
 
     ],
 

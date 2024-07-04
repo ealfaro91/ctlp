@@ -54,7 +54,8 @@ class HelpdeskTicket(models.Model):
     def _onchange_partner_id(self):
         if self.partner_id:
             self.partner_name = self.partner_id.name
-            self.partner_email = self.partner_id.area
+            self.partner_email = self.partner_id.email
+            self.area = self.partner_id.area
 
     def _search_attention_time_state(self, operator, value):
         other_record_ids = self.search([])

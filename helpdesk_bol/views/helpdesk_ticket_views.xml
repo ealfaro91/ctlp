@@ -40,7 +40,7 @@
             </field>
             <field name="partner_email" position="after">
                 <field name="area_id" invisible="1"/>
-                <field name="area" readonly="1" force_save="1"/>
+                <field name="area" readonly="1" force_save="1qq"/>
             </field>
             <field name="user_id" position="after">
                 <field name="attention_time_state" widget="badge" decoration-danger="attention_time_state=='delayed'" decoration-success="attention_time_state=='on_time'" readonly="1"/>
