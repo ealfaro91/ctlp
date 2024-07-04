@@ -27,11 +27,11 @@ class CompanyLDAP(models.Model):
             'name': tools.ustr(ldap_entry[1]['cn'][0]),
             'login': login,
             'company_id': conf['company'][0],
-            'area': tools.ustr(ldap_entry[1]['department'][0]),
-            'email': tools.ustr(ldap_entry[1]['mail'][0]),
+
         }
-        if not ldap_entry[1]['department']:
-            raise ValidationError("The department is not configured for the user. Please adjust it")
-        if not ldap_entry[1]['mail']:
-            raise ValidationError("The mail is not configured for the user. Please adjust it")
+        if not ldap_entry[1]['department'] or not ldap_entry[1]['mail']:
+            raise ValidationError("The department or mail is not configured for the user. Please adjust it")
+        else:
+            ldap_dict['area'] = tools.ustr(ldap_entry[1]['department'][0])
+            ldap_dict['email'] = tools.ustr(ldap_entry[1]['mail'][0])
         return ldap_dict

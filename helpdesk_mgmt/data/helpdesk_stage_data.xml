@@ -25,16 +25,16 @@
             <field name="sequence">3</field>
             <field name="name">Closed</field>
             <field name="unattended">False</field>
-            <field name="closed">False</field>
+            <field name="closed">True</field>
             <field name="on_hold">True</field>
-            <field name="mail_template_id" ref="helpdesk_mgmt.closed_ticket_template" />
+            <field name="mail_template_id" ref="helpdesk_mgmt.closed_ticket_template"/>
             <field name="company_id" />
         </record>
         <record id="helpdesk_ticket_stage_done" model="helpdesk.ticket.stage">
             <field name="sequence">4</field>
             <field name="name">Closed for compliance</field>
             <field name="unattended">False</field>
-            <field name="closed">True</field>
+            <field name="closed">False</field>
             <field name="close_from_portal">True</field>
             <field name="on_hold">False</field>
             <field name="fold">True</field>

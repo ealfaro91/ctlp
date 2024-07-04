@@ -50,8 +50,13 @@ class HelpdeskTicket(models.Model):
         compute="_get_create_date_userutc"
     )
 
+    @api.onchange("partner_id")
+    def _onchange_partner_id(self):
+        if self.partner_id:
+            self.partner_name = self.partner_id.name
+            self.partner_email = self.partner_id.area
+
     def _search_attention_time_state(self, operator, value):
-        # FIX
         other_record_ids = self.search([])
         delayed_ids = other_record_ids.filtered(lambda x: 0 < x.max_attention_time < (
                 (datetime.strptime(fields.Datetime.to_string(x.closed_date or TODAY), DEFAULT_SERVER_DATETIME_FORMAT)
@@ -68,7 +73,8 @@ class HelpdeskTicket(models.Model):
         local = pytz.timezone(user_tz)
         for ticket in self:
             ticket.create_date_utc = datetime.strftime(pytz.utc.localize(
-                datetime.strptime(fields.Datetime.to_string(ticket.create_date), DEFAULT_SERVER_DATETIME_FORMAT)
+                datetime.strptime(fields.Datetime.to_string(ticket.create_date),
+                                  DEFAULT_SERVER_DATETIME_FORMAT)
             ).astimezone(local), "%Y-%m-%d %H:%M:%S")
 
     @api.onchange("category_id")
@@ -96,18 +102,16 @@ class HelpdeskTicket(models.Model):
             ticket.attention_time_state = "on_time"
             ticket.elapsed_attention_time = ticket.elapsed_attention_time or 0
             waiting = [self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id,
-                       self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_onpause').id]
+                       self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_onpause').id,
+                       self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id]
             if ticket.stage_id.id in waiting:
                 continue
             else:
-                if ticket.stage_id.id != self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id:
-                    date = fields.Datetime.to_string(TODAY)
-                else:
-                    date = fields.Datetime.to_string(ticket.closed_date)
-            ticket.elapsed_attention_time = (
-                (datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
-                 - datetime.strptime(fields.Datetime.to_string(ticket.create_date), DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
-            )
+                date = fields.Datetime.to_string(TODAY)
+                ticket.elapsed_attention_time = (
+                    (datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
+                     - datetime.strptime(fields.Datetime.to_string(ticket.create_date), DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
+                )
             if ticket.elapsed_attention_time > ticket.max_attention_time > 0:
                 ticket.attention_time_state = "delayed"
 
@@ -118,12 +122,14 @@ class HelpdeskTicket(models.Model):
         answer in the time period settled in configurations
         """
         tickets = self.search([])
-        time_to_closure = float(self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.time_to_close_ticket'))
+        time_to_closure = float(
+            self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.time_to_close_ticket'))
         for ticket in tickets:
             if ticket.stage_id.id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id:
                 time_from_update = (
                     (datetime.strptime(TODAY, DEFAULT_SERVER_DATETIME_FORMAT)
-                     - datetime.strptime(fields.Datetime.to_string(ticket.last_stage_update), DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
+                     - datetime.strptime(fields.Datetime.to_string(ticket.last_stage_update),
+                                         DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
                 )
                 if time_from_update >= time_to_closure:
                     ticket.write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})

@@ -69,14 +69,6 @@
                     <div class="row">
                         <div class="col-md-6 text-center">
                             <button type="submit" class="btn btn-primary" style="border:none;">Submit</button>
-                            <form method="POST" t-attf-action="/my_tickets">
-                                <button
-                                    name="view"
-                                    type="action"
-                                    class="btn btn-primary"
-                                    style="display: inline-block; background-color: #a84551; color: #fff; border-radius: 5px; border:none;float:right">My tickets</button>
-                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            </form>
                         </div>
                     </div>
                 </form>
@@ -129,7 +121,6 @@
                             Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
                         </h1>
                     </div>
-
                 </div>
             </section>
         </t>
@@ -155,24 +146,6 @@
                     </div>
                     <div class="col-12">
                         <h1 class="text-center">¡Our team will work on it!</h1>
-                    </div>
-                    <div class="container w-50 text-center" style="margin-top:50px">
-                        <form method="POST" t-attf-action="/help_desk">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            <button
-                                name="create_new_ticket"
-                                type="action"
-                                class="btn btn-primary"
-                                style="background-color: #28a745; color: #fff; border-radius: 5px;border:none; float:left">New Ticket</button>
-                        </form>
-                        <form method="POST" t-attf-action="/my_tickets">
-                            <button
-                                name="view"
-                                type="action"
-                                class="btn btn-primary"
-                                style="background-color: #a84551; color: #fff; border-radius: 5px; border:none; float:right">My tickets</button>
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        </form>
                     </div>
                 </div>
             </section>

@@ -20,14 +20,10 @@
                 <t t-set="url" t-value="'/my_tickets'"/>
                 <t t-set="placeholder_count" t-value="'ticket_count'"/>
             </t>
-            <form method="POST" t-attf-action="/help_desk">
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                <button
-                    name="create_new_ticket"
-                    type="action"
-                    class="btn btn-primary"
-                    style="float: right; margin-right: 0px; margin-bottom: 5px;">New Ticket</button>
-            </form>
+<!--            <form method="POST" t-attf-action="/help_desk">-->
+<!--                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+<!--                <button name="create_new_ticket" type="action" class="btn btn-primary" style="float: right; margin-right: 0px; margin-bottom: 5px;">New Ticket</button>-->
+<!--            </form>-->
         </xpath>
     </template>
 
@@ -43,14 +39,6 @@
                 </div>
             </t>
             <t t-call="helpdesk_mgmt.portal_ticket_list"/>
-            <form method="POST" t-attf-action="/help_desk">
-                <button
-                    name="create_new_ticket"
-                    type="action"
-                    class="btn btn-primary"
-                    style="text-align: center; margin-right: 0px; margin-bottom: 5px;">New Ticket</button>
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-            </form>
         </t>
     </template>
 
@@ -79,32 +67,18 @@
                     <tbody>
                         <t t-foreach="tickets" t-as="ticket">
                             <tr>
-                                <td class="text-left">
-                                    <span t-field="ticket.partner_id"/>
-                                </td>
-                                <td class="text-left">
-                                    <span t-esc="ticket.number"/>
-                                </td>
+                                <td class="text-left"><span t-field="ticket.partner_id"/></td>
+                                <td class="text-left"><span t-esc="ticket.number"/></td>
                                 <td>
                                     <a t-attf-href="/my_ticket/#{ticket.id}?{{ keep_query() }}">
                                         <span t-field="ticket.name"/>
                                     </a>
                                 </td>
-                                <td t-if="groupby != 'category'">
-                                    <span t-esc="ticket.category_id.name"/>
-                                </td>
-                                <td t-if="groupby != 'stage'">
-                                    <span t-esc="ticket.stage_id.name"/>
-                                </td>
-                                <td>
-                                    <span t-field="ticket.create_date"/>
-                                </td>
-                                <td>
-                                    <span t-field="ticket.last_stage_update"/>
-                                </td>
-                                <td>
-                                    <span t-field="ticket.closed_date"/>
-                                </td>
+                                <td t-if="groupby != 'category'"><span t-esc="ticket.category_id.name"/></td>
+                                <td t-if="groupby != 'stage'"><span t-esc="ticket.stage_id.name"/></td>
+                                <td><span t-field="ticket.create_date"/></td>
+                                <td><span t-field="ticket.last_stage_update"/></td>
+                                <td><span t-field="ticket.closed_date"/></td>
                             </tr>
                         </t>
                     </tbody>
@@ -156,23 +130,17 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row mt-3" t-if="ticket.user_id or ticket.partner_id">
                         <div class="col-12 col-md-6 pb-2" t-if="ticket.user_id">
                             <strong>Assignee</strong>
                             <div class="row">
                                 <div class="col d-flex align-items-center flex-grow-0 pr-3">
-                                    <img
-                                        class="rounded-circle mt-1 o_portal_contact_img"
-                                        t-att-src="image_data_uri(ticket.user_id.avatar_1024)"
-                                        alt="Contact"/>
+                                    <img class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(ticket.user_id.avatar_1024)" alt="Contact"/>
                                 </div>
                                 <div class="col pl-md-0">
                                     <div t-esc="ticket.user_id" t-options='{"widget": "contact", "fields": ["name"]}'/>
                                     <a t-attf-href="mailto:{{ticket.user_id.email}}" t-if="ticket.user_id.email">
-                                        <div
-                                            t-esc="ticket.user_id"
-                                            t-options='{"widget": "contact", "fields": ["email"]}'/>
+                                        <div t-esc="ticket.user_id" t-options='{"widget": "contact", "fields": ["email"]}'/>
                                     </a>
                                     <a t-attf-href="tel:{{ticket.user_id.phone}}" t-if="ticket.user_id.phone">
                                         <div t-esc="ticket.user_id" t-options='{"widget": "contact", "fields": ["phone"]}'/>
@@ -199,7 +167,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row" t-if="ticket.description or ticket.attachment_ids">
                         <div t-if="ticket.description" t-attf-class="col-12 col-lg-7 mb-4 mb-md-0 {{'col-lg-7' if ticket.attachment_ids else 'col-lg-12'}}">
                             <hr class="mb-1"/>
@@ -235,7 +202,6 @@
                     </div>
                 </t>
             </t>
-
             <div class="mt32">
                 <h4><strong>Message and communication history</strong></h4>
                 <t t-call="portal.message_thread">
@@ -313,4 +279,5 @@
             </form>
         </t>
     </template>
+
 </odoo>

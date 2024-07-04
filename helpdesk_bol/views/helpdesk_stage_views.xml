@@ -13,16 +13,11 @@
                 <field name="is_solved"/>
                 <field name="is_process"/>
             </field>
-
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field
-                        name="message_ids"
-                        widget="mail_thread"
-                        options="{'post_refresh': 'recipients', 'open_attachments': True}"
-                    />
-                </div>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+            </div>
         </field>
     </record>
 
