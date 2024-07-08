@@ -646,8 +646,8 @@ msgstr ""
 
 #. module: helpdesk_mgmt
 #: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_awaiting
-msgid "Closed"
-msgstr "Cerrado"
+msgid "Closed for compliance"
+msgstr "Conformidad"
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields.selection,name:helpdesk_mgmt.selection__helpdesk_ticket__kanban_state__blocked
@@ -710,13 +710,9 @@ msgstr "Cerrar desde el portal"
 #. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__closed
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_stage__closed
+#: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_done
 msgid "Closed"
 msgstr "Cerrado"
-
-#. module: helpdesk_mgmt
-#: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_done
-msgid "Closed for compliance"
-msgstr "Conformidad"
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__closed_date

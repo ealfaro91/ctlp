@@ -23,7 +23,7 @@
         </record>
         <record id="helpdesk_ticket_stage_awaiting" model="helpdesk.ticket.stage">
             <field name="sequence">3</field>
-            <field name="name">Closed</field>
+            <field name="name">Closed for compliance</field>
             <field name="unattended">False</field>
             <field name="closed">True</field>
             <field name="on_hold">True</field>
@@ -32,9 +32,9 @@
         </record>
         <record id="helpdesk_ticket_stage_done" model="helpdesk.ticket.stage">
             <field name="sequence">4</field>
-            <field name="name">Closed for compliance</field>
+            <field name="name">Closed</field>
             <field name="unattended">False</field>
-            <field name="closed">False</field>
+            <field name="closed">True</field>
             <field name="close_from_portal">True</field>
             <field name="on_hold">False</field>
             <field name="fold">True</field>
