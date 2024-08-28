@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pytz
+import logging
 
 from datetime import datetime
 
@@ -8,6 +9,7 @@ from odoo import api, fields, models
 from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
 
 TODAY = fields.Datetime.now()
+_logger = logging.getLogger(__name__)
 
 
 class HelpdeskTicket(models.Model):
@@ -122,17 +124,21 @@ class HelpdeskTicket(models.Model):
         Changes stage to closed if customer didn't
         answer in the time period settled in configurations
         """
-        tickets = self.search([])
+        tickets = self.search([
+            ('stage_id', '=',
+             self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id)])
         time_to_closure = float(
             self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.time_to_close_ticket'))
         for ticket in tickets:
-            if ticket.stage_id.id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id:
-                time_from_update = (
-                    (datetime.strptime(TODAY, DEFAULT_SERVER_DATETIME_FORMAT)
-                     - datetime.strptime(fields.Datetime.to_string(ticket.last_stage_update),
-                                         DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
-                )
-                if time_from_update >= time_to_closure:
-                    ticket.write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
+            time_from_update = (
+                (datetime.strptime(fields.Datetime.to_string(TODAY), DEFAULT_SERVER_DATETIME_FORMAT)
+                 - datetime.strptime(fields.Datetime.to_string(ticket.last_stage_update),
+                                     DEFAULT_SERVER_DATETIME_FORMAT)).total_seconds() / 3600
+            )
+            _logger.info(ticket.number)
+            _logger.info(time_from_update)
+            if time_from_update >= time_to_closure:
+                ticket.sudo().write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
+                _logger.info(ticket.stage_id.name)
 
 

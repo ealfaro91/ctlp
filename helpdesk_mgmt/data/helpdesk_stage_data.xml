@@ -39,7 +39,7 @@
             <field name="on_hold">False</field>
             <field name="fold">True</field>
             <field name="mail_template_id" ref="helpdesk_mgmt.changed_stage_template"/>
-            <field name="company_id" />
+            <field name="company_id"/>
         </record>
 
     </data>

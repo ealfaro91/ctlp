@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Help Desk TI",
+    'name': "Service Desk TI",
     'summary': """ Extensión de helpdesk para el control de tickets de TI """,
     'author': "",
     'website': "http://www.ctlp.bo",

@@ -43,8 +43,8 @@ class HelpdeskTicket(models.Model):
         domain="[('id', 'in', user_ids)]",
     )
     user_ids = fields.Many2many(
-        comodel_name="res.users", 
-        related="team_id.user_ids", 
+        comodel_name="res.users",
+        related="team_id.user_ids",
         string="Users",
         tracking=True
     )
@@ -170,7 +170,7 @@ class HelpdeskTicket(models.Model):
             if vals.get("stage_id"):
                 stage = self.env["helpdesk.ticket.stage"].browse([vals["stage_id"]])
                 vals["last_stage_update"] = now
-                if stage.closed:
+                if stage.closed and not stage.on_hold:
                     vals["closed_date"] = now
             if vals.get("user_id"):
                 vals["assigned_date"] = now

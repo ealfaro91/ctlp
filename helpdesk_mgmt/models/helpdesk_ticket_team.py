@@ -21,7 +21,7 @@ class HelpdeskTeam(models.Model):
     active = fields.Boolean(default=True, tracking=True)
     category_ids = fields.Many2many(
         comodel_name="helpdesk.ticket.category",
-        string="Category", 
+        string="Category",
         tracking=True
     )
     company_id = fields.Many2one(
@@ -90,25 +90,8 @@ class HelpdeskTeam(models.Model):
 
     @api.depends("ticket_ids", "ticket_ids.stage_id")
     def _compute_todo_tickets(self):
-        ticket_model = self.env["helpdesk.ticket"]
-        fetch_data = ticket_model.read_group(
-            [("team_id", "in", self.ids), ("closed", "=", False)],
-            ["team_id", "user_id", "unattended", "priority"],
-            ["team_id", "user_id", "unattended", "priority"],
-            lazy=False,
-        )
-        result = [
-            [
-                data["team_id"][0],
-                data["user_id"] and data["user_id"][0],
-                data["unattended"],
-                data["priority"],
-                data["__count"],
-            ]
-            for data in fetch_data
-        ]
         for team in self:
-            team.todo_ticket_count = sum(r[4] for r in result if r[0] == team.id)
+            team.todo_ticket_count = self.env["helpdesk.ticket"].search_count([('stage_id.closed', '=', False)])
             team.todo_ticket_count_unassigned = self.env["helpdesk.ticket"].search_count([('user_id', '=', False)])
             team.todo_ticket_count_unattended = self.env["helpdesk.ticket"].search_count([('priority', '=', '2')])
             team.todo_ticket_count_high_priority = self.env["helpdesk.ticket"].search_count([('priority', '=', '2')])

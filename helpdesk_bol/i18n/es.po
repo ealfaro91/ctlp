@@ -354,8 +354,8 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model:mail.template,name:helpdesk_bol.ticket_creation
-msgid "Help Desk Ticket Creation"
-msgstr "Creación de Ticket de Help Desk"
+msgid "Service Desk Ticket Creation"
+msgstr "Creación de Ticket de Service Desk"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket
