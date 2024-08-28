@@ -118,7 +118,6 @@ class HelpdeskTicket(models.Model):
             if ticket.elapsed_attention_time > ticket.max_attention_time > 0:
                 ticket.attention_time_state = "delayed"
 
-    @api.model
     def _automatic_closure(self):
         """
         Changes stage to closed if customer didn't
@@ -135,10 +134,7 @@ class HelpdeskTicket(models.Model):
                  - datetime.strptime(fields.Datetime.to_string(ticket.last_stage_update),
                                      DEFAULT_SERVER_DATETIME_FORMAT)).total_seconds() / 3600
             )
-            _logger.info(ticket.number)
-            _logger.info(time_from_update)
             if time_from_update >= time_to_closure:
                 ticket.sudo().write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
-                _logger.info(ticket.stage_id.name)
 
 
