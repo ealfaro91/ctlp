@@ -2,26 +2,28 @@
 
     <!-- FORM VIEW -->
 
-   <record id="iew_helpdesk_team_form_inh" model="ir.ui.view">
+    <record id="iew_helpdesk_team_form_inh" model="ir.ui.view">
         <field name="name">view.helpdesk_team.form.inh</field>
         <field name="model">helpdesk.ticket.team</field>
         <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
         <field name="arch" type="xml">
            <field name="show_in_portal" position="after">
-                <field name="area_type"/>
-            </field>
+               <field name="area_id"/>
+               <field name="color" widget="color_picker" readonly="1"/>
+           </field>
         </field>
     </record>
 
     <!-- TREE VIEW -->
 
     <record id="view_helpdesk_team_tree_inh" model="ir.ui.view">
-        <field name="name">view.helpdesk_team.form.inh</field>
+        <field name="name">view.helpdesk_team.tree.inh</field>
         <field name="model">helpdesk.ticket.team</field>
         <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_tree"/>
         <field name="arch" type="xml">
-           <field name="category_ids" position="after">
-                <field name="area_type"/>
+           <field name="name" position="after">
+               <field name="area_id"/>
+               <field name="color" widget="color_picker"/>
             </field>
         </field>
     </record>

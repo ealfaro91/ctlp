@@ -22,8 +22,6 @@
         <field name="model">helpdesk.ticket.category</field>
         <field name="arch" type="xml">
             <form string="Stages">
-                <header>
-                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box"/>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active == True"/>
@@ -34,7 +32,7 @@
                         </h1>
                     </div>
                     <group name="main">
-                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="company_id" groups="base.group_multi_company" invisible="1"/>
                         <field name="active" invisible="1"/>
                     </group>
                 </sheet>

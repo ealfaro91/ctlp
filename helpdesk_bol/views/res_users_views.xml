@@ -12,6 +12,11 @@
                     <field name="area"/>
                 </group>
             </xpath>
+            <xpath expr="//notebook/page[@name='access_rights']/group" position="after">
+                <group string="Areas allowed">
+                    <field name="area_ids" widget="many2many_tags" options="{'no_create': True, 'color_field': 'color'}"/>
+                </group>
+            </xpath>
         </field>
     </record>
 

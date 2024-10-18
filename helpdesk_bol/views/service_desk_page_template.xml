@@ -12,23 +12,43 @@
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <div class="row mb-3">
                         <label for="name" class="col-md-2 col-form-label">Requester</label>
-                        <div class="col-md-6">
+                        <div class="input-group small-input-group">
+                            <span class="input-group-text small-icon">
+                                <i class="fa fa-user"></i>
+                            </span>
                             <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="area" class="col-md-2 col-form-label">Requester Area</label>
-                        <div class="col-md-6">
+                        <div class="input-group small-input-group">
+                            <span class="input-group-text small-icon">
+                                <i class="fa fa-building"></i>
+
+                            </span>
                             <input type="text" class="form-control" name="area" required="required" t-att-value="user.area" readonly="readonly"/>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-2">Requirement type</div>
+                        <label for="area_id" class="col-md-2 col-form-label">Requirement Area</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="area_id">
+                                <option value=""></option>
+                                <t t-foreach="areas" t-as="area">
+                                    <option t-att-value="area.id" t-att-data-code="area.code">
+                                        <t t-esc="area.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="type_id" class="col-md-2 col-form-label">Tipo de solicitud</label>
                         <div class="col-md-6">
                             <select class="form-control" name="type_id">
                                 <option value=""></option>
                                 <t t-foreach="types" t-as="type">
-                                    <option t-att-value="type.id">
+                                    <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">
                                         <t t-esc="type.name"/>
                                     </option>
                                 </t>
@@ -39,10 +59,23 @@
                         <div class="col-md-2">Category</div>
                         <div class="col-md-6">
                             <select class="form-control" name="category_id">
-                                <option value=""></option>
+                                <option value=""/>
                                 <t t-foreach="categories" t-as="category">
                                     <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
                                         <t t-esc="category.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+                     <div class="row mb-3" invisible="area.code == 'TI'">
+                        <label for="location_id" class="col-md-2 col-form-label">Location</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="location_id">
+                                <option value=""></option>
+                                <t t-foreach="locations" t-as="location">
+                                    <option t-att-value="location.id" t-att-data-category_id="location.category_id.id">
+                                        <t t-esc="location.name"/>
                                     </option>
                                 </t>
                             </select>
@@ -63,7 +96,7 @@
                     <div class="row mb-3">
                         <label for="description" class="col-md-2 col-form-label">Request description</label>
                         <div class="col-md-6">
-                            <textarea class="form-control" name="description" required="required"></textarea>
+                            <textarea class="form-control" name="description" required="required"/>
                         </div>
                     </div>
                     <div class="row">
@@ -73,11 +106,108 @@
                     </div>
                 </form>
             </div>
+
+<!--            <div class="container mt-4 mb-4">-->
+<!--                <h1>Register your requirement</h1><br/>-->
+<!--                <t t-if="error_message">-->
+<!--                    <span class="text-danger" t-esc="error_message"/>-->
+<!--                </t>-->
+<!--                <form action="/help_desk_close" method="POST" enctype="multipart/form-data">-->
+<!--                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="name" class="col-md-2 col-form-label">Requester</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                     <div class="row mb-3">-->
+<!--                        <label for="area" class="col-md-2 col-form-label">Requester Area</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <input type="text" class="form-control" name="area" required="required" t-att-value="user.area" readonly="readonly"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="area_id" class="col-md-2 col-form-label">Requirement Area</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <select class="form-control" name="area_id">-->
+<!--                                <option value=""></option>-->
+<!--                                <t t-foreach="areas" t-as="area">-->
+<!--                                    <option t-att-value="area.id" t-att-data-code="area.code">-->
+<!--                                        <t t-esc="area.name"/>-->
+<!--                                    </option>-->
+<!--                                </t>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="type_id" class="col-md-2 col-form-label">Requirement type</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <select class="form-control" name="type_id">-->
+<!--                                <option value=""></option>-->
+<!--                                <t t-foreach="types" t-as="type">-->
+<!--                                    <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">-->
+<!--                                        <t t-esc="type.name"/>-->
+<!--                                    </option>-->
+<!--                                </t>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="category_id" class="col-md-2 col-form-label">Category</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <select class="form-control" name="category_id">-->
+<!--                                <option value=""></option>-->
+<!--                                <t t-foreach="categories" t-as="category">-->
+<!--                                    <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">-->
+<!--                                        <t t-esc="category.name"/>-->
+<!--                                    </option>-->
+<!--                                </t>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3" invisible="area.code == 'TI'">-->
+<!--                        <label for="location_id" class="col-md-2 col-form-label">Location</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <select class="form-control" name="location_id">-->
+<!--                                <option value=""></option>-->
+<!--                                <t t-foreach="locations" t-as="location">-->
+<!--                                    <option t-att-value="location.id" t-att-data-category_id="location.category_id.id">-->
+<!--                                        <t t-esc="location.name"/>-->
+<!--                                    </option>-->
+<!--                                </t>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="attachments" class="col-md-2 col-form-label">Attachment(s)</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <input type="file" class="form-control" name="attachments" multiple="true"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="title" class="col-md-2 col-form-label">Title</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <input type="text" class="form-control" name="title" required="required"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <label for="description" class="col-md-2 col-form-label">Request description</label>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <textarea class="form-control" name="description" required="required"></textarea>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6 text-center">-->
+<!--                            <button type="submit" class="btn btn-primary" style="border:none;">Submit</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+
         </t>
     </template>
 
-
-     <template id="reopen_ticket_form" name="Motivo de reapertura">
+    <template id="reopen_ticket_form" name="Motivo de reapertura">
         <t t-call="website.layout">
             <div class="container mt-4 mb-4">
                 <h1>Reopen ticket reason</h1><br/>
@@ -107,19 +237,18 @@
         <t t-call="website.layout">
             <section>
                 <div class="container mt-5">
-                    <div class="row"/>
-                        <div class="row">
-                    </div>
-                    <div class="col-12">
-                        <h1 class="text-center">
-                            <i class="fa fa-check-circle fa-1x text-success" role="img" aria-label="Success" title="Success"/>
-                        </h1>
-                    </div>
-                    <br/>
-                    <div class="col-12">
-                        <h1 class="text-center">
-                            Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
-                        </h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                <i class="fa fa-check-circle fa-1x text-success" role="img" aria-label="Success" title="Success"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
+                            </h1>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -130,22 +259,22 @@
         <t t-call="website.layout">
             <section>
                 <div class="container mt-5">
-                    <div class="row"/>
-                    <div class="row"/>
-                    <div class="col-12">
-                        <h1 class="text-center">
-                            <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
-                        </h1>
-                    </div>
-                    <br/>
-                    <div class="col-12">
-                        <h1 class="text-center">
-                            Your requirement has been registered successfully.
-                            <span invisible="hide_number == True">  Your ticket number is <span t-esc="number"/> </span>
-                        </h1>
-                    </div>
-                    <div class="col-12">
-                        <h1 class="text-center">¡Our team will work on it!</h1>
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <div class="col-12">
+                            <h1 class="text-center">
+                                Your requirement has been registered successfully.
+                                <span invisible="hide_number == True">  Your ticket number is <span t-esc="number"/> </span>
+                            </h1>
+                        </div>
+                        <div class="col-12">
+                            <h1 class="text-center">¡Our team will work on it!</h1>
+                        </div>
                     </div>
                 </div>
             </section>

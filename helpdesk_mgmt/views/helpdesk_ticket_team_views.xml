@@ -93,7 +93,6 @@
             <tree create="0" edit="0">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="category_ids" widget="many2many_tags"/>
                 <field name="todo_ticket_count" string="Active tickets"/>
                 <field name="todo_ticket_count_unassigned" string="Unassigned tickets"/>
                 <field name="todo_ticket_count_unattended" string="Unattended tickets"/>

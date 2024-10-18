@@ -99,7 +99,7 @@
         name="Channels"
         parent="helpdesk_ticket_config_main_menu"
         action="helpdesk_ticket_channel_action"
-        sequence="5"/>
+        sequence="3"/>
     <menuitem
         id="helpdesk_ticket_category_menu"
         name="Categories"

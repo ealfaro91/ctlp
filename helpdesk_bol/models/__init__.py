@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from . import helpdesk_area
 from . import helpdesk_ticket
+from . import helpdesk_ticket_area
 from . import helpdesk_ticket_category
+from . import helpdesk_ticket_location
 from . import helpdesk_ticket_type
 from . import helpdesk_ticket_subcategory
 from . import helpdesk_ticket_team

@@ -1,0 +1,36 @@
+<odoo>
+    <record id="view_change_ticket_area_wizard" model="ir.ui.view">
+        <field name="name">change.ticket.area.wizard.form</field>
+        <field name="model">change.ticket.area.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Change Ticket Area">
+                <group>
+                    <group>
+                        <field name="ticket_id" invisible="1"/>
+                        <field name="code" invisible="1"/>
+                        <field name="area_id"/>
+                        <field name="ticket_type_id"/>
+                        <field name="category_id"/>
+                        <field name="subcategory_id"/>
+                        <field name="location_id" invisible="code == 'TI'"/>
+                        <field name="user_id" readonly="1" force_save="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Change Area" type="object" name="change_area" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_change_ticket_area_wizard" model="ir.actions.act_window">
+        <field name="name">Change Ticket Area</field>
+        <field name="res_model">change.ticket.area.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_ticket_id': active_id}</field>
+    </record>
+
+
+</odoo>

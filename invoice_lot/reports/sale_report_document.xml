@@ -1,0 +1,18 @@
+<odoo>
+
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table/thead/tr/th[@name='th_quantity']" position="after">
+            <t groups="stock.group_production_lot">
+                <th name="th_lot" class="text-start">Lot</th>
+                <th name="th_expirationdate" class="text-end">Expiration Date</th>
+            </t>
+        </xpath>
+        <xpath expr="//td[@name='td_quantity']" position="after">
+            <t groups="stock.group_production_lot">
+                <td name="td_name"><span t-field="line.lot_id.name"/></td>
+                <td name="td_expirationdate" class="text-end"><span t-field="line.lot_expiration_date"/></td>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

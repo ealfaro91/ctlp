@@ -15,6 +15,13 @@ _logger = logging.getLogger(__name__)
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
+    resource_calendar_id =  fields.Many2one(
+        "resource.calendar",
+        string="Resource Calendar",
+        tracking=True,
+        required=True,
+        default=lambda self: self.env.ref('resource.resource_calendar_std').id
+    )
     category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
         string="Category",
@@ -24,6 +31,12 @@ class HelpdeskTicket(models.Model):
     subcategory_id = fields.Many2one(
         "helpdesk.ticket.subcategory",
         string="Subcategory",
+        domain="[('category_id', '=', category_id)]",
+        tracking=True
+    )
+    location_id = fields.Many2one(
+        "helpdesk.ticket.location",
+        string="Location",
         domain="[('category_id', '=', category_id)]",
         tracking=True
     )
@@ -40,17 +53,15 @@ class HelpdeskTicket(models.Model):
     )
     resolution = fields.Text(string="Resolution", tracking=True)
     reopen_reason = fields.Text(string="Reopen reason", tracking=True)
-    area = fields.Char(string="Area", tracking=True)
+    area = fields.Char(string="Area Active Directory", tracking=True)
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",
         tracking=True,
-        default=lambda self: self.env.ref('helpdesk_bol.helpdesk_ticket_area_ti')
     )
+    code = fields.Char(string="Code", related="area_id.code", required=True, tracking=True)
     user_id = fields.Many2one("res.users", tracking=True)
-    create_date_utc = fields.Datetime(
-        compute="_get_create_date_userutc"
-    )
+    create_date_utc = fields.Datetime(compute="_get_create_date_userutc")
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -89,7 +100,6 @@ class HelpdeskTicket(models.Model):
     @api.model
     def create(self, vals):
         res = super(HelpdeskTicket, self).create(vals)
-        res.team_id = self.env['helpdesk.ticket.team'].search([('area_type', '=', 'TI')]).id
         template = self.env.ref('helpdesk_bol.ticket_creation')
         if template:
             template.send_mail(res.id, force_send=False)
@@ -126,6 +136,7 @@ class HelpdeskTicket(models.Model):
         tickets = self.search([
             ('stage_id', '=',
              self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id)])
+        _logger.info(len(tickets))
         time_to_closure = float(
             self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.time_to_close_ticket'))
         for ticket in tickets:
@@ -136,5 +147,6 @@ class HelpdeskTicket(models.Model):
             )
             if time_from_update >= time_to_closure:
                 ticket.sudo().write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
+                #ticket._track_template(tracking)
 
 

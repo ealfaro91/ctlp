@@ -6,4 +6,4 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    area = fields.Char(string="Area")
+    area = fields.Char(string="Area", tracking=True)

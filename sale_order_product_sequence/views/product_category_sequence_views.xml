@@ -1,0 +1,40 @@
+<odoo>
+
+    <record id="view_product_category_sequence_form" model="ir.ui.view">
+        <field name="name">product.category.sequence.form</field>
+        <field name="model">product.category.sequence</field>
+        <field name="arch" type="xml">
+            <form string="Product Category Sequence">
+                <sheet>
+                    <group>
+                        <field name="category_id"/>
+                        <field name="sequence_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_category_sequence_tree" model="ir.ui.view">
+        <field name="name">product.category.sequence.tree</field>
+        <field name="model">product.category.sequence</field>
+        <field name="arch" type="xml">
+            <tree string="Product Category Sequences">
+                <field name="category_id"/>
+                <field name="sequence_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_category_sequence" model="ir.actions.act_window">
+        <field name="name">Product Category Sequences</field>
+        <field name="res_model">product.category.sequence</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_product_category_sequence"
+              name="Product Category Sequences"
+              parent="stock.menu_stock_config_settings"
+              action="action_product_category_sequence"/>
+
+</odoo>

@@ -243,9 +243,7 @@ msgstr ""
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area_id
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__area_type
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__name
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_team__area_type
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__area
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_area_menu
 msgid "Area"
@@ -375,7 +373,7 @@ msgstr "Equipo de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_type
 msgid "Helpdesk Ticket Type"
-msgstr "Tipo de tickets del Helpdesk"
+msgstr "Tipo de solicitudes del Helpdesk"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__id
@@ -426,6 +424,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__write_date
 msgid "Last Updated on"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.actions.act_window,name:helpdesk_bol.helpdesk_ticket_location_action
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__location_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__name
+#: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_location_menu
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list_inherit
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Location"
+msgstr "Ubicación"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__max_attention_time
@@ -644,7 +652,7 @@ msgstr "Tiempo para cierre"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_category__type_id
 msgid "Tipo ticket"
-msgstr "Tipo de ticket"
+msgstr "Tipo de solicitud"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form

@@ -1,0 +1,25 @@
+<odoo>
+    <data noupdate="0">
+
+        <record id="helpdesk_ticket_area_ti" model="helpdesk.ticket.area">
+            <field name="name">TI</field>
+            <field name="code">TI</field>
+            <field name="color">4</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="helpdesk_ticket_area_maintenance" model="helpdesk.ticket.area">
+            <field name="name">MAINTENANCE</field>
+            <field name="code">GMA</field>
+            <field name="color">2</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="helpdesk_ticket_area_member_service" model="helpdesk.ticket.area">
+            <field name="name">MEMBER SERVICE</field>
+            <field name="code">GSS</field>
+            <field name="color">3</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

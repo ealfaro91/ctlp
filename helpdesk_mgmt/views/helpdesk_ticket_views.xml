@@ -116,12 +116,12 @@
                 <field name="number" decoration-bf="1"/>
                 <field name="name"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>
-                <field name="priority"/>
+                <field name="priority" optional="hide"/>
                 <field name="partner_id" optional="hide" widget="many2one_avatar"/>
                 <field name="unattended" column_invisible="1"/>
                 <field name="on_hold" column_invisible="1"/>
                 <field name="closed" column_invisible="1"/>
-                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
                 <field name="create_date" readonly="1" optional="show"/>
                 <field name="last_stage_update" optional="show"/>
                 <field name="activity_ids" widget="list_activity" optional="hide"/>
@@ -155,7 +155,7 @@
                     colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_content oe_kanban_global_click">
+                        <div t-attf-class="oe_kanban_color_#{kanban_color(record.color.raw_value)} oe_kanban_content oe_kanban_global_click">
                             <div class="o_kanban_record_top">
                                 <div class="o_kanban_record_headings">
                                     <strong class="o_kanban_record_title">
@@ -220,15 +220,6 @@
                 <field name="assigned_date" type="col"/>
             </pivot>
         </field>
-    </record>
-
-    <record id="action_duplicate_ticket" model="ir.actions.server">
-        <field name="name">Duplicate</field>
-        <field name="model_id" ref="model_helpdesk_ticket"/>
-        <field name="binding_model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
-        <field name="binding_view_types">list</field>
-        <field name="state">code</field>
-        <field name="code">action = model.action_duplicate_tickets()</field>
     </record>
 
     <record id="model_helpdesk_ticket_action_share" model="ir.actions.server">

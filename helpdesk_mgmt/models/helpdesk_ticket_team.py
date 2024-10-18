@@ -19,11 +19,6 @@ class HelpdeskTeam(models.Model):
         tracking=True
     )
     active = fields.Boolean(default=True, tracking=True)
-    category_ids = fields.Many2many(
-        comodel_name="helpdesk.ticket.category",
-        string="Category",
-        tracking=True
-    )
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
@@ -91,10 +86,13 @@ class HelpdeskTeam(models.Model):
     @api.depends("ticket_ids", "ticket_ids.stage_id")
     def _compute_todo_tickets(self):
         for team in self:
-            team.todo_ticket_count = self.env["helpdesk.ticket"].search_count([('stage_id.closed', '=', False)])
-            team.todo_ticket_count_unassigned = self.env["helpdesk.ticket"].search_count([('user_id', '=', False)])
+            team.todo_ticket_count = self.env["helpdesk.ticket"].search_count([
+                ('team_id', '=', team.id), ('stage_id.closed', '=', False)])
+            team.todo_ticket_count_unassigned = self.env["helpdesk.ticket"].search_count([
+                ('team_id', '=', team.id), ('user_id', '=', False)])
             team.todo_ticket_count_unattended = self.env["helpdesk.ticket"].search_count([('priority', '=', '2')])
-            team.todo_ticket_count_high_priority = self.env["helpdesk.ticket"].search_count([('priority', '=', '2')])
+            team.todo_ticket_count_high_priority = self.env["helpdesk.ticket"].search_count([
+                ('team_id', '=', team.id),('priority', '=', '2')])
 
     def _alias_get_creation_values(self):
         values = super()._alias_get_creation_values()

@@ -13,7 +13,7 @@ class HelpdeskType(models.Model):
 
 
     active = fields.Boolean(default=True, tracking=True)
-    name = fields.Char(string="Name", required=True, tracking=True)
+    name = fields.Char(string="Name", required=True, tracking=True, translate=True)
     team_ids = fields.Many2many(
         "helpdesk.ticket.team",
         string="Teams",

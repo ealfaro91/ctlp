@@ -7,14 +7,13 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='email']" position="after">
+            <xpath expr="//field[@name='function']" position="before">
                 <field name="area"/>
             </xpath>
         </field>
     </record>
 
-
-    <!-- FORM VIEW INHERIT -->
+    <!-- TREE VIEW INHERIT -->
 
     <record id="res_partner_tree_view" model="ir.ui.view">
         <field name="name">res.partner.area.tree.view</field>
@@ -27,5 +26,17 @@
         </field>
     </record>
 
+    <!-- KANBAN VIEW INHERIT -->
+
+    <record id="res_partner_kanban_view" model="ir.ui.view">
+        <field name="name">res.partner.kanban.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//ul/li[@t-if='record.email.raw_value']" position="after">
+                <li t-if="record.area.raw_value" class="o_text_overflow"><field name="area"/></li>
+            </xpath>
+        </field>
+    </record>
 
 </odoo>

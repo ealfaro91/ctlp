@@ -10,11 +10,6 @@ class HelpdeskTicket(models.Model):
     _mail_post_access = "read"
     _inherit = ["mail.thread.cc", "mail.activity.mixin", "portal.mixin"]
 
-    @api.depends("team_id")
-    def _compute_stage_id(self):
-        for ticket in self:
-            ticket.stage_id = ticket.team_id._get_applicable_stages()[:1]
-
     @api.model
     def _read_group_stage_ids(self, stages, domain, order):
         """Show always the stages without team, or stages of the default team."""
@@ -51,19 +46,14 @@ class HelpdeskTicket(models.Model):
     stage_id = fields.Many2one(
         comodel_name="helpdesk.ticket.stage",
         string="Stage",
-        compute="_compute_stage_id",
-        store=True,
         readonly=False,
         ondelete="restrict",
         tracking=True,
-        group_expand="_read_group_stage_ids",
         copy=False,
         index=True,
-        domain="['|',('team_ids', '=', team_id),('team_ids','=',False)]",
     )
-    partner_id = fields.Many2one(comodel_name="res.partner", string="Contact", tracking=True,)
-    partner_name = fields.Char(tracking=True)
-    partner_email = fields.Char(string="Email", tracking=True)
+    partner_id = fields.Many2one(comodel_name="res.partner", string="Contact", tracking=True)
+    partner_email = fields.Char(string="Email", related="partner_id.email", tracking=True)
     last_stage_update = fields.Datetime(default=fields.Datetime.now, tracking=True)
     assigned_date = fields.Datetime(tracking=True)
     closed_date = fields.Datetime(tracking=True)
@@ -105,13 +95,7 @@ class HelpdeskTicket(models.Model):
         default="1",
         tracking=True
     )
-    attachment_ids = fields.One2many(
-        comodel_name="ir.attachment",
-        inverse_name="res_id",
-        domain=[("res_model", "=", "helpdesk.ticket")],
-        string="Media Attachments",
-    )
-    color = fields.Integer(string="Color Index", tracking=True)
+    color = fields.Integer(string="Color Index", related="team_id.color", tracking=True)
     kanban_state = fields.Selection(
         selection=[
             ("normal", "Default"),
@@ -176,10 +160,6 @@ class HelpdeskTicket(models.Model):
                 vals["assigned_date"] = now
         return super().write(vals)
 
-    def action_duplicate_tickets(self):
-        for ticket in self.browse(self.env.context["active_ids"]):
-            ticket.copy()
-
     def _prepare_ticket_number(self, values):
         seq = self.env["ir.sequence"]
         if "company_id" in values:
@@ -228,10 +208,8 @@ class HelpdeskTicket(models.Model):
             "partner_id": msg.get("author_id"),
         }
         defaults.update(custom_values)
-
         # Write default values coming from msg
         ticket = super().message_new(msg, custom_values=defaults)
-
         # Use mail gateway tools to search for partners to subscribe
         email_list = tools.email_split(
             (msg.get("to") or "") + "," + (msg.get("cc") or "")
@@ -277,28 +255,6 @@ class HelpdeskTicket(models.Model):
                         reason=_("Customer Email"),
                     )
         except AccessError:
-            # no read access rights -> just ignore suggested recipients because this
-            # imply modifying followers
+
             return recipients
         return recipients
-
-    # def _notify_get_reply_to(
-    #     self, default=None,  doc_names=None
-    # ):
-    #     """Override to set alias of tasks to their team if any."""
-    #     aliases = (
-    #         self.sudo()
-    #         .mapped("team_id")
-    #         ._notify_get_reply_to(
-    #             default=default,  doc_names=None
-    #         )
-    #     )
-    #     res = {ticket.id: aliases.get(ticket.team_id.id) for ticket in self}
-    #     leftover = self.filtered(lambda rec: not rec.team_id)
-    #     if leftover:
-    #         res.update(
-    #             super(HelpdeskTicket, leftover)._notify_get_reply_to(
-    #                 default=default, doc_names=doc_names
-    #             )
-    #         )
-    #     return res

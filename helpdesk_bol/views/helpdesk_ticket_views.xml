@@ -7,12 +7,22 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(action_change_ticket_area_wizard)d" string="Change Area"
+                        groups="helpdesk_bol.group_helpdesk_area_changer"
+                        type="action" class="btn-danger"
+                        icon="fa-refresh text-primary"/>
+            </xpath>
             <xpath expr="//field[@name='user_id']" position="before">
                 <xpath expr="//field[@name='team_id']" position="move"/>
             </xpath>
             <xpath expr="//field[@name='team_id']" position="attributes">
                 <attribute name="readonly">True</attribute>
                 <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="before">
+                <field name="area_id" invisible="1"/>
+                <field name="code" invisible="1"/>
             </xpath>
             <field name="type_id" position="attributes">
                 <attribute name="required">True</attribute>
@@ -28,11 +38,14 @@
             </field>
             <field name="category_id" position="after">
                 <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="True"/>
+                <field name="location_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','GSS')" invisible="code not in ('GMA','GSS')"/>
                 <field name="max_attention_time" widget="float_time"/>
+                <field name="resource_calendar_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" readonly="1" force_save="1"/>
             </field>
             <field name="user_id" position="attributes">
                 <attribute name="readonly">False</attribute>
                 <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
+                <attribute name="widget">many2one_avatar_user</attribute>
             </field>
             <field name="closed_date" position="after">
                 <field name="resolution"/>
@@ -57,8 +70,15 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree"/>
         <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="area_id" optional="hide"/>
+                <field name="type_id" optional="hide"/>
+                <field name="category_id" optional="hide"/>
+                <field name="subcategory_id" optional="hide"/>
+                <field name="location_id" optional="hide"/>
+            </field>
             <field name="stage_id" position="before">
-                <field name="attention_time_state"/>
+                <field name="attention_time_state" optional="show"/>
             </field>
             <tree position="attributes">
                 <attribute name="decoration-info">attention_time_state == 'on_time' and not closed</attribute>

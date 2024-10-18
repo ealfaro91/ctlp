@@ -8,10 +8,18 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Sub-Category"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field name="name"/>
+                            </div>
+                        </h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="name"/>
                             <field name="category_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="area_id" readonly="1"/>
                             <field name="max_attention_time" widget="float_time"/>
                         </group>
                     </group>
@@ -35,6 +43,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="category_id"/>
+                <field name="area_id" readonly="1"/>
                 <field name="max_attention_time" widget="float_time"/>
             </tree>
         </field>
@@ -49,8 +58,10 @@
             <search>
                 <field name="name"/>
                 <field name="category_id"/>
+                <field name="area_id" readonly="1"/>
                 <field name="max_attention_time"/>
                 <filter string="Category" name="groupby_category" context="{'group_by': 'category_id'}"/>
+                <filter string="Area" name="groupby_area" context="{'group_by': 'area_id'}"/>
             </search>
         </field>
     </record>
@@ -61,7 +72,7 @@
         <field name="name">Sub-category</field>
         <field name="res_model">helpdesk.ticket.subcategory</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{"search_default_groupby_category": True}</field>
+        <field name="context">{"search_default_groupby_category": True, "search_default_groupby_area": True}</field>
     </record>
 
     <!-- MENUS -->

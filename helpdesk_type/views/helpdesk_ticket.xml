@@ -11,9 +11,7 @@
                 <field name="type_id"/>
             </field>
             <xpath expr="//field[@name='team_id']" position="attributes">
-                <attribute name="domain">
-                    [('type_ids', 'in', type_id)]
-                </attribute>
+                <attribute name="domain">[('type_ids', 'in', type_id)]</attribute>
             </xpath>
         </field>
     </record>

@@ -18,6 +18,17 @@ class HelpdeskTicketCategory(models.Model):
         required=True,
         tracking=True,
     )
+    area_id = fields.Many2one(
+        "helpdesk.ticket.area",
+        string="Area",
+        related="type_id.area_id",
+        tracking=True,
+        store=True
+    )
+    color = fields.Integer(
+        string="Color Index", related="area_id.color",
+        tracking=True, store=True
+    )
 
 
 
