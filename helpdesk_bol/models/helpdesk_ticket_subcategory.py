@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+
+from odoo import api, fields, models
 
 
 class HelpdeskTicketSubCategory(models.Model):
     _name = "helpdesk.ticket.subcategory"
+    _description = "Helpdesk Ticket Sub-Category"
     _order = "sequence,name"
     _inherit = ["mail.thread", "mail.activity.mixin",]
+
+    @api.onchange('area_id')
+    def _onchange_area_id(self):
+        self.category_id = False
 
     active = fields.Boolean(default=True, tracking=True)
     name = fields.Char(string="Sub-Category", required=True, tracking=True, translate=True)
@@ -13,7 +19,8 @@ class HelpdeskTicketSubCategory(models.Model):
         "helpdesk.ticket.category",
         string="Category",
         required=True,
-        tracking=True
+        tracking=True,
+        domain="[('area_id', '=', area_id)]"
     )
     sequence = fields.Integer(
         string="Sequence",
@@ -23,9 +30,8 @@ class HelpdeskTicketSubCategory(models.Model):
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",
-        related="category_id.area_id",
         tracking=True,
-        store=True
+        required=True
     )
     color = fields.Integer(
         string="Color Index", related="area_id.color",

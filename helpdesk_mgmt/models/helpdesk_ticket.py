@@ -51,6 +51,7 @@ class HelpdeskTicket(models.Model):
         tracking=True,
         copy=False,
         index=True,
+        default=lambda self: self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_in_progress').id
     )
     partner_id = fields.Many2one(comodel_name="res.partner", string="Contact", tracking=True)
     partner_email = fields.Char(string="Email", related="partner_id.email", tracking=True)

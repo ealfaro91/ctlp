@@ -4,6 +4,7 @@ from odoo import fields, models
 
 class HelpdeskTicketArea(models.Model):
     _name = "helpdesk.ticket.area"
+    _description = "Helpdesk Ticket Area"
     _order = "name"
     _inherit = ["mail.thread", "mail.activity.mixin",]
     _sql_constraints = [("code_uniq", "unique(code)",  "Area code must be unique",)]

@@ -4,6 +4,9 @@
         <field name="model">change.ticket.area.wizard</field>
         <field name="arch" type="xml">
             <form string="Change Ticket Area">
+                <div class="alert alert-info float-left" role="alert">
+                    Warning: You are about to change the ticket area. This action may affect the ticket's workflow and assigned personnel.
+                </div>
                 <group>
                     <group>
                         <field name="ticket_id" invisible="1"/>
@@ -17,7 +20,7 @@
                     </group>
                 </group>
                 <footer>
-                    <button string="Change Area" type="object" name="change_area" class="btn-primary"/>
+                    <button string="Change Area" type="object" name="change_area" class="btn-danger"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

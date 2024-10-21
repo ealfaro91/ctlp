@@ -8,7 +8,7 @@
            <xpath expr="//div[@data-string='Helpdesk']/div[hasclass('o_settings_container')][last()]" position="inside">
                <div class="col-12 col-lg-6 o_setting_box">
                    <div class="o_setting_right_pane">
-                       <label class="col-lg-3" string="Time for closure" for="time_to_close_ticket"/>
+                       <label class="col-lg-3" string="Time for closure (hours" for="time_to_close_ticket"/>
                        <field name="time_to_close_ticket" widget="float_time"/>
                    </div>
                </div>

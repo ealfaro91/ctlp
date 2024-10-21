@@ -75,7 +75,7 @@
         name="Area"
         parent="helpdesk_mgmt.helpdesk_ticket_config_main_menu"
         action="helpdesk_ticket_area_action"
-        sequence="5"/>
+        sequence="2"/>
 
 
 </odoo>

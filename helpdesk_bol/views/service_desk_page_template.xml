@@ -1,209 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="ticket_form" name="Registre su requerimiento">
+    <template id="ticket_form" name="Register Your Requirement">
         <t t-call="website.layout">
-            <div class="container mt-4 mb-4">
-                <h1>Register your requirement</h1><br/>
-                <t t-if="error_message">
-                    <span class="text-danger" t-esc="error_message"/>
-                </t>
-                <form action="/help_desk_close" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                    <div class="row mb-3">
-                        <label for="name" class="col-md-2 col-form-label">Requester</label>
-                        <div class="input-group small-input-group">
-                            <span class="input-group-text small-icon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="area" class="col-md-2 col-form-label">Requester Area</label>
-                        <div class="input-group small-input-group">
-                            <span class="input-group-text small-icon">
-                                <i class="fa fa-building"></i>
+            <script>
+                function showFileNames() {
+                    const fileInput = document.querySelector('input[name="attachments"]');
+                    const fileListDiv = document.getElementById('fileList');
 
-                            </span>
-                            <input type="text" class="form-control" name="area" required="required" t-att-value="user.area" readonly="readonly"/>
-                        </div>
+                    // Clear the previous file names
+                    fileListDiv.innerHTML = '';
+
+                    // Create a list to hold the file names
+                    const fileNames = Array.from(fileInput.files).map(file => file.name);
+
+                    // Check if there are any files selected
+                    if (fileNames.length > 0) {
+                        // Create a list element
+                        const ul = document.createElement('ul');
+
+                        // Add each file name to the list
+                        fileNames.forEach(name => {
+                            const li = document.createElement('li');
+                            li.textContent = name;
+                            ul.appendChild(li);
+                        });
+
+                        // Append the list to the fileList div
+                        fileListDiv.appendChild(ul);
+                    } else {
+                        // Optionally, you can show a message if no files are selected
+                        fileListDiv.textContent = 'No files selected.';
+                    }
+                }
+
+<!--                function toggleLocationField() {-->
+<!--                    const areaSelect = document.querySelector('select[name="area_id"]');-->
+<!--                    const locationField = document.getElementById('location_field');-->
+
+<!--                    // Check if the selected area code is "TI"-->
+<!--                    const selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.code;-->
+
+<!--                    if (selectedAreaCode === 'TI') {-->
+<!--                        locationField.style.display = 'none'; // Hide the location field-->
+<!--                    } else {-->
+<!--                        locationField.style.display = 'block'; // Show the location field-->
+<!--                }-->
+            }
+            </script>
+            <div class="card shadow-sm d-flex justify-content-center align-items-center vh-100" style="border: none;">
+                <div class="card shadow-sm mx-auto" style="max-width: 800px; border: none;">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h3 class="font-weight-bold">Register Your Requirement</h3>
                     </div>
-                    <div class="row mb-3">
-                        <label for="area_id" class="col-md-2 col-form-label">Requirement Area</label>
-                        <div class="col-md-6">
-                            <select class="form-control" name="area_id">
-                                <option value=""></option>
-                                <t t-foreach="areas" t-as="area">
-                                    <option t-att-value="area.id" t-att-data-code="area.code">
-                                        <t t-esc="area.name"/>
-                                    </option>
-                                </t>
-                            </select>
+                    <div class="card-body">
+                        <t t-if="error_message">
+                            <div class="alert alert-danger text-center" role="alert">
+                                <span t-esc="error_message"/>
+                            </div>
+                        </t>
+
+                        <!-- Requester Name Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Requester</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
+                                </div>
+                            </div>
+
+                            <!-- Requester Area Field with Icon -->
+                            <div class="col-md-6">
+                                <label for="area" class="form-label">Requester Area</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-building"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="area" required="required" t-att-value="user.area" readonly="readonly"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="type_id" class="col-md-2 col-form-label">Tipo de solicitud</label>
-                        <div class="col-md-6">
-                            <select class="form-control" name="type_id">
-                                <option value=""></option>
-                                <t t-foreach="types" t-as="type">
-                                    <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">
-                                        <t t-esc="type.name"/>
-                                    </option>
-                                </t>
-                            </select>
+
+                        <!-- Requirement Area Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="area_id" class="form-label">Requirement Area</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-briefcase"></i>
+                                    </span>
+                                    <select class="form-control" name="area_id">
+                                        <option value=""></option>
+                                        <t t-foreach="areas" t-as="area">
+                                            <option t-att-value="area.id">
+                                                <t t-esc="area.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-2">Category</div>
-                        <div class="col-md-6">
-                            <select class="form-control" name="category_id">
-                                <option value=""/>
-                                <t t-foreach="categories" t-as="category">
-                                    <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
-                                        <t t-esc="category.name"/>
-                                    </option>
-                                </t>
-                            </select>
+
+                        <!-- Request Type Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="type_id" class="form-label">Request Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-tasks"></i>
+                                    </span>
+                                    <select class="form-control" name="type_id">
+                                        <option value=""></option>
+                                        <t t-foreach="types" t-as="type">
+                                            <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">
+                                                <t t-esc="type.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                     <div class="row mb-3" invisible="area.code == 'TI'">
-                        <label for="location_id" class="col-md-2 col-form-label">Location</label>
-                        <div class="col-md-6">
-                            <select class="form-control" name="location_id">
-                                <option value=""></option>
-                                <t t-foreach="locations" t-as="location">
-                                    <option t-att-value="location.id" t-att-data-category_id="location.category_id.id">
-                                        <t t-esc="location.name"/>
-                                    </option>
-                                </t>
-                            </select>
+
+                        <!-- Category Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="category_id" class="form-label">Category</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-list-alt"></i>
+                                    </span>
+                                    <select class="form-control" name="category_id">
+                                        <option value=""/>
+                                        <t t-foreach="categories" t-as="category">
+                                            <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
+                                                <t t-esc="category.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="attachments" class="col-md-2 col-form-label">Attachment(s)</label>
-                        <div class="col-md-6">
-                            <input type="file" class="form-control" name="attachments" multiple="true"/>
+
+                        <!-- Conditionally Display Location Field -->
+                        <div class="row mb-4"  id="location_field" style="display: none;" onchange="toggleLocationField()">
+                            <div class="col-md-12">
+                                <label for="location_id" class="form-label">Location</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-map-marker"></i>
+                                    </span>
+                                    <select class="form-control" name="location_id">
+                                        <option value=""></option>
+                                        <t t-foreach="locations" t-as="location">
+                                            <option t-att-value="location.id" t-att-data-category_id="location.category_id.id">
+                                                <t t-esc="location.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="title" class="col-md-2 col-form-label">Title</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="title" required="required"/>
+
+                        <!-- Attachments Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="attachments" class="form-label">Attachment(s)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-paperclip"></i>
+                                    </span>
+                                    <input type="file" class="form-control" name="attachments" multiple="true" onchange="showFileNames()"/>
+                                    <div id="fileList" class="mt-2"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="description" class="col-md-2 col-form-label">Request description</label>
-                        <div class="col-md-6">
-                            <textarea class="form-control" name="description" required="required"/>
+
+                        <!-- Title Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="title" class="form-label">Title</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="title" required="required"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <button type="submit" class="btn btn-primary" style="border:none;">Submit</button>
+
+                        <!-- Request Description Field with Icon -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="description" class="form-label">Request Description</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <textarea class="form-control" name="description" required="required"></textarea>
+                                </div>
+                            </div>
                         </div>
+
+                            <!-- Submit Button -->
+                        <form action="/help_desk_close" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+                                        <i class="fa fa-paper-plane"></i> Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-
-<!--            <div class="container mt-4 mb-4">-->
-<!--                <h1>Register your requirement</h1><br/>-->
-<!--                <t t-if="error_message">-->
-<!--                    <span class="text-danger" t-esc="error_message"/>-->
-<!--                </t>-->
-<!--                <form action="/help_desk_close" method="POST" enctype="multipart/form-data">-->
-<!--                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="name" class="col-md-2 col-form-label">Requester</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                     <div class="row mb-3">-->
-<!--                        <label for="area" class="col-md-2 col-form-label">Requester Area</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <input type="text" class="form-control" name="area" required="required" t-att-value="user.area" readonly="readonly"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="area_id" class="col-md-2 col-form-label">Requirement Area</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <select class="form-control" name="area_id">-->
-<!--                                <option value=""></option>-->
-<!--                                <t t-foreach="areas" t-as="area">-->
-<!--                                    <option t-att-value="area.id" t-att-data-code="area.code">-->
-<!--                                        <t t-esc="area.name"/>-->
-<!--                                    </option>-->
-<!--                                </t>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="type_id" class="col-md-2 col-form-label">Requirement type</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <select class="form-control" name="type_id">-->
-<!--                                <option value=""></option>-->
-<!--                                <t t-foreach="types" t-as="type">-->
-<!--                                    <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">-->
-<!--                                        <t t-esc="type.name"/>-->
-<!--                                    </option>-->
-<!--                                </t>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="category_id" class="col-md-2 col-form-label">Category</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <select class="form-control" name="category_id">-->
-<!--                                <option value=""></option>-->
-<!--                                <t t-foreach="categories" t-as="category">-->
-<!--                                    <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">-->
-<!--                                        <t t-esc="category.name"/>-->
-<!--                                    </option>-->
-<!--                                </t>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3" invisible="area.code == 'TI'">-->
-<!--                        <label for="location_id" class="col-md-2 col-form-label">Location</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <select class="form-control" name="location_id">-->
-<!--                                <option value=""></option>-->
-<!--                                <t t-foreach="locations" t-as="location">-->
-<!--                                    <option t-att-value="location.id" t-att-data-category_id="location.category_id.id">-->
-<!--                                        <t t-esc="location.name"/>-->
-<!--                                    </option>-->
-<!--                                </t>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="attachments" class="col-md-2 col-form-label">Attachment(s)</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <input type="file" class="form-control" name="attachments" multiple="true"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="title" class="col-md-2 col-form-label">Title</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <input type="text" class="form-control" name="title" required="required"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-3">-->
-<!--                        <label for="description" class="col-md-2 col-form-label">Request description</label>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <textarea class="form-control" name="description" required="required"></textarea>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-6 text-center">-->
-<!--                            <button type="submit" class="btn btn-primary" style="border:none;">Submit</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-
         </t>
     </template>
 
@@ -215,7 +229,7 @@
                     <span class="text-danger" t-esc="error_message"/>
                 </t>
                 <form action="/help_desk_reopen" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
                     <input type="hidden" name="id" t-att-value="id"/>
                     <div class="row mb-3">
                         <label for="description" class="col-md-2 col-form-label">Reason</label>
@@ -255,27 +269,29 @@
         </t>
     </template>
 
-    <template id="ticket_thank_you" name="Su requerimiento ha sido registrado">
+   <template id="ticket_register" name="Su requerimiento ha sido registrado">
         <t t-call="website.layout">
-            <section>
+            <section style="background-color: #f8f9fa; padding: 50px 0;">
                 <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1 class="text-center">
-                                <i class="fa fa-check-circle fa-2x text-success" role="img" aria-label="Success" title="Success"/>
-                            </h1>
+                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                    <t t-if="error_message">
+                        <div class="alert alert-danger text-center" role="alert">
+                            <span t-esc="error_message"/>
                         </div>
-                        <br/>
-                        <div class="col-12">
-                            <h1 class="text-center">
-                                Your requirement has been registered successfully.
-                                <span invisible="hide_number == True">  Your ticket number is <span t-esc="number"/> </span>
-                            </h1>
+                    </t>
+                    <t t-else="">
+                        <div class="success-message text-center" style="border: 2px solid #28a745; border-radius: 10px; padding: 40px; background-color: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <i class="icon-check-circle" style="font-size: 3rem; color: #28a745;"></i>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: #666;">Your requirement has been registered successfully!</p>
+                            <span invisible="hide_number == True" style="font-size: 1.2rem; color: #666;">
+                                Your ticket number is <b><span t-esc="number"/></b>
+                            </span>
+                            <div class="col-12 mt-4">
+                                <h4 class="mt-3" style="font-weight: 600; color: #007bff;">¡Our team will work on it!</h4>
+                                <a href="/my_tickets" class="btn btn-primary mt-3" style="background-color: #007bff; border: none; box-shadow: 0 2px 10px rgba(0, 123, 255, 0.5);">Go to My tickets</a>
+                            </div>
                         </div>
-                        <div class="col-12">
-                            <h1 class="text-center">¡Our team will work on it!</h1>
-                        </div>
-                    </div>
+                    </t>
                 </div>
             </section>
         </t>

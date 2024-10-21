@@ -9,8 +9,8 @@
         <field name="arch" type="xml">
             <group name="main" position="after">
                 <group>
+                    <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     <field name="type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                    <field name="area_id" readonly="1"/>
                     <field name="user_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
                 </group>
             </group>
@@ -52,8 +52,8 @@
                 <field name="user_id"/>
             </field>
             <group position="inside">
-                <filter string="Type" name="groupby_type" context="{'group_by': 'type_id'}"/>
                 <filter string="Area" name="groupby_area" context="{'group_by': 'area_id'}"/>
+                <filter string="Type" name="groupby_type" context="{'group_by': 'type_id'}"/>
             </group>
         </field>
     </record>

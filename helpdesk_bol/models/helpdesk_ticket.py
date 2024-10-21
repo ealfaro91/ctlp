@@ -63,6 +63,25 @@ class HelpdeskTicket(models.Model):
     user_id = fields.Many2one("res.users", tracking=True)
     create_date_utc = fields.Datetime(compute="_get_create_date_userutc")
 
+    @api.onchange('team_id')
+    def _onchange_area_id(self):
+        self.area_id = False
+        self.type_id = False
+        self.category_id = False
+        self.subcategory_id = False
+        self.location_id = False
+
+    @api.onchange('type_id')
+    def _onchange_ticket_type_id(self):
+        self.category_id = False
+        self.subcategory_id = False
+        self.location_id = False
+
+    @api.onchange('category_id')
+    def _onchange_category_id(self):
+        self.subcategory_id = False
+        self.location_id = False
+
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
         if self.partner_id:

@@ -83,7 +83,6 @@ class HelpdeskTeam(models.Model):
             ]
         return self.env["helpdesk.ticket.stage"].search(domain)
 
-    @api.depends("ticket_ids", "ticket_ids.stage_id")
     def _compute_todo_tickets(self):
         for team in self:
             team.todo_ticket_count = self.env["helpdesk.ticket"].search_count([

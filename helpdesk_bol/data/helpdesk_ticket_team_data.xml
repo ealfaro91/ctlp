@@ -3,11 +3,13 @@
         <record id="helpdesk_ticket_team_ti" model="helpdesk.ticket.team">
             <field name="name">TI</field>
             <field name="area_id" ref="helpdesk_bol.helpdesk_ticket_area_ti"/>
+            <field name="image_1920" type="base64" file="helpdesk_bol/static/img/ti_icon.png"/>
         </record>
 
         <record id="helpdesk_ticket_team_maintenance" model="helpdesk.ticket.team">
             <field name="name">MAINTENANCE</field>
             <field name="area_id" ref="helpdesk_bol.helpdesk_ticket_area_maintenance"/>
+            <field name="image_1920" type="base64" file="helpdesk_bol/static/img/maintenance_icon.png"/>
         </record>
 
         <record id="helpdesk_ticket_team_member_service" model="helpdesk.ticket.team">

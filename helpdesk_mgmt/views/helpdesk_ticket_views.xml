@@ -51,7 +51,7 @@
         <field name="name">helpdesk.ticket.view.form</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <form string="Helpdesk Ticket">
+            <form string="Helpdesk Ticket" create="0">
                 <header>
                     <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>
@@ -67,6 +67,7 @@
                             <field name="name"/>
                         </h2>
                     </div>
+                    <separator/>
                     <group name="main">
                         <group>
                             <field name="active" invisible="1"/>
@@ -74,11 +75,13 @@
                             <field name="category_id"/>
                             <field name="user_ids" invisible="1" readonly="1"/>
                             <field name="user_id" options='{"always_reload": True}'/>
+                        </group>
+                        <group>
                             <field name="priority"/>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                             <field name="create_date" readonly="1" force_save="1"/>
                         </group>
-                        <group>
+                        <group string="Contact information">
                             <field name="partner_id"/>
                             <field name="partner_email" readonly="1" force_save="1"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True, 'no_open': True, 'color_field': 'color',}"/>
@@ -111,8 +114,8 @@
         <field name="name">helpdesk.ticket.view.tree</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <tree default_order='create_date desc'>
-                <field name="sequence" widget="handle"/>
+            <tree default_order='create_date desc' create="0">
+                <field name="sequence" widget="handle" invisible="1"/>
                 <field name="number" decoration-bf="1"/>
                 <field name="name"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>

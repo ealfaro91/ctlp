@@ -42,11 +42,13 @@ class HelpdeskTicketController(http.Controller):
            Args: **kw: Arbitrary keyword arguments containing the form data.
            Returns: werkzeug.wrappers.Response: The rendered HTML page for the thank you message.
            """
-        # session_token = http.Request.csrf_token(self)
-        # form_token = kw.get('csrf_token')
-        #
+        session_token = http.Request.csrf_token(request)
+        form_token = kw.get('csrf_token')
+
+        _logger.info("%s %s" % (session_token, form_token))
+
         # if not session_token or session_token != form_token:
-        #     return request.render("helpdesk_bol.ticket_error", {'error': 'Invalid or expired form token.'})
+        #     return request.render("helpdesk_bol.ticket_register", {'error_message': 'Invalid or expired form token.'})
 
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_id': request.env.user.partner_id.id,
@@ -73,13 +75,13 @@ class HelpdeskTicketController(http.Controller):
                     'type': 'binary',
                     'datas': base64.b64encode(attached_file),
                 })
-        return request.render("helpdesk_bol.ticket_thank_you", {'number': helpdesk_ticket.number})
+        return request.render("helpdesk_bol.ticket_register", {'number': helpdesk_ticket.number})
 
     @http.route("/help_desk_reopen", type='http', auth="user",  methods=['POST'], website=True)
     def help_desk_reopen(self, **kw):
         request.env["helpdesk.ticket"].sudo().browse(int(kw.get('id'))).write(
                     {'reopen_reason': kw.get('reopen_reason'), 'stage_id': 2})
-        return request.render("helpdesk_bol.ticket_thank_you", {'hide_number': True})
+        return request.render("helpdesk_bol.ticket_register", {'hide_number': True})
 
     @http.route(
         "/change_stage/<int:ticket_id>/<action>", auth="user", website=True

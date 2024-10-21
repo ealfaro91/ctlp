@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class HelpdeskTicketCategory(models.Model):
     _inherit = "helpdesk.ticket.category"
     _order = "sequence,name"
 
+    @api.onchange('area_id')
+    def _onchange_area_id(self):
+        self.type_id = False
+
     type_id = fields.Many2one(
         "helpdesk.ticket.type",
         string="Tipo ticket",
         required=True,
-        tracking=True
+        tracking=True,
+        domain="[('area_id', '=', area_id)]"
     )
     user_id = fields.Many2one(
         "res.users",
@@ -21,9 +26,8 @@ class HelpdeskTicketCategory(models.Model):
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",
-        related="type_id.area_id",
         tracking=True,
-        store=True
+        required=True
     )
     color = fields.Integer(
         string="Color Index", related="area_id.color",

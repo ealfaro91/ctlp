@@ -14,3 +14,60 @@
   width: 100%;
   float: left;
 }
+
+.icon-background {
+    background-color: #007bff; /* Color azul */
+    border-radius: 50%; /* Bordes redondeados */
+    color: white; /* Color del ícono */
+    padding: 8px; /* Espaciado dentro del círculo */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* Tamaño fijo */
+    height: 40px; /* Tamaño fijo */
+    margin-right: 10px; /* Separación del campo */
+}
+
+.card {
+    border: 1px solid #007bff;
+    border-radius: 10px;
+}
+
+.card-header {color: white}
+
+.btn-primary {border: none;}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* For the success message */
+
+.success-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f9f0;
+    border: 2px solid #28a745;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.success-message i {
+    color: #28a745;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.success-message p {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+}

@@ -7,6 +7,9 @@
         <field name="model">helpdesk.ticket.team</field>
         <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+            </xpath>
            <field name="show_in_portal" position="after">
                <field name="area_id"/>
                <field name="color" widget="color_picker" readonly="1"/>
@@ -27,5 +30,9 @@
             </field>
         </field>
     </record>
+
+<!--        <xpath expr="//div[hasclass('oe_title')]" position="before">-->
+<!--                <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>-->
+<!--            </xpath>-->
 
 </odoo>

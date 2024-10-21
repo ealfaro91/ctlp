@@ -7,13 +7,18 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="before">
+                <div class="alert alert-danger float-left" role="alert" invisible="attention_time_state != 'delayed'">
+                    Warning: This ticket is delayed. Please take immediate action.
+                </div>
+            </xpath>
             <xpath expr="//header" position="inside">
                 <button name="%(action_change_ticket_area_wizard)d" string="Change Area"
                         groups="helpdesk_bol.group_helpdesk_area_changer"
                         type="action" class="btn-danger"
                         icon="fa-refresh text-primary"/>
             </xpath>
-            <xpath expr="//field[@name='user_id']" position="before">
+            <xpath expr="//field[@name='type_id']" position="before">
                 <xpath expr="//field[@name='team_id']" position="move"/>
             </xpath>
             <xpath expr="//field[@name='team_id']" position="attributes">
