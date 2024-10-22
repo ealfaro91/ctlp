@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -18,7 +18,7 @@ class ChangeTicketAreaWizard(models.TransientModel):
         required=True, domain="[('type_id', '=', ticket_type_id)]"
     )
     subcategory_id = fields.Many2one(
-        'helpdesk.ticket.subcategory', string='Sub-category',
+        'helpdesk.ticket.subcategory', string='Sub-Category',
         required=True, domain="[('category_id', '=', category_id)]"
     )
     location_id = fields.Many2one(
@@ -30,7 +30,7 @@ class ChangeTicketAreaWizard(models.TransientModel):
     @api.onchange('area_id')
     def _onchange_area_id(self):
         if self.area_id == self.ticket_id.area_id:
-            raise ValidationError('The selected area is the same as the current area')
+            raise ValidationError(_('The selected area is the same as the current area'))
         self.ticket_type_id = False
         self.category_id = False
         self.subcategory_id = False

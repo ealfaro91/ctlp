@@ -11,11 +11,11 @@
                     <group>
                         <field name="ticket_id" invisible="1"/>
                         <field name="code" invisible="1"/>
-                        <field name="area_id"/>
-                        <field name="ticket_type_id"/>
-                        <field name="category_id"/>
-                        <field name="subcategory_id"/>
-                        <field name="location_id" invisible="code == 'TI'"/>
+                        <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="ticket_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="category_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="location_id" invisible="code == 'TI'" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                         <field name="user_id" readonly="1" force_save="1"/>
                     </group>
                 </group>

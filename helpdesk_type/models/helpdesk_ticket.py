@@ -8,9 +8,9 @@ class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
     type_id = fields.Many2one("helpdesk.ticket.type", string="Requirement type", tracking=True)
-
-    @api.onchange("type_id")
-    def _onchange_type_id(self):
-        if self.type_id and self.team_id and self.type_id not in self.team_id.type_ids:
-            self.team_id = False
-            self.user_id = False
+    #
+    # @api.onchange("type_id")
+    # def _onchange_type_id(self):
+    #     if self.type_id and self.team_id and self.type_id not in self.team_id.type_ids:
+    #         self.team_id = False
+    #         self.user_id = False

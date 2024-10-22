@@ -30,7 +30,7 @@ class HelpdeskTicket(models.Model):
     )
     subcategory_id = fields.Many2one(
         "helpdesk.ticket.subcategory",
-        string="Subcategory",
+        string="Sub-Category",
         domain="[('category_id', '=', category_id)]",
         tracking=True
     )

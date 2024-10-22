@@ -28,7 +28,6 @@ class HelpdeskTicketController(http.Controller):
             'categories': request.env['helpdesk.ticket.category'].sudo().search([]),
             'areas': request.env['helpdesk.ticket.area'].sudo().search([]),
             'locations': request.env['helpdesk.ticket.location'].sudo().search([]),
-            'csrf_token': http.Request.csrf_token(request),
         }
         return request.render("helpdesk_bol.ticket_form", data)
 
@@ -42,13 +41,10 @@ class HelpdeskTicketController(http.Controller):
            Args: **kw: Arbitrary keyword arguments containing the form data.
            Returns: werkzeug.wrappers.Response: The rendered HTML page for the thank you message.
            """
-        session_token = http.Request.csrf_token(request)
-        form_token = kw.get('csrf_token')
 
-        _logger.info("%s %s" % (session_token, form_token))
-
-        # if not session_token or session_token != form_token:
-        #     return request.render("helpdesk_bol.ticket_register", {'error_message': 'Invalid or expired form token.'})
+        # Check if the form has already been submitted
+        if request.session.get('form_submitted'):
+            return request.render("helpdesk_bol.ticket_register", {'error_message': 'Form already submitted.'})
 
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_id': request.env.user.partner_id.id,
@@ -75,6 +71,9 @@ class HelpdeskTicketController(http.Controller):
                     'type': 'binary',
                     'datas': base64.b64encode(attached_file),
                 })
+
+        # Clear the session flag after processing the form
+        request.session['form_submitted'] = False
         return request.render("helpdesk_bol.ticket_register", {'number': helpdesk_ticket.number})
 
     @http.route("/help_desk_reopen", type='http', auth="user",  methods=['POST'], website=True)
@@ -93,9 +92,9 @@ class HelpdeskTicketController(http.Controller):
         ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
         if int(action) == 1:
             ticket.sudo().write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
-            return request.render("helpdesk_bol.close_ticket_form",
-                                  {'name': ticket.name, 'number': ticket.number})
+            return request.render("helpdesk_bol.reopen_close_ticket_form", 'action': action,
+                                  {'name': ticket.name, 'number': ticket.number, })
         elif int(action) == 2:
-            return request.render("helpdesk_bol.reopen_ticket_form",
+            return request.render("helpdesk_bol.reopen_ticket_form",  'action': 'open'
                                   {'id': int(ticket_id), 'name': ticket.name, 'number': ticket.number})
 

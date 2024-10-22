@@ -13,7 +13,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/helpdesk_ticket_type.xml",
-        "views/helpdesk_ticket_team.xml",
+        #"views/helpdesk_ticket_team.xml",
         "views/helpdesk_ticket.xml",
     ],
     "demo": ["demo/helpdesk_type_demo.xml"],

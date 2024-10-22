@@ -724,7 +724,7 @@ msgstr "Fecha de cierre"
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_tag__color
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_team__color
 msgid "Color Index"
-msgstr "Índice de color"
+msgstr "Color"
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_res_company

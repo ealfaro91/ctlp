@@ -90,7 +90,7 @@ msgstr "Tipo de Solicitud"
 #. module: helpdesk_type
 #: model:ir.ui.menu,name:helpdesk_type.helpdesk_ticket_type
 msgid "Ticket Types"
-msgstr "Tipos de Ticket"
+msgstr "Tipos de Solicitud"
 
 #. module: helpdesk_type
 #: model:ir.model.fields,help:helpdesk_type.field_helpdesk_ticket_team__type_ids
@@ -106,7 +106,4 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk_type.helpdesk_ticket_type_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_type.helpdesk_ticket_view_search
 msgid "Type"
-msgstr "Tipo"
-
-#~ msgid "Types"
-#~ msgstr "Tipos"
+msgstr "Tipo de solicitud"
