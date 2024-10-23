@@ -856,7 +856,7 @@ msgstr "Contacto"
 #. module: helpdesk_mgmt
 #: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.ticket_view_form
 msgid "Contact information"
-msgstr ""
+msgstr "Información de contacto"
 
 #. module: helpdesk_mgmt
 #: model_terms:ir.actions.act_window,help:helpdesk_mgmt.helpdesk_ticket_category_action

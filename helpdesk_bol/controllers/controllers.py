@@ -106,9 +106,9 @@ class HelpdeskTicketController(http.Controller):
             "helpdesk_bol.reopen_close_ticket_form",{
                 'id': int(ticket_id), 'name': ticket.name,
                 'number': ticket.number, 'action': action, 'id': int(ticket_id)})
-
-    def _is_link_valid(self, timestamp):
-        """ Check if the link is within the 48-hour validity period """
-        link_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
-        current_time = datetime.utcnow()
-        return current_time <= link_time + timedelta(hours=48)
+    #
+    # def _is_link_valid(self, timestamp):
+    #     """ Check if the link is within the 48-hour validity period """
+    #     link_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+    #     current_time = datetime.utcnow()
+    #     return current_time <= link_time + timedelta(hours=48)
