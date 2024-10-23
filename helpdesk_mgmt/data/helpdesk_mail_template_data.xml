@@ -13,107 +13,107 @@
             <field name="lang">{{object.partner_id.lang}}</field>
             <field name="auto_delete" eval="False"/>
             <field name="body_html" type="html">
-              <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
-                <tr>
-                    <td align="center">
-                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
-                            <tbody>
-                                <!-- HEADER -->
+                <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                                <tbody>
+                                    <!-- HEADER -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="middle">
+                                                        <span style="font-size: 10px;">Your Account</span><br/>
+                                                        <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''">Marc Demo</span>
+                                                    </td>
+                                                    <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
+                                                        <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="text-align:center;">
+                                                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- CONTENT -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="top" style="font-size: 13px;">
+                                                        <div>
+                                                            <p>Dear <strong><t t-out="object.partner_id.name"/></strong></p>
+                                                            <p>Your ticket "<strong><t t-out="object.display_name"/></strong>" with subject "<strong><t t-out="object.name"/></strong>" has been closed. Do you agree?</p><br/><br/>
+                                                                <div style="margin: 16px 0px 16px 0px; text-align: center;">
+                                                                    <a t-attf-href="/change_stage/{{object.id}}/1" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #2FAF17; color: #fff; border-radius: 5px;">
+                                                                        <strong>Definitive closing</strong>
+                                                                    </a>
+                                                                    <a t-attf-href="/change_stage/{{object.id}}/2" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;">
+                                                                        <strong>Ticket reopening</strong>
+                                                                    </a>
+                                                                     <a href="/my_tickets" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
+                                                                        <strong>View my tickets</strong>
+                                                                    </a>
+                                                                </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:center;">
+                                                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- FOOTER -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="middle" align="left">
+                                                        <t t-out="object.user_id.company_id.name or ''"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="middle" align="left" style="opacity: 0.7;">
+                                                        <t t-out="object.user_id.company_id.phone or ''"/>
+                                                        <t t-if="object.user_id.company_id.email">
+                                                            | <a t-attf-href="'mailto:%s' % {{ object.user_id.company_id.email }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.email or ''"/>
+                                                        </t>
+                                                        <t t-if="object.user_id.company_id.website">
+                                                            | <a t-attf-href="'%s' % {{ object.user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.website or ''"/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                         </td>
+                     </tr>
+                    <!-- POWERED BY -->
+                    <tr>
+                        <td align="center" style="min-width: 590px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
                                 <tr>
-                                    <td align="center" style="min-width: 590px;">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
-                                            <tr>
-                                                <td valign="middle">
-                                                    <span style="font-size: 10px;">Your Account</span><br/>
-                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''">Marc Demo</span>
-                                                </td>
-                                                <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
-                                                    <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2" style="text-align:center;">
-                                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
+                                <td style="text-align: center; font-size: 13px;">
+                                Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite" style="color: #875A7B;">Odoo</a>
+                                </td>
                                 </tr>
-                                <!-- CONTENT -->
-                                <tr>
-                                    <td align="center" style="min-width: 590px;">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
-                                            <tr>
-                                                <td valign="top" style="font-size: 13px;">
-                                                    <div>
-                                                        <p>Dear <strong><t t-out="object.partner_id.name"/></strong></p>
-                                                        <p>Your ticket "<strong><t t-out="object.display_name"/></strong>" with subject "<strong><t t-out="object.name"/></strong>" has been closed. Do you agree?</p><br/><br/>
-                                                            <div style="margin: 16px 0px 16px 0px; text-align: center;">
-                                                                <a t-attf-href="/change_stage/{{object.id}}/1" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #2FAF17; color: #fff; border-radius: 5px;">
-                                                                    <strong>Definitive closing</strong>
-                                                                </a>
-                                                                <a t-attf-href="/change_stage/{{object.id}}/2" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;">
-                                                                    <strong>Ticket reopening</strong>
-                                                                </a>
-                                                                 <a href="/my_tickets" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
-                                                                    <strong>View my tickets</strong>
-                                                                </a>
-                                                            </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:center;">
-                                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <!-- FOOTER -->
-                                <tr>
-                                    <td align="center" style="min-width: 590px;">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
-                                            <tr>
-                                                <td valign="middle" align="left">
-                                                    <t t-out="object.user_id.company_id.name or ''"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="middle" align="left" style="opacity: 0.7;">
-                                                    <t t-out="object.user_id.company_id.phone or ''"/>
-                                                    <t t-if="object.user_id.company_id.email">
-                                                        | <a t-attf-href="'mailto:%s' % {{ object.user_id.company_id.email }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.email or ''"/>
-                                                    </t>
-                                                    <t t-if="object.user_id.company_id.website">
-                                                        | <a t-attf-href="'%s' % {{ object.user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.website or ''"/>
-                                                    </t>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                     </td>
-                 </tr>
-                <!-- POWERED BY -->
-                <tr>
-                    <td align="center" style="min-width: 590px;">
-                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
-                            <tr>
-                            <td style="text-align: center; font-size: 13px;">
-                            Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite" style="color: #875A7B;">Odoo</a>
-                            </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-         </field>
-     </record>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+        </record>
 
-     <record id="changed_stage_template" model="mail.template">
+        <record id="changed_stage_template" model="mail.template">
             <field name="name">Helpdesk Changed Stage notification Email</field>
             <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
             <field name="email_from">{{object.company_id.partner_id.email}}</field>
@@ -163,6 +163,101 @@
                                                                     <strong>View my tickets</strong>
                                                                 </a>
                                                             </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:center;">
+                                                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- FOOTER -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="middle" align="left">
+                                                        <t t-out="object.user_id.company_id.name or ''"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="middle" align="left" style="opacity: 0.7;">
+                                                        <t t-out="object.user_id.company_id.phone or ''"/>
+                                                        <t t-if="object.user_id.company_id.email">
+                                                            | <a t-attf-href="'mailto:%s' % {{ object.user_id.company_id.email }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.email or ''"/>
+                                                        </t>
+                                                        <t t-if="object.user_id.company_id.website">
+                                                            | <a t-attf-href="'%s' % {{ object.user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.website or ''"/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td></tr>
+                            <!-- POWERED BY -->
+                            <tr><td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
+                                    <tr><td style="text-align: center; font-size: 13px;">
+                                    Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite" style="color: #875A7B;">Odoo</a>
+                                    </td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                </table>
+            </field>
+        </record>
+
+        <record id="changed_user_assigned_template" model="mail.template">
+            <field name="name">Helpdesk Changed User Asigned notification Email</field>
+            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="email_from">{{object.company_id.partner_id.email}}</field>
+            <field name="email_cc">{{ (object.user_id.partner_id.email) }}</field>
+            <field name="subject">The ticket {{object.number}} stage has been asigned to you.</field>
+            <field name="partner_to">{{object.user_id.partner_id.id}}</field>
+            <field name="lang">{{object.user_id.partner_id.lang}}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                                <tbody>
+                                    <!-- HEADER -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="middle">
+                                                        <span style="font-size: 10px;">Your Account</span><br/>
+                                                        <span style="font-size: 20px; font-weight: bold;" t-out="object.user_id.name or ''"/>
+                                                    </td>
+                                                    <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
+                                                        <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="text-align:center;">
+                                                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- CONTENT -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="top" style="font-size: 13px;">
+                                                        <div>
+                                                            Dear <strong><t t-out="object.user_id.name"/></strong>,<br/>
+                                                            The ticket <strong><t t-out="object.display_name"/></strong> with subject <strong><t t-out="object.name"/></strong> has been assigned to you.<br/><br/>
                                                         </div>
                                                     </td>
                                                 </tr>

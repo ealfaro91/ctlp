@@ -3,12 +3,17 @@ import base64
 
 import logging
 
+from datetime import datetime
 from odoo import http
 from odoo.http import request, Response
 
 _logger = logging.getLogger(__name__)
 
 headers = {"content-type": "application/json;charset=utf-8"}
+#
+# # Example of generating the link
+# timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+# link = f"/change_stage/{ticket_id}/{action}?timestamp={timestamp}"
 
 
 class HelpdeskTicketController(http.Controller):
@@ -89,12 +94,21 @@ class HelpdeskTicketController(http.Controller):
         """ permite al cliente que recibe el correo cambiar el estado de ticker
             para apertura o cierre definitivo
         """
+        #
+        # # Validate the timestamp
+        # if not timestamp or not self._is_link_valid(timestamp):
+        #     return request.render("helpdesk_bol.link_expired")
+
         ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
         if int(action) == 1:
             ticket.sudo().write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
-            return request.render("helpdesk_bol.reopen_close_ticket_form", 'action': action,
-                                  {'name': ticket.name, 'number': ticket.number, })
-        elif int(action) == 2:
-            return request.render("helpdesk_bol.reopen_ticket_form",  'action': 'open'
-                                  {'id': int(ticket_id), 'name': ticket.name, 'number': ticket.number})
+        return request.render(
+            "helpdesk_bol.reopen_close_ticket_form",{
+                'id': int(ticket_id), 'name': ticket.name,
+                'number': ticket.number, 'action': action, 'id': int(ticket_id)})
 
+    def _is_link_valid(self, timestamp):
+        """ Check if the link is within the 48-hour validity period """
+        link_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+        current_time = datetime.utcnow()
+        return current_time <= link_time + timedelta(hours=48)

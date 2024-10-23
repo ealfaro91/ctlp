@@ -69,7 +69,7 @@
                             <tr>
                                 <td class="text-left"><span t-field="ticket.partner_id"/></td>
                                 <td class="text-left"><span t-esc="ticket.number"/></td>
-                                <td>
+                                <td id="title">
                                     <a t-attf-href="/my_ticket/#{ticket.id}?{{ keep_query() }}">
                                         <span t-field="ticket.name"/>
                                     </a>

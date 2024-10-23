@@ -53,7 +53,7 @@ class HelpdeskTicket(models.Model):
     )
     resolution = fields.Text(string="Resolution", tracking=True)
     reopen_reason = fields.Text(string="Reopen reason", tracking=True)
-    area = fields.Char(string="Area Active Directory", tracking=True)
+    area = fields.Char(string="Requester area", tracking=True)
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",

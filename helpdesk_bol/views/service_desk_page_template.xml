@@ -167,56 +167,62 @@
         </t>
     </template>
 
-    <template id="reopen_close_ticket_form" name="Motivo de reapertura">
-        <t t-call="website.layout">
-            <div class="container mt-4 mb-4">
-                <h1>Reopen ticket reason</h1><br/>
-                <t t-if="error_message">
-                    <span class="text-danger" t-esc="error_message"/>
-                </t>
-                <form action="/help_desk_reopen" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
-                    <input type="hidden" name="id" t-att-value="id"/>
-                    <div class="row mb-3">
-                        <label for="description" class="col-md-2 col-form-label">Reason</label>
-                        <div class="col-md-6">
-                            <textarea class="form-control" name="reopen_reason" required="required"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+    <!-- REOPEN CLOSE TICKET -->
+
+   <template id="reopen_close_ticket_form" name="Motivo de reapertura">
+       <t t-call="website.layout">
+           <t t-if="action == '2'">
+               <div>
+                   <div class="container">
+                       <div style="background-color: #28a745; padding: 30px 0; text-align: center;">
+                           <i class="fa fa-check-circle" style="font-size: 3rem; color: white;"></i>
+                       </div>
+                    <!-- Main Card -->
+                       <div class="card shadow-sm mx-auto" style="max-width: 600px; border: none; margin-top: -30px; border-radius: 10px 10px 10px 10px; overflow: hidden;">
+                           <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
+                               Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
+                           </h1>
+                           <div class="mt-4 text-center">
+                               <a href="/my_tickets" class="btn btn-primary btn-lg mt-3" style="border: none; box-shadow: 0 2px 10px rgba(0, 123, 255, 0.5); margin-bottom:10%;">
+                                   View My Tickets
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </t>
+           <t t-if="action == '1'">
+               <form action="/help_desk_reopen" method="POST" enctype="multipart/form-data" class="mx-auto" style="max-width: 800px;">
+                   <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                   <input type="hidden" name="id" t-att-value="id"/>
+                   <input type="hidden" name="action" t-att-value="action"/>
+                   <div>
+                       <div class="container">
+                           <div style="background-color: #ff0000; padding: 30px 0; text-align: center;">
+                               <i class="fa fa-times-circle" style="font-size: 3rem; color: white;"></i>
+                           </div>
+                           <!-- Main Card -->
+                           <div class="card shadow-sm mx-auto" style="max-width: 600px; border: none; margin-top: -30px; border-radius: 10px 10px 10px 10px; overflow: hidden;">
+                               <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
+                                   Reopen Ticket
+                               </h1>
+                               <div class="mb-3" style="margin:10%">
+                                   <h5 class="text-center" style="color: #555">Please provide a reason to reopen the ticket.</h5>
+                                   <textarea id="reopen_reason" class="form-control" name="reopen_reason" rows="4" required="required"></textarea>
+                               </div>
+                           </div>
+                            <!-- Submit button -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 30px; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);">
+                                    <i class="fa fa-paper-plane"></i> Submit
+                                </button>
+                            </div>
+                       </div>
+                   </div>
+               </form>
+           </t>
         </t>
-    </template>
-
-
-    <!-- CLOSE TICKET -->
-
-    <template id="close_ticket_form" name="Motivo de reapertura">
-        <t t-call="website.layout">
-            <section>
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1 class="text-center">
-                                <i class="fa fa-check-circle fa-1x text-success" role="img" aria-label="Success" title="Success"/>
-                            </h1>
-                        </div>
-                        <br/>
-                        <div class="col-12">
-                            <h1 class="text-center">
-                                Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
-                            </h1>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </t>
-    </template>
+   </template>
 
     <!-- TICKET REGISTRATION CONFIRMATION -->
 
@@ -268,15 +274,15 @@
         </t>
     </template>
 
-<!--    &lt;!&ndash; TICKET REGISTRATION CONFIRMATION &ndash;&gt;-->
+    <!-- TICKET PORTAL LIST -->
 
-<!--    <template inherit_id="helpdesk_mgmt.portal_ticket_list" id="portal_ticket_list" name="Ticket List">-->
-<!--        <xpath expr="//thead/tr/th[id='title']" position="after">-->
-<!--            <th>Area</th>-->
-<!--        </xpath>-->
-<!--&lt;!&ndash;        <xpath expr="//td[span[@t-esc='ticket.category_id.name']]" position="before">&ndash;&gt;-->
-<!--&lt;!&ndash;            <td><span t-esc="ticket.area_id.name"/></td>&ndash;&gt;-->
-<!--&lt;!&ndash;        </xpath>&ndash;&gt;-->
-<!--    </template>-->
+    <template inherit_id="helpdesk_mgmt.portal_ticket_list" id="portal_ticket_list" name="Ticket List">
+        <xpath expr="//thead/tr/th[@id='title']" position="after">
+            <th>Area</th>
+        </xpath>
+        <xpath expr="//tbody/t/tr/td[@id='title']" position="after">
+            <td><span t-esc="ticket.area_id.name"/></td>
+        </xpath>
+    </template>
 
 </odoo>

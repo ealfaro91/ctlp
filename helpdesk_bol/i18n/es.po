@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-22 04:44+0000\n"
-"PO-Revision-Date: 2024-10-22 04:44+0000\n"
+"POT-Creation-Date: 2024-10-23 04:28+0000\n"
+"PO-Revision-Date: 2024-10-23 04:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.close_ticket_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "\" has been closed successfully."
 msgstr "\" ha sido cerrado exitosamente."
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.close_ticket_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "\" with subject \""
 msgstr "\" con asunto \""
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.close_ticket_form
-msgid ""
-"<i class=\"fa fa-check-circle fa-1x text-success\" role=\"img\" aria-"
-"label=\"Success\" title=\"Success\"/>"
-msgstr ""
-
-#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "<i class=\"fa fa-paper-plane\"/> Submit"
 msgstr "<i class=\"fa fa-paper-plane\"/> Enviar"
@@ -276,11 +270,11 @@ msgstr "Permitido cambiar el área del ticket"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_location_search_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_search_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_type_search_view
-msgid "Área"
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
+msgid "Area"
 msgstr "Área"
 
 #. module: helpdesk_bol
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__area
 #: model:ir.model.fields,help:helpdesk_bol.field_res_users__area
 msgid "Area Active Directory"
@@ -517,7 +511,7 @@ msgstr "Equipo de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_type
 msgid "Helpdesk Ticket Type"
-msgstr "Tipo de tickets del Helpdesk"
+msgstr "Tipo de solicitudes del Helpdesk"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__id
@@ -704,7 +698,7 @@ msgstr "Número de errores"
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_location__message_needaction_counter
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_subcategory__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Número de mensajes que requieren acción"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__message_has_error_counter
@@ -719,9 +713,9 @@ msgid "On time"
 msgstr "En plazo"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_ticket_form
-msgid "Reason"
-msgstr "Motivo"
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
+msgid "Please provide a reason to reopen the ticket."
+msgstr "Por favor, proporcione un motivo para reabrir el ticket."
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
@@ -729,13 +723,13 @@ msgid "Register Your Requirement"
 msgstr "Registre su Requerimiento"
 
 #. module: helpdesk_bol
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__reopen_reason
-msgid "Reopen reason"
-msgstr "Motivo de reapertura"
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
+msgid "Reopen Ticket"
+msgstr "Reabrir ticket"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_ticket_form
-msgid "Reopen ticket reason"
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__reopen_reason
+msgid "Reopen reason"
 msgstr "Motivo de reapertura"
 
 #. module: helpdesk_bol
@@ -761,6 +755,11 @@ msgstr "Nombre del solicitante"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Requester Area"
+msgstr "Área del solicitante"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area
+msgid "Requester area"
 msgstr "Área del solicitante"
 
 #. module: helpdesk_bol
@@ -822,26 +821,24 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-
-#. module: helpdesk_bol
-#: model:ir.actions.act_window,name:helpdesk_bol.helpdesk_ticket_subcategory_action
-#: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__subcategory_id
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__name
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_form_view
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__subcategory_id
-msgid "Sub-Category"
-msgstr "Sub-Categoría"
+"Estado basado en actividades\n"
+"Vencido: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de actividad es hoy\n"
+"Programada: Actividades futuras."
 
 #. module: helpdesk_bol
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_subcategory_menu
 msgid "Sub-Categories"
 msgstr "Sub-Categorías"
 
-
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_ticket_form
-msgid "Submit"
-msgstr "Enviar"
+#: model:ir.actions.act_window,name:helpdesk_bol.helpdesk_ticket_subcategory_action
+#: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__subcategory_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__subcategory_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__name
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_form_view
+msgid "Sub-Category"
+msgstr "Sub-Categoría"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_ti
@@ -854,14 +851,20 @@ msgid ""
 "Thank you for reaching out. Your request has been received and our team will"
 " start working on it soon."
 msgstr ""
-"Gracias por contactarnos. Su solicitud ha sido recibida y"
-" nuestro equipo comenzará a trabajar en ella pronto."
+"Gracias por contactarnos. Su solicitud ha sido recibida y nuestro equipo "
+"comenzará a trabajar en ella pronto."
 
+#. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
+#, python-format
+msgid "The selected area is the same as the current area"
+msgstr "El área seleccionada es la misma que el área actual"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__ticket_id
 msgid "Ticket"
-msgstr "Ticket"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:mail.template,subject:helpdesk_bol.ticket_creation
@@ -923,6 +926,7 @@ msgid "User"
 msgstr "Usuario"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_register
 msgid "View My Tickets"
 msgstr "Ver mis tickets"
@@ -930,7 +934,8 @@ msgstr "Ver mis tickets"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
 msgid "Warning: This ticket is delayed. Please take immediate action."
-msgstr "Advertencia: Este ticket está retrasado. Por favor, tome medidas inmediatas."
+msgstr ""
+"Advertencia: Este ticket está retrasado. Por favor, tome medidas inmediatas."
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_change_ticket_area_wizard
@@ -938,8 +943,8 @@ msgid ""
 "Warning: You are about to change the ticket area. This action may affect the"
 " ticket's workflow and assigned personnel."
 msgstr ""
-"Advertencia: Está a punto de cambiar el área del ticket. Esta acción "
-"puede afectar el flujo de trabajo del ticket y el personal asignado."
+"Advertencia: Está a punto de cambiar el área del ticket. Esta acción puede "
+"afectar el flujo de trabajo del ticket y el personal asignado."
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__website_message_ids
@@ -961,7 +966,7 @@ msgid "Wizard to Change Ticket Area"
 msgstr "Asistente para cambiar el área del ticket"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.close_ticket_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "Your ticket \""
 msgstr "Su ticket \""
 
