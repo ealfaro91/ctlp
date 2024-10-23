@@ -40,31 +40,31 @@ class HelpdeskTicketController(http.Controller):
             else False
         )
 
-    @http.route("/help_desk", type="http", auth="user", website=True)
-    def create_new_ticket(self, **kw):
-        company = request.env.company
-        category_model = http.request.env["helpdesk.ticket.category"]
-        categories = category_model.with_company(company.id).search(
-            [("active", "=", True)]
-        )
-        email = http.request.env.user.email
-        name = http.request.env.user.name
-        company = request.env.company
-        return http.request.render(
-            "helpdesk_mgmt.portal_create_ticket",
-            {
-                "categories": categories,
-                "teams": self._get_teams(),
-                "email": email,
-                "name": name,
-                "ticket_team_id_required": (
-                    company.helpdesk_mgmt_portal_team_id_required
-                ),
-                "ticket_category_id_required": (
-                    company.helpdesk_mgmt_portal_category_id_required
-                ),
-            },
-        )
+    # @http.route("/help_desk", type="http", auth="user", website=True)
+    # def create_new_ticket(self, **kw):
+    #     company = request.env.company
+    #     category_model = http.request.env["helpdesk.ticket.category"]
+    #     categories = category_model.with_company(company.id).search(
+    #         [("active", "=", True)]
+    #     )
+    #     email = http.request.env.user.email
+    #     name = http.request.env.user.name
+    #     company = request.env.company
+    #     return http.request.render(
+    #         "helpdesk_mgmt.portal_create_ticket",
+    #         {
+    #             "categories": categories,
+    #             "teams": self._get_teams(),
+    #             "email": email,
+    #             "name": name,
+    #             "ticket_team_id_required": (
+    #                 company.helpdesk_mgmt_portal_team_id_required
+    #             ),
+    #             "ticket_category_id_required": (
+    #                 company.helpdesk_mgmt_portal_category_id_required
+    #             ),
+    #         },
+    #     )
 
     def _prepare_submit_ticket_vals(self, **kw):
         category = http.request.env["helpdesk.ticket.category"].browse(

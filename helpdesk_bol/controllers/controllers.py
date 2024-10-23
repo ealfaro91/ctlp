@@ -17,7 +17,6 @@ headers = {"content-type": "application/json;charset=utf-8"}
 
 
 class HelpdeskTicketController(http.Controller):
-
     @http.route("/help_desk", auth="user", type="http", website=True)
     def create_new_ticket(self, **kw):
         """ Renders the help desk ticket creation form with
