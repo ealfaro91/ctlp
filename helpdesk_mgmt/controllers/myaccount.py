@@ -177,8 +177,8 @@ class CustomerPortalHelpdesk(CustomerPortal):
             return request.redirect("/my")
 
         # ensure attachments are accessible with access token inside template
-        for attachment in ticket_sudo.attachment_ids:
-            attachment.generate_access_token()
+      #  for attachment in ticket_sudo.attachment_ids:
+      #      attachment.generate_access_token()
         values = self._ticket_get_page_view_values(ticket_sudo, access_token, **kw)
         return request.render("helpdesk_mgmt.portal_helpdesk_ticket_page", values)
 

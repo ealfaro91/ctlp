@@ -6,7 +6,7 @@
             <th class="text-end"><span>Expiration Date</span></th> <!-- Add header for expiration date -->
         </xpath>
         <xpath expr="//table[@name='invoice_snln_table']/tbody/tr" position="inside">
-            <td class="text-end"><t t-esc="snln_line['expiration_date']"/></td> <!-- Add expiration date value -->
+            <td class="text-end"><t t-if="snln_line.get('expiration_date', False) != False"><t t-esc="snln_line['expiration_date']"/></t></td> <!-- Add expiration date value -->
         </xpath>
     </template>
 

@@ -12,6 +12,8 @@ TODAY = fields.Datetime.now()
 _logger = logging.getLogger(__name__)
 
 
+
+
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
@@ -85,7 +87,6 @@ class HelpdeskTicket(models.Model):
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
         if self.partner_id:
-            self.partner_name = self.partner_id.name
             self.partner_email = self.partner_id.email
             self.area = self.partner_id.area
 

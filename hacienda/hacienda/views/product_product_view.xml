@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- ===================
+             PRODUCT TEMPLATE VIEWS
+             =================== -->
+
+    <record model="ir.ui.view" id="product_product_hacienda_form">
+      <field name="name">product.product.hacienda.form</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="arch" type="xml">
+           <div name="options" position="inside">
+              <div>
+                  <field name="is_location"/>
+                  <label for="is_location"/>
+              </div>
+          </div>
+          <xpath expr="//notebook/page[last()]" position="after">
+            <page string="Ubicación" name="page_location" attrs='{"invisible": [("is_location", "=", False)]}'>
+              <group>
+                <group>
+                    <field name="street"/>
+                    <field name="outdoor_number"/>
+                    <field name="interior_number"/>
+                    <field name="colonia"/>
+                    <field name="postal_code"/>
+                    <field name="m2"/>
+                    <field name="mc"/>
+                </group>
+              </group>
+            </page>
+          </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

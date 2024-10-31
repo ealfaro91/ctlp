@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="123" inherit_id="cdfi_invoice.report_saleorder_document">
+            <xpath expr="//div[@class='page']" position="inside"> 
+                <br/>
+                <br/>
+                <table t-if="doc.payment_term_id">
+                    <thead>
+                        <tr>
+                            <th>1.-APARTADO</th>
+                            <th colspan="2">______FECHA_____</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="value_balance" t-value="doc.amount_total"/>
+                        <tr t-foreach="doc.payment_term_id.line_ids" t-as="l">
+                            <t t-if="l.option =='day_after_invoice_date'">
+                                <td>
+                                    <span t-esc="(doc.date_order + datetime.timedelta(days=l.days)).year" />
+                                    <span>-</span>
+                                    <span t-esc="'{0:02d}'.format((doc.date_order + datetime.timedelta(days=l.days)).month)" />
+                                    <span>-</span>
+                                    <span t-esc="'{0:02d}'.format((doc.date_order + datetime.timedelta(days=l.days)).day)" />
+                                </td>
+                            </t>
+                            <t t-if="l.option =='day_following_month'">
+                                <t t-if="not doc.date_order.year==12">
+                                    <td>
+                                        <span t-esc="doc.date_order.year"/>
+                                        <span>-</span>
+                                        <span t-esc="'{0:02d}'.format(doc.date_order.month+1)"/>
+                                        <span>-</span>
+                                        <span t-esc="'{0:02d}'.format(l.days)"/>
+                                    </td>
+                                </t>
+                                <t t-if="doc.date_order.year==12">
+                                    <td>
+                                        <span t-esc="doc.date_order.year+1"/>
+                                        <span>-01-</span>
+                                        <span t-esc="'{0:02d}'.format(l.days)"/>
+                                    </td>
+                                </t>
+                            </t>
+                            <t t-if="l.option =='day_current_month'">
+                                <td>
+                                    <span t-esc="doc.date_order.year"/>
+                                    <span>-</span>
+                                    <span t-esc="'{0:02d}'.format(doc.date_order.month)"/>
+                                    <span>-</span>
+                                    <span t-esc="'{0:02d}'.format(l.days)"/>
+                                </td>
+                            </t>
+                            <t t-set="value_porcentage" t-value="l.value_amount*doc.amount_total/100"/>
+                            <t t-if="l.value == 'fixed'">
+                                <t t-set="value_balance" t-value="value_balance-l.value_amount"/>
+                                <td > <span t-field="l.value_amount"/>  </td>
+                            </t>
+                            <t t-if="l.value == 'percent'">
+                                <t t-set="value_balance" t-value="value_balance-value_porcentage"/>
+                                <td > <span t-esc="value_porcentage"/>  </td>
+                            </t>
+                            <t t-if="l.value == 'balance'">
+                                <td > <span t-esc="value_balance"/>  </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+        </template>
+    </data>
+</odoo>

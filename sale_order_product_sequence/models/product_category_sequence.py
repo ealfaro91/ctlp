@@ -10,6 +10,11 @@ class ProductCategorySequence(models.Model):
         ('category_id_uniq', 'unique(category_id)', 'Category must be unique!'),
     ]
 
+    @api.depends('sequence_id')
+    def _compute_display_name(self):
+        for cat in self:
+            cat.display_name =  f'{cat.category_id.name} - {cat.sequence_id.name}'
+
     def name_get(self):
         """Get the proper display name formatted as 'ZIP, name, state, country'."""
         res = []

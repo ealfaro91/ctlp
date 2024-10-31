@@ -4,7 +4,7 @@
     <data noupdate="0">
 
         <record id="group_helpdesk_area_changer" model="res.groups">
-            <field name="name">Allowed to change ticket area</field>
+            <field name="name">Allowed to manage all areas</field>
             <field name="category_id" ref="helpdesk_mgmt.module_helpdesk_category"/>
         </record>
 

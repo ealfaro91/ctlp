@@ -7,7 +7,7 @@
             <form string="Product Category Sequence">
                 <sheet>
                     <group>
-                        <field name="category_id"/>
+                        <field name="category_id" options='{"no_open": True, "no_create": True}'/>
                         <field name="sequence_id"/>
                     </group>
                 </sheet>
@@ -34,7 +34,7 @@
 
     <menuitem id="menu_product_category_sequence"
               name="Product Category Sequences"
-              parent="stock.menu_stock_config_settings"
+              parent="	sale.menu_sale_config"
               action="action_product_category_sequence"/>
 
 </odoo>
