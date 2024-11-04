@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo noupdate="0">
 
     <!-- TICKET REGISTRATION FORM -->
 
@@ -171,7 +171,7 @@
 
    <template id="reopen_close_ticket_form" name="Motivo de reapertura">
        <t t-call="website.layout">
-           <t t-if="action == '2'">
+           <t t-if="action == '1'">
                <div>
                    <div class="container">
                        <div style="background-color: #28a745; padding: 30px 0; text-align: center;">
@@ -191,9 +191,9 @@
                    </div>
                </div>
            </t>
-           <t t-if="action == '1'">
+           <t t-if="action == '2'">
                <form action="/help_desk_reopen" method="POST" enctype="multipart/form-data" class="mx-auto" style="max-width: 800px;">
-                   <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                    <input type="hidden" name="id" t-att-value="id"/>
                    <input type="hidden" name="action" t-att-value="action"/>
                    <div>
@@ -230,16 +230,16 @@
         <t t-call="website.layout">
             <div>
                 <div class="container">
-                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <!-- Error Message -->
-                    <t t-if="error_message">
-                        <div class="alert alert-danger text-center" role="alert" style="padding: 20px; font-size: 1.2rem; font-weight: 500;">
-                            <i class="fa fa-exclamation-circle" style="font-size: 1.5rem; margin-right: 10px; color: #dc3545;"></i>
-                            <span t-esc="error_message"/>
-                        </div>
-                    </t>
+<!--                    <t t-if="error_message">-->
+<!--                        <div class="alert alert-danger text-center" role="alert" style="padding: 20px; font-size: 1.2rem; font-weight: 500;">-->
+<!--                            <i class="fa fa-exclamation-circle" style="font-size: 1.5rem; margin-right: 10px; color: #dc3545;"></i>-->
+<!--                            <span t-esc="error_message"/>-->
+<!--                        </div>-->
+<!--                    </t>-->
                     <!-- Success Message -->
-                    <t t-else="">
+                    <t>
                         <!-- Upper Green Section with Checkmark -->
                         <div style="background-color: #28a745; padding: 30px 0; text-align: center;">
                             <i class="fa fa-check-circle" style="font-size: 3rem; color: white;"></i>

@@ -33,6 +33,7 @@ class HelpdeskTicketController(http.Controller):
             'areas': request.env['helpdesk.ticket.area'].sudo().search([]),
             'locations': request.env['helpdesk.ticket.location'].sudo().search([]),
         }
+        print(request.env.ref("helpdesk_bol.ticket_form"))
         return request.render("helpdesk_bol.ticket_form", data)
 
     @http.route("/help_desk_close", type='http', auth="user",  methods=['POST'],
@@ -80,7 +81,7 @@ class HelpdeskTicketController(http.Controller):
         request.session['form_submitted'] = False
         return request.render("helpdesk_bol.ticket_register", {'number': helpdesk_ticket.number})
 
-    @http.route("/help_desk_reopen", type='http', auth="user",  methods=['POST'], website=True)
+    @http.route("/help_desk_reopen", auth="user", website=True)
     def help_desk_reopen(self, **kw):
         request.env["helpdesk.ticket"].sudo().browse(int(kw.get('id'))).write(
                     {'reopen_reason': kw.get('reopen_reason'), 'stage_id': 2})

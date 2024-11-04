@@ -64,31 +64,36 @@ class HelpdeskTicket(models.Model):
     code = fields.Char(string="Code", related="area_id.code", required=True, tracking=True)
     user_id = fields.Many2one("res.users", tracking=True)
     create_date_utc = fields.Datetime(compute="_get_create_date_userutc")
+    state_log_ids = fields.One2many("change.state.log", "ticket_id", string="State changes")
 
     @api.onchange('team_id')
     def _onchange_area_id(self):
-        self.area_id = False
-        self.type_id = False
-        self.category_id = False
-        self.subcategory_id = False
-        self.location_id = False
+        for ticket in self:
+            ticket.area_id = False
+            ticket.type_id = False
+            ticket.category_id = False
+            ticket.subcategory_id = False
+            ticket.location_id = False
 
     @api.onchange('type_id')
     def _onchange_ticket_type_id(self):
-        self.category_id = False
-        self.subcategory_id = False
-        self.location_id = False
+        for ticket in self:
+            ticket.category_id = False
+            ticket.subcategory_id = False
+            ticket.location_id = False
 
     @api.onchange('category_id')
     def _onchange_category_id(self):
-        self.subcategory_id = False
-        self.location_id = False
+        for ticket in self:
+            ticket.subcategory_id = False
+            ticket.location_id = False
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
-        if self.partner_id:
-            self.partner_email = self.partner_id.email
-            self.area = self.partner_id.area
+        for ticket in self:
+            if ticket.partner_id:
+                ticket.partner_email = ticket.partner_id.email
+                ticket.area = ticket.partner_id.area
 
     def _search_attention_time_state(self, operator, value):
         other_record_ids = self.search([])
@@ -123,6 +128,14 @@ class HelpdeskTicket(models.Model):
         template = self.env.ref('helpdesk_bol.ticket_creation')
         if template:
             template.send_mail(res.id, force_send=False)
+        return res
+
+    def write(self, vals):
+        res = super(HelpdeskTicket, self).write(vals)
+        if vals.get('user_id'):
+            template = self.env.ref('helpdesk_bol.ticket_assignation')
+            if template:
+                template.send_mail(self.id, force_send=False)
         return res
 
     def _compute_attention_time_state(self):

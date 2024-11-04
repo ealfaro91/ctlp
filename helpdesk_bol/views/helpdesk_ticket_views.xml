@@ -64,6 +64,14 @@
                 <field name="attention_time_state" widget="badge" decoration-danger="attention_time_state=='delayed'" decoration-success="attention_time_state=='on_time'" readonly="1"/>
                 <field name="elapsed_attention_time" widget="float_time"/>
             </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="Change state" name="state_log" invisible="1">
+                    <group>
+                         <field name="state_log_ids" nolabel="1"/>
+                     </group>
+
+                </page>
+            </xpath>
 
         </field>
     </record>

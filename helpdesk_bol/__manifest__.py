@@ -21,6 +21,7 @@
         'security/ir_rule.xml',
         'security/ir.model.access.csv',
         'wizards/change_ticket_area_wizard_views.xml',
+        'views/change_state_log_views.xml',
         'views/helpdesk_ticket_area_views.xml',
         'views/helpdesk_ticket_category_views.xml',
         'views/helpdesk_ticket_category_views.xml',

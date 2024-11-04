@@ -1,0 +1,47 @@
+<odoo>
+
+    <!-- FORM VIEW -->
+
+    <record id="change_state_log_form_view" model="ir.ui.view">
+        <field name="name">change.state.log.form.view</field>
+        <field name="model">change.state.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ticket_id" invisible="1"/>
+                            <field name="user_id"/>
+                        </group>
+                         <group>
+                            <field name="stage_id"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+
+    <record id="change_state_log_tree_view" model="ir.ui.view">
+        <field name="name">change.state.log.tree.view</field>
+        <field name="model">change.state.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ticket_id" invisible="1"/>
+                <field name="user_id"/>
+                <field name="stage_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

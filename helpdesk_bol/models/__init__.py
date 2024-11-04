@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import change_state_log
 from . import helpdesk_ticket
 from . import helpdesk_ticket_area
 from . import helpdesk_ticket_category
