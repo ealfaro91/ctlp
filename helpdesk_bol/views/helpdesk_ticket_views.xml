@@ -58,18 +58,15 @@
             </field>
             <field name="partner_email" position="after">
                 <field name="area_id" invisible="1"/>
-                <field name="area" readonly="1" force_save="1qq"/>
+                <field name="area" readonly="1" force_save="1"/>
             </field>
             <field name="user_id" position="after">
                 <field name="attention_time_state" widget="badge" decoration-danger="attention_time_state=='delayed'" decoration-success="attention_time_state=='on_time'" readonly="1"/>
                 <field name="elapsed_attention_time" widget="float_time"/>
             </field>
             <xpath expr="//notebook" position="inside">
-                <page string="Change state" name="state_log" invisible="1">
-                    <group>
-                         <field name="state_log_ids" nolabel="1"/>
-                     </group>
-
+                <page string="Change state" name="state_log" groups="base.group_no_one">
+                    <field name="state_log_ids" nolabel="1" readonly="1" context="{'tree_view_ref': 'helpdesk_bol.change_state_log_tree_view'}"/>
                 </page>
             </xpath>
 

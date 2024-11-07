@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import base64
-
 import logging
+import uuid
 
 from datetime import datetime
-from odoo import http
+from odoo import http, _
 from odoo.http import request, Response
 
 _logger = logging.getLogger(__name__)
@@ -17,6 +17,8 @@ headers = {"content-type": "application/json;charset=utf-8"}
 
 
 class HelpdeskTicketController(http.Controller):
+
+
     @http.route("/help_desk", auth="user", type="http", website=True)
     def create_new_ticket(self, **kw):
         """ Renders the help desk ticket creation form with
@@ -25,6 +27,8 @@ class HelpdeskTicketController(http.Controller):
             Args:**kw: Arbitrary keyword arguments.
             Returns:werkzeug.wrappers.Response: The rendered HTML page for the ticket form.
         """
+        submission_token = str(uuid.uuid4())
+        request.session['submission_token'] = submission_token
 
         data = {
             'user': request.env.user,
@@ -32,8 +36,8 @@ class HelpdeskTicketController(http.Controller):
             'categories': request.env['helpdesk.ticket.category'].sudo().search([]),
             'areas': request.env['helpdesk.ticket.area'].sudo().search([]),
             'locations': request.env['helpdesk.ticket.location'].sudo().search([]),
+            'submission_token': submission_token
         }
-        print(request.env.ref("helpdesk_bol.ticket_form"))
         return request.render("helpdesk_bol.ticket_form", data)
 
     @http.route("/help_desk_close", type='http', auth="user",  methods=['POST'],
@@ -47,9 +51,12 @@ class HelpdeskTicketController(http.Controller):
            Returns: werkzeug.wrappers.Response: The rendered HTML page for the thank you message.
            """
 
-        # Check if the form has already been submitted
-        if request.session.get('form_submitted'):
-            return request.render("helpdesk_bol.ticket_register", {'error_message': 'Form already submitted.'})
+        # Verify CSRF token and submission token
+        submission_token = kw.get('submission_token')
+        print(submission_token)
+
+        if not submission_token or submission_token != request.session.pop('submission_token', None):
+            return request.render("helpdesk_bol.ticket_register", {'error_message': _('Invalid or duplicate submission.')})
 
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_id': request.env.user.partner_id.id,

@@ -16,12 +16,29 @@
                 <group string="Areas allowed">
                     <field name="area_ids" widget="many2many_tags" options="{'no_create': True, 'color_field': 'color'}"/>
                 </group>
+                <div class="alert alert-info float-left" role="alert">
+                    <p class="text text-info fw-bold"> Service Desk Access rights  </p>
+                    <ul>
+                        <li>Allowed to change all areas: Has access to settings and can change all tickets areas.</li>
+                        <li>Helpdesk Manager: Has access to all settings for helpdesk but only see tickets in his areas assigned.</li>
+                        <li>User Team tickets: Can see all tickets in the areas he is assigned to.</li>
+                        <li>User Personal tickets: Can see only his tickets in his area.</li>
+                        <li>User: For users to create tickets through the portal. Doesnt have access to internal service desk</li>
+                    </ul>
+                </div>
+            </xpath>
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
             </xpath>
         </field>
     </record>
 
 
-    <!-- FORM VIEW INHERIT -->
+    <!-- TREE VIEW INHERIT -->
 
     <record id="res_users_tree_view" model="ir.ui.view">
         <field name="name">res.users.area.tree.view</field>
@@ -30,6 +47,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='login']" position="after">
                 <field name="area"/>
+                <field name="area_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </xpath>
         </field>
     </record>

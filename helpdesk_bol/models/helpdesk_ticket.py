@@ -3,7 +3,7 @@
 import pytz
 import logging
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import api, fields, models
 from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
@@ -12,14 +12,12 @@ TODAY = fields.Datetime.now()
 _logger = logging.getLogger(__name__)
 
 
-
-
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
     resource_calendar_id =  fields.Many2one(
         "resource.calendar",
-        string="Resource Calendar",
+        string="Work schedule",
         tracking=True,
         required=True,
         default=lambda self: self.env.ref('resource.resource_calendar_std').id
@@ -136,29 +134,60 @@ class HelpdeskTicket(models.Model):
             template = self.env.ref('helpdesk_bol.ticket_assignation')
             if template:
                 template.send_mail(self.id, force_send=False)
+        if vals.get('stage_id'):
+            self.state_log_ids.create({
+                'ticket_id': self.id,
+                'stage_id': vals.get('stage_id'),
+                'user_id': self.env.user.id,
+                'date': fields.Datetime.now()
+            })
         return res
 
     def _compute_attention_time_state(self):
-        """ Compute attention time
-        - If ticket is in waiting time is stopped
-        - If ticket is closed elapsed_time
-        Time on waiting is not counted, so it must count first time closed and time
-        """
+        # Que no incluya los tiempos en pausa
+        user_tz = self.env.user.tz or pytz.utc
+        local = pytz.timezone(user_tz)
+
         for ticket in self:
             ticket.attention_time_state = "on_time"
-            ticket.elapsed_attention_time = ticket.elapsed_attention_time or 0
-            waiting = [self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_awaiting').id,
-                       self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_onpause').id,
-                       self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id]
-            if ticket.stage_id.id in waiting:
+            ticket.elapsed_attention_time = 0
+            if not ticket.create_date:
                 continue
-            else:
-                date = fields.Datetime.to_string(TODAY)
-                ticket.elapsed_attention_time = (
-                    (datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
-                     - datetime.strptime(fields.Datetime.to_string(ticket.create_date), DEFAULT_SERVER_DATETIME_FORMAT)).seconds / 3600
-                )
-            if ticket.elapsed_attention_time > ticket.max_attention_time > 0:
+
+            create_date = pytz.utc.localize(ticket.create_date).astimezone(local)
+            close_date = pytz.utc.localize(ticket.closed_date).astimezone(
+                local) if ticket.closed_date else datetime.now(local)
+            calendar = ticket.resource_calendar_id
+
+            total_hours = 0
+            current_date = create_date
+
+            while current_date < close_date:
+                # Verifica si el día actual está en el calendario laboral
+                weekday = current_date.weekday()  # 0 = Lunes, ..., 6 = Domingo
+                for attendance in calendar.attendance_ids.filtered(
+                    lambda a: int(a.dayofweek) == weekday and a.day_period != 'lunch'):
+                    # Configuración de horario de trabajo
+                    start_time = current_date.replace(hour=int(attendance.hour_from),
+                                                      minute=int((attendance.hour_from % 1) * 60))
+                    end_time = current_date.replace(hour=int(attendance.hour_to),
+                                                    minute=int((attendance.hour_to % 1) * 60))
+
+                    # Ajustes de límites a `create_date` y `close_date`
+                    if start_time < create_date:
+                        start_time = create_date
+                    if end_time > close_date:
+                        end_time = close_date
+
+                    if start_time < end_time:
+                        total_hours += (end_time - start_time).total_seconds() / 3600
+
+                # Avanza al siguiente día laboral
+                current_date += timedelta(days=1)
+                current_date = current_date.replace(hour=0, minute=0, second=0, microsecond=0)
+
+            ticket.elapsed_attention_time = total_hours
+            if total_hours > ticket.max_attention_time > 0:
                 ticket.attention_time_state = "delayed"
 
     def _automatic_closure(self):
@@ -180,6 +209,5 @@ class HelpdeskTicket(models.Model):
             )
             if time_from_update >= time_to_closure:
                 ticket.sudo().write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
-                #ticket._track_template(tracking)
 
 

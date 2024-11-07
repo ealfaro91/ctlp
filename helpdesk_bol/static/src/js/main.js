@@ -3,6 +3,16 @@ $("select[name='area_id']").change(function(){
          $select_type.find("option:not(:first)").hide();
          let nb = $select_type.find("option[data-area_id="+($(this).val() || 0)+"]").show().length;
          $select_type.val(0);
+
+          // Clear the category_id field
+          let $select_category = $("select[name='category_id']");
+          $select_category.val(0);
+          $select_category.find("option:not(:first)").hide();
+
+          // Clear the location_id field
+          let $select_location = $("select[name='location_id']");
+          $select_location.val(0);
+          $select_location.find("option:not(:first)").hide();
 });
 
 $("select[name='type_id']").change(function(){
@@ -51,20 +61,19 @@ function showFileNames() {
 }
 
 
- function toggleLocationField() {
+function toggleLocationField() {
         const areaSelect = document.querySelector('select[name="area_id"]');
         const locationField = document.getElementById('location_field');
 
         const selectedOption = areaSelect.options[areaSelect.selectedIndex];
-        const areaCode = selectedOption.dataset.area_code;
-
+        const areaCode = selectedOption ? selectedOption.dataset.area_code : null;
         if (!areaSelect || !locationField) {
             console.error('Required elements not found');
             return;
         }
 
         // Check if the selected area code is "TI"
-        const selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.code;
+        const selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.area_code;
 
         if (areaCode === 'TI') {
             locationField.style.display = 'none'; // Hide the location field
@@ -76,9 +85,9 @@ function showFileNames() {
     document.addEventListener('DOMContentLoaded', function() {
         const areaSelect = document.querySelector('select[name="area_id"]');
         if (areaSelect) {
-            areaSelect.addEventListener('change', toggleLocationField);
-            toggleLocationField(); // Initial call to set the correct visibility
-        } else {
-            console.error('Select element with name "area_id" not found');
-        }
+        areaSelect.addEventListener('change', toggleLocationField);
+        toggleLocationField(); // Initial call to set the correct visibility
+    } else {
+        console.error('Select element with name "area_id" not found');
+    }
  });
