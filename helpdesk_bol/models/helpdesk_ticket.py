@@ -156,7 +156,7 @@ class HelpdeskTicket(models.Model):
 
             create_date = pytz.utc.localize(ticket.create_date).astimezone(local)
             close_date = pytz.utc.localize(ticket.closed_date).astimezone(
-                local) if ticket.closed_date else datetime.now(local)
+                local) if ticket.closed_date and ticket.stage_id.id == self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_closed').id else datetime.now(local)
             calendar = ticket.resource_calendar_id
 
             total_hours = 0
