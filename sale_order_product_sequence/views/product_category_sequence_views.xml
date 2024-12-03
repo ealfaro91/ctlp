@@ -34,7 +34,7 @@
 
     <menuitem id="menu_product_category_sequence"
               name="Product Category Sequences"
-              parent="	sale.menu_sale_config"
+              parent="sale.menu_sale_config"
               action="action_product_category_sequence"/>
 
 </odoo>

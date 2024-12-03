@@ -23,7 +23,7 @@ class ChangeTicketAreaWizard(models.TransientModel):
     )
     location_id = fields.Many2one(
         'helpdesk.ticket.location', string='Location',
-        domain="[('category_id', '=', category_id)]"
+        domain="[('area_id', '=', area_id)]"
     )
     user_id = fields.Many2one('res.users', string='Assignee', related= 'category_id.user_id', store=True)
 

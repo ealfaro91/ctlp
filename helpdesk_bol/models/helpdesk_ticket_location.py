@@ -8,16 +8,8 @@ class HelpdeskTicketLocation(models.Model):
     _order = "name"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    @api.onchange('area_id')
-    def _onchange_area_id(self):
-        self.category_id = False
-
     active = fields.Boolean(default=True, tracking=True)
     name = fields.Char(string="Location", tracking=True, translate=True)
-    category_id = fields.Many2one(
-        "helpdesk.ticket.category", string="Category",
-        tracking=True, domain="[('area_id', '=', area_id)]"
-    )
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",

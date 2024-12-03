@@ -37,7 +37,6 @@ class HelpdeskTicket(models.Model):
     location_id = fields.Many2one(
         "helpdesk.ticket.location",
         string="Location",
-        domain="[('category_id', '=', category_id)]",
         tracking=True
     )
     max_attention_time = fields.Float(related="subcategory_id.max_attention_time")

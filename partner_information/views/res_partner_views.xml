@@ -1,0 +1,55 @@
+<odoo>
+
+    <record id="view_res_partner_form_inherited" model="ir.ui.view">
+        <field name="name">res.partner.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <group>
+                    <field name="first_name"/>
+                    <field name="second_name"/>
+                    <field name="last_name"/>
+                    <field name="middle_name"/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Additional Information">
+                    <group>
+                        <group>
+                            <field name="key"/>
+                            <field name="birth_date"/>
+                            <field name="age"/>
+                            <field name="genre"/>
+                            <field name="marital_status"/>
+                            <field name="entry_date"/>
+                            <field name="exit_date"/>
+                            <field name="real_exit_date"/>
+                            <field name="origin_country_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="origin_state_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="origin_city_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="parent_familiar_name"/>
+                            <field name="parent_last_name"/>
+                            <field name="relation_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="parent_phone"/>
+                        </group>
+                        <group>
+                            <field name="primary_axis_1"/>
+                            <field name="preferred_substance_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="behavior_id"/>
+                            <field name="psychiatric_dx"/>
+                            <field name="tp_axis_2"/>
+                            <field name="medical_report_axis_3"/>
+                            <field name="eeg"/>
+                            <field name="therapist_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="status_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="follow_up_date"/>
+                            <field name="comment"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

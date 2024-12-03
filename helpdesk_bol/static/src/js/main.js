@@ -75,7 +75,7 @@ function toggleLocationField() {
         // Check if the selected area code is "TI"
         const selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.area_code;
 
-        if (areaCode === 'TI') {
+        if (selectedAreaCode === 'TI') {
             locationField.style.display = 'none'; // Hide the location field
         } else {
             locationField.style.display = 'block'; // Show the location field
