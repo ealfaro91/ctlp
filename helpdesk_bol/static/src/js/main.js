@@ -63,33 +63,3 @@ function showFileNames() {
 }
 
 
-function toggleLocationField() {
-        const areaSelect = document.querySelector('select[name="area_id"]');
-        const locationField = document.getElementById('location_field');
-
-        const selectedOption = areaSelect.options[areaSelect.selectedIndex];
-        const areaCode = selectedOption ? selectedOption.dataset.area_code : null;
-        if (!areaSelect || !locationField) {
-            console.error('Required elements not found');
-            return;
-        }
-
-        // Check if the selected area code is "TI"
-        const selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.area_code;
-
-        if (selectedAreaCode === 'TI') {
-            locationField.style.display = 'none'; // Hide the location field
-        } else {
-            locationField.style.display = 'block'; // Show the location field
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const areaSelect = document.querySelector('select[name="area_id"]');
-        if (areaSelect) {
-        areaSelect.addEventListener('change', toggleLocationField);
-        toggleLocationField(); // Initial call to set the correct visibility
-    } else {
-        console.error('Select element with name "area_id" not found');
-    }
- });

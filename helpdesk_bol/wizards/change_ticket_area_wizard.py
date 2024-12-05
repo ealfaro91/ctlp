@@ -49,13 +49,6 @@ class ChangeTicketAreaWizard(models.TransientModel):
 
     def change_area(self):
         self.ensure_one()
-        message = {
-            'title': "Changed area",
-            'message': "The ticket area has been changed from  %s to %s." % (
-            self.ticket_id.area_id.name, self.area_id.name),
-            'type': 'success',
-            'sticky': False,
-        }
         self.ticket_id.write({
             'area_id': self.area_id.id,
             'team_id': self.env['helpdesk.ticket.team'].search([('area_id', '=', self.area_id.id)]).id,
@@ -65,5 +58,13 @@ class ChangeTicketAreaWizard(models.TransientModel):
             'location_id': self.location_id.id,
             'user_id': self.user_id.id,
         })
-        self.env.user.notify_info(message['message'], title=message['title'], sticky=message['sticky'])
-        return {'type': 'ir.actions.act_window_close'}
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'message': _("The ticket area has been changed"),
+                'next': {'type': 'ir.actions.act_window_close'},
+                'sticky': False,
+                'type': 'success',
+            }
+        }

@@ -1075,6 +1075,13 @@ msgid "The selected area is the same as the current area"
 msgstr "El área seleccionada es la misma que el área actual"
 
 #. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
+#, python-format
+msgid "The ticket area has been changed"
+msgstr "El área del ticket ha sido cambiada"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__ticket_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__ticket_id
 msgid "Ticket"
