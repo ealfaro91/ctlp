@@ -14,4 +14,9 @@ class HelpdeskTicketArea(models.Model):
     code = fields.Char(string="Code", tracking=True)
     type_ids = fields.One2many("helpdesk.ticket.type", "area_id", string="Types", tracking=True)
     color = fields.Integer(string="Color Index", default=0, tracking=True)
+    description = fields.Text(
+        string="Descripción",
+        tracking=True,
+        help="This text will be displayed in the helpdesk ticket form view."
+    )
 

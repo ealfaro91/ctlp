@@ -6,7 +6,7 @@
     <template id="ticket_form" name="Register Your Requirement">
         <t t-call="website.layout">
             <script>
-                            function toggleLocationField() {
+                    function toggleLocationField() {
                         const areaSelect = document.querySelector('select[name="area_id"]');
                         const locationField = document.getElementById('location_field');
 
@@ -36,6 +36,34 @@
                         console.error('Select element with name "area_id" not found');
                     }
                  });
+
+                function updateDescription() {
+                    const areaSelect = document.querySelector('select[name="area_id"]');
+                    const descriptionField = document.querySelector('textarea[name="description"]');
+                    if (!areaSelect || !descriptionField) {
+                        console.error('Required elements not found');
+                        return;
+                    }
+
+                    const selectedOption = areaSelect.options[areaSelect.selectedIndex];
+                    const areaDescription = selectedOption ? selectedOption.dataset.area_description : '';
+
+                    descriptionField.value = areaDescription || ''; // Set description value
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const areaSelect = document.querySelector('select[name="area_id"]');
+                    if (areaSelect) {
+                        areaSelect.addEventListener('change', function() {
+                            toggleLocationField();
+                            updateDescription();
+                        });
+                        toggleLocationField(); // Initial call to set visibility
+                        updateDescription(); // Initial call to set description
+                    } else {
+                        console.error('Select element with name "area_id" not found');
+                    }
+                });
             </script>
 
             <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; height: auto; background-color: #f0f8ff;">
@@ -83,7 +111,9 @@
                                     <select class="form-control" name="area_id" required="required">
                                         <option value=""></option>
                                         <t t-foreach="areas" t-as="area">
-                                            <option t-att-value="area.id" t-att-data-area_code="area.code">
+                                            <option t-att-value="area.id"
+                                                    t-att-data-area_code="area.code"
+                                                    t-att-data-area_description="area.description">
                                                 <t t-esc="area.name"/>
                                             </option>
                                         </t>

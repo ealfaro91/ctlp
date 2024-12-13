@@ -20,6 +20,7 @@
                         <group>
                             <field name="code"/>
                             <field name="color" widget="color_picker"/>
+                            <field name="description"/>
                         </group>
                     </group>
                 </sheet>
