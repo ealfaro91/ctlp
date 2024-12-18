@@ -199,7 +199,7 @@
                                     <span class="input-group-text bg-light">
                                         <i class="fa fa-pencil"></i>
                                     </span>
-                                    <textarea class="form-control" name="description" required="required"></textarea>
+                                    <textarea class="form-control" name="description" rows="6" style="min-height: 150px; resize: vertical;" required="required"></textarea>
                                 </div>
                             </div>
                             <!-- Submit Button -->

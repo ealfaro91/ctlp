@@ -42,7 +42,7 @@
                 <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
             </field>
             <field name="category_id" position="after">
-                <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="True"/>
+                <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','TI')" />
                 <field name="location_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','GSS')" invisible="code not in ('GMA','GSS')"/>
                 <field name="max_attention_time" widget="float_time"/>
                 <field name="resource_calendar_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" readonly="1" force_save="1"/>
