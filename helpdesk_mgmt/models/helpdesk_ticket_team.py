@@ -1,3 +1,5 @@
+from fnmatch import translate
+
 from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
@@ -9,7 +11,7 @@ class HelpdeskTeam(models.Model):
     _order = "sequence, id"
 
     sequence = fields.Integer(default=10, tracking=True)
-    name = fields.Char(required=True, tracking=True)
+    name = fields.Char(required=True, tracking=True, translate=True)
     user_ids = fields.Many2many(
         comodel_name="res.users",
         string="Members",
