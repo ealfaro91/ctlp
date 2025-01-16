@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_customer_bill_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <h5><strong>Reporte de saldos</strong></h5>
+                    </div>
+                    <div class="col-6 text-rigth">
+                        <h6>
+                            Fecha de consulta: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                        </h6>
+                    </div>
+                </div>
+                <t t-foreach="docs.mapped('partner_id')" t-as="obj_partner">
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <strong><span t-esc="obj_partner.name"/></strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><strong>#</strong></th>
+                                <th class="text-center"><strong>Folio</strong></th>
+                                <th class="text-center"><strong>Fecha</strong></th>
+                                <th class="text-center"><strong>Vencimiento</strong></th>
+                                <th class="text-rigth"><strong>Importe</strong></th>
+                                <th class="text-rigth"><strong>Pagado</strong></th>
+                                <th class="text-rigth"><strong>Saldo</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="index" t-value="0"/>
+                            <t t-set="total_total" t-value="0"/>
+                            <t t-set="total_pagado" t-value="0"/>
+                            <t t-set="total_saldo" t-value="0"/>
+                            <tr t-foreach="docs.filtered(lambda r: r.partner_id.id == obj_partner.id).sorted(key=lambda r: r.invoice_date)" t-as="o">
+                                <t t-set="total_total" t-value="total_total + o.amount_total"/>
+                                <t t-set="total_saldo" t-value="total_saldo + o.amount_residual"/>
+                                <t t-set="total_pagado" t-value="total_total - total_saldo"/>
+                                <t t-set="index" t-value='index+1'/>
+                                <td class="text-center"><span t-esc="index"/></td>
+                                <td class="text-center"><span t-field="o.name"/></td>
+                                <td class="text-center"><span t-field="o.invoice_date" t-options='{"widget": "date"}'/></td>
+                                <td class="text-center"><span t-field="o.invoice_date_due"/></td>
+                                <td class="text-rigth"><span t-field="o.amount_total"/></td>
+                                <td class="text-rigth"><span t-esc="(o.amount_total - o.amount_residual)"/></td>
+                                <td class="text-rigth"><span t-field="o.amount_residual"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><![CDATA[&nbsp;]]></td>
+                                <th class="text-right">
+                                    <span t-esc="total_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </th>
+                                <th class="text-right">
+                                    <span t-esc="total_pagado" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </th>
+                                <th class="text-right">
+                                    <span t-esc="total_saldo" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_customer_bill">
+        <t t-call="web.html_container">
+            <t t-call="dilox_sale_report.report_customer_bill_document"/>
+        </t>
+    </template>
+
+    <record id="report_customer_bill_pdf" model="ir.actions.report">
+        <field name="name">Customer Bill</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dilox_sale_report.report_customer_bill</field>
+        <field name="report_file">dilox_sale_report.report_customer_bill</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="multi">True</field>
+    </record>
+
+</odoo>

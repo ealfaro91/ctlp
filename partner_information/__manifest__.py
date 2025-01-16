@@ -6,6 +6,7 @@
     'version': '17.1',
     'depends': ['base', 'base_address_extended'],
     'data': [
+        'data/ir_cron_data.xml',
         'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'views/res_partner_relation_views.xml',

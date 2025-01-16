@@ -50,6 +50,8 @@
                                                         <p> This automatic message is to notify that the ticket <span style="font-weight:bold;" t-out="object.number or ''"/>
                                                         with subject <span style="font-weight:bold;" t-out="object.name or ''"/> has been received and assigned to <span style="font-weight:bold;" t-out="object.user_id.name or ''"/> </p>
                                                         <p> Creation datetime: <span style="font-weight:bold;" t-out="object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') "/></p>
+                                                        <p> Estimated resolution (in hours): <span style="font-weight:bold;" t-out="object.max_attention_time"/></p>
+
                                                         <br/>
                                                         <p>Greetings.</p>
                                                         <div style="margin: 16px 0px 16px 0px; text-align: center;">

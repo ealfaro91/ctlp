@@ -54,3 +54,17 @@ class ResPartner(models.Model):
         if self.entry_date and self.exit_date:
             if self.entry_date > self.exit_date:
                 self.exit_date = False
+
+    @api.model
+    def _cron_create_activities(self):
+        partners = self.env['res.partner'].search([('real_exit_date', '!=', False)])
+        today = fields.Date.today()
+
+        for partner in partners:
+            self.env['mail.activity'].create({
+                'res_model_id': self.env['ir.model']._get('res.partner').id,
+                'res_id': partner.id,
+                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
+                'date_deadline': today,
+                'user_id': partner.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
+            })

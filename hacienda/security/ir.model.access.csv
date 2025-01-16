@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_partner_occupation_all,Access Partner Occupation All,model_partner_occupation,,1,1,1,1
+access_alert_type_all,Access Alert Type All,model_alert_type,,1,1,1,1
+

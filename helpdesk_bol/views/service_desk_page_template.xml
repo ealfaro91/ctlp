@@ -325,10 +325,13 @@
 
     <template inherit_id="helpdesk_mgmt.portal_ticket_list" id="portal_ticket_list" name="Ticket List">
         <xpath expr="//thead/tr/th[@id='title']" position="after">
-            <th>Area</th>
+            <th t-if="groupby == 'area'">
+                <em class="font-weight-normal text-muted">Tickets in area:</em>
+                <span class="text-truncate" t-field="tickets[0].sudo().area_id.name"/></th>
+            <th t-if="groupby != 'area'">Area</th>
         </xpath>
         <xpath expr="//tbody/t/tr/td[@id='title']" position="after">
-            <td><span t-esc="ticket.area_id.name"/></td>
+            <td t-if="groupby != 'area'"><span t-esc="ticket.area_id.name"/></td>
         </xpath>
     </template>
 

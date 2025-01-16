@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-24 03:49+0000\n"
-"PO-Revision-Date: 2024-10-24 03:49+0000\n"
+"POT-Creation-Date: 2025-01-07 16:23+0000\n"
+"PO-Revision-Date: 2025-01-07 16:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,68 +16,28 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__category_id
-msgid "Category"
-msgstr "Categoría"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.constraint,message:sale_order_product_sequence.constraint_product_category_sequence_category_id_uniq
-msgid "Category must be unique!"
-msgstr "¡La categoría debe ser única!"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__create_uid
-msgid "Created by"
-msgstr "Creado por"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__create_date
-msgid "Created on"
-msgstr "Creado en"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__display_name
-msgid "Display Name"
-msgstr "Nombre a mostrar"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__id
-msgid "ID"
-msgstr ""
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__write_uid
-msgid "Last Updated by"
-msgstr "Última actualización por"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__write_date
-msgid "Last Updated on"
-msgstr "Última actualización en"
-
-#. module: sale_order_product_sequence
 #: model:ir.model,name:sale_order_product_sequence.model_product_template
 msgid "Product"
 msgstr "Producto"
 
 #. module: sale_order_product_sequence
-#: model:ir.model,name:sale_order_product_sequence.model_product_category_sequence
-#: model_terms:ir.ui.view,arch_db:sale_order_product_sequence.view_product_category_sequence_form
-msgid "Product Category Sequence"
-msgstr "Secuencia de categoría de producto"
-
-#. module: sale_order_product_sequence
-#: model:ir.actions.act_window,name:sale_order_product_sequence.action_product_category_sequence
-#: model:ir.ui.menu,name:sale_order_product_sequence.menu_product_category_sequence
-#: model_terms:ir.ui.view,arch_db:sale_order_product_sequence.view_product_category_sequence_tree
-msgid "Product Category Sequences"
-msgstr "Secuencias de categoría de producto"
+#. odoo-python
+#: code:addons/sale_order_product_sequence/models/sale_order.py:0
+#, python-format
+msgid "Product %s has repeatance sequences but no repeatance prefix defined."
+msgstr "El producto %s tiene secuencias de repetición pero no se ha definido un prefijo de repetición."
 
 #. module: sale_order_product_sequence
 #: model:ir.model.fields,field_description:sale_order_product_sequence.field_sale_order__product_sequences
 #: model:ir.model.fields,field_description:sale_order_product_sequence.field_sale_order_line__product_sequence
 msgid "Product Sequence"
 msgstr "Secuencia de producto"
+
+#. module: sale_order_product_sequence
+#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_product__repeatenance_prefix
+#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_template__repeatenance_prefix
+msgid "Repeatance Prefix"
+msgstr "Prefijo de repetición"
 
 #. module: sale_order_product_sequence
 #: model:ir.model,name:sale_order_product_sequence.model_sale_order
@@ -88,10 +48,3 @@ msgstr "Orden de venta"
 #: model:ir.model,name:sale_order_product_sequence.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de la orden de venta"
-
-#. module: sale_order_product_sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_category_sequence__sequence_id
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_product__sequence
-#: model:ir.model.fields,field_description:sale_order_product_sequence.field_product_template__sequence
-msgid "Sequence"
-msgstr "Secuencia"

@@ -26,6 +26,11 @@ msgid "\" with subject \""
 msgstr "\" con asunto \""
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
+msgid "<em class=\"font-weight-normal text-muted\">Tickets in area:</em>"
+msgstr "<em class=\"font-weight-normal text-muted\">Solicitudes en el área:</em>"
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "<i class=\"fa fa-paper-plane\"/> Submit"
@@ -71,7 +76,8 @@ msgid ""
 "                                                        <p> This automatic message is to notify that the ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
 "                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
 "                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
-"                                                        <br>\n"
+"                                                        <p> Estimated resolution (in hours): <span style=\"font-weight:bold;\" t-out=\"object.max_attention_time\"></span></p>\n"
+<br>\n"
 "                                                        <p>Greetings.</p>\n"
 "                                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
 "                                                            <a href=\"/my_tickets\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
@@ -154,6 +160,7 @@ msgstr ""
 "                                        <p> Este mensaje automático es para notificar que su ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
 "                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido recibido y asignado a  <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
 "                                        <p> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"                                        <p> Tiempo estimado de resolución (en horas): <span style=\"font-weight:bold;\" t-out=\"object.max_attention_time\"></span></p>\n"
 "                                        <br>\n"
 "                                        <p>Saludos.</p>\n"
 "                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
@@ -352,6 +359,13 @@ msgstr "Estado de la actividad"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "Icono del tipo de actividad"
+
+#. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/controllers/myaccount.py:0
+#, python-format
+msgid "All"
+msgstr "Todos"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view

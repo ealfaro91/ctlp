@@ -1,0 +1,124 @@
+<odoo>
+    <data>
+
+        <record id="paperformat_report_sale_order" model="report.paperformat">
+              <field name="name">Report sale order</field>
+              <field name="default" eval="True"/>
+              <field name="format">A4</field>
+              <field name="page_height">0</field>
+              <field name="page_width">0</field>
+              <field name="orientation">Portrait</field>
+              <field name="margin_left">30</field>
+              <field name="margin_right">30</field>
+              <field name="margin_top">20</field>
+              <field name="margin_bottom">20</field>
+              <field name="header_line" eval="False"/>
+              <field name="header_spacing">0</field>
+              <field name="dpi">90</field>
+        </record>
+
+        <record id="report_sale_order" model="ir.actions.report">
+            <field name="name">Constancia de búsqueda</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hacienda.report_agenda_diaria_ejecutada</field>
+            <field name="report_file">hacienda.report_agenda_diaria_ejecutada</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="hacienda.paperformat_report_sale_order"/>
+        </record>
+
+        <template id="report_agenda_diaria_ejecutada">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <div class="text-right">
+                            <strong>Re. CONSTANCIA DE VERIFICACIÓN</strong>
+                            <p>Otorgante. <span t-field="o.company_id.grantor_id.name"/></p>
+                        </div>
+                        <div class="text-left">
+                            <strong><p>FECHA DE BUSQUEDA:<span t-field="o.date_order"/></p></strong>
+                        </div>
+                        <div class="text-justify">
+                            <p style="margin:15px; font-size:9pt;">
+                                Con fundamento en lo dispuesto por el artículo 38 de las Reglas de Carácter General a que se refiere la Ley
+                                Federal Para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita publicadas el
+                                día 23 veintitrés de agosto de 2018 dos mil dieciocho en el Diario Oficial de la Federación, que dispone que:
+                            </p>
+                            <p style="margin:30px; font-size:9pt">Capítulo IX Disposiciones Generales, Articulo 38, primer párrafo...</p>
+
+                            <p style="margin:30px; font-size:9pt">
+                                En caso de que quien realice Actividades Vulnerables lleve a cabo un acto u operación que sea
+                                objeto de Aviso con un Cliente o Usuario que se encuentre dentro de las listas que emitan
+                                autoridades nacionales, así como organismos internacionales o autoridades de otros países, que se
+                                reconozcan como oficialmente emitidas en términos de los instrumentos internacionales de los que
+                                el Estado mexicano sea parte, respecto de personas vinculadas a los delitos de Operaciones con
+                                Recursos de Procedencia Ilícita, entre otros, los previstos en el Capítulo I del Título Vigésimo
+                                Tercero del Código Penal Federal, los previstos en las leyes especiales, así como aquellos de
+                                carácter patrimonial donde los recursos involucrados pudieran ser objeto de acciones tendientes a
+                                ocultar su origen ilícito, o bien, para financiar alguna actividad ilícita, deberá de presentar el Aviso
+                                dentro de las 24 horas siguientes a partir de que conozca dicha información.</p>
+                            <p style="margin:15px; font-size:9pt">
+                                Que, con motivo del acto vulnerable que se llevo acabo, se procedió a revisar al otorgante por conducto de un
+                                sistema de busqueda, para verificar si el otorgante <span t-field="o.partner_id.name"/> <span>se encuentra registrado en las listas a
+                                que se refiere dicha disposición, resultando:</span></p>
+                            <p style="margin:15px; font-size:9pt">
+                                <b>NO APARECE REGISTRADO EN LAS LISTAS</b> <span>previstas por el artículo 38, primer párrafo de las Reglas de
+                                Carácter General a que se refiere la Ley Federal Para la Prevención e Identificación de Operaciones con
+                                Recursos de Procedencia Ilícita publicadas el día 23 veintitrés de agosto de 2018 dos mil dieciocho en el Diario
+                                Oficial de la Federación.</span></p>
+                        </div>
+                        <div align="center">
+                            <img t-att-src="'/hacienda/static/src/img/sat.png'" width="80" height="80"/>
+                            <img t-att-src="'/hacienda/static/src/img/onu.png'" width="80" height="80"/>
+                            <img t-att-src="'/hacienda/static/src/img/ofac.png'" width="80" height="80"/>
+                            <img t-att-src="'/hacienda/static/src/img/colegio.png'" width="80" height="80"/>
+                            <img t-att-src="'/hacienda/static/src/img/dea.png'" width="80" height="80"/>
+                        </div>
+                        <br/>
+                        <table style="border: 1px solid black;" class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th style="text-align:center; font-size:9pt" scope="col">Base de Datos Verificada</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <th scope="row" style="font-size:9pt">Lista correspondiente al Código Fiscal de la Federación, artículo 69</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size:9pt">Lista correspondiente al Código Fiscal de la Federación, artículo 69-B</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size:9pt">Lista del Consejo de Seguridad de las Naciones Unidas (Todos los anexos)</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size:9pt">Lista del Suplantaciones Reportadas por el Colegio de Notarios del Estado de Jalisco</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size:9pt">Consolidated Sanctions List del Office of Foreign Assests Control del Tesoro de Estado Unidos</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" style="font-size:9pt">Specially Designated Nationals List del Office of Foreign Assests Control del Tesoro de Estado Unidos</th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style="border: 1px solid black;" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="font-size:9pt">United States Drug Enforcement Administration All Wanted Fugitives List</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <br/>
+                         <div align="center">
+                            <p>Atentamente,</p>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
