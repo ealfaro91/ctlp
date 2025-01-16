@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_preferred_substance,access_preferred_substance,model_preferred_substance,base.group_user,1,1,1,1
-access_res_partner_relation,access_res_partner_relation,model_res_partner_relation,base.group_user,1,1,1,1
-access_res_partner_status,access_res_partner_status,model_res_partner_status,base.group_user,1,1,1,1
