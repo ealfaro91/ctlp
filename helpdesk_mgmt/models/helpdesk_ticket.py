@@ -165,7 +165,7 @@ class HelpdeskTicket(models.Model):
         seq = self.env["ir.sequence"]
         if "company_id" in values:
             seq = seq.with_company(values["company_id"])
-        return seq.next_by_code("helpdesk.ticket.sequence") or "/"
+        return seq.next_by_id() or "/"
 
     def _compute_access_url(self):
         res = super()._compute_access_url()

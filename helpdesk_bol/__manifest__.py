@@ -13,6 +13,7 @@
         'website',
     ],
     'data': [
+        'data/ir_sequence_data.xml',
         'data/mail_template_data.xml',
         'data/helpdesk_ticket_area_data.xml',
         'data/helpdesk_ticket_team_data.xml',
@@ -20,6 +21,7 @@
         'data/ir_cron.xml',
         'security/ir_rule.xml',
         'security/ir.model.access.csv',
+        'wizards/merge_ticket_wizard_views.xml',
         'wizards/change_ticket_area_wizard_views.xml',
         'views/change_state_log_views.xml',
         'views/helpdesk_ticket_area_views.xml',
@@ -30,6 +32,7 @@
         'views/helpdesk_ticket_team_views.xml',
         'views/helpdesk_ticket_subcategory_views.xml',
         'views/helpdesk_ticket_views.xml',
+        'views/gss_page_template.xml',
         'views/service_desk_page_template.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',

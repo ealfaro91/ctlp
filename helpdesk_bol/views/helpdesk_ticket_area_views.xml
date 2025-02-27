@@ -8,6 +8,12 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_tickets" type="object" class="oe_stat_button" icon="fa-pencil">
+                            <field name="ticket_count" widget="statinfo" string="Ticket"/>
+                            <field name="ticket_ids" invisible="1"/>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <label for="name" string="Area"/>
                         <h1>
@@ -18,11 +24,18 @@
                     </div>
                     <group>
                         <group>
+                            <field name="sequence_id"/>
+                            <field name="show_in_external_portal"/>
                             <field name="code"/>
                             <field name="color" widget="color_picker"/>
                             <field name="description"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Mail templates">
+                            <field name="mail_template_ids" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" />
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

@@ -62,6 +62,8 @@ class HelpdeskTicket(models.Model):
     user_id = fields.Many2one("res.users", tracking=True)
     create_date_utc = fields.Datetime(compute="_get_create_date_userutc")
     state_log_ids = fields.One2many("change.state.log", "ticket_id", string="State changes")
+    parent_id = fields.Many2one("helpdesk.ticket", string="Parent ticket")
+    ticket_ids = fields.One2many("helpdesk.ticket", "parent_id", string="Sub-tickets")
 
     @api.onchange('team_id')
     def _onchange_area_id(self):
@@ -126,6 +128,12 @@ class HelpdeskTicket(models.Model):
         if template:
             template.send_mail(res.id, force_send=False)
         return res
+
+    def _prepare_ticket_number(self, values):
+        seq = self.env["helpdesk.ticket.area"].browse(values["area_id"]).sequence_id
+        if "company_id" in values:
+            seq = seq.with_company(values["company_id"])
+        return seq.next_by_code("helpdesk.ticket.sequence") or "/"
 
     def write(self, vals):
         res = super(HelpdeskTicket, self).write(vals)

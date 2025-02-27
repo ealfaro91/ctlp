@@ -8,3 +8,4 @@ access_helpdesk_ticket_location_manager,helpdesk.ticket.location.manager,helpdes
 access_change_state_log_user,change.state.log.user,helpdesk_bol.model_change_state_log,helpdesk_mgmt.group_helpdesk_user,1,1,1,1
 access_change_state_log_manager,change.state.log.manager,helpdesk_bol.model_change_state_log,helpdesk_mgmt.group_helpdesk_manager,1,1,1,1
 access_helpdesk_change_ticket_area_wizard,helpdesk.change.ticket.area.wizard,helpdesk_bol.model_change_ticket_area_wizard,helpdesk_bol.group_helpdesk_area_changer,1,1,1,1
+access_helpdesk_merge_ticket_wizard,merge.ticket.wizard,helpdesk_bol.model_merge_ticket_wizard,helpdesk_bol.group_helpdesk_area_changer,1,1,1,1

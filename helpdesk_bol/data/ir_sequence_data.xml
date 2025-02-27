@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Sequence for SDSS -->
+    <record id="helpdesk_ticket_sdss_sequence" model="ir.sequence">
+        <field name="name">Helpdesk Ticket SDSS Sequence</field>
+        <field name="code">helpdesk.ticket.sdss.sequence</field>
+        <field name="prefix">SDSS</field>
+        <field name="padding">5</field>
+        <field name="company_id"/>
+    </record>
+
+</odoo>

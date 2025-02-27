@@ -1,11 +1,12 @@
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
 
         <record id="helpdesk_ticket_area_ti" model="helpdesk.ticket.area">
             <field name="name">TI</field>
             <field name="code">TI</field>
             <field name="color">4</field>
             <field name="active">True</field>
+            <field name="sequence_id" ref="helpdesk_mgmt.helpdesk_ticket_sequence"/>
         </record>
 
         <record id="helpdesk_ticket_area_maintenance" model="helpdesk.ticket.area">
@@ -13,6 +14,7 @@
             <field name="code">GMA</field>
             <field name="color">2</field>
             <field name="active">True</field>
+            <field name="sequence_id" ref="helpdesk_mgmt.helpdesk_ticket_sequence"/>
         </record>
 
         <record id="helpdesk_ticket_area_member_service" model="helpdesk.ticket.area">
@@ -20,6 +22,17 @@
             <field name="code">GSS</field>
             <field name="color">3</field>
             <field name="active">True</field>
+            <field name="sequence_id" ref="helpdesk_mgmt.helpdesk_ticket_sequence"/>
         </record>
+
+        <record id="helpdesk_ticket_area_member_service_sdss" model="helpdesk.ticket.area">
+            <field name="name">MEMBER SERVICE(SDSS)</field>
+            <field name="code">SDSS</field>
+            <field name="color">5</field>
+            <field name="active">True</field>
+            <field name="show_in_external_portal">True</field>
+            <field name="sequence_id" ref="helpdesk_bol.helpdesk_ticket_sdss_sequence"/>
+        </record>
+
     </data>
 </odoo>

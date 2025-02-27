@@ -18,6 +18,26 @@ headers = {"content-type": "application/json;charset=utf-8"}
 
 class HelpdeskTicketController(http.Controller):
 
+    @http.route("/gss", auth="user", type="http", website=True)
+    def create_new_ticket_gss(self, **kw):
+        """ Renders the help desk ticket creation form with
+            necessary data such as user information,
+            ticket types, categories, areas, and locations
+            Args:**kw: Arbitrary keyword arguments.
+            Returns:werkzeug.wrappers.Response: The rendered HTML page for the ticket form.
+        """
+        submission_token = str(uuid.uuid4())
+        request.session['submission_token'] = submission_token
+
+        data = {
+            'user': request.env.user,
+            'types': request.env['helpdesk.ticket.type'].sudo().search([]),
+            'categories': request.env['helpdesk.ticket.category'].sudo().search([]),
+            'default_area_id': request.env['helpdesk.ticket.area'].sudo().search([('show_in_external_portal', '=', True)], limit=1),
+            'locations': request.env['helpdesk.ticket.location'].sudo().search([]),
+            'submission_token': submission_token
+        }
+        return request.render("helpdesk_bol.gss_ticket_form", data)
 
     @http.route("/help_desk", auth="user", type="http", website=True)
     def create_new_ticket(self, **kw):
@@ -34,11 +54,12 @@ class HelpdeskTicketController(http.Controller):
             'user': request.env.user,
             'types': request.env['helpdesk.ticket.type'].sudo().search([]),
             'categories': request.env['helpdesk.ticket.category'].sudo().search([]),
-            'areas': request.env['helpdesk.ticket.area'].sudo().search([]),
+            'areas': request.env['helpdesk.ticket.area'].sudo().search([('show_in_external_portal', '=', False)]),
             'locations': request.env['helpdesk.ticket.location'].sudo().search([]),
             'submission_token': submission_token
         }
         return request.render("helpdesk_bol.ticket_form", data)
+
 
     @http.route("/help_desk_close", type='http', auth="user",  methods=['POST'],
                 website=True)

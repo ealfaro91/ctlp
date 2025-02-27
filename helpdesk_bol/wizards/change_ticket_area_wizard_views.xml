@@ -20,7 +20,7 @@
                     </group>
                 </group>
                 <footer>
-                    <button string="Change Area" type="object" name="change_area" class="btn-danger"/>
+                    <button string="Change Area" type="object" name="change_area" class="btn-danger" icon="fa-refresh"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

@@ -8,6 +8,22 @@ class ResConfigSettings(models.TransientModel):
         string="Automatic ticket closure time (hours)",
         default=48
     )
+    login_from_ws = fields.Boolean(
+        string="Allow login from web service",
+        default=False
+    )
+    validate_payment_from_ws = fields.Boolean(
+        string="Allow login from web service",
+        default=False
+    )
+    ws_url = fields.Char(
+        string="Web service URL",
+        default="http://localhost"
+    )
+    payment_ws = fields.Char(
+        string="Payment Web service URL",
+        default="http://localhost"
+    )
 
     def set_values(self):
         super(ResConfigSettings, self).set_values()

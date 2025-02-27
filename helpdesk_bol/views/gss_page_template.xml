@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- TICKET REGISTRATION FORM FOR GSS USERS -->
+
+    <template id="gss_ticket_form" name="Register Your Requirement">
+        <t t-call="website.layout">
+            <script>
+                    function toggleLocationField() {
+                        const areaSelect = document.querySelector('select[name="area_id"]');
+                        const locationField = document.getElementById('location_field');
+
+                        const selectedOption = areaSelect.options[areaSelect.selectedIndex];
+                        const areaCode = selectedOption ? selectedOption.dataset.area_code : null;
+                        if (!areaSelect || !locationField) {
+                            console.error('Required elements not found');
+                            return;
+                        }
+
+                        // Check if the selected area code is "TI"
+                        let selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.area_code;
+
+                        if (selectedAreaCode === 'TI') {
+                            locationField.style.display = 'none'; // Hide the location field
+                        } else {
+                            locationField.style.display = 'block'; // Show the location field
+                        }
+                    }
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const areaSelect = document.querySelector('select[name="area_id"]');
+                        if (areaSelect) {
+                        areaSelect.addEventListener('change', toggleLocationField);
+                        toggleLocationField(); // Initial call to set the correct visibility
+                    } else {
+                        console.error('Select element with name "area_id" not found');
+                    }
+                 });
+
+                function updateDescription() {
+                    const areaSelect = document.querySelector('select[name="area_id"]');
+                    const descriptionField = document.querySelector('textarea[name="description"]');
+                    if (!areaSelect || !descriptionField) {
+                        console.error('Required elements not found');
+                        return;
+                    }
+
+                    const selectedOption = areaSelect.options[areaSelect.selectedIndex];
+                    const areaDescription = selectedOption ? selectedOption.dataset.area_description : '';
+
+                    descriptionField.value = areaDescription || ''; // Set description value
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const areaSelect = document.querySelector('select[name="area_id"]');
+                    if (areaSelect) {
+                        areaSelect.addEventListener('change', function() {
+                            toggleLocationField();
+                            updateDescription();
+                        });
+                        toggleLocationField(); // Initial call to set visibility
+                        updateDescription(); // Initial call to set description
+                    } else {
+                        console.error('Select element with name "area_id" not found');
+                    }
+                });
+            </script>
+
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; height: auto; background: url('/helpdesk_bol/static/src/img/gss_background.jpg') no-repeat center center fixed;">
+                <form action="/help_desk_close" method="POST" enctype="multipart/form-data" class="container">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="submission_token" t-att-value="submission_token"/>
+                    <div class="card shadow-lg mx-auto" style="max-width: 800px; border: none;">
+                        <div class="text-center bg-primary text-black">
+                            <h3 class="font-weight-bold">Register Your Requirement</h3>
+                        </div>
+                        <div class="card-body">
+                            <t t-if="error_message">
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <span t-esc="error_message"/>
+                                </div>
+                            </t>
+                            <!-- Requester Name and Area Fields -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Member Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="area" class="form-label">Member Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fa fa-building"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="code" required="required" t-att-value="user.member_code" readonly="readonly"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Requirement Area Field -->
+                            <div class="mb-4" invisible="true">
+                                <label for="area_id" class="form-label">Requirement Area</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-briefcase"></i>
+                                    </span>
+                                    <select class="form-control" name="area_id" required="required">
+                                        <option value=""></option>
+                                        <t t-foreach="areas" t-as="area">
+                                            <option t-att-value="area.id"
+                                                    t-att-data-area_code="area.code"
+                                                    t-att-data-area_description="area.description">
+                                                <t t-esc="area.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Location Field -->
+                            <div class="mb-4" id="location_field" style="display: block;" onchange="toggleLocationField()">
+                                <label for="location_id" class="form-label">Location</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-map-marker"></i>
+                                    </span>
+                                    <select class="form-control" name="location_id">
+                                        <option value=""></option>
+                                        <t t-foreach="locations" t-as="location">
+                                            <option t-att-value="location.id" t-att-data-area_id="location.area_id.id">
+                                                <t t-esc="location.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Request Type Field -->
+                            <div class="mb-4">
+                                <label for="type_id" class="form-label">Request Type</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-tasks"></i>
+                                    </span>
+                                    <select class="form-control" name="type_id" required="required">
+                                        <option value=""></option>
+                                        <t t-foreach="types" t-as="type">
+                                            <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">
+                                                <t t-esc="type.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Category Field -->
+                            <div class="mb-4">
+                                <label for="category_id" class="form-label">Category</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-list-alt"></i>
+                                    </span>
+                                    <select class="form-control" name="category_id" required="required">
+                                        <option value=""/>
+                                        <t t-foreach="categories" t-as="category">
+                                            <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
+                                                <t t-esc="category.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Attachments Field -->
+                            <div class="mb-4">
+                                <label for="attachments" class="form-label">Attachment(s)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-paperclip"></i>
+                                    </span>
+                                    <input type="file" class="form-control" name="attachments" multiple="true" onchange="showFileNames()"/>
+                                    <div id="fileList" class="mt-2"></div>
+                                </div>
+                            </div>
+                            <!-- Title Field -->
+                            <div class="mb-4">
+                                <label for="title" class="form-label">Title</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-tag"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="title" required="required"/>
+                                </div>
+                            </div>
+                            <!-- Description Field -->
+                            <div class="mb-4">
+                                <label for="description" class="form-label">Request Description</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                                    <textarea class="form-control" name="description" rows="6" style="min-height: 150px; resize: vertical;" required="required"></textarea>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+                                    <i class="fa fa-paper-plane"></i> Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <!-- REOPEN CLOSE TICKET -->
+
+   <template id="reopen_close_ticket_form" name="Motivo de reapertura">
+       <t t-call="website.layout">
+           <t t-if="action == '1'">
+               <div>
+                   <div class="container">
+                       <div style="background-color: #28a745; padding: 30px 0; text-align: center;">
+                           <i class="fa fa-check-circle" style="font-size: 3rem; color: white;"></i>
+                       </div>
+                    <!-- Main Card -->
+                       <div class="card shadow-sm mx-auto" style="max-width: 600px; border: none; margin-top: -30px; border-radius: 10px 10px 10px 10px; overflow: hidden;">
+                           <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
+                               Your ticket "<span t-esc="number"/>" with subject "<span t-esc="name"/>" has been closed successfully.
+                           </h1>
+                           <div class="mt-4 text-center">
+                               <a href="/my_tickets" class="btn btn-primary btn-lg mt-3" style="border: none; box-shadow: 0 2px 10px rgba(0, 123, 255, 0.5); margin-bottom:10%;">
+                                   View My Tickets
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </t>
+           <t t-if="action == '2'">
+               <form action="/help_desk_reopen" method="POST" enctype="multipart/form-data" class="mx-auto" style="max-width: 800px;">
+                   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                   <input type="hidden" name="id" t-att-value="id"/>
+                   <input type="hidden" name="action" t-att-value="action"/>
+                   <div>
+                       <div class="container">
+                           <div style="background-color: #ff0000; padding: 30px 0; text-align: center;">
+                               <i class="fa fa-times-circle" style="font-size: 3rem; color: white;"></i>
+                           </div>
+                           <!-- Main Card -->
+                           <div class="card shadow-sm mx-auto" style="max-width: 600px; border: none; margin-top: -30px; border-radius: 10px 10px 10px 10px; overflow: hidden;">
+                               <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
+                                   Reopen Ticket
+                               </h1>
+                               <div class="mb-3" style="margin:10%">
+                                   <h5 class="text-center" style="color: #555">Please provide a reason to reopen the ticket.</h5>
+                                   <textarea id="reopen_reason" class="form-control" name="reopen_reason" rows="4" required="required"></textarea>
+                               </div>
+                           </div>
+                            <!-- Submit button -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 30px; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);">
+                                    <i class="fa fa-paper-plane"></i> Submit
+                                </button>
+                            </div>
+                       </div>
+                   </div>
+               </form>
+           </t>
+        </t>
+   </template>
+
+    <!-- TICKET REGISTRATION CONFIRMATION -->
+
+    <template id="ticket_register" name="Your Request Has Been Registered">
+        <t t-call="website.layout">
+            <div>
+                <div class="container">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-if="error_message">
+                        <div class="alert alert-danger text-center" role="alert" style="padding: 20px; font-size: 1.2rem; font-weight: 500;">
+                            <i class="fa fa-exclamation-circle" style="font-size: 1.5rem; margin-right: 10px; color: #dc3545;"></i>
+                            <span t-esc="error_message"/>
+                        </div>
+                    </t>
+                    <!-- Success Message -->
+                    <t t-else="">
+                        <!-- Upper Green Section with Checkmark -->
+                        <div style="background-color: #28a745; padding: 30px 0; text-align: center;">
+                            <i class="fa fa-check-circle" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                        <!-- Main Card -->
+                        <div class="card shadow-sm mx-auto" style="max-width: 600px; border: none; margin-top: -30px; border-radius: 10px 10px 10px 10px; overflow: hidden;">
+                            <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
+                                Request Registered Successfully!
+                            </h1>
+                            <p style="font-size: 1rem; color: #555; margin:5%; line-height: 1.6; text-align: center;">
+                                Thank you for reaching out. Your request has been received and our team will start working on it soon.
+                            </p>
+                            <!-- Display Ticket Number if available -->
+                            <t t-if="not hide_number">
+                                <p style="font-size: 1.25rem; font-weight: bold; color: #666; margin-top: 20px; text-align: center;">
+                                    Your ticket number is:
+                                    <span>
+                                        <b><span t-esc="number"/></b>
+                                    </span>
+                                </p>
+                            </t>
+                            <!-- Action Button -->
+                            <div class="mt-4 text-center">
+                                <a href="/my_tickets" class="btn btn-primary btn-lg mt-3" style="border: none; box-shadow: 0 2px 10px rgba(0, 123, 255, 0.5); margin-bottom:10%;">
+                                    View My Tickets
+                                </a>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+<!--    &lt;!&ndash; TICKET PORTAL LIST &ndash;&gt;-->
+
+<!--    <template inherit_id="helpdesk_mgmt.portal_ticket_list" id="portal_ticket_list" name="Ticket List">-->
+<!--        <xpath expr="//thead/tr/th[@id='title']" position="after">-->
+<!--            <th t-if="groupby == 'area'">-->
+<!--                <em class="font-weight-normal text-muted">Tickets in area:</em>-->
+<!--                <span class="text-truncate" t-field="tickets[0].sudo().area_id.name"/></th>-->
+<!--            <th t-if="groupby != 'area'">Area</th>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//tbody/t/tr/td[@id='title']" position="after">-->
+<!--            <td t-if="groupby != 'area'"><span t-esc="ticket.area_id.name"/></td>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+</odoo>

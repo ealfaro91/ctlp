@@ -10,6 +10,14 @@
             <xpath expr="//field[@name='function']" position="before">
                 <field name="area"/>
             </xpath>
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <group string="Membership">
+                        <field name="is_member"/>
+                        <field name="member_code" invisible="is_member==False" required="is_member==True"/>
+                    </group>
+                </group>
+            </xpath>
         </field>
     </record>
 

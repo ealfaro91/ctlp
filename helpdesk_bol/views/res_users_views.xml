@@ -11,6 +11,12 @@
                 <group>
                     <field name="area"/>
                 </group>
+                <group>
+                    <group string="Membership">
+                        <field name="is_member"/>
+                        <field name="member_code" invisible="is_member==False" required="is_member==True"/>
+                    </group>
+                </group>
             </xpath>
             <xpath expr="//notebook/page[@name='access_rights']/group" position="after">
                 <group string="Areas allowed">
