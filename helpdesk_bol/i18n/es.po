@@ -31,6 +31,7 @@ msgid "<em class=\"font-weight-normal text-muted\">Tickets in area:</em>"
 msgstr "<em class=\"font-weight-normal text-muted\">Solicitudes en el área:</em>"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "<i class=\"fa fa-paper-plane\"/> Submit"
@@ -442,6 +443,7 @@ msgid "Attachment Count"
 msgstr "Contador de adjuntos"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Attachment(s)"
 msgstr "Adjunto(s)"
@@ -494,9 +496,9 @@ msgstr "Categorías"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__category_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__category_id
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__category_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__category_id
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_location_search_view
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__category_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_search_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Category"
@@ -819,6 +821,18 @@ msgid "Max attention time (hours)"
 msgstr "Tiempo máximo de atención (horas)"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__member_code
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__member_code
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
+msgid "Member Code"
+msgstr "Código del socio"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
+msgid "Member Name"
+msgstr "Miembro del socio"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__message_has_error
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_has_error
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__message_has_error
@@ -929,6 +943,11 @@ msgid "Register Your Requirement"
 msgstr "Registre su Requerimiento"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
+msgid "Register your requirement"
+msgstr "Registre su requerimiento"
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "Reopen Ticket"
 msgstr "Reabrir ticket"
@@ -939,6 +958,7 @@ msgid "Reopen reason"
 msgstr "Motivo de reapertura"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Request Description"
 msgstr "Descripción de la solicitud"
@@ -949,9 +969,10 @@ msgid "Request Registered Successfully!"
 msgstr "¡Solicitud registrada con éxito!"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Request Type"
-msgstr "Tipo de solicitud"
+msgstr "Tipo de requerimiento"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
@@ -1134,6 +1155,8 @@ msgid "Tipo ticket"
 msgstr "Tipo de solicitud"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__merge_ticket_wizard__merge_by__title
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Title"
 msgstr "Título"
