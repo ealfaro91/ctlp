@@ -14,6 +14,6 @@ class HelpdeskTicketLocation(models.Model):
         "helpdesk.ticket.area",
         string="Area",
         tracking=True,
-        store=True
+        required=True
     )
 

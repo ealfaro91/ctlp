@@ -29,12 +29,13 @@ class HelpdeskTicketController(http.Controller):
         submission_token = str(uuid.uuid4())
         request.session['submission_token'] = submission_token
 
+        area_id = request.env['helpdesk.ticket.area'].sudo().search([('show_in_external_portal', '=', True)], limit=1)
         data = {
             'user': request.env.user,
-            'types': request.env['helpdesk.ticket.type'].sudo().search([]),
-            'categories': request.env['helpdesk.ticket.category'].sudo().search([]),
-            'default_area_id': request.env['helpdesk.ticket.area'].sudo().search([('show_in_external_portal', '=', True)], limit=1),
-            'locations': request.env['helpdesk.ticket.location'].sudo().search([]),
+            'area_id': area_id,
+            'types': request.env['helpdesk.ticket.type'].sudo().search([('area_id', '=', area_id.id)]),
+            'categories': request.env['helpdesk.ticket.category'].sudo().search([('area_id', '=', area_id.id)]),
+            'locations': request.env['helpdesk.ticket.location'].sudo().search([('area_id', '=', area_id.id)]),
             'submission_token': submission_token
         }
         return request.render("helpdesk_bol.gss_ticket_form", data)

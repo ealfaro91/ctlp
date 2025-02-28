@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="area" class="form-label">Member Code</label>
+                                    <label for="code" class="form-label">Member Code</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light">
                                             <i class="fa fa-building"></i>
@@ -108,16 +108,7 @@
                                     <span class="input-group-text bg-light">
                                         <i class="fa fa-briefcase"></i>
                                     </span>
-                                    <select class="form-control" name="area_id" required="required">
-                                        <option value=""></option>
-                                        <t t-foreach="areas" t-as="area">
-                                            <option t-att-value="area.id"
-                                                    t-att-data-area_code="area.code"
-                                                    t-att-data-area_description="area.description">
-                                                <t t-esc="area.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
+                                    <input type="text" class="form-control" name="area_id" required="required" t-att-value="area_id.name" readonly="readonly"/>
                                 </div>
                             </div>
                             <!-- Location Field -->
