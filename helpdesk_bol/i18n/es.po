@@ -806,6 +806,7 @@ msgstr "Actualizado el"
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_location_menu
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_location_form_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_form
 msgid "Location"
 msgstr "Ubicación"
 
