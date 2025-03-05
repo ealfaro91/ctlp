@@ -4,7 +4,13 @@ from odoo import api, fields, models
 
 class HelpdeskTicketType(models.Model):
     _inherit = "helpdesk.ticket.type"
+    _order = "sequence asc"
 
+    sequence = fields.Integer(
+        string="Sequence",
+        default=10,
+        tracking=True
+    )
     area_id = fields.Many2one(
         "helpdesk.ticket.area", string="Area",
         tracking=True, required=True

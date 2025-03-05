@@ -80,19 +80,24 @@ class HelpdeskTicketController(http.Controller):
         if not submission_token or submission_token != request.session.pop('submission_token', None):
             return request.render("helpdesk_bol.ticket_register", {'error_message': _('Invalid or duplicate submission.')})
 
+        user_id =  request.env['helpdesk.ticket.category'].sudo().browse(int(kw.get('category_id'))).user_id.id if kw.get('category_id') else False
+        import logging
+        _logger = logging.getLogger(__name__)
+        _logger.info(kw.get('area_id'))
+
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_id': request.env.user.partner_id.id,
             'partner_email': request.env.user.partner_id.email,
             'area': request.env.user.area,
             'name': kw.get('title'),
             'description': kw.get('description'),
-            'area_id': kw.get('area_id'),
+            'area_id': int(kw.get('area_id')),
             'team_id': request.env['helpdesk.ticket.team'].sudo().search([
                 ('area_id', '=', int(kw.get('area_id')))], limit=1).id,
             'type_id': kw.get('type_id'),
-            'category_id': kw.get('category_id'),
+            'category_id': kw.get('category_id', False),
             'location_id': kw.get('location_id'),
-            'user_id': request.env['helpdesk.ticket.category'].sudo().browse(int(kw.get('category_id'))).user_id.id,
+            'user_id': user_id,
         })
         if kw.get('attachments'):
             attached_files = request.httprequest.files.getlist('attachments')

@@ -3,6 +3,7 @@
 
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field name="model">res.config.settings</field>
+        <field name="name">res.config.settings.helpdesk</field>
         <field name="inherit_id" ref="helpdesk_mgmt.res_config_settings_view_form"/>
         <field name="arch" type="xml">
            <xpath expr="//div[@data-string='Helpdesk']/div[hasclass('o_settings_container')][last()]" position="inside">
@@ -15,4 +16,23 @@
            </xpath>
         </field>
     </record>
+
+    <record id="base_setup_res_config_settings_view_form_ws" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="name">res.config.settings.ws</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//block[@name='integration']/setting[@id='module_auth_ldap']" position="after">
+               <setting string="Webservice Authentication" help="Uses CTLP webservice to log in" id="module_auth_ldap">
+                   <field name="login_from_ws"/>
+                   <field name="ws_url" invisible="not login_from_ws"/>
+               </setting>
+               <setting string="Webservice Blacklist Validation" help="Uses CTLP webservice to check blacklist" id="module_auth_ldap">
+                   <field name="validate_payment_from_ws"/>
+                   <field name="payment_ws" invisible="not validate_payment_from_ws"/>
+               </setting>
+           </xpath>
+        </field>
+    </record>
+
 </odoo>

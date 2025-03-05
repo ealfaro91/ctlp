@@ -10,7 +10,7 @@ class ResConfigSettings(models.TransientModel):
     )
     login_from_ws = fields.Boolean(
         string="Allow login from web service",
-        default=False
+        default="https://odootest.ctlp.bo/jsonrpc"
     )
     validate_payment_from_ws = fields.Boolean(
         string="Allow login from web service",

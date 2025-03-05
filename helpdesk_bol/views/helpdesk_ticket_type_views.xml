@@ -26,6 +26,9 @@
         <field name="model">helpdesk.ticket.type</field>
         <field name="inherit_id" ref="helpdesk_type.helpdesk_ticket_type_tree"/>
         <field name="arch" type="xml">
+            <field name="name" position="before">
+               <field name="sequence" widget="handle"/>
+           </field>
            <field name="name" position="after">
                <field name="area_id"/>
                <field name="category_ids" widget="many2many_tags"/>

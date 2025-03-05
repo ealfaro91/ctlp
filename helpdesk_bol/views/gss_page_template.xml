@@ -5,203 +5,157 @@
 
     <template id="gss_ticket_form" name="Register Your Requirement">
         <t t-call="website.layout">
-            <script>
-                    function toggleLocationField() {
-                        const areaSelect = document.querySelector('select[name="area_id"]');
-                        const locationField = document.getElementById('location_field');
 
-                        const selectedOption = areaSelect.options[areaSelect.selectedIndex];
-                        const areaCode = selectedOption ? selectedOption.dataset.area_code : null;
-                        if (!areaSelect || !locationField) {
-                            console.error('Required elements not found');
-                            return;
-                        }
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; height: auto; background: url('/helpdesk_bol/static/src/img/gss_background_transparent.png') no-repeat center center fixed; background-color: rgba(255, 255, 255, 1.0);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-xl-9 mx-auto">
+                            <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+                                <div class="card-img-left d-none d-md-flex">
+                                    <!-- Background image for card set in CSS! -->
+                                </div>
+                                <div class="card-body p-4 p-sm-5">
+                                    <h5 class="card-title text-center mb-5 fw-light fs-5">Register your requirement</h5>
+                                    <form action="/help_desk_close" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="submission_token" t-att-value="submission_token"/>
 
-                        // Check if the selected area code is "TI"
-                        let selectedAreaCode = areaSelect.options[areaSelect.selectedIndex].dataset.area_code;
+                                        <div class="card-body">
+                                            <t t-if="error_message">
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    <span t-esc="error_message"/>
+                                                </div>
+                                            </t>
+                                            <!-- Requester Name and Area Fields -->
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <label for="name" class="form-label">Member Name</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-light">
+                                                            <i class="fa fa-user"/>
+                                                        </span>
+                                                        <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="code" class="form-label">Member Code</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-light">
+                                                            <i class="fa fa-building"/>
+                                                        </span>
+                                                        <input type="text" class="form-control" name="code" required="required" t-att-value="user.member_code" readonly="readonly"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Requirement Area Field -->
+                                            <div class="mb-4" style="display: none;">
+                                                <label for="area_id" class="form-label">Requirement Area</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-briefcase"/>
+                                                    </span>
+                                                    <input type="text" class="form-control" name="area_id" required="required" t-att-value="area_id.id" readonly="readonly"/>
+                                                </div>
+                                            </div>
+                                            <!-- Location Field -->
+                                            <div class="mb-4" id="location_field" style="display: block;">
+                                                <label for="location_id" class="form-label">Location</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-map-marker"/>
+                                                    </span>
+                                                    <select class="form-control" name="location_id" placeholder="Location">
+                                                        <option value="" placeholder="Location"/>
+                                                        <t t-foreach="locations" t-as="location">
+                                                            <option t-att-value="location.id" t-att-data-area_id="location.area_id.id">
+                                                                <t t-esc="location.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- Request Type Field -->
+                                            <div class="mb-4">
+                                                <label for="type_id" class="form-label">Request Type</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tasks"/>
+                                                    </span>
+                                                    <select class="form-control" name="type_id" required="required">
+                                                        <option value=""/>
+                                                        <t t-foreach="types" t-as="type">
+                                                            <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">
+                                                                <t t-esc="type.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- Category Field -->
+                                            <div class="mb-4" style="display: none;">
+                                                <label for="category_id" class="form-label">Category</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-list-alt"/>
+                                                    </span>
+                                                    <select class="form-control" name="category_id">
+                                                        <option value=""/>
+                                                        <t t-foreach="categories" t-as="category">
+                                                            <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
+                                                                <t t-esc="category.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                        if (selectedAreaCode === 'TI') {
-                            locationField.style.display = 'none'; // Hide the location field
-                        } else {
-                            locationField.style.display = 'block'; // Show the location field
-                        }
-                    }
-
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const areaSelect = document.querySelector('select[name="area_id"]');
-                        if (areaSelect) {
-                        areaSelect.addEventListener('change', toggleLocationField);
-                        toggleLocationField(); // Initial call to set the correct visibility
-                    } else {
-                        console.error('Select element with name "area_id" not found');
-                    }
-                 });
-
-                function updateDescription() {
-                    const areaSelect = document.querySelector('select[name="area_id"]');
-                    const descriptionField = document.querySelector('textarea[name="description"]');
-                    if (!areaSelect || !descriptionField) {
-                        console.error('Required elements not found');
-                        return;
-                    }
-
-                    const selectedOption = areaSelect.options[areaSelect.selectedIndex];
-                    const areaDescription = selectedOption ? selectedOption.dataset.area_description : '';
-
-                    descriptionField.value = areaDescription || ''; // Set description value
-                }
-
-                document.addEventListener('DOMContentLoaded', function() {
-                    const areaSelect = document.querySelector('select[name="area_id"]');
-                    if (areaSelect) {
-                        areaSelect.addEventListener('change', function() {
-                            toggleLocationField();
-                            updateDescription();
-                        });
-                        toggleLocationField(); // Initial call to set visibility
-                        updateDescription(); // Initial call to set description
-                    } else {
-                        console.error('Select element with name "area_id" not found');
-                    }
-                });
-            </script>
-
-            <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; height: auto; background: url('/helpdesk_bol/static/src/img/gss_background.jpg') no-repeat center center fixed;">
-                <form action="/help_desk_close" method="POST" enctype="multipart/form-data" class="container">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                    <input type="hidden" name="submission_token" t-att-value="submission_token"/>
-                    <div class="card shadow-lg mx-auto" style="max-width: 800px; border: none;">
-                        <div class="text-center bg-primary text-black">
-                            <h3 class="font-weight-bold">Register Your Requirement</h3>
-                        </div>
-                        <div class="card-body">
-                            <t t-if="error_message">
-                                <div class="alert alert-danger text-center" role="alert">
-                                    <span t-esc="error_message"/>
+                                            <!-- Title Field -->
+                                            <div class="mb-4">
+                                                <label for="title" class="form-label">Title</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tag"/>
+                                                    </span>
+                                                    <input type="text" class="form-control" name="title" required="required" placeholder="Title"/>
+                                                </div>
+                                            </div>
+                                            <!-- Description Field -->
+                                            <div class="mb-4">
+                                                <label for="description" class="form-label">Request Description</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-pencil"/>
+                                                    </span>
+                                                    <textarea class="form-control" name="description" rows="6" style="min-height: 150px; resize: vertical;" required="required"/>
+                                                </div>
+                                            </div>
+                                             <!-- Attachments Field -->
+                                            <div class="mb-4">
+                                                <label for="attachments" class="form-label">Attachment(s)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-paperclip"/>
+                                                    </span>
+                                                    <input type="file" class="form-control" name="attachments" multiple="true" onchange="showFileNames()"/>
+                                                    <div id="fileList" class="mt-2"/>
+                                                </div>
+                                            </div>
+                                            <!-- Submit Button -->
+                                              <div class="d-grid mb-2">
+                                                  <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit"> <i class="fa fa-paper-plane"/>Submit</button>
+                                              </div>
+                                           <!--  <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-lg" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+                                                    <i class="fa fa-paper-plane"/> Submit
+                                                </button>
+                                            </div>-->
+                                        </div>
+                                    </form>
                                 </div>
-                            </t>
-                            <!-- Requester Name and Area Fields -->
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">Member Name</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fa fa-user"></i>
-                                        </span>
-                                        <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="code" class="form-label">Member Code</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light">
-                                            <i class="fa fa-building"></i>
-                                        </span>
-                                        <input type="text" class="form-control" name="code" required="required" t-att-value="user.member_code" readonly="readonly"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Requirement Area Field -->
-                            <div class="mb-4" invisible="true">
-                                <label for="area_id" class="form-label">Requirement Area</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-briefcase"></i>
-                                    </span>
-                                    <input type="text" class="form-control" name="area_id" required="required" t-att-value="area_id.name" readonly="readonly"/>
-                                </div>
-                            </div>
-                            <!-- Location Field -->
-                            <div class="mb-4" id="location_field" style="display: block;" onchange="toggleLocationField()">
-                                <label for="location_id" class="form-label">Location</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-map-marker"></i>
-                                    </span>
-                                    <select class="form-control" name="location_id">
-                                        <option value=""></option>
-                                        <t t-foreach="locations" t-as="location">
-                                            <option t-att-value="location.id" t-att-data-area_id="location.area_id.id">
-                                                <t t-esc="location.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Request Type Field -->
-                            <div class="mb-4">
-                                <label for="type_id" class="form-label">Request Type</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-tasks"></i>
-                                    </span>
-                                    <select class="form-control" name="type_id" required="required">
-                                        <option value=""></option>
-                                        <t t-foreach="types" t-as="type">
-                                            <option t-att-value="type.id" t-att-data-area_id="type.area_id.id">
-                                                <t t-esc="type.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Category Field -->
-                            <div class="mb-4">
-                                <label for="category_id" class="form-label">Category</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-list-alt"></i>
-                                    </span>
-                                    <select class="form-control" name="category_id" required="required">
-                                        <option value=""/>
-                                        <t t-foreach="categories" t-as="category">
-                                            <option t-att-value="category.id" t-att-data-type_id="category.type_id.id">
-                                                <t t-esc="category.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Attachments Field -->
-                            <div class="mb-4">
-                                <label for="attachments" class="form-label">Attachment(s)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-paperclip"></i>
-                                    </span>
-                                    <input type="file" class="form-control" name="attachments" multiple="true" onchange="showFileNames()"/>
-                                    <div id="fileList" class="mt-2"></div>
-                                </div>
-                            </div>
-                            <!-- Title Field -->
-                            <div class="mb-4">
-                                <label for="title" class="form-label">Title</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-tag"></i>
-                                    </span>
-                                    <input type="text" class="form-control" name="title" required="required"/>
-                                </div>
-                            </div>
-                            <!-- Description Field -->
-                            <div class="mb-4">
-                                <label for="description" class="form-label">Request Description</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="fa fa-pencil"></i>
-                                    </span>
-                                    <textarea class="form-control" name="description" rows="6" style="min-height: 150px; resize: vertical;" required="required"></textarea>
-                                </div>
-                            </div>
-                            <!-- Submit Button -->
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg" style="box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
-                                    <i class="fa fa-paper-plane"></i> Submit
-                                </button>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </t>
     </template>

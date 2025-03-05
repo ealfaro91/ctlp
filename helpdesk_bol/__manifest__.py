@@ -40,5 +40,7 @@
 
     ],
 
-    'assets': {'web.assets_frontend': ['helpdesk_bol/static/src/js/**', 'helpdesk_bol/static/src/css/main.css']}
+    'assets': {'web.assets_frontend': [
+        'helpdesk_bol/static/src/js/**',
+        'helpdesk_bol/static/src/css/main.css']}
 }
