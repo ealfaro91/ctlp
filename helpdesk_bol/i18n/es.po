@@ -820,6 +820,21 @@ msgid "MANTENIMIENTO"
 msgstr ""
 
 #. module: helpdesk_bol
+#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_member_service_sdss
+msgid "MEMBER SERVICE (SDSS)"
+msgstr "SERVICIO AL SOCIO (SDSS)"
+
+#. module: helpdesk_bol
+#: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service_sdss
+msgid "MEMBER SERVICE(SDSS)"
+msgstr "SERVICIO AL SOCIO (SDSS)"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__mail_server_id
+msgid "Mail Server"
+msgstr "Servidor de correo"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__max_attention_time
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__max_attention_time
 msgid "Max attention time (hours)"
@@ -835,7 +850,43 @@ msgstr "Código del socio"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 msgid "Member Name"
-msgstr "Miembro del socio"
+msgstr "Nombre del socio"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket__member_code
+#: model:ir.model.fields,help:helpdesk_bol.field_res_partner__member_code
+#: model:ir.model.fields,help:helpdesk_bol.field_res_users__member_code
+msgid "Member code from Odoo v13"
+msgstr "Código de socio de Odoo v13"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_partner_form_view
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
+msgid "Membership"
+msgstr "Membresía"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_merge_ticket_wizard_form
+msgid "Merge"
+msgstr "Fusionar"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__merge_reason
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__merge_reason
+msgid "Merge Reason"
+msgstr "Razón de la fusión"
+
+#. module: helpdesk_bol
+#: model:ir.actions.act_window,name:helpdesk_bol.action_merge_ticket_wizard
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_merge_ticket_wizard_form
+msgid "Merge Tickets"
+msgstr "Fusionar tickets"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__merge_by
+msgid "Merge by"
+msgstr "Fusionar por"
+
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__message_has_error
@@ -1033,6 +1084,13 @@ msgid "SMS Delivery error"
 msgstr "Error de entrega de SMS"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__sequence_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__sequence
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__sequence
 msgid "Sequence"
 msgstr "Secuencia"
@@ -1051,6 +1109,11 @@ msgstr ""
 #: model:mail.template,name:helpdesk_bol.ticket_creation
 msgid "Service Desk Ticket Creation"
 msgstr "Creación de Ticket de Service Desk"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__show_in_external_portal
+msgid "Show in External Portal"
+msgstr "Mostrar en portal externo"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__stage_id
@@ -1106,6 +1169,13 @@ msgid ""
 msgstr ""
 "Gracias por contactarnos. Su solicitud ha sido recibida y nuestro equipo "
 "comenzará a trabajar en ella pronto."
+
+#. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/models/exceptions.py:0
+#, python-format
+msgid "The partner must go through administration."
+msgstr "Debe pasar por administración."
 
 #. module: helpdesk_bol
 #. odoo-python

@@ -48,7 +48,7 @@
                             <field name="alias_contact" class="oe_inline" string="Accept Emails From"/>
                             <field name="alias_id" string="Assign to"/>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
-                            <field name="show_in_portal"/>
+                            <field name="show_in_portal" invisible="1"/>
                         </group>
                         <group name="right">
                         </group>

@@ -1,0 +1,38 @@
+<odoo>
+
+    <record id="view_axis_catalog_tree" model="ir.ui.view">
+        <field name="name">axis.catalog.tree</field>
+        <field name="model">axis.catalog</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="axis_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_axis_catalog_form" model="ir.ui.view">
+        <field name="name">axis.catalog.form</field>
+        <field name="model">axis.catalog</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="axis_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_axis_catalog" model="ir.actions.act_window">
+        <field name="name">Axis Catalog</field>
+        <field name="res_model">axis.catalog</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_axis_catalog" name="Axis Catalog"
+              parent="contacts.res_partner_menu_config"
+              action="action_axis_catalog"/>
+</odoo>

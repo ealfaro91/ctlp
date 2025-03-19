@@ -41,11 +41,17 @@
                 <attribute name="required">True</attribute>
                 <attribute name="options">{'no_create': True, 'no_create_edit':True, 'no_open': True}</attribute>
             </field>
+            <field name="partner_id" position="after">
+                <field name="member_code"/>
+                <field name="address"/>
+                <field name="mobile"/>
+                <field name="phone"/>
+            </field>
             <field name="category_id" position="after">
                 <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','TI')" />
                 <field name="location_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','GSS')" invisible="code not in ('GMA','GSS')"/>
                 <field name="max_attention_time" widget="float_time"/>
-                <field name="resource_calendar_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" readonly="1" force_save="1"/>
+                <field name="resource_calendar_id" invisible="1" force_save="1"/>
             </field>
             <field name="user_id" position="attributes">
                 <attribute name="readonly">False</attribute>
@@ -68,8 +74,13 @@
                 <page string="Change state" name="state_log" groups="base.group_no_one">
                     <field name="state_log_ids" nolabel="1" readonly="1" context="{'tree_view_ref': 'helpdesk_bol.change_state_log_tree_view'}"/>
                 </page>
+                <page string="Merged tickets" name="merged_ticket" groups="base.group_no_one">
+                    <group>
+                        <field name="merge_reason"/>
+                    </group>
+                    <field name="child_ticket_ids" nolabel="1" readonly="1"/>
+                </page>
             </xpath>
-
         </field>
     </record>
 

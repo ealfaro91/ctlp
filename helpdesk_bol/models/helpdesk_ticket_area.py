@@ -10,12 +10,25 @@ class HelpdeskTicketArea(models.Model):
     _sql_constraints = [("code_uniq", "unique(code)",  "Area code must be unique",)]
 
     active = fields.Boolean(default=True, tracking=True)
-    name = fields.Char(string="Area", tracking=True, translate=True)
-    code = fields.Char(string="Code", tracking=True)
-    type_ids = fields.One2many("helpdesk.ticket.type", "area_id", string="Types", tracking=True)
+    name = fields.Char(
+        string="Area", tracking=True,
+        translate=True,
+        required=True
+    )
+    code = fields.Char(
+        string="Code",
+        tracking=True,
+        required=True
+    )
+    type_ids = fields.One2many(
+        "helpdesk.ticket.type",
+        "area_id",
+        string="Types",
+        tracking=True
+    )
     color = fields.Integer(string="Color Index", default=0, tracking=True)
     description = fields.Text(
-        string="Descripción",
+        string="Description",
         tracking=True,
         help="This text will be displayed in the helpdesk ticket form view."
     )
@@ -23,12 +36,15 @@ class HelpdeskTicketArea(models.Model):
         string="Show in External Portal",
         default=False,
         tracking=True,
-        help="If checked, this area will be displayed in the external portal."
+        help="If checked, this area will be displayed in the external portal for SDSS"
     )
     sequence_id = fields.Many2one(
         "ir.sequence",
         string="Sequence",
-        tracking=True
+        required=True,
+        tracking=True,
+        domain="[('code', 'in', ('helpdesk.ticket.sdss.sequence', 'helpdesk.ticket.sequence'))]",
+        help="This is the sequence that will be used to generate the ticket number."
     )
     ticket_ids = fields.One2many(
         "helpdesk.ticket",
@@ -41,11 +57,14 @@ class HelpdeskTicketArea(models.Model):
         compute="_compute_ticket_count",
         store=True
     )
-    mail_template_ids = fields.Many2many(
-        "mail.template",
-        string="Email Templates",
-        tracking=True
+    mail_server_id = fields.Many2one(
+        "ir.mail_server",
+        string="Mail Server",
+        required=True,
+        tracking=True,
+        help="This is the mail server that will be used to send emails."
     )
+
 
     def _compute_ticket_count(self):
         for area in self:

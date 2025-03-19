@@ -35,7 +35,7 @@
         <field name="model">change.state.log</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="ticket_id" invisible="1"/>
+                <field name="ticket_id" column_invisible="1"/>
                 <field name="user_id"/>
                 <field name="stage_id"/>
                 <field name="date"/>

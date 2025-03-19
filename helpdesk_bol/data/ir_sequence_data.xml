@@ -7,7 +7,6 @@
         <field name="code">helpdesk.ticket.sdss.sequence</field>
         <field name="prefix">SDSS</field>
         <field name="padding">5</field>
-        <field name="company_id"/>
     </record>
 
 </odoo>

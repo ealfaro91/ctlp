@@ -1,0 +1,36 @@
+<odoo>
+
+    <record id="view_psychiatric_diagnosis_tree" model="ir.ui.view">
+        <field name="name">psychiatric.diagnosis.tree</field>
+        <field name="model">psychiatric.diagnosis</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_psychiatric_diagnosis_form" model="ir.ui.view">
+        <field name="name">psychiatric.diagnosis.form</field>
+        <field name="model">psychiatric.diagnosis</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_psychiatric_diagnosis" model="ir.actions.act_window">
+        <field name="name">Psychiatric Diagnosis</field>
+        <field name="res_model">psychiatric.diagnosis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_psychiatric_diagnosis" name="Pyschiatric Diagnosis"
+              parent="contacts.res_partner_menu_config"
+              action="action_psychiatric_diagnosis"/>
+</odoo>

@@ -6,37 +6,44 @@
         <field name="arch" type="xml">
             <form string="Merge Tickets">
                 <div class="alert alert-info float-left" role="alert">
-                    Warning: You are about to change the ticket area. This action may affect the ticket's workflow and assigned personnel.
+                    Warning: If you merge this will create a new ticket with the selected tickets. The original tickets will be closed.
                 </div>
                 <group>
                     <group>
-                        <field name="merge_by"/>
-<!--                        <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
-<!--                        <field name="ticket_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
-<!--                        <field name="category_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
-<!--                        <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
-<!--                        <field name="location_id" invisible="code == 'TI'" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
-<!--                        <field name="user_id" readonly="1" force_save="1"/>-->
+                        <field name="user_id" readonly="1" force_save="1"/>
+<!--                        <field name="merge_by"/>-->
+                        <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="ticket_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="category_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="location_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     </group>
                     <group>
-                        <field name="ticket_ids"/>
+                        <field name="merge_reason"/>
+                        <field name="partner_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     </group>
                 </group>
+                <notebook>
+                    <page string="Tickets to merge">
+                        <field name="ticket_ids"/>
+                    </page>
+                </notebook>
                 <footer>
-                    <button string="Merge" type="object" name="action_merge_tickets" class="btn-danger" icon="fa-compress"/>
+                    <button string="Merge" type="object" name="action_merge_tickets" class="btn-danger" icon="fa-compress" confirm="Are you sure?"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
-<!--     <record id="action_change_ticket_area_wizard" model="ir.actions.act_window">-->
-<!--        <field name="name">Change Ticket Area</field>-->
-<!--        <field name="res_model">change.ticket.area.wizard</field>-->
-<!--        <field name="view_mode">form</field>-->
-<!--        <field name="target">new</field>-->
-<!--        <field name="context">{'default_ticket_id': active_id}</field>-->
-<!--    </record>-->
+    <record id="action_merge_ticket_wizard" model="ir.actions.act_window">
+        <field name="name">Merge Tickets</field>
+        <field name="res_model">merge.ticket.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+        <field name="binding_view_types">list</field>
+    </record>
 
 
 </odoo>

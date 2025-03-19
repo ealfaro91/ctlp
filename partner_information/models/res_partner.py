@@ -39,12 +39,20 @@ class ResPartner(models.Model):
     parent_last_name = fields.Char(string='Parent Last Name')
     relation_id = fields.Many2one('res.partner.relation', string='Relation')
     parent_phone = fields.Char(string='Parent Phone')
-    primary_axis_1 = fields.Char(string='Primary/Axis 1')
+    primary_axis_1_ids = fields.Many2many(
+        "axis.catalog", "axis_catalog_axis_1_rel", "axys_type_id", "partner_id",
+        string='Primary/Axis 1', domain="[('axis_type', '=', '1')]")
     preferred_substance_id =  fields.Many2one('preferred.substance', string='Impact Substance')
     behavior_id = fields.Char(string='Impact Behavior')
-    psychiatric_dx = fields.Char(string='Psychiatric Dx')
-    tp_axis_2 = fields.Char(string='TP/Axis 2')
-    medical_report_axis_3 = fields.Char(string='Medical Report/Axis 3')
+    psychiatric_dx_ids = fields.Many2many("psychiatric.diagnosis", string='Psychiatric Dx')
+    tp_axis_2_ids = fields.Many2many("axis.catalog", "axis_catalog_axis_2_rel", "axys_type_id", "partner_id",
+                                    string='TP/Axis 2', domain="[('axis_type', '=', '2')]")
+    medical_report_axis_3_ids = fields.Many2many(
+        "axis.catalog", "axis_catalog_axis_3_rel", "axys_type_id", "partner_id",
+        string='Medical Report/Axis 3', domain="[('axis_type', '=', '3')]")
+    fourth_axis_ids = fields.Many2many(
+        "axis.catalog", "axis_catalog_axis_4_rel", "axys_type_id", "partner_id",
+        string='Axis 4', domain="[('axis_type', '=', '4')]")
     eeg = fields.Char(string='EEG')
     registration = fields.Char(string='Registration')
     therapist_id = fields.Many2one('res.partner', string='Therapist')
@@ -56,7 +64,7 @@ class ResPartner(models.Model):
         ('AB', 'AB'), ('O', 'O')],
         string='Blood Type'
     )
-    allergies = fields.Char(string='Allergies')
+    allergies_ids = fields.Many2many("allergies", string='Allergies')
     hospital = fields.Char(string='Emergency Hospital')
     prognosticate = fields.Char(string='Prognosticate')
     right_to_care = fields.Selection([

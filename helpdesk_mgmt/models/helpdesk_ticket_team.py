@@ -38,7 +38,7 @@ class HelpdeskTeam(models.Model):
         string="Email",
         ondelete="restrict",
         tracking=True,
-        required=True,
+        required=False,
         help="The email address associated with \
                                this channel. New emails received will \
                                automatically create new tickets assigned \

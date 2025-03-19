@@ -81,7 +81,7 @@
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                             <field name="create_date" readonly="1" force_save="1"/>
                         </group>
-                        <group string="Contact information">
+                        <group string="Contact information" icon="fa-user">
                             <field name="partner_id"/>
                             <field name="partner_email" readonly="1" force_save="1"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True, 'no_open': True, 'color_field': 'color',}"/>

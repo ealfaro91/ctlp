@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-21 14:10+0000\n"
-"PO-Revision-Date: 2025-01-21 14:10+0000\n"
+"POT-Creation-Date: 2025-03-09 01:00+0000\n"
+"PO-Revision-Date: 2025-03-09 01:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,19 +26,17 @@ msgid "Admissions"
 msgstr "Admisiones"
 
 #. module: partner_information
-#: model_terms:ir.ui.view,arch_db:partner_information.view_res_partner_form_inherited
-msgid "Additional Information"
-msgstr "Información adicional"
-
-#. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__age
 #: model:ir.model.fields,field_description:partner_information.field_res_users__age
 msgid "Age"
 msgstr "Edad"
 
 #. module: partner_information
-#: model:ir.model.fields,field_description:partner_information.field_res_partner__allergies
-#: model:ir.model.fields,field_description:partner_information.field_res_users__allergies
+#: model:ir.actions.act_window,name:partner_information.action_allergies
+#: model:ir.model,name:partner_information.model_allergies
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__allergies_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_users__allergies_ids
+#: model:ir.ui.menu,name:partner_information.menu_allergies
 msgid "Allergies"
 msgstr "Alergias"
 
@@ -54,10 +52,33 @@ msgstr "Nombre del adjunto"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__partner_attachment_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__second_partner_attachment_ids
 #: model:ir.model.fields,field_description:partner_information.field_res_users__partner_attachment_ids
-#: model_terms:ir.ui.view,arch_db:partner_information.view_res_partner_form_inherited
+#: model:ir.model.fields,field_description:partner_information.field_res_users__second_partner_attachment_ids
 msgid "Attachments"
 msgstr "Adjuntos"
+
+#. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__fourth_axis_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_users__fourth_axis_ids
+msgid "Axis 4"
+msgstr ""
+
+#. module: partner_information
+#: model:ir.actions.act_window,name:partner_information.action_axis_catalog
+#: model:ir.ui.menu,name:partner_information.menu_axis_catalog
+msgid "Axis Catalog"
+msgstr "Catálogo de ejes"
+
+#. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__axis_type
+msgid "Axis Type"
+msgstr "Tipo de eje"
+
+#. module: partner_information
+#: model:ir.model,name:partner_information.model_axis_catalog
+msgid "Axis catalog"
+msgstr "Catálogo de ejes"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__birth_date
@@ -89,14 +110,22 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__create_uid
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__create_uid
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__create_uid
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__create_uid
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__create_uid
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__create_uid
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__create_date
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__create_date
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__create_date
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__create_date
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__create_date
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__create_date
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__create_date
 msgid "Created on"
@@ -108,7 +137,11 @@ msgid "Diagnosis and Students"
 msgstr "Diagnóstico y Alumnado"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__display_name
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__display_name
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__display_name
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__display_name
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__display_name
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__display_name
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__display_name
 msgid "Display Name"
@@ -167,7 +200,11 @@ msgid "Genre"
 msgstr "Género"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__id
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__id
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__id
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__id
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__id
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__id
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__id
 msgid "ID"
@@ -198,18 +235,36 @@ msgid "Last Name"
 msgstr "Apellido"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__write_uid
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__write_uid
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__write_uid
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__write_uid
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__write_uid
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__write_uid
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__write_date
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__write_date
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__write_date
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__write_date
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__write_date
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__write_date
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
+
+#. module: partner_information
+#: model:ir.model.fields,help:partner_information.field_res_partner__last_biweekly_activity_id
+#: model:ir.model.fields,help:partner_information.field_res_partner__last_monthly_activity_id
+#: model:ir.model.fields,help:partner_information.field_res_partner__last_weekly_activity_id
+#: model:ir.model.fields,help:partner_information.field_res_users__last_biweekly_activity_id
+#: model:ir.model.fields,help:partner_information.field_res_users__last_monthly_activity_id
+#: model:ir.model.fields,help:partner_information.field_res_users__last_weekly_activity_id
+msgid "Last activity created for this partner."
+msgstr "Última actividad creada para este contacto."
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__last_biweekly_activity_id
@@ -246,10 +301,10 @@ msgid "Married"
 msgstr "Casado"
 
 #. module: partner_information
-#: model:ir.model.fields,field_description:partner_information.field_res_partner__medical_report_axis_3
-#: model:ir.model.fields,field_description:partner_information.field_res_users__medical_report_axis_3
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__medical_report_axis_3_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_users__medical_report_axis_3_ids
 msgid "Medical Report/Axis 3"
-msgstr "Reporte médico/Eje 3"
+msgstr "Reporte médico/Axis 3"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__middle_name
@@ -264,7 +319,10 @@ msgid "Monthly activity Counter"
 msgstr "Contador de actividades mensuales"
 
 #. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_allergies__name
+#: model:ir.model.fields,field_description:partner_information.field_axis_catalog__name
 #: model:ir.model.fields,field_description:partner_information.field_preferred_substance__name
+#: model:ir.model.fields,field_description:partner_information.field_psychiatric_diagnosis__name
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_relation__name
 #: model:ir.model.fields,field_description:partner_information.field_res_partner_status__name
 msgid "Name"
@@ -313,8 +371,14 @@ msgstr "Teléfono familiar"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_partner_attachment__partner_id
+#: model:ir.model.fields,field_description:partner_information.field_partner_attachment__second_partner_id
 msgid "Partner"
 msgstr "Contacto"
+
+#. module: partner_information
+#: model:ir.model,name:partner_information.model_partner_attachment
+msgid "Partner Attachment"
+msgstr "Adjuntos"
 
 #. module: partner_information
 #: model:ir.model,name:partner_information.model_res_partner_relation
@@ -350,10 +414,10 @@ msgid "Preferred Substances"
 msgstr "Sustancias preferidas"
 
 #. module: partner_information
-#: model:ir.model.fields,field_description:partner_information.field_res_partner__primary_axis_1
-#: model:ir.model.fields,field_description:partner_information.field_res_users__primary_axis_1
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__primary_axis_1_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_users__primary_axis_1_ids
 msgid "Primary/Axis 1"
-msgstr "Primario/Eje 1"
+msgstr ""
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__prognosticate
@@ -362,10 +426,21 @@ msgid "Prognosticate"
 msgstr "Pronóstico"
 
 #. module: partner_information
-#: model:ir.model.fields,field_description:partner_information.field_res_partner__psychiatric_dx
-#: model:ir.model.fields,field_description:partner_information.field_res_users__psychiatric_dx
+#: model:ir.actions.act_window,name:partner_information.action_psychiatric_diagnosis
+#: model:ir.model,name:partner_information.model_psychiatric_diagnosis
+msgid "Psychiatric Diagnosis"
+msgstr "Diágnostico psiquiátrico"
+
+#. module: partner_information
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__psychiatric_dx_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_users__psychiatric_dx_ids
 msgid "Psychiatric Dx"
-msgstr "Diagnóstico psiquiátrico"
+msgstr "Diágnostico psiquiátrico"
+
+#. module: partner_information
+#: model:ir.ui.menu,name:partner_information.menu_psychiatric_diagnosis
+msgid "Pyschiatric Diagnosis"
+msgstr "Diagnóstico psiquiátrico"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__real_exit_date
@@ -436,13 +511,13 @@ msgstr "Soltero"
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__status_id
 #: model:ir.model.fields,field_description:partner_information.field_res_users__status_id
 msgid "Status"
-msgstr "Statu"
+msgstr "Status"
 
 #. module: partner_information
-#: model:ir.model.fields,field_description:partner_information.field_res_partner__tp_axis_2
-#: model:ir.model.fields,field_description:partner_information.field_res_users__tp_axis_2
+#: model:ir.model.fields,field_description:partner_information.field_res_partner__tp_axis_2_ids
+#: model:ir.model.fields,field_description:partner_information.field_res_users__tp_axis_2_ids
 msgid "TP/Axis 2"
-msgstr "TP/Eje 2"
+msgstr ""
 
 #. module: partner_information
 #: model:ir.model.constraint,message:partner_information.constraint_preferred_substance_name_uniq

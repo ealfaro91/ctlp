@@ -10,10 +10,16 @@
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
             </xpath>
-           <field name="show_in_portal" position="after">
+            <field name="show_in_portal" position="after">
                <field name="area_id"/>
                <field name="color" widget="color_picker" readonly="1"/>
-           </field>
+            </field>
+            <field name="alias_name" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </field>
+            <field name="alias_contact" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </field>
         </field>
     </record>
 

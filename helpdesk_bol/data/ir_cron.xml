@@ -13,4 +13,29 @@
         <field name="code">model._automatic_closure()</field>
     </record>
 
+    <record forcecreate="True" id="get_members" model="ir.cron">
+        <field name="name">Get members from webservice</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">1</field>
+        <field name="model_id" ref="helpdesk_bol.model_res_users"/>
+        <field name="state">code</field>
+        <field name="code">model._get_members_ws()</field>
+    </record>
+
+    <record forcecreate="True" id="update_member_payment" model="ir.cron">
+        <field name="name">Update members payment from webservice</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">1</field>
+        <field name="model_id" ref="helpdesk_bol.model_res_users"/>
+        <field name="state">code</field>
+        <field name="code">model._update_members_payment_ws()</field>
+    </record>
+
+
 </odoo>

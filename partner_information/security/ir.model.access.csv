@@ -3,3 +3,6 @@ access_preferred_substance,access_preferred_substance,model_preferred_substance,
 access_res_partner_relation,access_res_partner_relation,model_res_partner_relation,base.group_user,1,1,1,1
 access_res_partner_status,access_res_partner_status,model_res_partner_status,base.group_user,1,1,1,1
 access_partner_attachment,access_partner_attachment,model_partner_attachment,base.group_user,1,1,1,1
+access_axis_catalog,access_axis_catalog,model_axis_catalog,base.group_user,1,1,1,1
+access_allergies,access_allergies,model_allergies,base.group_user,1,1,1,1
+access_psychiatric_diagnosis,access_psychiatric_diagnosis,model_psychiatric_diagnosis,base.group_user,1,1,1,1

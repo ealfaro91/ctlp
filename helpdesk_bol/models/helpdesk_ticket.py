@@ -63,7 +63,17 @@ class HelpdeskTicket(models.Model):
     create_date_utc = fields.Datetime(compute="_get_create_date_userutc")
     state_log_ids = fields.One2many("change.state.log", "ticket_id", string="State changes")
     parent_id = fields.Many2one("helpdesk.ticket", string="Parent ticket")
-    ticket_ids = fields.One2many("helpdesk.ticket", "parent_id", string="Sub-tickets")
+    child_ticket_ids = fields.One2many("helpdesk.ticket", "parent_id", string="Child tickets")
+    merge_reason = fields.Text(string="Merge Reason")
+    member_code = fields.Char(string="Member Code", related="partner_id.member_code", tracking=True)
+    mobile = fields.Char(string="Mobile", related="partner_id.mobile", tracking=True)
+    phone = fields.Char(string="Phone", related="partner_id.phone", tracking=True)
+    address = fields.Text(string="Address", compute="_compute_partner_address", tracking=True)
+
+    @api.depends('partner_id')
+    def _compute_partner_address(self):
+        for ticket in self:
+            ticket.address = ''
 
     @api.onchange('team_id')
     def _onchange_area_id(self):
@@ -126,6 +136,7 @@ class HelpdeskTicket(models.Model):
         res = super(HelpdeskTicket, self).create(vals)
         template = self.env.ref('helpdesk_bol.ticket_creation')
         if template:
+            template.mail_server_id = res.area_id.mail_server_id.id
             template.send_mail(res.id, force_send=False)
         return res
 
@@ -133,7 +144,7 @@ class HelpdeskTicket(models.Model):
         seq = self.env["helpdesk.ticket.area"].browse(values["area_id"]).sequence_id
         if "company_id" in values:
             seq = seq.with_company(values["company_id"])
-        return seq.next_by_code("helpdesk.ticket.sequence") or "/"
+        return seq.next_by_id() or "/"
 
     def write(self, vals):
         res = super(HelpdeskTicket, self).write(vals)
@@ -148,6 +159,25 @@ class HelpdeskTicket(models.Model):
                 'user_id': self.env.user.id,
                 'date': fields.Datetime.now()
             })
+        return res
+
+    def _track_template(self, tracking):
+        res = super()._track_template(tracking)
+        ticket = self[0]
+        if "stage_id" in tracking and ticket.stage_id.mail_template_id:
+            res["stage_id"] = (
+                ticket.stage_id.mail_template_id,
+                {
+                    # Need to set mass_mail so that the email will always be sent
+                    "composition_mode": "mass_mail",
+                    # "auto_delete_message": True,
+                    "subtype_id": self.env["ir.model.data"]._xmlid_to_res_id(
+                        "mail.mt_note"
+                    ),
+                    "email_layout_xmlid": "mail.mail_notification_light",
+                },
+            )
+            ticket.stage_id.mail_template_id.mail_server_id = ticket.area_id.mail_server_id.id
         return res
 
     def _compute_attention_time_state(self):
