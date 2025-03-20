@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 11:22+0000\n"
-"PO-Revision-Date: 2024-11-07 11:22+0000\n"
+"POT-Creation-Date: 2025-03-20 15:03+0000\n"
+"PO-Revision-Date: 2025-03-20 15:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,11 @@ msgstr "<i class=\"fa fa-paper-plane\"/> Enviar"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 msgid "<i class=\"fa fa-paper-plane\"/>Submit"
 msgstr "<i class=\"fa fa-paper-plane\"/>Enviar"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
+msgid "<option value=\"\" placeholder=\"Location\"/>"
+msgstr "<option value=\"\" placeholder=\"Ubicación\"/>"
 
 #. module: helpdesk_bol
 #: model:mail.template,body_html:helpdesk_bol.ticket_creation
@@ -82,7 +87,8 @@ msgid ""
 "                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
 "                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
 "                                                        <p> Estimated resolution (in hours): <span style=\"font-weight:bold;\" t-out=\"object.max_attention_time\"></span></p>\n"
-"                                        <br>\n"
+"\n"
+"                                                        <br>\n"
 "                                                        <p>Greetings.</p>\n"
 "                                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
 "                                                            <a href=\"/my_tickets\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
@@ -305,6 +311,7 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service
+#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_member_service
 msgid "ATENCIÓN AL SOCIO"
 msgstr "SERVICIO AL SOCIO"
 
@@ -366,11 +373,22 @@ msgid "Activity Type Icon"
 msgstr "Icono del tipo de actividad"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__address
+msgid "Address"
+msgstr "Dirección"
+
+#. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/controllers/myaccount.py:0
 #, python-format
 msgid "All"
 msgstr "Todos"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__login_from_ws
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__validate_payment_from_ws
+msgid "Allow login from web service"
+msgstr "Permitir inicio de sesión desde el servicio web"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
@@ -387,6 +405,14 @@ msgid "Allowed to change ticket area"
 msgstr "Permitido cambiar el área del ticket"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_merge_ticket_wizard_form
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/controllers/myaccount.py:0
+#: code:addons/helpdesk_bol/controllers/myaccount.py:0
 #: model:ir.actions.act_window,name:helpdesk_bol.helpdesk_ticket_area_action
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__name
@@ -395,6 +421,7 @@ msgstr "Permitido cambiar el área del ticket"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__area_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_team__area_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__area_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__area_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__area
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_area_menu
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_area_form_view
@@ -403,6 +430,7 @@ msgstr "Permitido cambiar el área del ticket"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_search_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_type_search_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
+#, python-format
 msgid "Area"
 msgstr "Área"
 
@@ -489,6 +517,7 @@ msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_change_ticket_area_wizard
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_merge_ticket_wizard_form
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -529,6 +558,11 @@ msgstr "Cambiar área de ticket"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
 msgid "Change state"
 msgstr "Cambios de estado"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__child_ticket_ids
+msgid "Child tickets"
+msgstr "Tickets hijos"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__code
@@ -572,6 +606,7 @@ msgstr "Fecha de creación UTC"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__create_uid
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__create_uid
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__create_uid
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
@@ -581,8 +616,14 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__create_date
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__create_date
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__create_date
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__partner_id
+msgid "Customer"
+msgstr "Contacto"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__date
@@ -595,11 +636,18 @@ msgid "Delayed"
 msgstr "Retrasado"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__description
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__merge_ticket_wizard__merge_by__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__display_name
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__display_name
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__display_name
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__display_name
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__display_name
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__display_name
 msgid "Display Name"
 msgstr "Nombre a mostrar"
 
@@ -636,6 +684,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Icono de fuente impresionante, por ejemplo fa-tasks"
 
 #. module: helpdesk_bol
+#: model:ir.actions.server,name:helpdesk_bol.get_members_ir_actions_server
+msgid "Get members from webservice"
+msgstr "Obtener miembros desde webservice"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__has_message
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__has_message
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__has_message
@@ -650,8 +703,8 @@ msgid ""
 "Helpdesk Manager: Has access to all settings for helpdesk but only see "
 "tickets in his areas assigned."
 msgstr ""
-"Responsable del servicio de asistenia: Tiene acceso a las configuraciones de "
-"Service Desk pero solo ve tickets de las áreas asignadas."
+"Responsable del servicio de asistenia: Tiene acceso a las configuraciones de"
+" Service Desk pero solo ve tickets de las áreas asignadas."
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket
@@ -694,6 +747,7 @@ msgstr "Tipo de solicitudes del Helpdesk"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__id
 msgid "ID"
 msgstr ""
 
@@ -737,6 +791,12 @@ msgstr "Si está marcado, los nuevos mensajes requieren su atención."
 #: model:ir.model.fields,help:helpdesk_bol.field_res_users__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__show_in_external_portal
+msgid ""
+"If checked, this area will be displayed in the external portal for SDSS"
+msgstr "Si esta marcado, esta area se mostrara en el portal externo para SDSS"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_team__image_1920
@@ -785,11 +845,18 @@ msgid "Is Follower"
 msgstr "Es seguidor"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__is_member
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__is_member
+msgid "Is Member"
+msgstr "Es socio"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__write_uid
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__write_uid
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__write_uid
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__write_uid
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__write_uid
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__write_uid
 msgid "Last Updated by"
 msgstr "Actualizado por"
 
@@ -799,6 +866,7 @@ msgstr "Actualizado por"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__write_date
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__write_date
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__write_date
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__write_date
 msgid "Last Updated on"
 msgstr "Actualizado el"
 
@@ -807,15 +875,17 @@ msgstr "Actualizado el"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__location_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__location_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__name
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__location_id
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_location_menu
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_location_form_view
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 msgid "Location"
 msgstr "Ubicación"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_maintenance
+#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_maintenance
 msgid "MANTENIMIENTO"
 msgstr ""
 
@@ -841,6 +911,7 @@ msgid "Max attention time (hours)"
 msgstr "Tiempo máximo de atención (horas)"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__member_code
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__member_code
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__member_code
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
@@ -887,6 +958,10 @@ msgstr "Fusionar tickets"
 msgid "Merge by"
 msgstr "Fusionar por"
 
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
+msgid "Merged tickets"
+msgstr "Tickets fusionados"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__message_has_error
@@ -905,6 +980,11 @@ msgstr "Error de entrega de mensaje"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__message_ids
 msgid "Messages"
 msgstr "Mensajes"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__mobile
+msgid "Mobile"
+msgstr "Celular"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__my_activity_date_deadline
@@ -948,6 +1028,13 @@ msgid "Next Activity Type"
 msgstr "Tipo de actividad siguiente"
 
 #. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/wizards/merge_ticket_wizard.py:0
+#, python-format
+msgid "No tickets selected to merge"
+msgstr "No se han seleccionado tickets a fusionar"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__message_needaction_counter
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_needaction_counter
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__message_needaction_counter
@@ -987,6 +1074,38 @@ msgstr "Número de mensajes con error de entrega"
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__on_time
 msgid "On time"
 msgstr "En plazo"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__parent_id
+msgid "Parent ticket"
+msgstr "Ticket padre"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__payment_ws
+msgid "Payment Web service URL"
+msgstr "URL del servicio web de pago"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__payment_delayed_message
+msgid "Payment delayed message"
+msgstr "Mensaje de pago retrasado"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__payment_on_day
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__payment_on_day
+msgid "Payment on Day"
+msgstr "Pago al día"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_res_partner__payment_on_day
+#: model:ir.model.fields,help:helpdesk_bol.field_res_users__payment_on_day
+msgid "Payment on day"
+msgstr "Pago al día"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__phone
+msgid "Phone"
+msgstr "Teléfono"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
@@ -1046,6 +1165,7 @@ msgid "Requester area"
 msgstr "Área del solicitante"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Requirement Area"
 msgstr "Área de requerimiento"
@@ -1091,11 +1211,6 @@ msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: helpdesk_bol
-#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__sequence
-msgid "Sequence"
-msgstr "Secuencia"
-
-#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid "Service Desk Access rights"
 msgstr "Permisos de acceso Service Desk"
@@ -1103,7 +1218,7 @@ msgstr "Permisos de acceso Service Desk"
 #. module: helpdesk_bol
 #: model:mail.template,name:helpdesk_bol.ticket_assignation
 msgid "Service Desk Ticket Asignación"
-msgstr ""
+msgstr "Asignación de Ticket de Service Desk"
 
 #. module: helpdesk_bol
 #: model:mail.template,name:helpdesk_bol.ticket_creation
@@ -1152,12 +1267,14 @@ msgstr "Sub-Categorías"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__subcategory_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__subcategory_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__name
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__subcategory_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_subcategory_form_view
 msgid "Sub-Category"
 msgstr "Sub-Categoría"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_ti
+#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_ti
 msgid "TI"
 msgstr ""
 
@@ -1169,13 +1286,6 @@ msgid ""
 msgstr ""
 "Gracias por contactarnos. Su solicitud ha sido recibida y nuestro equipo "
 "comenzará a trabajar en ella pronto."
-
-#. module: helpdesk_bol
-#. odoo-python
-#: code:addons/helpdesk_bol/models/exceptions.py:0
-#, python-format
-msgid "The partner must go through administration."
-msgstr "Debe pasar por administración."
 
 #. module: helpdesk_bol
 #. odoo-python
@@ -1192,8 +1302,24 @@ msgid "The ticket area has been changed"
 msgstr "El área del ticket ha sido cambiada"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__mail_server_id
+msgid "This is the mail server that will be used to send emails."
+msgstr "Este es el servidor de correo que se utilizará para enviar correos electrónicos."
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__sequence_id
+msgid "This is the sequence that will be used to generate the ticket number."
+msgstr "Esta es la secuencia que se utilizará para generar el número de ticket."
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__description
+msgid "This text will be displayed in the helpdesk ticket form view."
+msgstr "Este texto se mostrará en la vista del formulario de ticket de helpdesk."
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__ticket_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__ticket_id
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_area_form_view
 msgid "Ticket"
 msgstr ""
 
@@ -1204,6 +1330,7 @@ msgstr "Creación de Ticket : {{ (object.name) }}"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__ticket_type_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__ticket_type_id
 msgid "Ticket Type"
 msgstr "Tipo de solicitud"
 
@@ -1213,11 +1340,19 @@ msgid "Ticket closure"
 msgstr "Cierre de ticket"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__ticket_count
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__ticket_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__ticket_ids
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph1
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph2
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_view_graph3
 msgid "Tickets"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_merge_ticket_wizard_form
+msgid "Tickets to merge"
+msgstr "Tickets a fusionar"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_config_settings_view_form
@@ -1256,33 +1391,64 @@ msgid "Types"
 msgstr "Tipos de solicitud"
 
 #. module: helpdesk_bol
+#: model:ir.actions.server,name:helpdesk_bol.update_member_payment_ir_actions_server
+msgid "Update members payment from webservice"
+msgstr "Actualizar pagos de miembros desde webservice"
+
+#. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_res_users
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__user_id
+#: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__user_id
 msgid "User"
 msgstr "Usuario"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid "User Personal tickets: Can see only his tickets in his area."
-msgstr "Usuario Solicitudes personales: Puede ver solo sus tickets en sus áreas asignadas."
+msgstr ""
+"Usuario Solicitudes personales: Puede ver solo sus tickets en sus áreas "
+"asignadas."
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid "User Team tickets: Can see all tickets in the areas he is assigned to."
-msgstr "Usuario Solicitudes de equipo: Puede ver todos los tickets de su equipo en las áreas que esté asignado."
+msgstr ""
+"Usuario Solicitudes de equipo: Puede ver todos los tickets de su equipo en "
+"las áreas que esté asignado."
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid ""
 "User: For users to create tickets through the portal. Doesnt have access to "
 "internal service desk"
-msgstr "Usuario: Para que los usuarios creen tickets a través del portal. No tiene acceso al Service Desk interno"
+msgstr ""
+"Usuario: Para que los usuarios creen tickets a través del portal. No tiene "
+"acceso al Service Desk interno"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
+msgid "Uses CTLP webservice to check blacklist"
+msgstr "Usa el servicio web CTLP para verificar la lista negra"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
+msgid "Uses CTLP webservice to log in"
+msgstr "Usa el servicio web CTLP para iniciar sesión"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_register
 msgid "View My Tickets"
 msgstr "Ver mis tickets"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.view_merge_ticket_wizard_form
+msgid ""
+"Warning: If you merge this will create a new ticket with the selected "
+"tickets. The original tickets will be closed."
+msgstr ""
+"Advertencia: Si fusiona, se creará un nuevo ticket con los tickets "
+"seleccionados. Los tickets originales serán cerrados."
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
@@ -1298,6 +1464,21 @@ msgid ""
 msgstr ""
 "Advertencia: Está a punto de cambiar el área del ticket. Esta acción puede "
 "afectar el flujo de trabajo del ticket y el personal asignado."
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__ws_url
+msgid "Web service URL"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
+msgid "Webservice Authentication"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
+msgid "Webservice Blacklist Validation"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__website_message_ids
@@ -1319,6 +1500,7 @@ msgstr "Historial de comunicación del sitio web"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_change_ticket_area_wizard
+#: model:ir.model,name:helpdesk_bol.model_merge_ticket_wizard
 msgid "Wizard to Change Ticket Area"
 msgstr "Asistente para cambiar el área del ticket"
 

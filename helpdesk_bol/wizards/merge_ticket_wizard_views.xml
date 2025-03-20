@@ -43,6 +43,7 @@
         <field name="target">new</field>
         <field name="binding_model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
         <field name="binding_view_types">list</field>
+        <field name="icon">fa fa-link</field>
     </record>
 
 

@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+import logging
 import random
 import requests
 
 from odoo import api, fields, models, registry, SUPERUSER_ID
+from odoo.exceptions import ValidationError
 
+_logger = logging.getLogger(__name__)
 
 class ResUsers(models.Model):
     _name = "res.users"
@@ -40,7 +43,7 @@ class ResUsers(models.Model):
                     "res.partner",
                     "search_read",
                     [[["socio_code", "!=", False]]],
-                    {"fields": ["name", "phone", "email", "socio_code", "ci",
+                    {"fields": ["name", "phone", "mobile", "email", "socio_code", "ci",
                                 "street", "street2", "city", "state_id", "country_id", "zip"]},
                 ]
             },
@@ -49,17 +52,30 @@ class ResUsers(models.Model):
         response = requests.post(url, json=payload, verify=False)
         result = response.json().get('result')
         if result:
-            for member in result:
-                member_id = self.env['res.partner'].search([('member_code', '=', member['socio_code'])])
-                if not member_id:
-                    member_id = self.env['res.partner'].create({
-                        'name': member['name'],
-                        'phone': member['phone'],
-                        'email': member['email'],
-                        'member_code': member['socio_code'],
-                        'ci': member['ci'],
-                        'street': member['street'],
-                        'street2': member['street2']})
+            for member in result[0:100]:
+                user_id = self.env['res.users'].search([('member_code', '=', member.get('socio_code'))])
+                if not user_id and member.get('ci'):
+                    country_id = member.get('country_id')
+                    state_id = member.get('state_id')
+                    user_id = self.env['res.users'].create({
+                        'name': member.get('name'),
+                        'login': member.get('ci'),
+                        'phone': member.get('phone'),
+                        'mobile': member.get('mobile'),
+                        'email': member.get('email'),
+                        'member_code': member.get('socio_code'),
+                        'vat': member.get('ci'),
+                        'street': member.get('street'),
+                        'street2': member.get('street2'),
+                        'city': member.get('city'),
+                        'country_id': country_id[0] if country_id else False,
+                        'state_id': state_id[0] if state_id else False,
+                        'zip': member.get('zip'),
+                        'is_member': True,
+                        'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
+                    })
+
+                    _logger.info('User created: %s', user_id.name)
 
     def _update_members_payment_ws(self):
         url = self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.ws_url')

@@ -6,6 +6,7 @@ from odoo import models, fields, api, _
 class HelpdeskTicketTeam(models.Model):
     _name = "helpdesk.ticket.team"
     _inherit = ["helpdesk.ticket.team",  "avatar.mixin"]
+    _sql_constraints = [("name_uniq", "unique(name)", "Team name must be unique")]
 
     area_id = fields.Many2one(
         "helpdesk.ticket.area", string="Area",

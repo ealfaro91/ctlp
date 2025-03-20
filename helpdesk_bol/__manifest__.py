@@ -11,6 +11,7 @@
         'helpdesk_mgmt',
         'helpdesk_type',
         'website',
+        'web_login_styles'
     ],
     'data': [
         'data/ir_sequence_data.xml',
@@ -32,12 +33,12 @@
         'views/helpdesk_ticket_team_views.xml',
         'views/helpdesk_ticket_subcategory_views.xml',
         'views/helpdesk_ticket_views.xml',
+        'views/login_template.xml',
         'views/gss_page_template.xml',
         'views/service_desk_page_template.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
         'views/res_users_views.xml',
-
     ],
 
     'assets': {'web.assets_frontend': [
