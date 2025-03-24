@@ -26,6 +26,11 @@ class HelpdeskTicketArea(models.Model):
         string="Types",
         tracking=True
     )
+    has_locations = fields.Boolean(
+        string="Has Locations",
+        default=False,
+        tracking=True
+    )
     color = fields.Integer(string="Color Index", default=0, tracking=True)
     description = fields.Text(
         string="Description",
@@ -64,7 +69,6 @@ class HelpdeskTicketArea(models.Model):
         tracking=True,
         help="This is the mail server that will be used to send emails."
     )
-
 
     def _compute_ticket_count(self):
         for area in self:

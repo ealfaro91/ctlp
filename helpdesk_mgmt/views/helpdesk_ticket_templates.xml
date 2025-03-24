@@ -16,8 +16,10 @@
     <template id="portal_my_home" name="Portal My Home : ticket entries" inherit_id="portal.portal_my_home" priority="40" customize_show="True">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/helpdesk_mgmt/static/src/img/helpdesk.svg'"/>
                 <t t-set="title">Tickets</t>
                 <t t-set="url" t-value="'/my_tickets'"/>
+                <t t-set="text">Follow your tickets status</t>
                 <t t-set="placeholder_count" t-value="'ticket_count'"/>
             </t>
 <!--            <form method="POST" t-attf-action="/help_desk">-->
@@ -91,8 +93,8 @@
         <t t-call="portal.portal_layout">
             <t t-call="portal.portal_record_layout">
                 <t t-set="card_header">
-                    <div class="card mb-3 shadow-sm">
-                        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                    <div class="card mb-3" style="box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
                                 <h5 class="mb-0 mr-3 text-truncate">
                                     <span t-field="ticket.name"/>
@@ -108,11 +110,11 @@
                 </t>
 
                 <t t-set="card_body">
-                    <div class="card-body">
+                    <div class="card-body" style="box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <div><strong>Date:</strong> <span t-field="ticket.create_date" t-options='{"widget": "datetime"}'/></div>
-                                <div><strong>Category:</strong> <span t-field="ticket.category_id"/></div>
+                                <div><strong>Request date:</strong> <span t-field="ticket.create_date" t-options='{"widget": "datetime"}'/></div>
+                                <div id="category"><strong>Category:</strong> <span t-field="ticket.category_id"/></div>
                             </div>
                             <div class="col-md-6 text-md-right">
                                 <div><strong>Last Stage Update:</strong> <span t-field="ticket.last_stage_update" t-options='{"widget": "datetime"}'/></div>
@@ -129,14 +131,13 @@
                                 </div>
                             </div>
                         </div>
-
-                         <hr/>
+                        <hr/>
 
                         <div class="row mt-4">
                             <div class="col-md-6 pb-3" t-if="ticket.user_id">
                                 <strong>Assignee</strong>
                                 <div class="d-flex align-items-center mt-2">
-                                    <img class="rounded-circle mr-3 o_portal_contact_img" t-att-src="image_data_uri(ticket.user_id.avatar_1024)" alt="Contact"/>
+                                    <img class="rounded-circle mr-3 pr-3 o_portal_contact_img" style="width: 50px; height: 50px; object-fit: cover;" t-att-src="image_data_uri(ticket.user_id.avatar_1024)" alt="Contact"/>
                                     <div>
                                         <div t-esc="ticket.user_id" t-options='{"widget": "contact", "fields": ["name"]}'/>
                                         <a t-attf-href="mailto:{{ticket.user_id.email}}" t-if="ticket.user_id.email" class="d-block text-muted">
@@ -152,7 +153,7 @@
                             <div class="col-md-6 pb-3" t-if="ticket.partner_id">
                                 <strong>Customer</strong>
                                 <div class="d-flex align-items-center mt-2">
-                                    <img class="rounded-circle mr-3 o_portal_contact_img" t-att-src="image_data_uri(ticket.partner_id.avatar_1024)" alt="Contact"/>
+                                    <img class="rounded-circle mr-3  pr-3 o_portal_contact_img" style="width: 50px; height: 50px; object-fit: cover;" t-att-src="image_data_uri(ticket.partner_id.avatar_1024)" alt="Contact"/>
                                     <div>
                                         <div t-field="ticket.partner_id" t-options='{"widget": "contact", "fields": ["name"]}'/>
                                         <a t-attf-href="mailto:{{ticket.partner_id.email}}" t-if="ticket.partner_id.email" class="d-block text-muted">

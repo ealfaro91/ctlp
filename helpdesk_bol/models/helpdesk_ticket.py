@@ -73,7 +73,14 @@ class HelpdeskTicket(models.Model):
     @api.depends('partner_id')
     def _compute_partner_address(self):
         for ticket in self:
-            ticket.address = ''
+            address_parts = [
+                ticket.partner_id.street or "",
+                ticket.partner_id.street2 or "",
+                ticket.partner_id.city or "",
+                ticket.partner_id.country_id.name or "",
+                ticket.partner_id.zip or ""
+            ]
+            ticket.address = ", ".join(filter(None, address_parts))
 
     @api.onchange('team_id')
     def _onchange_area_id(self):

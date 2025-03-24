@@ -29,7 +29,14 @@
                </setting>
                <setting string="Webservice Blacklist Validation" help="Uses CTLP webservice to check blacklist" id="module_auth_ldap">
                    <field name="validate_payment_from_ws"/>
-                   <field name="payment_ws" invisible="not validate_payment_from_ws"/>
+                    <div class="content-group mt16" invisible="not validate_payment_from_ws">
+                        <label for="payment_ws" class="o_light_label"/>
+                        <field name="payment_ws"/>
+                    </div>
+                    <div class="content-group" invisible="not validate_payment_from_ws">
+                        <label for="payment_delayed_message" class="o_light_label"/>
+                        <field name="payment_delayed_message"/>
+                    </div>
                </setting>
            </xpath>
         </field>

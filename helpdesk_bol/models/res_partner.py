@@ -14,8 +14,9 @@ class ResPartner(models.Model):
         help="Member code from Odoo v13",
         tracking=True
     )
-    payment_on_day = fields.Boolean(
-        string="Payment on Day",
-        help="Payment on day",
+    payment_status = fields.Selection(
+        selection=[('unpaid', 'Unpaid'), ('paid', 'Paid')],
+        string="Payment Status",
+        help="Payment status from Odoo v13",
         tracking=True
     )

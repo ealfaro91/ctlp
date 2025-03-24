@@ -1565,7 +1565,7 @@ msgstr "Número de solicitudes sin atender"
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__on_hold
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket_stage__on_hold
 msgid "On Hold"
-msgstr ""
+msgstr "En pausa"
 
 #. module: helpdesk_mgmt
 #: model:helpdesk.ticket.stage,name:helpdesk_mgmt.helpdesk_ticket_stage_onpause

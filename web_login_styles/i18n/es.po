@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-20 21:16+0000\n"
-"PO-Revision-Date: 2025-03-20 21:16+0000\n"
+"POT-Creation-Date: 2025-03-24 14:10+0000\n"
+"PO-Revision-Date: 2025-03-24 14:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,8 +53,8 @@ msgid ""
 "Customize the login page with change the position of login box and customize"
 " background"
 msgstr ""
-"Personaliza la página de inicio de sesión cambiando la posición del cuadro de"
-" inicio de sesión y personalizando el fondo"
+"Personaliza la página de inicio de sesión cambiando la posición del cuadro "
+"de inicio de sesión y personalizando el fondo"
 
 #. module: web_login_styles
 #: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
@@ -67,6 +67,11 @@ msgstr "Base de datos"
 #: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__orientation__default
 msgid "Default"
 msgstr "Predeterminado"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+msgid "Don't have an account?"
+msgstr ""
 
 #. module: web_login_styles
 #: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__image
@@ -115,7 +120,7 @@ msgstr "Configuración de la página de inicio de sesión"
 #: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
 #: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
 msgid "Logo"
-msgstr "Logo"
+msgstr ""
 
 #. module: web_login_styles
 #: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
@@ -144,8 +149,8 @@ msgstr ""
 msgid ""
 "Only employees can access this database. Please contact the administrator."
 msgstr ""
-"Solamente los empleados pueden acceder a esta base de datos. Por favor,"
-"contacte con el administrador."
+"Solamente los empleados pueden acceder a esta base de datos. Por "
+"favor,contacte con el administrador."
 
 #. module: web_login_styles
 #: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__orientation
@@ -175,6 +180,11 @@ msgid ""
 "Powered by\n"
 "                                        <span>Odoo</span>"
 msgstr ""
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+msgid "Reset Password"
+msgstr "Restablecer contraseña"
 
 #. module: web_login_styles
 #: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__orientation__right

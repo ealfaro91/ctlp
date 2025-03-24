@@ -27,6 +27,7 @@
                             <field name="code"/>
                             <field name="color" widget="color_picker"/>
                             <field name="show_in_external_portal"/>
+                            <field name="has_locations"/>
                         </group>
                         <group>
                             <field name="sequence_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
