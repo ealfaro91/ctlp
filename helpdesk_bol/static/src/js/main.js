@@ -32,6 +32,7 @@ $("select[name='type_id']").change(function(){
          $select_category.val(0);
 });
 
+
 function showFileNames() {
     const fileInput = document.querySelector('input[name="attachments"]');
     const fileListDiv = document.getElementById('fileList');

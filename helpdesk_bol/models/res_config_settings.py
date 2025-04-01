@@ -26,6 +26,14 @@ class ResConfigSettings(models.TransientModel):
     payment_delayed_message = fields.Text(
         string="Payment delayed message"
     )
+    password_lifetime = fields.Integer(
+        string='Password Lifetime (days)',
+        config_parameter='helpdesk_bol.password_lifetime',
+    )
+    forced_password_change = fields.Boolean(
+        string='Redirect to Change Password',
+        config_parameter='helpdesk_bol.forced_password_change',
+    )
 
     def set_values(self):
         super(ResConfigSettings, self).set_values()

@@ -19,7 +19,7 @@
 
         <record id="helpdesk_ticket_team_member_service_sdss" model="helpdesk.ticket.team">
             <field name="name">MEMBER SERVICE (SDSS)</field>
-            <field name="area_id" ref="helpdesk_bol.helpdesk_ticket_area_member_service"/>
+            <field name="area_id" ref="helpdesk_bol.helpdesk_ticket_area_member_service_sdss"/>
             <field name="image_1920" type="base64" file="helpdesk_bol/static/src/img/customer_service_icon.png"/>
         </record>
     </data>

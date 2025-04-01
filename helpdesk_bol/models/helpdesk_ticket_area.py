@@ -29,7 +29,8 @@ class HelpdeskTicketArea(models.Model):
     has_locations = fields.Boolean(
         string="Has Locations",
         default=False,
-        tracking=True
+        tracking=True,
+        help="Display locations in the helpdesk ticket form view."
     )
     color = fields.Integer(string="Color Index", default=0, tracking=True)
     description = fields.Text(
