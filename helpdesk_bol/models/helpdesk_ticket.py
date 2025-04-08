@@ -5,7 +5,6 @@ import logging
 
 from datetime import datetime, timedelta
 
-from enterprise.enterprise.l10n_be_hr_payroll.models.hr_payslip import compute_ip
 from odoo import api, fields, models
 from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
 
