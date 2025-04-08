@@ -195,6 +195,8 @@ class HelpdeskTicket(models.Model):
                 },
             )
             ticket.stage_id.mail_template_id.mail_server_id = ticket.area_id.mail_server_id.id
+            ticket.stage_id.mail_template_id.email_from = ticket.area_id.mail_server_id.smtp_user
+
         return res
 
     def _compute_attention_time_state(self):
