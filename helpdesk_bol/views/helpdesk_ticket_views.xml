@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="before">
-                <widget name="web_ribbon" title="Derived SDSS" bg_color="bg-info" invisible="derived_sdss==False"/>
+                <widget name="web_ribbon" title="Derived SDSS" bg_color="bg-info" invisible="derived_from_sdss==False"/>
             </xpath>
             <xpath expr="//header" position="before">
                 <div class="alert alert-danger float-left" role="alert" invisible="attention_time_state != 'delayed'">
