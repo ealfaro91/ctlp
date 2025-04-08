@@ -44,5 +44,5 @@ class Home(home.Home):
                 # Redirect only after successful login
                 if request.session.uid:
                     # Redirect to your desired URL
-                    return http.redirect_with_hash('/help_desk')
+                    return utils.redirect('/help_desk', 200)
         return res
