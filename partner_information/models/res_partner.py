@@ -119,10 +119,10 @@ class ResPartner(models.Model):
             if today >= next_activity_date:
                 partner.last_weekly_activity_id = self.env['mail.activity'].create({
                     'res_model_id': self.env['ir.model']._get('res.partner').id,
-                    'res_id': self.id,
+                    'res_id': partner.id,
                     'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
                     'date_deadline': fields.Date.today(),
-                    'user_id': self.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
+                    'user_id': partner.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
                 })
                 partner.weekly_activity_counter += 1
 

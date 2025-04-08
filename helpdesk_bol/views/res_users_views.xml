@@ -19,6 +19,10 @@
                     </group>
                 </group>
             </xpath>
+            <xpath expr="//label[@for='login']" position="replace">
+                <label for="login" string="Login" invisible="is_member==True"/>
+                <label for="login" string="CI" invisible="is_member==False"/>
+            </xpath>
             <xpath expr="//notebook/page[@name='access_rights']/group" position="after">
                 <group string="Areas allowed">
                     <field name="area_ids" widget="many2many_tags" options="{'no_create': True, 'color_field': 'color'}"/>

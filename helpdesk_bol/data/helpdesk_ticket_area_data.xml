@@ -38,5 +38,15 @@
             <field name="sequence_id" ref="helpdesk_bol.helpdesk_ticket_sdss_sequence"/>
         </record>
 
+         <record id="helpdesk_ticket_area_member_service_sport" model="helpdesk.ticket.area">
+            <field name="name">SPORTS</field>
+            <field name="code">AD</field>
+            <field name="color">6</field>
+            <field name="has_locations">True</field>
+            <field name="active">True</field>
+            <field name="show_in_external_portal">True</field>
+            <field name="sequence_id" ref="helpdesk_bol.helpdesk_ticket_sdss_sequence"/>
+        </record>
+
     </data>
 </odoo>

@@ -9,8 +9,8 @@ _logger = logging.getLogger(__name__)
 
 
 class ChangeStateLog(models.Model):
-    _name = "change.state.log"
-    _description = "Change State Log"
+    _name = "change.area.log"
+    _description = "Change Area Log"
     _order = "date desc"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
@@ -22,8 +22,8 @@ class ChangeStateLog(models.Model):
         "res.users", string="User",
         required=True, tracking=True
     )
-    stage_id = fields.Many2one(
-        "helpdesk.ticket.stage", string="Stage",
+    area_id = fields.Many2one(
+        "helpdesk.ticket.area", string="Area",
         required=True, tracking=True
     )
     date = fields.Datetime(

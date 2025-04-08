@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from . import change_area_log
 from . import change_state_log
 from . import helpdesk_ticket
 from . import helpdesk_ticket_area
 from . import helpdesk_ticket_category
 from . import helpdesk_ticket_location
+from . import helpdesk_ticket_origen
 from . import helpdesk_ticket_type
 from . import helpdesk_ticket_subcategory
 from . import helpdesk_ticket_team

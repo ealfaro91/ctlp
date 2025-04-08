@@ -5,6 +5,7 @@ import logging
 
 from datetime import datetime, timedelta
 
+from enterprise.enterprise.l10n_be_hr_payroll.models.hr_payslip import compute_ip
 from odoo import api, fields, models
 from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -58,9 +59,11 @@ class HelpdeskTicket(models.Model):
         string="Area",
         tracking=True,
     )
+    origen_id = fields.Many2one("helpdesk.ticket.origen", string="Origen", tracking=True)
     code = fields.Char(string="Code", related="area_id.code", required=True, tracking=True)
     user_id = fields.Many2one("res.users", tracking=True)
     create_date_utc = fields.Datetime(compute="_get_create_date_userutc")
+    area_log_ids = fields.One2many("change.area.log", "ticket_id", string="Area changes")
     state_log_ids = fields.One2many("change.state.log", "ticket_id", string="State changes")
     parent_id = fields.Many2one("helpdesk.ticket", string="Parent ticket")
     child_ticket_ids = fields.One2many("helpdesk.ticket", "parent_id", string="Child tickets")
@@ -69,6 +72,14 @@ class HelpdeskTicket(models.Model):
     mobile = fields.Char(string="Mobile", related="partner_id.mobile", tracking=True)
     phone = fields.Char(string="Phone", related="partner_id.phone", tracking=True)
     address = fields.Text(string="Address", compute="_compute_partner_address", tracking=True)
+    derived_from_area_id = fields.Many2one("helpdesk.ticket.area", string="Derived From Area")
+    derived_from_sdss = fields.Boolean(string="Derived From SDSS", store=True, compute="_compute_derived_from_sdss")
+
+    @api.depends('derived_from_area_id')
+    def _compute_derived_from_sdss(self):
+        for ticket in self:
+            ticket.derived_from_sdss = ticket.derived_from_area_id.code == "SDSS"
+
 
     @api.depends('partner_id')
     def _compute_partner_address(self):

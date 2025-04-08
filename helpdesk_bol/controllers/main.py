@@ -27,7 +27,7 @@ class Home(home.Home):
             reset_password_redirect = get_param('helpdesk_bol.forced_password_change') == 'True'
             login_ids = request.env['res.users.log'].sudo().search([('create_uid','=', user.id)])
 
-            if len(login_ids) == 1:
+            if user.state == 'new':
                 #password_lifetime = fields.date_utils.relativedelta(days=password_lifetime)
 				#last_password_reset = user.partner_id.last_password_reset or user.partner_id.create_date
 				# is_password_too_old = last_password_reset + password_lifetime < fields.datetime.utcnow()
@@ -37,6 +37,8 @@ class Home(home.Home):
 				# 	else:
                 request.params['login_success'] = False
                 return utils.redirect('/web/reset_password?', 303)
+            else:
+                return utils.redirect('/web/help_desk', 200)
 
         res = super().web_login(login=login, redirect=redirect, **kw)
         return res

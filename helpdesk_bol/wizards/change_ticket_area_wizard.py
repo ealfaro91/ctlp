@@ -50,6 +50,9 @@ class ChangeTicketAreaWizard(models.TransientModel):
     def change_area(self):
         self.ensure_one()
         self.ticket_id.write({
+            'derived_from_area_id': self.ticket_id.area_id.id
+        })
+        self.ticket_id.write({
             'area_id': self.area_id.id,
             'team_id': self.env['helpdesk.ticket.team'].search([('area_id', '=', self.area_id.id)]).id,
             'type_id': self.ticket_type_id.id,
