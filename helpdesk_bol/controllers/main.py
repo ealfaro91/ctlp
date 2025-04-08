@@ -40,5 +40,9 @@ class Home(home.Home):
 
         res = super().web_login(login=login, redirect=redirect, **kw)
         if user and user.is_member:
-            return utils.redirect('/help_desk', 200)
+            if request.httprequest.method == 'POST' and not redirect:
+                # Redirect only after successful login
+                if request.session.uid:
+                    # Redirect to your desired URL
+                    return http.redirect_with_hash('/help_desk')
         return res
