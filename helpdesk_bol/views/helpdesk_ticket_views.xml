@@ -77,7 +77,7 @@
                 <page string="Change state" name="state_log" groups="base.group_no_one">
                     <field name="state_log_ids" nolabel="1" readonly="1" context="{'tree_view_ref': 'helpdesk_bol.change_state_log_tree_view'}"/>
                 </page>
-                <page string="Change area" name="area_log" groups="base.group_no_one">
+                <page string="Change area" name="area_log">
                     <group>
                         <field name="derived_from_area_id" readonly="1"/>
                         <field name="derived_from_sdss" invisible="1"/>
