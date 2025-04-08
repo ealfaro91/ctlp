@@ -37,8 +37,8 @@ class Home(home.Home):
 				# 	else:
                 request.params['login_success'] = False
                 return utils.redirect('/web/reset_password?', 303)
-            else:
-                return utils.redirect('/web/help_desk', 200)
 
         res = super().web_login(login=login, redirect=redirect, **kw)
+        if user and user.is_member:
+            return utils.redirect('/help_desk', 200)
         return res
