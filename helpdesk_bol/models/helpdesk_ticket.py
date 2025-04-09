@@ -192,6 +192,8 @@ class HelpdeskTicket(models.Model):
                         "mail.mt_note"
                     ),
                     "email_layout_xmlid": "mail.mail_notification_light",
+                    "mail_server_id": ticket.area_id.mail_server_id.id,
+                    "email_from": ticket.area_id.mail_server_id.smtp_user
                 },
             )
             ticket.stage_id.mail_template_id.mail_server_id = ticket.area_id.mail_server_id.id
