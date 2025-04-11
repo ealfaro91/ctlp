@@ -5,11 +5,15 @@ from odoo import fields, models
 class HelpdeskTicketArea(models.Model):
     _name = "helpdesk.ticket.area"
     _description = "Helpdesk Ticket Area"
-    _order = "name"
+    _order = "sequence,name"
     _inherit = ["mail.thread", "mail.activity.mixin",]
     _sql_constraints = [("code_uniq", "unique(code)",  "Area code must be unique",)]
 
     active = fields.Boolean(default=True, tracking=True)
+    sequence = fields.Integer(
+        string="Sequence",
+        default=10
+    )
     name = fields.Char(
         string="Area", tracking=True,
         translate=True,
@@ -42,7 +46,8 @@ class HelpdeskTicketArea(models.Model):
         string="Show in External Portal",
         default=False,
         tracking=True,
-        help="If checked, this area will be displayed in the external portal for SDSS"
+        help="If checked, this area will be displayed in the external portal for SDSS."
+             " This means this area is for external customers"
     )
     sequence_id = fields.Many2one(
         "ir.sequence",

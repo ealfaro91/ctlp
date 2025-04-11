@@ -53,23 +53,6 @@
                                                     <input type="text" class="form-control" name="area_id" required="required" t-att-value="area_id.id" readonly="readonly"/>
                                                 </div>
                                             </div>
-                                            <!-- Location Field -->
-                                            <div class="mb-4" id="location_field" style="display: block;">
-                                                <label for="location_id" class="form-label">Location</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-text bg-light">
-                                                        <i class="fa fa-map-marker"/>
-                                                    </span>
-                                                    <select class="form-control" name="location_id" placeholder="Location">
-                                                        <option value="" placeholder="Location"/>
-                                                        <t t-foreach="locations" t-as="location">
-                                                            <option t-att-value="location.id" t-att-data-area_id="location.area_id.id">
-                                                                <t t-esc="location.name"/>
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <!-- Request Type Field -->
                                             <div class="mb-4">
                                                 <label for="type_id" class="form-label">Request Type</label>
@@ -87,6 +70,24 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <!-- Location Field -->
+                                            <div class="mb-4" id="location_field" style="display: block;">
+                                                <label for="location_id" class="form-label">Location</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-map-marker"/>
+                                                    </span>
+                                                    <select class="form-control" name="location_id" placeholder="Location">
+                                                        <option value="" placeholder="Location"/>
+                                                        <t t-foreach="locations" t-as="location">
+                                                            <option t-att-value="location.id" t-att-data-area_id="location.area_id.id">
+                                                                <t t-esc="location.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <!-- Category Field -->
                                             <div class="mb-4" style="display: none;">
                                                 <label for="category_id" class="form-label">Category</label>

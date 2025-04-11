@@ -54,6 +54,7 @@
         <field name="model">helpdesk.ticket.area</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="code"/>
                 <field name="color" widget="color_picker"/>

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import contextlib
 import logging
 import random
 import requests
@@ -116,9 +117,9 @@ class ResUsers(models.Model):
             if result:
                 user.payment_status = "unpaid"
 
-    def action_reset_password(self):
+    def _action_reset_password(self):
         """ create signup token for each user, and send their signup url by email """
-        if self.env.context.get('install_mode', False):
+        if self.env.context.get('install_mode') or self.env.context.get('import_file'):
             return
         if self.filtered(lambda user: not user.active):
             raise UserError(_("You cannot perform this action on an archived user."))
@@ -131,15 +132,12 @@ class ResUsers(models.Model):
         self.mapped('partner_id').signup_prepare(signup_type="reset", expiration=expiration)
 
         # send email to users with their signup url
-        template = False
+        account_created_template = None
         if create_mode:
-            try:
-                template = self.env.ref('auth_signup.set_password_email', raise_if_not_found=False)
-            except ValueError:
-                pass
-        if not template:
-            template = self.env.ref('auth_signup.reset_password_email')
-        assert template._name == 'mail.template'
+            account_created_template = self.env.ref('auth_signup.set_password_email', raise_if_not_found=False)
+            if account_created_template and account_created_template._name != 'mail.template':
+                _logger.error("Wrong set password template %r", account_created_template)
+                return
 
         email_values = {
             'email_cc': False,
@@ -154,8 +152,23 @@ class ResUsers(models.Model):
             if not user.email:
                 raise UserError(_("Cannot send email: user %s has no email address.", user.name))
             email_values['email_to'] = user.email
-            # TDE FIXME: make this template technical (qweb)
-            with self.env.cr.savepoint():
-                force_send = not (self.env.context.get('import_file', False))
-                template.send_mail(user.id, force_send=force_send, raise_exception=True, email_values=email_values)
+            with contextlib.closing(self.env.cr.savepoint()):
+                if account_created_template:
+                    account_created_template.send_mail(
+                        user.id, force_send=True,
+                        raise_exception=True, email_values=email_values)
+                else:
+                    user_lang = user.lang or self.env.lang or 'en_US'
+                    body = self.env['mail.render.mixin'].with_context(lang=user_lang)._render_template(
+                        self.env.ref('auth_signup.reset_password_email'),
+                        model='res.users', res_ids=user.ids,
+                        engine='qweb_view', options={'post_process': True})[user.id]
+                    context = {'lang': user_lang}  # noqa: F841
+                    mail = self.env['mail.mail'].sudo().create({
+                        'subject': _('Password reset'),
+                        'email_from': user.company_id.email_formatted or user.email_formatted,
+                        'body_html': body,
+                        **email_values,
+                    })
+                    mail.send()
             _logger.info("Password reset email sent for user <%s> to <%s>", user.login, user.email)

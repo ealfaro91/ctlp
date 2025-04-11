@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
 
+import werkzeug
+
 from werkzeug import utils
 from logging import getLogger
-from odoo import fields, http
+from odoo import fields, http, _
 from odoo.http import request
+from odoo.exceptions import UserError
+
+from werkzeug.urls import url_encode
+
+
+from odoo.addons.auth_signup.models.res_users import SignupError
+
+
 from odoo.addons.web.controllers import (home, session)
 _logger = getLogger(__name__)
 
@@ -44,5 +54,7 @@ class Home(home.Home):
                 # Redirect only after successful login
                 if request.session.uid:
                     # Redirect to your desired URL
-                    return utils.redirect('/help_desk', 200)
+                    return utils.redirect('/help_desk')
         return res
+
+
