@@ -36,6 +36,7 @@
         <field name="model">helpdesk.ticket.location</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="area_id"/>
             </tree>

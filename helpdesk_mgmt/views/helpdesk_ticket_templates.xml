@@ -62,7 +62,7 @@
 <!--                            <th t-if="groupby != 'category'">Category</th>-->
                             <th t-if="groupby != 'stage'">Stage</th>
                             <th>Create Date</th>
-                            <th>Last Stage Update</th>
+<!--                            <th>Last Stage Update</th>-->
                             <th>Close Date</th>
                         </tr>
                     </thead>
@@ -79,7 +79,7 @@
 <!--                                <td t-if="groupby != 'category'"><span t-esc="ticket.category_id.name"/></td>-->
                                 <td t-if="groupby != 'stage'"><span t-esc="ticket.stage_id.name"/></td>
                                 <td><span t-field="ticket.create_date"/></td>
-                                <td><span t-field="ticket.last_stage_update"/></td>
+<!--                                <td><span t-field="ticket.last_stage_update"/></td>-->
                                 <td><span t-field="ticket.closed_date"/></td>
                             </tr>
                         </t>
