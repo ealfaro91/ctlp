@@ -1058,17 +1058,17 @@ msgstr "Ubicación"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
 msgid "Log in"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
 msgid "Log in as superuser"
-msgstr ""
+msgstr "Iniciar sesión como superusuario"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_maintenance
