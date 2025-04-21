@@ -28,7 +28,7 @@ msgstr "\" con asunto \""
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
 msgid "\"Enter your ID card number\""
-msgstr "\"Ingrese su carnet de identididad\""
+msgstr "\Ingrese su carnet de identididad\"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
