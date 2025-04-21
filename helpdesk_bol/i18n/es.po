@@ -54,12 +54,12 @@ msgstr "<option value=\"\" placeholder=\"Ubicación\"/>"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
 msgid "<strong>Description</strong>"
-msgstr ""
+msgstr "<strong>Descrición</strong>"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
 msgid "<strong>Resolution</strong>"
-msgstr ""
+msgstr "<strong>Resolución</strong>"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
