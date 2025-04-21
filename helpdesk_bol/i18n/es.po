@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-11 11:51+0000\n"
-"PO-Revision-Date: 2025-04-11 11:51+0000\n"
+"POT-Creation-Date: 2025-04-21 16:53+0000\n"
+"PO-Revision-Date: 2025-04-21 16:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,11 @@ msgstr "\" ha sido cerrado exitosamente."
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "\" with subject \""
 msgstr "\" con asunto \""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
+msgid "\"Enter your ID card number\""
+msgstr "\"Ingrese su carnet de identididad\""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
@@ -45,6 +50,16 @@ msgstr "<i class=\"fa fa-paper-plane\"/>Enviar"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 msgid "<option value=\"\" placeholder=\"Location\"/>"
 msgstr "<option value=\"\" placeholder=\"Ubicación\"/>"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
+msgid "<strong>Description</strong>"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
+msgid "<strong>Resolution</strong>"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
@@ -177,6 +192,7 @@ msgstr ""
 "                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Este mensaje automático es para notificar que su ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
 "                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido recibido y asignado a  <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
 "                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
+"                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Tiempo estimado de resolución (en horas): <span style=\"font-weight:bold;\" t-out=\"object.max_attention_time\"></span></p>\n"
 "                                        <br>\n"
 "                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\">Saludos.</p>\n"
 "                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
@@ -188,7 +204,7 @@ msgstr ""
 "                                </td></tr>\n"
 "                                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><td style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;text-align:center;\">\n"
 "                                    <hr width=\"100%\" style=\"border-style:none;border-left-width:medium;border-bottom-width:medium;border-right-width:medium;border-top-width:medium;box-sizing: border-box; height: 1px; opacity: 0.25; color: #454748; background-color: #cccccc; border: medium none; clear: both; display: block; font-size: 0px; min-height: 1px; line-height: 0; margin: 16px 0px;\">\n"
-"                                </td> <p> Este es un mensaje automático, por favor no responder.</p>\n"</tr>\n"
+"                                </td></tr>\n"
 "                            </tbody></table>\n"
 "                        </td>\n"
 "                    </tr>\n"
@@ -398,14 +414,14 @@ msgstr "Dirección"
 #: code:addons/helpdesk_bol/controllers/myaccount.py:0
 #, python-format
 msgid "All"
-msgstr "Todos"
+msgstr ""
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/wizards/merge_ticket_wizard.py:0
 #, python-format
 msgid "All tickets to merge must be in state 'Open'"
-msgstr "Todos los tickets a fusionar deben estar en estado 'Abierto'"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__login_from_ws
@@ -564,7 +580,7 @@ msgstr "Cancelar"
 #: code:addons/helpdesk_bol/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
-msgstr "No se puede enviar el correo: el usuario %s no tiene una dirección de correo."
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__category_ids
@@ -591,7 +607,7 @@ msgstr "Cambiar Área"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_change_area_log
 msgid "Change Area Log"
-msgstr "Log de cambios de área"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_change_state_log
@@ -607,7 +623,7 @@ msgstr "Cambiar área de ticket"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
 msgid "Change area"
-msgstr "Cambios de área"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
@@ -703,17 +719,17 @@ msgstr "Retrasado"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__derived_from_area_id
 msgid "Derived From Area"
-msgstr "Derivado de Area"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__derived_from_sdss
 msgid "Derived From SDSS"
-msgstr "Derivado de SDSS"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
 msgid "Derived SDSS"
-msgstr "Derivado SDSS"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__description
@@ -740,6 +756,11 @@ msgstr "Nombre a mostrar"
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__has_locations
 msgid "Display locations in the helpdesk ticket form view."
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__has_origins
+msgid "Display origins in the helpdesk ticket form view."
 msgstr ""
 
 #. module: helpdesk_bol
@@ -785,8 +806,6 @@ msgstr "Icono de fuente impresionante, por ejemplo fa-tasks"
 msgid ""
 "For expired password on login, user to be redirected to reset password."
 msgstr ""
-"Para la contraseñas expiradas en el inicio de sesión, los usuarios serán redirigidos"
-"a restablecer la contraseñas."
 
 #. module: helpdesk_bol
 #: model:ir.actions.server,name:helpdesk_bol.get_members_ir_actions_server
@@ -810,6 +829,11 @@ msgid "Has Message"
 msgstr "Tiene mensaje"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__has_origins
+msgid "Has Origins"
+msgstr ""
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid ""
 "Helpdesk Manager: Has access to all settings for helpdesk but only see "
@@ -831,7 +855,7 @@ msgstr "Área de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_category
 msgid "Helpdesk Ticket Category"
-msgstr "Categoría de ticket"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_location
@@ -841,7 +865,7 @@ msgstr "Ubicación de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_origen
 msgid "Helpdesk Ticket Origen"
-msgstr "Origen de la solicitud del servicio de asistencia"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_subcategory
@@ -856,7 +880,7 @@ msgstr "Equipo de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_type
 msgid "Helpdesk Ticket Type"
-msgstr "Tipo de solicitudes del Helpdesk"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__id
@@ -869,6 +893,18 @@ msgstr "Tipo de solicitudes del Helpdesk"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_merge_ticket_wizard__id
 msgid "ID"
 msgstr ""
+
+#. module: helpdesk_bol
+#. odoo-python
+#: code:addons/helpdesk_bol/controllers/main.py:0
+#, python-format
+msgid "ID card not found"
+msgstr "Carnet inexistente"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
+msgid "ID card number"
+msgstr "Número de carnet"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__activity_exception_icon
@@ -963,7 +999,7 @@ msgstr ""
 #: code:addons/helpdesk_bol/controllers/controllers.py:0
 #, python-format
 msgid "Invalid or duplicate submission."
-msgstr "Envío inválido o duplicado."
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__message_is_follower
@@ -1020,9 +1056,19 @@ msgid "Location"
 msgstr "Ubicación"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
+msgid "Log in"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
+msgid "Log in as superuser"
+msgstr ""
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid "Login"
-msgstr "Login"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_maintenance
@@ -1058,6 +1104,11 @@ msgstr "Tiempo máximo de atención (horas)"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 msgid "Member Code"
 msgstr "Código del socio"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
+msgid "Member Email"
+msgstr "Email"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
@@ -1180,7 +1231,7 @@ msgstr "Tipo de actividad siguiente"
 #: code:addons/helpdesk_bol/wizards/merge_ticket_wizard.py:0
 #, python-format
 msgid "No tickets selected to merge"
-msgstr "No se han seleccionado tickets a fusionar"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__message_needaction_counter
@@ -1264,7 +1315,7 @@ msgstr ""
 #: code:addons/helpdesk_bol/models/res_users.py:0
 #, python-format
 msgid "Password reset"
-msgstr "Restablecimiento de contraseña"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__payment_status
@@ -1397,7 +1448,7 @@ msgstr "Error de entrega de SMS"
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service_sport
 msgid "SPORTS"
-msgstr "DEPORTIVA"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__sequence
@@ -1427,7 +1478,7 @@ msgstr "Creación de Ticket de Service Desk"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
 msgid "Sessions"
-msgstr "Sesiones"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__show_in_external_portal
@@ -1481,7 +1532,7 @@ msgstr "Sub-Categoría"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__success_message
 msgid "Success message"
-msgstr "Mensaje de exito"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_ti
@@ -1501,23 +1552,20 @@ msgid ""
 "and you will soon receive an email with the follow-up to your ticket. We "
 "also recommend checking your spam folder."
 msgstr ""
-"Gracias por compartir su inquietud con nosotros. Estamos trabajando en su solicitud"
-"y pronto recibirá un correo con el seguimiento de su ticket. Le recomendamos revisar"
-"también su bandeja de spam."
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
 #, python-format
 msgid "The selected area is the same as the current area"
-msgstr "El área seleccionada es la misma que el área actual"
+msgstr ""
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
 #, python-format
 msgid "The ticket area has been changed"
-msgstr "El área del ticket ha sido cambiada"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__mail_server_id
@@ -1754,7 +1802,7 @@ msgstr "Horario de trabajo"
 #: code:addons/helpdesk_bol/models/res_users.py:0
 #, python-format
 msgid "You cannot perform this action on an archived user."
-msgstr "No puede realizar esta acción en un usuario archivado."
+msgstr "No se puede realizar esta acción en un usuario archivado."
 
 #. module: helpdesk_bol
 #. odoo-python
@@ -1776,4 +1824,4 @@ msgstr "Su número de ticket es:"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_origen_form_view
 msgid "origen"
-msgstr "Origen"
+msgstr ""

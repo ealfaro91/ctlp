@@ -97,7 +97,7 @@ class TestHelpdeskPortal(TestHelpdeskPortalBase):
     def test_ticket_form(self):
         """Open our test ticket in portal mode."""
         self.authenticate("portal", "portal")
-        resp = self.url_open(f"/my/ticket/{self.portal_ticket.id}")
+        resp = self.url_open(f"/my_ticket/{self.portal_ticket.id}")
         self.assertEqual(resp.status_code, 200)
         self.assertIn("portal-ticket-title", resp.text)
         self.assertIn(
@@ -108,13 +108,13 @@ class TestHelpdeskPortal(TestHelpdeskPortalBase):
         """Close a ticket from the portal."""
         self.assertFalse(self.portal_ticket.closed)
         self.authenticate("portal", "portal")
-        resp = self.url_open(f"/my/ticket/{self.portal_ticket.id}")
+        resp = self.url_open(f"/my_ticket/{self.portal_ticket.id}")
         self.assertEqual(self._count_close_buttons(resp), 2)  # 2 close stages in data/
         stage = self.env.ref("helpdesk_mgmt.helpdesk_ticket_stage_done")
         self._call_close_ticket(self.portal_ticket, stage)
         self.assertTrue(self.portal_ticket.closed)
         self.assertEqual(self.portal_ticket.stage_id, stage)
-        resp = self.url_open(f"/my/ticket/{self.portal_ticket.id}")
+        resp = self.url_open(f"/my_ticket/{self.portal_ticket.id}")
         self.assertEqual(self._count_close_buttons(resp), 0)  # no close buttons now
 
     def test_close_ticket_invalid_stage(self):
@@ -169,21 +169,21 @@ class TestHelpdeskPortal(TestHelpdeskPortalBase):
 
         # Portal ticket form: portal_user_1 can open ticket_1 but not ticket_2
         self.authenticate("portal", "portal")
-        resp = self.url_open(f"/my/ticket/{ticket_1.id}")
+        resp = self.url_open(f"/my_ticket/{ticket_1.id}")
         self.assertEqual(resp.status_code, 200)
         self.assertIn("ticket-user-1", resp.text)
-        resp = self.url_open(f"/my/ticket/{ticket_2.id}", allow_redirects=False)
+        resp = self.url_open(f"/my_ticket/{ticket_2.id}", allow_redirects=False)
         self.assertEqual(resp.status_code, 303)
         self.assertTrue(resp.is_redirect)
         self.assertTrue(resp.headers["Location"].endswith("/my"))
 
         # Portal ticket form: portal_user_2 can open ticket_2 but not ticket_1
         self.authenticate("portal2", "portal2")
-        resp = self.url_open(f"/my/ticket/{ticket_1.id}", allow_redirects=False)
+        resp = self.url_open(f"/my_ticket/{ticket_1.id}", allow_redirects=False)
         self.assertEqual(resp.status_code, 303)
         self.assertTrue(resp.is_redirect)
         self.assertTrue(resp.headers["Location"].endswith("/my"))
-        resp = self.url_open(f"/my/ticket/{ticket_2.id}")
+        resp = self.url_open(f"/my_ticket/{ticket_2.id}")
         self.assertEqual(resp.status_code, 200)
         self.assertIn("ticket-user-2", resp.text)
 
@@ -204,5 +204,5 @@ class TestHelpdeskPortal(TestHelpdeskPortalBase):
         )
         self.assertEqual(resp.status_code, 302)
         self.assertTrue(resp.is_redirect)  # http://127.0.0.1:8069/my/ticket/<ticket-id>
-        self.assertTrue(resp.headers["Location"].endswith(f"/my/ticket/{ticket.id}"))
+        self.assertTrue(resp.headers["Location"].endswith(f"/my_ticket/{ticket.id}"))
         return resp

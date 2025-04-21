@@ -4,7 +4,7 @@
     <template id="portal_layout" name="Portal layout: ticket menu entry" inherit_id="portal.portal_breadcrumbs" priority="40">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
             <li t-if="page_name == 'ticket' or ticket" t-attf-class="breadcrumb-item #{'active ' if not ticket else ''}">
-                <a t-if="ticket" t-attf-href="/my/tickets?{{ keep_query() }}">Tickets</a>
+                <a t-if="ticket" t-attf-href="/my_tickets{{ keep_query() }}">Tickets</a>
                 <t t-else="">Tickets</t>
             </li>
             <li t-if="ticket" class="breadcrumb-item active text-truncate">

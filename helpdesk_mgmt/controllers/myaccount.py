@@ -30,7 +30,7 @@ class CustomerPortalHelpdesk(CustomerPortal):
         return values
 
     @http.route(
-        ["/my_tickets", "/my/tickets/page/<int:page>"],
+        ["/my_tickets", "/my_tickets/page/<int:page>"],
         type="http",
         auth="user",
         website=True,

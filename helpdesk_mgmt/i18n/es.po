@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-11 12:55+0000\n"
-"PO-Revision-Date: 2025-04-11 12:55+0000\n"
+"POT-Creation-Date: 2025-04-21 16:51+0000\n"
+"PO-Revision-Date: 2025-04-21 16:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -280,15 +280,21 @@ msgid ""
 "                                                            <p>Dear <strong><t t-out=\"object.partner_id.name\"></t></strong></p>\n"
 "                                                            <p style=\"text-align: center;\">We appreciate your feedback to improve and work together for the club.<br> Your request for <strong><t t-out=\"object.display_name\"></t></strong> has been fulfilled</p>\n"
 "                                                            <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
-"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/1\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #2FAF17; color: #fff; border-radius: 5px;\">\n"
+"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/1\" style=\"display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #2FAF17; color: #fff; border-radius: 5px;\">\n"
 "                                                                    <span style=\"font-weight: bold;\">OK</span>\n"
 "                                                                </a>\n"
-"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/2\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;\">\n"
-"                                                                    <strong>Ticket reopening</strong>\n"
-"                                                                </a>\n"
+"                                                               <a href=\"/my_tickets\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                                                                   <strong>View my tickets</strong>\n"
+"                                                               </a>\n"
 "                                                            </div>\n"
 "                                                            <p style=\"text-align: center;\">If we do not hear back within 24 hours, we will close the ticket. Feel free to use OK\n"
 "                                                                CTLP for any other inquiries or requests. <br> Moving forward together for a better club!</p>\n"
+"\n"
+"                                                            <p style=\"text-align: center;\">Si considera que la solución no fue satistactoria puede reabrir el ticket dentro de las próximas horas!</p>\n"
+"\n"
+"                                                            <a t-attf-href=\"/change_stage/{{object.id}}/2\" style=\"display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;\">\n"
+"                                                                <strong>Ticket reopening</strong>\n"
+"                                                            </a>\n"
 "                                                        </div>\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
@@ -378,15 +384,21 @@ msgstr ""
 "                                                            <p>Estimado/a <strong><t t-out=\"object.partner_id.name\"></t></strong></p>\n"
 "                                                            <p style=\"text-align: center;\">Agradecemos su retroalimentación para mejorar y trabajar juntos para el club.<br> Su solicitud de <strong><t t-out=\"object.display_name\"></t></strong> ha sido atendida.</p>\n"
 "                                                            <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
-"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/1\" style=\"display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #2FAF17; color: #fff; border-radius: 5px;\">\n"
+"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/1\" style=\"display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 14px; background-color: #2FAF17; color: #fff; border-radius: 5px;\">\n"
 "                                                                    <span style=\"font-weight: bold;\">OK</span>\n"
 "                                                                </a>\n"
-"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/2\" style=\"display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;\">\n"
-"                                                                    <strong>Reapertura de ticket</strong>\n"
-"                                                                </a>\n"
+"                                                               <a href=\"/my_tickets\" style=\"display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                                                                   <strong>View my tickets</strong>\n"
+"                                                               </a>\n"
 "                                                            </div>\n"
 "                                                            <p style=\"text-align: center;\">Si no recibimos noticias en 24 horas, cerraremos el ticket. No dudes en utilizar OK\n"
 "                                                                CTLP para cualquier otra consulta o solicitud.<br> Avanzando juntos por un mejor club!</p>\n"
+
+"<p style=\"text-align: center;\">Si considera que la solución no fue satistactoria puede reabrir el ticket dentro de las próximas horas!</p>\n"
+"\n"
+"                                                                <a t-attf-href=\"/change_stage/{{object.id}}/2\" style=\"display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;\">\n"
+"                                                                    <strong>Reapertura de ticket</strong>\n"
+"                                                                </a>\n"
 "                                                        </div>\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
@@ -439,7 +451,6 @@ msgstr ""
 "                    </tr>\n"
 "                </table>\n"
 "            "
-
 
 #. module: helpdesk_mgmt
 #: model:mail.template,body_html:helpdesk_mgmt.changed_user_assigned_template
@@ -874,7 +885,7 @@ msgstr "Índice de color"
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_res_company
 msgid "Companies"
-msgstr "Compañías"
+msgstr ""
 
 #. module: helpdesk_mgmt
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__company_id
@@ -1191,7 +1202,7 @@ msgstr "Solicitud del servicio de asistencia"
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_category
 msgid "Helpdesk Ticket Category"
-msgstr "Categoría de ticket"
+msgstr ""
 
 #. module: helpdesk_mgmt
 #: model:ir.model,name:helpdesk_mgmt.model_helpdesk_ticket_channel
@@ -1328,7 +1339,6 @@ msgstr "Estado Kanban"
 #. odoo-python
 #: code:addons/helpdesk_mgmt/controllers/myaccount.py:0
 #: model:ir.model.fields,field_description:helpdesk_mgmt.field_helpdesk_ticket__last_stage_update
-#: model_terms:ir.ui.view,arch_db:helpdesk_mgmt.portal_ticket_list
 #, python-format
 msgid "Last Stage Update"
 msgstr "Última actualización de la etapa"

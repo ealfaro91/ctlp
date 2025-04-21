@@ -15,7 +15,6 @@
                                     <form action="/help_desk_close" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <input type="hidden" name="submission_token" t-att-value="submission_token"/>
-
                                         <div class="card-body">
                                             <t t-if="error_message">
                                                 <div class="alert alert-danger text-center" role="alert">
@@ -24,7 +23,7 @@
                                             </t>
                                             <!-- Requester Name and Area Fields -->
                                             <div class="row mb-4">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="name" class="form-label">Member Name</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-light">
@@ -33,13 +32,22 @@
                                                         <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="code" class="form-label">Member Code</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-light">
                                                             <i class="fa fa-building"/>
                                                         </span>
                                                         <input type="text" class="form-control" name="code" required="required" t-att-value="user.member_code" readonly="readonly"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="code" class="form-label">Member Email</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-light">
+                                                            <i class="fa fa-envelope"/>
+                                                        </span>
+                                                        <input type="text" class="form-control" name="email" required="required" t-att-value="user.email" readonly="readonly"/>
                                                     </div>
                                                 </div>
                                             </div>

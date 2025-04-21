@@ -29,7 +29,7 @@ class HelpdeskTicketController(http.Controller):
         if stage.close_from_portal:  # protect against invalid target stage request
             ticket.stage_id = values.get("stage_id")
 
-        return werkzeug.utils.redirect("/my/ticket/" + str(ticket.id))
+        return werkzeug.utils.redirect("/myticket/" + str(ticket.id))
 
     def _get_teams(self):
         return (
@@ -116,4 +116,4 @@ class HelpdeskTicketController(http.Controller):
                             "res_id": new_ticket.id,
                         }
                     )
-        return werkzeug.utils.redirect("/my/ticket/%s" % new_ticket.id)
+        return werkzeug.utils.redirect("/my_ticket/%s" % new_ticket.id)

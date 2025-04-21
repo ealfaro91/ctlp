@@ -2,7 +2,7 @@
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 
 
 class ResPartner(models.Model):
@@ -115,15 +115,23 @@ class ResPartner(models.Model):
         ])
 
         for partner in partners:
-            next_activity_date = partner.real_exit_date + timedelta(weeks=partner.weekly_activity_counter + 1)
-            if today >= next_activity_date:
-                partner.last_weekly_activity_id = self.env['mail.activity'].create({
+            weeks_since_exit = (today - partner.real_exit_date).days // 7
+
+            # If already passed 12 weeks, skip
+            if weeks_since_exit >= 12:
+                continue
+
+                # Check if it's time to create the next activity
+            if weeks_since_exit >= partner.weekly_activity_counter + 1:
+                activity = self.env['mail.activity'].create({
                     'res_model_id': self.env['ir.model']._get('res.partner').id,
                     'res_id': partner.id,
-                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
-                    'date_deadline': fields.Date.today(),
-                    'user_id': partner.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
+                    'summary': _('Weekly Follow-up'),
+                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+                    'date_deadline': today,
+                    'user_id': partner.user_id.id or self.env.user.id,
                 })
+                partner.last_weekly_activity_id = activity
                 partner.weekly_activity_counter += 1
 
     def _cron_create_biweekly_activities(self):
@@ -131,19 +139,32 @@ class ResPartner(models.Model):
         today = fields.Date.today()
         partners = self.search([
             ('real_exit_date', '!=', False),
-            ('biweekly_activity_counter', '<', 12)
+            ('biweekly_activity_counter', '<', 12),
+            ('weekly_activity_counter', '=', 12)
         ])
 
         for partner in partners:
-            next_activity_date = partner.real_exit_date + timedelta(weeks=(partner.biweekly_activity_counter + 1) * 2)
-            if today >= next_activity_date:
-                partner.last_biweekly_activity_id = self.env['mail.activity'].create({
+
+            # Calculate how many full 2-week periods have passed
+            weeks_since_exit = (today - partner.real_exit_date).days // 7
+            biweeks_since_exit = weeks_since_exit // 2
+
+            # If more than 6 biweekly periods have passed, skip
+            if biweeks_since_exit >= 6:
+                continue
+
+                # Create activity if it's time
+            if biweeks_since_exit >= partner.biweekly_activity_counter + 1:
+                activity = self.env['mail.activity'].create({
                     'res_model_id': self.env['ir.model']._get('res.partner').id,
-                    'res_id': self.id,
-                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
-                    'date_deadline': fields.Date.today(),
-                    'user_id': self.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
+                    'res_id': partner.id,
+                    'summary': _('Biweekly Follow-up'),
+                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+                    'date_deadline': today,
+                    'user_id': partner.user_id.id or self.env.user.id,
                 })
+
+                partner.last_biweekly_activity_id = activity
                 partner.biweekly_activity_counter += 1
 
     def _cron_create_monthly_activities(self):
@@ -151,20 +172,32 @@ class ResPartner(models.Model):
         today = fields.Date.today()
         partners = self.search([
             ('real_exit_date', '!=', False),
-            ('monthly_activity_counter', '<', 24)
+            ('monthly_activity_counter', '<', 24),
+            ('biweekly_activity_counter', '=', 12),
         ])
 
         for partner in partners:
-            next_activity_date = partner.real_exit_date + relativedelta(months=(partner.monthly_activity_counter + 1))
-            if today >= next_activity_date:
-                partner.last_monthly_activity_id = self.env['mail.activity'].create({
+            months_since_exit = (today.year - partner.real_exit_date.year) * 12 + (
+                    today.month - partner.real_exit_date.month)
+
+            # Si ya pasaron 24 meses o más, omitir
+            if months_since_exit >= 24:
+                continue
+
+            # Crear solo si es tiempo de la siguiente actividad
+            if months_since_exit >= partner.monthly_activity_counter + 1:
+                activity = self.env['mail.activity'].create({
                     'res_model_id': self.env['ir.model']._get('res.partner').id,
-                    'res_id': self.id,
-                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
-                    'date_deadline': fields.Date.today(),
-                    'user_id': self.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
+                    'res_id': partner.id,
+                    'summary': _('Monthly Follow-up'),
+                    'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+                    'date_deadline': today,
+                    'user_id': partner.user_id.id or self.env.user.id,
                 })
+
+                partner.last_monthly_activity_id = activity
                 partner.monthly_activity_counter += 1
+
 
     def _cron_create_birthday_annual_activities(self):
         """ Creates an activity for each partner's birthday or real exit date."""
@@ -177,14 +210,17 @@ class ResPartner(models.Model):
                     self.env['mail.activity'].create({
                         'res_model_id': self.env['ir.model']._get('res.partner').id,
                         'res_id': partner.id,
+                        'summary': _('Birthday'),
                         'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
                         'date_deadline': today,
                         'user_id': partner.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
                     })
-                if partner.real_exit_date.month == today.month and partner.real_exit_date.day == today.day:
+                if (partner.real_exit_date.month == today.month
+                    and partner.real_exit_date.day == today.day and partner.monthly_activity_counter == 24):
                     self.env['mail.activity'].create({
                         'res_model_id': self.env['ir.model']._get('res.partner').id,
                         'res_id': partner.id,
+                        'summary': _('Annual Follow-up'),
                         'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
                         'date_deadline': today,
                         'user_id': partner.user_id.id or self.env.user.id,})  # Assign to the partner's user or the current user
@@ -195,14 +231,3 @@ class ResPartner(models.Model):
         if self.entry_date and self.exit_date:
             if self.entry_date > self.exit_date:
                 self.exit_date = False
-
-    @api.model
-    def _cron_create_activities(self):
-        for partner in partners:
-            self.env['mail.activity'].create({
-                'res_model_id': self.env['ir.model']._get('res.partner').id,
-                'res_id': partner.id,
-                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,  # Default to "To Do"
-                'date_deadline': today,
-                'user_id': partner.user_id.id or self.env.user.id,  # Assign to the partner's user or the current user
-            })

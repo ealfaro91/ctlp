@@ -18,6 +18,8 @@ class HelpdeskTicketOrigen(models.Model):
         "helpdesk.ticket.area",
         string="Area",
         tracking=True,
-        required=True
+        required=True,
+        ondelete="cascade",
+        domain="[('has_origins', '=', True)]"
     )
 

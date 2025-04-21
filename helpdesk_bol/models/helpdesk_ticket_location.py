@@ -18,6 +18,8 @@ class HelpdeskTicketLocation(models.Model):
         "helpdesk.ticket.area",
         string="Area",
         tracking=True,
-        required=True
+        required=True,
+        domain="[('has_locations', '=', True)]",
+        ondelete="cascade"
     )
 

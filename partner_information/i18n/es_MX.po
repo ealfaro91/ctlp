@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-09 01:00+0000\n"
-"PO-Revision-Date: 2025-03-09 01:00+0000\n"
+"POT-Creation-Date: 2025-04-15 02:17+0000\n"
+"PO-Revision-Date: 2025-04-15 02:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,13 @@ msgstr "Edad"
 #: model:ir.ui.menu,name:partner_information.menu_allergies
 msgid "Allergies"
 msgstr "Alergias"
+
+#. module: partner_information
+#. odoo-python
+#: code:addons/partner_information/models/res_partner.py:0
+#, python-format
+msgid "Annual Follow-up"
+msgstr "Seguimiento anual"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_partner_attachment__attachment
@@ -85,6 +92,20 @@ msgstr "Catálogo de ejes"
 #: model:ir.model.fields,field_description:partner_information.field_res_users__birth_date
 msgid "Birth date"
 msgstr "Fecha de nacimiento"
+
+#. module: partner_information
+#. odoo-python
+#: code:addons/partner_information/models/res_partner.py:0
+#, python-format
+msgid "Birthday"
+msgstr "Cumpleaños"
+
+#. module: partner_information
+#. odoo-python
+#: code:addons/partner_information/models/res_partner.py:0
+#, python-format
+msgid "Biweekly Follow-up"
+msgstr "Seguimiento quincenal"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__biweekly_activity_counter
@@ -313,6 +334,13 @@ msgid "Middle Name"
 msgstr "Segudo apellido"
 
 #. module: partner_information
+#. odoo-python
+#: code:addons/partner_information/models/res_partner.py:0
+#, python-format
+msgid "Monthly Follow-up"
+msgstr "Seguimiento Mensual"
+
+#. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__monthly_activity_counter
 #: model:ir.model.fields,field_description:partner_information.field_res_users__monthly_activity_counter
 msgid "Monthly activity Counter"
@@ -511,7 +539,7 @@ msgstr "Soltero"
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__status_id
 #: model:ir.model.fields,field_description:partner_information.field_res_users__status_id
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__tp_axis_2_ids
@@ -552,6 +580,13 @@ msgstr ""
 msgid "Tracks the number of weekly activities created for this partner."
 msgstr ""
 "Rastrea el número de actividades semanales creadas para este contacto."
+
+#. module: partner_information
+#. odoo-python
+#: code:addons/partner_information/models/res_partner.py:0
+#, python-format
+msgid "Weekly Follow-up"
+msgstr "Seguimiento semanal"
 
 #. module: partner_information
 #: model:ir.model.fields,field_description:partner_information.field_res_partner__weekly_activity_counter

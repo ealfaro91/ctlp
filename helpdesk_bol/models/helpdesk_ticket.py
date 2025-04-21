@@ -3,6 +3,9 @@
 import pytz
 import logging
 
+from werkzeug import urls
+
+
 from datetime import datetime, timedelta
 
 from odoo import api, fields, models
@@ -193,13 +196,49 @@ class HelpdeskTicket(models.Model):
                     ),
                     "email_layout_xmlid": "mail.mail_notification_light",
                     "mail_server_id": ticket.area_id.mail_server_id.id,
-                    "email_from": ticket.area_id.mail_server_id.smtp_user
+                 #   "email_from": ticket.area_id.mail_server_id.smtp_user
                 },
             )
             ticket.stage_id.mail_template_id.mail_server_id = ticket.area_id.mail_server_id.id
-            ticket.stage_id.mail_template_id.email_from = ticket.area_id.mail_server_id.smtp_user
+           # ticket.stage_id.mail_template_id.email_from = ticket.area_id.mail_server_id.smtp_user
 
         return res
+
+    def _notify_get_action_link(self, link_type, **kwargs):
+        """ Prepare link to an action: view document, follow document, ... """
+        params = {
+            'res_id': kwargs.get('res_id', self.ids and self.ids[0] or False),
+        }
+
+        # keep only accepted parameters:
+        # - action (deprecated), token (assign), access_token (view)
+        # - auth_signup: auth_signup_token and auth_login
+        # - portal: pid, hash
+        params.update(dict(
+            (key, value)
+            for key, value in kwargs.items()
+            if key in ('action', 'token', 'access_token', 'auth_signup_token',
+                       'auth_login', 'pid', 'hash')
+        ))
+
+        if link_type in ['view', 'assign', 'follow', 'unfollow']:
+            base_link = '/mail/%s' % link_type
+        elif link_type == 'controller':
+            controller = kwargs.get('controller')
+            params.pop('model')
+            base_link = '%s' % controller
+        else:
+            return ''
+
+        if link_type not in ['view']:
+            token = self._encode_link(base_link, params)
+            params['token'] = token
+
+        link = '%s/my_ticket/%s' % (base_link, urls.url_encode(params, sort=True))
+        if self:
+            link = self[0].get_base_url() + link
+
+        return link
 
     def _compute_attention_time_state(self):
         # Que no incluya los tiempos en pausa
