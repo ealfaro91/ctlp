@@ -52,7 +52,7 @@
                                                                 <a t-attf-href="/change_stage/{{object.id}}/1" style="display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #2FAF17; color: #fff; border-radius: 5px;">
                                                                     <span style="font-weight: bold;">OK</span>
                                                                 </a>
-                                                               <a href="/my_tickets" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
+                                                               <a href="/my_tickets" style="display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
                                                                    <strong>View my tickets</strong>
                                                                </a>
                                                             </div>
@@ -60,10 +60,11 @@
                                                                 CTLP for any other inquiries or requests. <br/> Moving forward together for a better club!</p>
 
                                                             <p style="text-align: center;">Si considera que la solución no fue satistactoria puede reabrir el ticket dentro de las próximas horas!</p>
-
-                                                            <a t-attf-href="/change_stage/{{object.id}}/2" style="display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;">
-                                                                <strong>Ticket reopening</strong>
-                                                            </a>
+                                                            <div style="margin: 16px 0px 16px 0px; text-align: center;">
+                                                                <a t-attf-href="/change_stage/{{object.id}}/2" style="display: inline-block; padding: 10px; width: 150px; text-decoration: none; font-size: 12px; background-color: #DA2D12; color: #fff; border-radius: 5px;">
+                                                                    <strong>Ticket reopening</strong>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>

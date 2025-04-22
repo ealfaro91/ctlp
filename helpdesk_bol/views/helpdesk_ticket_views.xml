@@ -31,6 +31,9 @@
             <xpath expr="//field[@name='type_id']" position="before">
                 <field name="area_id" invisible="1"/>
                 <field name="code" invisible="1"/>
+                <field name="has_locations" invisible="1"/>
+                <field name="has_categories" invisible="1"/>
+                <field name="has_origins" invisible="1"/>
             </xpath>
             <field name="type_id" position="attributes">
                 <attribute name="required">True</attribute>
@@ -52,7 +55,8 @@
             </field>
             <field name="category_id" position="after">
                 <field name="subcategory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','TI')" />
-                <field name="location_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="code in ('GMA','GSS')" invisible="code not in ('GMA','GSS')"/>
+                <field name="location_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="has_locations==True" invisible="has_locations==False"/>
+                <field name="origen_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="has_origins==True" invisible="has_origins==False"/>
                 <field name="max_attention_time" widget="float_time"/>
                 <field name="resource_calendar_id" invisible="1" force_save="1"/>
             </field>

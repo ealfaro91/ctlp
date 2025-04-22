@@ -76,6 +76,9 @@ class HelpdeskTicket(models.Model):
     address = fields.Text(string="Address", compute="_compute_partner_address", tracking=True)
     derived_from_area_id = fields.Many2one("helpdesk.ticket.area", string="Derived From Area")
     derived_from_sdss = fields.Boolean(string="Derived From SDSS", store=True, compute="_compute_derived_from_sdss")
+    has_locations = fields.Boolean(related="area_id.has_locations")
+    has_origins = fields.Boolean(related="area_id.has_origins")
+    has_categories = fields.Boolean(related="area_id.has_categories")
 
     @api.depends('derived_from_area_id')
     def _compute_derived_from_sdss(self):
@@ -172,6 +175,13 @@ class HelpdeskTicket(models.Model):
             template = self.env.ref('helpdesk_bol.ticket_assignation')
             if template:
                 template.send_mail(self.id, force_send=False)
+        if vals.get('area_id'):
+            self.area_log_ids.create({
+                'ticket_id': self.id,
+                'area_id': vals.get('area_id'),
+                'user_id': self.env.user.id,
+                'date': fields.Datetime.now()
+            })
         if vals.get('stage_id'):
             self.state_log_ids.create({
                 'ticket_id': self.id,

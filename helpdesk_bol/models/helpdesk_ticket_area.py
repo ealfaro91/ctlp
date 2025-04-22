@@ -30,6 +30,12 @@ class HelpdeskTicketArea(models.Model):
         string="Types",
         tracking=True
     )
+    has_categories = fields.Boolean(
+        string="Has Categories",
+        default=True,
+        tracking=True,
+        help="Display categories in the helpdesk ticket form view."
+    )
     has_locations = fields.Boolean(
         string="Has Locations",
         default=False,
@@ -80,6 +86,12 @@ class HelpdeskTicketArea(models.Model):
         required=True,
         tracking=True,
         help="This is the mail server that will be used to send emails."
+    )
+    default_reopen_area = fields.Boolean(
+        string="Default Reopen Area",
+        default=False,
+        tracking=True,
+        help="If checked, this area will be used as the default area when reopening a ticket."
     )
 
     def _compute_ticket_count(self):

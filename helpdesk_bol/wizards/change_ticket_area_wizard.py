@@ -25,7 +25,14 @@ class ChangeTicketAreaWizard(models.TransientModel):
         'helpdesk.ticket.location', string='Location',
         domain="[('area_id', '=', area_id)]"
     )
+    origen_id = fields.Many2one(
+        'helpdesk.ticket.origen',
+        string='Origen', domain="[('area_id', '=', area_id)]"
+    )
     user_id = fields.Many2one('res.users', string='Assignee', related= 'category_id.user_id', store=True)
+    has_origins = fields.Boolean(related='area_id.has_origins', store=True)
+    has_locations = fields.Boolean(related='area_id.has_locations', store=True)
+
 
     @api.onchange('area_id')
     def _onchange_area_id(self):
@@ -35,17 +42,16 @@ class ChangeTicketAreaWizard(models.TransientModel):
         self.category_id = False
         self.subcategory_id = False
         self.location_id = False
+        self.origen_id = False
 
     @api.onchange('ticket_type_id')
     def _onchange_ticket_type_id(self):
         self.category_id = False
         self.subcategory_id = False
-        self.location_id = False
 
     @api.onchange('category_id')
     def _onchange_category_id(self):
         self.subcategory_id = False
-        self.location_id = False
 
     def change_area(self):
         self.ensure_one()
@@ -59,6 +65,7 @@ class ChangeTicketAreaWizard(models.TransientModel):
             'category_id': self.category_id.id,
             'subcategory_id': self.subcategory_id.id,
             'location_id': self.location_id.id,
+            'origen_id': self.origen_id.id,
             'user_id': self.user_id.id,
         })
         return {

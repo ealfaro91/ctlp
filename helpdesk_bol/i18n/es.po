@@ -27,8 +27,8 @@ msgstr "\" con asunto \""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
-msgid "\"Enter your ID card number\""
-msgstr "\Ingrese su carnet de identididad\"
+msgid "Enter your ID card number"
+msgstr "Ingrese su carnet de identidad"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
@@ -607,7 +607,7 @@ msgstr "Cambiar Área"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_change_area_log
 msgid "Change Area Log"
-msgstr ""
+msgstr "Cambios de área"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_change_state_log
@@ -719,17 +719,17 @@ msgstr "Retrasado"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__derived_from_area_id
 msgid "Derived From Area"
-msgstr ""
+msgstr "Derivado de área"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__derived_from_sdss
 msgid "Derived From SDSS"
-msgstr ""
+msgstr "Derivado de SDSS"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
 msgid "Derived SDSS"
-msgstr ""
+msgstr "Derivado de SDSS"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__description

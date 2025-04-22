@@ -7,6 +7,7 @@ class HelpdeskTicketLocation(models.Model):
     _description = "Helpdesk Ticket Location"
     _order = "sequence,name"
     _inherit = ["mail.thread", "mail.activity.mixin"]
+    _sql_constraints = [("is_other_uniq", "unique(is_other)", "Other location must be unique")]
 
     active = fields.Boolean(default=True, tracking=True)
     sequence = fields.Integer(
@@ -22,4 +23,5 @@ class HelpdeskTicketLocation(models.Model):
         domain="[('has_locations', '=', True)]",
         ondelete="cascade"
     )
+    is_other = fields.Boolean(string="Other", tracking=True)
 

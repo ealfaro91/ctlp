@@ -24,3 +24,10 @@ class HelpdeskTicketType(models.Model):
         string="Color Index", related="area_id.color",
         tracking=True, store=True
     )
+    default_reopen_type = fields.Boolean(
+        string="Default Reopen Type",
+        default=False,
+        tracking=True,
+        help="Default reopen type"
+    )
+

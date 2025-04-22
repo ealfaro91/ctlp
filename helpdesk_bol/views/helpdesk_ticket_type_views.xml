@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('oe_title')]" position="after">
                 <group>
+                    <field name="default_reopen_type"/>
                     <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     <field name="category_ids" widget="many2many_tags" readonly="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                 </group>
