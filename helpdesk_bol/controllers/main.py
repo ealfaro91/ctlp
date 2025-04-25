@@ -70,7 +70,7 @@ class Home(home.Home):
             redirect = '/my/account'
         return super()._login_redirect(uid, redirect=redirect)
 
-    @http.route('/web/socios/login', type='http', auth='public', website=True)
+    @http.route('/web/socios/login', type='http', auth='public', website=True, csrf=False)
     def web_members_login(self, login=None, redirect=None, **kw):
         values = {
             'website': request.website,
@@ -146,6 +146,16 @@ class Home(home.Home):
             return request.redirect('/help_desk')
 
         return request.render('helpdesk_bol.login_socios', values)
+
+    @http.route('/web/session/logout', type='http', auth="none")
+    def logout(self, redirect='/web'):
+        user = request.env.user
+        if user and user.has_group('base.group_user'):
+            redirect = '/web'
+        else:
+            redirect = '/web/socios/login'
+        request.session.logout(keep_db=True)
+        return request.redirect(redirect, 303)
 
         # ensure_db()
         # request.params['login_success'] = False

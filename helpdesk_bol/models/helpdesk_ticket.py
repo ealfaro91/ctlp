@@ -2,6 +2,8 @@
 
 import pytz
 import logging
+from markupsafe import Markup, escape
+from odoo.tools import is_html_empty, html_escape, html2plaintext, parse_contact_from_email
 
 from werkzeug import urls
 
@@ -112,13 +114,16 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             ticket.category_id = False
             ticket.subcategory_id = False
-            ticket.location_id = False
 
     @api.onchange('category_id')
     def _onchange_category_id(self):
         for ticket in self:
             ticket.subcategory_id = False
-            ticket.location_id = False
+
+    @api.onchange('area_id')
+    def _onchange_origen_id(self):
+        for ticket in self:
+            ticket.origen_id = False
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -244,7 +249,7 @@ class HelpdeskTicket(models.Model):
             token = self._encode_link(base_link, params)
             params['token'] = token
 
-        link = '%s/my_ticket/%s' % (base_link, urls.url_encode(params, sort=True))
+        link = '/my_ticket/%s' % (self.id)
         if self:
             link = self[0].get_base_url() + link
 
@@ -317,4 +322,226 @@ class HelpdeskTicket(models.Model):
             if time_from_update >= time_to_closure:
                 ticket.sudo().write({'stage_id': self.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
 
+    # def _notify_by_email_prepare_rendering_context(self, message, msg_vals=False,
+    #                                                model_description=False,
+    #                                                force_email_company=False,
+    #                                                force_email_lang=False):
+    #     """ Prepare rendering context for notification email.
+    #
+    #     Signature: if asked a default signature is computed based on author. Either
+    #     it has an user and we use the user's signature. Either we do not find any
+    #     user and we compute a default one based on the author's name.
+    #
+    #     Company: either there is one defined on the record (company_id field set
+    #     with a value), either we use env.company. A new parameter allows to force
+    #     its value.
+    #
+    #     Lang: when calling this method, ``_fallback_lang`` should already been
+    #     called, or a lang set in context with another way. A wild guess is done
+    #     based on templates to try to retrieve the recipient's language when a flow
+    #     like "send by email" is performed. Lang is used to try to have the
+    #     notification layout in the same language as the email content. A new
+    #     parameter allows to force its value.
+    #
+    #     :param record message: <mail.message> record being notified. May be
+    #       void as 'msg_vals' superseeds it;
+    #     :param dict msg_vals: values dict used to create the message, allows to
+    #       skip message usage and spare some queries;
+    #     :param str model_description: description of current model, given to
+    #       avoid fetching it and easing translation support;
+    #     :param record force_email_company: <res.company> record used when rendering
+    #       notification layout. Otherwise computed based on current record;
+    #     :param str force_email_lang: lang used when rendering content, used
+    #       notably to compute model name or translate access buttons;
+    #
+    #     :return: dictionary of values used when rendering notification layout;
+    #     """
+    #     if msg_vals is False:
+    #         msg_vals = {}
+    #     lang = force_email_lang if force_email_lang else self.env.lang
+    #     record_wlang = self.with_context(lang=lang)
+    #
+    #     # compute send user and its related signature; try to use self.env.user instead of browsing
+    #     # user_ids if they are the author will give a sudo user, improving access performances and cache usage.
+    #     signature = ''
+    #     email_add_signature = msg_vals.get(
+    #         'email_add_signature') if msg_vals and 'email_add_signature' in msg_vals else message.email_add_signature
+    #     if email_add_signature:
+    #         author = message.env['res.partner'].browse(
+    #             msg_vals.get('author_id')) if 'author_id' in msg_vals else message.author_id
+    #         author_user = self.env.user if self.env.user.partner_id == author else author.user_ids[
+    #             0] if author and author.user_ids else False
+    #         if author_user:
+    #             signature = author_user.signature
+    #         elif author.name:
+    #             signature = Markup("<p>-- <br/>%s</p>") % author.name
+    #
+    #     if force_email_company:
+    #         company = force_email_company
+    #     else:
+    #         company = record_wlang.company_id.sudo() if (
+    #             record_wlang and 'company_id' in record_wlang and record_wlang.company_id
+    #         ) else record_wlang.env.company
+    #     if company.website:
+    #         website_url = 'http://%s' % company.website if not company.website.lower().startswith(
+    #             ('http:', 'https:')) else company.website
+    #     else:
+    #         website_url = False
+    #
+    #     # record, model
+    #     if not model_description:
+    #         model_description = record_wlang._get_model_description(
+    #             msg_vals.get('model') if 'model' in msg_vals else message.model
+    #         )
+    #     record_name = msg_vals.get('record_name') if 'record_name' in msg_vals else self.name
+    #
+    #     # tracking: in case of missing value, perform search (skip only if sure we don't have any)
+    #     check_tracking = msg_vals.get('tracking_value_ids', True) if msg_vals else bool(self)
+    #     tracking = []
+    #     if check_tracking:
+    #         tracking_values = self.env['mail.tracking.value'].sudo().search(
+    #             [('mail_message_id', '=', message.id)]
+    #         ).filtered(
+    #             lambda track: not track.field_groups or self.env.is_superuser() or self.user_has_groups(
+    #                 track.field_groups)
+    #         )
+    #         if tracking_values and hasattr(record_wlang, '_track_filter_for_display'):
+    #             tracking_values = record_wlang._track_filter_for_display(tracking_values)
+    #         tracking = [
+    #             (
+    #                 fmt_vals['changedField'],
+    #                 fmt_vals['oldValue']['value'],
+    #                 fmt_vals['newValue']['value'],
+    #             ) for fmt_vals in tracking_values._tracking_value_format()
+    #         ]
+    #
+    #     subtype_id = msg_vals.get('subtype_id') if msg_vals and 'subtype_id' in msg_vals else message.subtype_id.id
+    #     is_discussion = subtype_id == self.env['ir.model.data']._xmlid_to_res_id('mail.mt_comment')
+    #
+    #     return {
+    #         # message
+    #         'is_discussion': is_discussion,
+    #         'message': message,
+    #         'subtype': message.subtype_id,
+    #         'tracking_values': tracking,
+    #         # record
+    #         'model_description': model_description,
+    #         'record': record_wlang,
+    #         'record_name': record_name,
+    #         'subtitles': [record_name],
+    #         # user / environment
+    #         'company': company,
+    #         'email_add_signature': email_add_signature,
+    #         'lang': lang,
+    #         'signature': signature,
+    #         'website_url': website_url,
+    #         # tools
+    #         'is_html_empty': is_html_empty,
+    #     }
 
+
+    def _notify_by_email_get_base_mail_values(self, message, additional_values=None):
+        """ Return model-specific and message-related values to be used when
+        creating notification emails. It serves as a common basis for all
+        notification emails based on a given message.
+
+        :param record message: <mail.message> record being notified;
+        :param dict additional_values: optional additional values to add (ease
+          custom calls and inheritance);
+
+        :return: dictionary of values suitable for a <mail.mail> create;
+        """
+        mail_subject = self.name
+        if not mail_subject and self and hasattr(self, '_message_compute_subject'):
+            mail_subject = self._message_compute_subject()
+        if not mail_subject:
+            mail_subject = self.name
+        if mail_subject:
+            # replace new lines by spaces to conform to email headers requirements
+            mail_subject = ' '.join(mail_subject.splitlines())
+
+        # compute references: set references to parents likely to be sent and add current message just to
+        # have a fallback in case replies mess with Messsage-Id in the In-Reply-To (e.g. amazon
+        # SES SMTP may replace Message-Id and In-Reply-To refers an internal ID not stored in Odoo)
+        message_sudo = message.sudo()
+        ancestors = self.env['mail.message'].sudo().search(
+            [
+                ('model', '=', message_sudo.model), ('res_id', '=', message_sudo.res_id),
+                ('id', '!=', message_sudo.id),
+                ('subtype_id', '!=', False),  # filters out logs
+                ('message_id', '!=', False),  # ignore records that somehow don't have a message_id (non ORM created)
+            ], limit=32, order='id DESC',  # take 32 last, hoping to find public discussions in it
+        )
+
+        # filter out internal messages, to fetch 'public discussion' first
+        outgoing_types = ('comment', 'auto_comment', 'email', 'email_outgoing')
+        history_ancestors = ancestors.sorted(lambda m: (
+            not m.is_internal and not m.subtype_id.internal,
+            m.message_type in outgoing_types,
+            m.message_type != 'user_notification',  # user notif -> avoid if possible
+        ), reverse=True)  # False before True unless reverse
+        # order from oldest to newest
+        ancestors = history_ancestors[:3].sorted('id')
+        references = ' '.join(m.message_id for m in (ancestors + message_sudo))
+        # prepare notification mail values
+        base_mail_values = {
+            'mail_message_id': message.id,
+            'references': references,
+        }
+        if mail_subject != message.subject:
+            base_mail_values['subject'] = mail_subject
+        if additional_values:
+            base_mail_values.update(additional_values)
+
+        # prepare headers (as sudo as accessing mail.alias.domain, restricted)
+        headers = {}
+        base_mail_values.update({'email_from': self.company_id.email_formatted})
+        if message_sudo.record_alias_domain_id.bounce_email:
+            headers['Return-Path'] = message_sudo.record_alias_domain_id.bounce_email
+        headers = self._notify_by_email_get_headers(headers=headers)
+        if headers:
+            base_mail_values['headers'] = repr(headers)
+        return base_mail_values
+
+    # def _notify_by_email_render_layout(self, message, recipients_group,
+    #                                    msg_vals=False,
+    #                                    render_values=None):
+    #     """ Renders the email layout for a given recipients group which
+    #     encapsulate the message body.
+    #
+    #     :param record message: <mail.message> record being notified. May be
+    #       void as 'msg_vals' superseeds it;
+    #     :param dict recipients_group: a dict containing data for the recipients,
+    #       see @ _notify_get_recipients_groups;
+    #     :param dict msg_vals: values dict used to create the message, allows to
+    #       skip message usage and spare some queries;
+    #     :param dict render_values: values to render the notification layout;
+    #
+    #     At this point expected values are
+    #       render_values: company, is_discussion, lang, message, model_description,
+    #                      record, record_name, signature, subtype, tracking_values,
+    #                      website_url
+    #       recipients_group: actions, button_access, has_button_access, recipients
+    #
+    #     :return str: rendered complete layout;
+    #     """
+    #     if render_values is None:
+    #         render_values = {}
+    #
+    #     email_layout_xmlid = msg_vals.get('email_layout_xmlid') if msg_vals else message.email_layout_xmlid
+    #     template_xmlid = email_layout_xmlid if email_layout_xmlid else 'mail.mail_notification_layout'
+    #
+    #     render_values = {**render_values, **recipients_group}
+    #     mail_body = self.env['ir.qweb']._render(
+    #         template_xmlid,
+    #         render_values,
+    #         minimal_qcontext=True,
+    #         raise_if_not_found=False,
+    #         lang=render_values.get('lang', self.env.lang),
+    #     )
+    #     if not mail_body:
+    #         _logger.warning(
+    #             'QWeb template %s not found or is empty when sending notification emails. Sending without layouting.',
+    #             template_xmlid)
+    #         mail_body = message.body
+    #     return mail_body

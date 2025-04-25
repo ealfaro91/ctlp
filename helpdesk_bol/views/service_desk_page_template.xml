@@ -361,20 +361,20 @@
         </xpath>
     </template>
 
-    <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields" name="Readonly Portal Fields">
-        <xpath expr="." position="inside">
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function () {
-                    const form = document.querySelector('#portal_my_details_fields');
-                    if (form) {
-                        form.querySelectorAll('input, select, text').forEach(el => {
-                            el.setAttribute('readonly', true);
-                        });
-                    }
-                });
-            </script>
-        </xpath>
-    </template>
+<!--    <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields" name="Readonly Portal Fields">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <script type="text/javascript">-->
+<!--                document.addEventListener('DOMContentLoaded', function () {-->
+<!--                    const form = document.querySelector('#portal_my_details_fields');-->
+<!--                    if (form) {-->
+<!--                        form.querySelectorAll('input, select, text').forEach(el => {-->
+<!--                            el.setAttribute('readonly', readonly);-->
+<!--                        });-->
+<!--                    }-->
+<!--                });-->
+<!--            </script>-->
+<!--        </xpath>-->
+<!--    </template>-->
 
 
 

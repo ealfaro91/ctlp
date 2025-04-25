@@ -17,6 +17,10 @@ class CustomerPortalHelpdesk(CustomerPortal):
     Very similar to those in the "project" module defined to manage tasks.
     """
 
+    @http.route(['/my', '/my/home'], type='http', auth="user", website=True)
+    def home(self, **kw):
+        return request.redirect('/my/account')
+
     @http.route(
         ["/my_tickets", "/my/tickets/page/<int:page>"],
         type="http",

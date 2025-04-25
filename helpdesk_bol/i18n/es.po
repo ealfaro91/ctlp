@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 16:53+0000\n"
-"PO-Revision-Date: 2025-04-21 16:53+0000\n"
+"POT-Creation-Date: 2025-04-25 16:28+0000\n"
+"PO-Revision-Date: 2025-04-25 16:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,6 @@ msgstr "\" ha sido cerrado exitosamente."
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "\" with subject \""
 msgstr "\" con asunto \""
-
-#. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
-msgid "Enter your ID card number"
-msgstr "Ingrese su carnet de identidad"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_ticket_list
@@ -50,6 +45,25 @@ msgstr "<i class=\"fa fa-paper-plane\"/>Enviar"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 msgid "<option value=\"\" placeholder=\"Location\"/>"
 msgstr "<option value=\"\" placeholder=\"Ubicación\"/>"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "<option value=\"\" readonly=\"readonly\">Country...</option>"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "<option value=\"\">select...</option>"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid ""
+"<small class=\"form-text text-muted\">\n"
+"                    Company name, VAT Number and country can not be changed once document(s) have been issued for your account.\n"
+"                    <br/>Please contact us directly for that operation.\n"
+"                </small>"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_helpdesk_ticket_page
@@ -104,7 +118,7 @@ msgid ""
 "                                                    <div>\n"
 "                                                        Dear <strong><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
 "                                                        <p> This automatic message is to notify that the ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
-"                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received and assigned to <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
+"                                                        with subject <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> has been received. </p>\n"
 "                                                        <p> Creation datetime: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
 "\n"
 "                                                        <br>\n"
@@ -137,9 +151,6 @@ msgid ""
 "                                            <tr>\n"
 "                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
-"                                                    <t t-if=\"object.user_id.company_id.email\">\n"
-"                                                        | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
-"                                                    </t>\n"
 "                                                    <t t-if=\"object.user_id.company_id.website\">\n"
 "                                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
 "                                                    </t>\n"
@@ -190,9 +201,8 @@ msgstr ""
 "                                    <div>\n"
 "                                        Estimado/a <strong style=\"box-sizing:border-box;font-weight:bolder;\"><t t-out=\"object.partner_id.name\"></t></strong>,<br>\n"
 "                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Este mensaje automático es para notificar que su ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
-"                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido recibido y asignado a  <span style=\"font-weight:bold;\" t-out=\"object.user_id.name or ''\"></span> </p>\n"
+"                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> ha sido recibido. </p>\n"
 "                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Fecha de creación: <span style=\"font-weight:bold;\" t-out=\"object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') \"></span></p>\n"
-"                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Tiempo estimado de resolución (en horas): <span style=\"font-weight:bold;\" t-out=\"object.max_attention_time\"></span></p>\n"
 "                                        <br>\n"
 "                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\">Saludos.</p>\n"
 "                                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
@@ -217,9 +227,6 @@ msgstr ""
 "                                </td></tr>\n"
 "                                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><td valign=\"middle\" align=\"left\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;opacity: 0.7;\">\n"
 "                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
-"                                    <t t-if=\"object.user_id.company_id.email\">\n"
-"                                        | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"box-sizing:border-box;text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
-"                                    </t>\n"
 "                                    <t t-if=\"object.user_id.company_id.website\">\n"
 "                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"box-sizing:border-box;text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
 "                                    </t>\n"
@@ -303,9 +310,6 @@ msgid ""
 "                                            <tr>\n"
 "                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
-"                                                    <t t-if=\"object.user_id.company_id.email\">\n"
-"                                                        | <a t-attf-href=\"'mailto:%s' % {{ object.user_id.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.email or ''\"></a>\n"
-"                                                    </t>\n"
 "                                                    <t t-if=\"object.user_id.company_id.website\">\n"
 "                                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
 "                                                    </t>\n"
@@ -329,6 +333,87 @@ msgid ""
 "            </table>\n"
 "        "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding:16px 0 0 0;box-sizing:border-box;caption-side:bottom;padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\" width=\"100%\">\n"
+"                <tbody style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                    <td align=\"center\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"box-sizing: border-box; caption-side: bottom; padding: 16px; background-color: white; color: #454748; border-collapse: separate; font-family: Verdana, Arial, sans-serif;\">\n"
+"                            <tbody style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                \n"
+"                                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                    <td align=\"center\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"box-sizing: border-box; caption-side: bottom; min-width: 590px; background-color: white; padding: 0px 8px; border-collapse: separate; color: #454748; font-family: Verdana, Arial, sans-serif;\">\n"
+"                                            <tbody style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                <td valign=\"middle\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                    <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.partner_id.name or ''\"></span>\n"
+"                                                </td>\n"
+"                                                <td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                    <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"box-sizing:border-box;vertical-align:middle;padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\" width=\"80\">\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                            <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                <td colspan=\"2\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;text-align:center;\">\n"
+"                                                    <hr width=\"100%\" style=\"border-style:none;border-left-width:medium;border-bottom-width:medium;border-right-width:medium;border-top-width:medium;box-sizing: border-box; height: 1px; opacity: 0.25; color: #454748; background-color: #cccccc; border: medium none; clear: both; display: block; font-size: 0px; min-height: 1px; line-height: 0; margin: 16px 0px;\">\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                \n"
+"                                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                    <td align=\"center\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"box-sizing: border-box; caption-side: bottom; min-width: 590px; background-color: white; padding: 0px 8px; border-collapse: separate; color: #454748; font-family: Verdana, Arial, sans-serif;\">\n"
+"                                            <tbody style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                <td valign=\"top\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;font-size: 13px;\">\n"
+"                                                    <div>\n"
+"                                                        Estimado <strong style=\"box-sizing:border-box;font-weight:bolder;\"><t t-out=\"object.user_id.partner_id.name\"></t></strong>,<br>\n"
+"                                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\"> Este mensaje automático es para notificarle que el ticket <span style=\"font-weight:bold;\" t-out=\"object.number or ''\"></span>\n"
+"                                                        con asunto <span style=\"font-weight:bold;\" t-out=\"object.name or ''\"></span> le ha sido asignado.</p>\n"
+"                                                        <br>\n"
+"                                                        <p style=\"margin:0px 0 16px 0;box-sizing:border-box;\">Saludos.</p>\n"
+"                                                    </div>\n"
+"                                                </td></tr>\n"
+"                                                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><td style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;text-align:center;\">\n"
+"                                                    <hr width=\"100%\" style=\"border-style:none;border-left-width:medium;border-bottom-width:medium;border-right-width:medium;border-top-width:medium;box-sizing: border-box; height: 1px; opacity: 0.25; color: #454748; background-color: #cccccc; border: medium none; clear: both; display: block; font-size: 0px; min-height: 1px; line-height: 0; margin: 16px 0px;\">\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                \n"
+"                                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                    <td align=\"center\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"box-sizing: border-box; caption-side: bottom; min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px; border-collapse: separate; color: #454748; font-family: Verdana, Arial, sans-serif;\">\n"
+"                                            <tbody style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                <td valign=\"middle\" align=\"left\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                    <t t-out=\"object.user_id.company_id.name or ''\"></t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                            <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\">\n"
+"                                                <td valign=\"middle\" align=\"left\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;opacity: 0.7;\">\n"
+"                                                    <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
+"                                                    <t t-if=\"object.user_id.company_id.website\">\n"
+"                                                        | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"box-sizing:border-box;text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
+"                                                    </t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"                \n"
+"                <tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><td align=\"center\" style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;min-width: 590px;\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"box-sizing: border-box; caption-side: bottom; min-width: 590px; background-color: #f1f1f1; color: #454748; padding: 8px; border-collapse: separate; font-family: Verdana, Arial, sans-serif;\">\n"
+"                        <tbody style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><tr style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;\"><td style=\"border-style:solid;box-sizing:border-box;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-left-color:inherit;border-bottom-color:inherit;border-right-color:inherit;border-top-color:inherit;text-align: center; font-size: 13px;\">\n"
+"                        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=portalinvite\" style=\"text-decoration:none;box-sizing:border-box;color: #875A7B;\">Odoo</a>\n"
+"                        </td></tr>\n"
+"                    </tbody></table>\n"
+"                </td></tr>\n"
+"            </tbody></table>\n"
+"        "
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service
@@ -414,14 +499,14 @@ msgstr "Dirección"
 #: code:addons/helpdesk_bol/controllers/myaccount.py:0
 #, python-format
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/wizards/merge_ticket_wizard.py:0
 #, python-format
 msgid "All tickets to merge must be in state 'Open'"
-msgstr ""
+msgstr "Todos los tickets a fusionar deben estar en estado 'Abierto'"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__login_from_ws
@@ -485,7 +570,7 @@ msgstr "Área"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__area_log_ids
 msgid "Area changes"
-msgstr ""
+msgstr "Cambios de área"
 
 #. module: helpdesk_bol
 #: model:ir.model.constraint,message:helpdesk_bol.constraint_helpdesk_ticket_area_code_uniq
@@ -580,7 +665,7 @@ msgstr "Cancelar"
 #: code:addons/helpdesk_bol/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
-msgstr ""
+msgstr "No se puede enviar el correo: el usuario %s no tiene una dirección de correo."
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__category_ids
@@ -623,7 +708,7 @@ msgstr "Cambiar área de ticket"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
 msgid "Change area"
-msgstr ""
+msgstr "Cambiar Área"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.help_desk_helpdesk_ticket_form_view
@@ -631,9 +716,21 @@ msgid "Change state"
 msgstr "Cambios de estado"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid ""
+"Changing VAT number is not allowed once document(s) have been issued for "
+"your account. Please contact us directly for this operation."
+msgstr ""
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__child_ticket_ids
 msgid "Child tickets"
 msgstr "Tickets hijos"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "City"
+msgstr "Ciudad"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__code
@@ -665,6 +762,11 @@ msgstr "Ajustes de configuración"
 #: model:ir.model,name:helpdesk_bol.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "Country"
+msgstr "País"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__create_date_utc
@@ -712,6 +814,21 @@ msgid "Date"
 msgstr "Fecha"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__default_reopen_area
+msgid "Default Reopen Area"
+msgstr "Área de reapertura por defecto"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__default_reopen_type
+msgid "Default Reopen Type"
+msgstr "Tipo de reapertura por defecto"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_type__default_reopen_type
+msgid "Default reopen type"
+msgstr "Tipo de reapertura por defecto"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__helpdesk_ticket__attention_time_state__delayed
 msgid "Delayed"
 msgstr "Retrasado"
@@ -739,7 +856,7 @@ msgstr "Descripción"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
 msgid "Disabled if left empty."
-msgstr ""
+msgstr "Desactivado si queda vacio."
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__display_name
@@ -754,19 +871,39 @@ msgid "Display Name"
 msgstr "Nombre a mostrar"
 
 #. module: helpdesk_bol
-#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__has_locations
-msgid "Display locations in the helpdesk ticket form view."
-msgstr ""
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket__has_categories
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__has_categories
+msgid "Display categories in the helpdesk ticket form view."
+msgstr "Mostrar categorías en la vista de formulario de ticket de ayuda"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_change_ticket_area_wizard__has_locations
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket__has_locations
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__has_locations
+msgid "Display locations in the helpdesk ticket form view."
+msgstr "Mostrar ubicaciones en la vista de formulario de ticket de ayuda"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_change_ticket_area_wizard__has_origins
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket__has_origins
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__has_origins
 msgid "Display origins in the helpdesk ticket form view."
-msgstr ""
+msgstr "Mostrar orígen en la vista de formulario de ticket de ayuda"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__elapsed_attention_time
 msgid "Elapsed Attention Time (hours)"
 msgstr "Tiempo de atención transcurrido (horas)"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "Email"
+msgstr "Correo"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
+msgid "Enter your ID card number"
+msgstr "Ingrese su carnet de identidad"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__message_follower_ids
@@ -806,6 +943,7 @@ msgstr "Icono de fuente impresionante, por ejemplo fa-tasks"
 msgid ""
 "For expired password on login, user to be redirected to reset password."
 msgstr ""
+"Para la contraseña expirada al iniciar sesión, el usuario se redirigirá a restablecer la contraseña."
 
 #. module: helpdesk_bol
 #: model:ir.actions.server,name:helpdesk_bol.get_members_ir_actions_server
@@ -813,6 +951,14 @@ msgid "Get members from webservice"
 msgstr "Obtener miembros desde webservice"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__has_categories
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__has_categories
+msgid "Has Categories"
+msgstr "Tiene categorías"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__has_locations
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__has_locations
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__has_locations
 msgid "Has Locations"
 msgstr "Tiene ubicaciones"
@@ -829,9 +975,11 @@ msgid "Has Message"
 msgstr "Tiene mensaje"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__has_origins
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__has_origins
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__has_origins
 msgid "Has Origins"
-msgstr ""
+msgstr "Tiene Origen"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
@@ -855,7 +1003,7 @@ msgstr "Área de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_category
 msgid "Helpdesk Ticket Category"
-msgstr ""
+msgstr "Categoría de la solicitud del servicio de asistencia"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_location
@@ -865,7 +1013,7 @@ msgstr "Ubicación de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_origen
 msgid "Helpdesk Ticket Origen"
-msgstr ""
+msgstr "Origen de la solicitud del servicio de asistencia"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_subcategory
@@ -880,7 +1028,7 @@ msgstr "Equipo de la solicitud del servicio de asistencia"
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_type
 msgid "Helpdesk Ticket Type"
-msgstr ""
+msgstr "Tipo de solicitudes del Helpdesk"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__id
@@ -965,6 +1113,15 @@ msgid ""
 msgstr "Si esta marcado, esta area se mostrara en el portal externo para SDSS"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__default_reopen_area
+msgid ""
+"If checked, this area will be used as the default area when reopening a "
+"ticket."
+msgstr ""
+"Si esta marcado, esta área se usará como el área por defecto cuando se "
+"reabre un ticket."
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_team__image_1920
 msgid "Image"
 msgstr "Imagen"
@@ -999,7 +1156,7 @@ msgstr ""
 #: code:addons/helpdesk_bol/controllers/controllers.py:0
 #, python-format
 msgid "Invalid or duplicate submission."
-msgstr ""
+msgstr "Envio invalido o duplicado."
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__message_is_follower
@@ -1061,14 +1218,14 @@ msgid "Log in"
 msgstr "Iniciar sesión"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
-msgid "Log in as superuser"
-msgstr "Iniciar sesión como superusuario"
-
-#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.res_users_form_view
 msgid "Login"
 msgstr "Iniciar sesión"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.login_socios
+msgid "Logo"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_maintenance
@@ -1189,6 +1346,11 @@ msgid "My Activity Deadline"
 msgstr "Mi plazo de actividad"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "Name"
+msgstr "Nombre"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__area_id
 msgid "New Area"
 msgstr "Nueva área"
@@ -1231,7 +1393,7 @@ msgstr "Tipo de actividad siguiente"
 #: code:addons/helpdesk_bol/wizards/merge_ticket_wizard.py:0
 #, python-format
 msgid "No tickets selected to merge"
-msgstr ""
+msgstr "No se seleccionaron tickets para fusionar"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__message_needaction_counter
@@ -1284,11 +1446,22 @@ msgstr "En plazo"
 
 #. module: helpdesk_bol
 #: model:ir.actions.act_window,name:helpdesk_bol.helpdesk_ticket_origen_action
+#: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__origen_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__origen_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_origen__name
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_origen_menu
 msgid "Origen"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__is_other
+msgid "Other"
+msgstr "Otro"
+
+#. module: helpdesk_bol
+#: model:ir.model.constraint,message:helpdesk_bol.constraint_helpdesk_ticket_location_is_other_uniq
+msgid "Other location must be unique"
+msgstr "La ubicación Otros debe ser única"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__res_partner__payment_status__paid
@@ -1303,19 +1476,19 @@ msgstr "Ticket padre"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__password_lifetime
 msgid "Password Lifetime (days)"
-msgstr ""
+msgstr "Caducidad de contraseña (días)"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
 msgid "Password Lifetime Configuration"
-msgstr ""
+msgstr "Configuración de caducidad de contraseña"
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/models/res_users.py:0
 #, python-format
 msgid "Password reset"
-msgstr ""
+msgstr "Restablecimiento de contraseña"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__payment_status
@@ -1341,6 +1514,7 @@ msgstr "Estado de pago de Odoo v13"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__phone
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
 msgid "Phone"
 msgstr "Teléfono"
 
@@ -1352,7 +1526,7 @@ msgstr "Por favor, proporcione un motivo para reabrir el ticket."
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__forced_password_change
 msgid "Redirect to Change Password"
-msgstr ""
+msgstr "Redirigir a Cambiar Contraseña"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
@@ -1448,7 +1622,7 @@ msgstr "Error de entrega de SMS"
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service_sport
 msgid "SPORTS"
-msgstr ""
+msgstr "DEPORTIVA"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__sequence
@@ -1478,7 +1652,7 @@ msgstr "Creación de Ticket de Service Desk"
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
 msgid "Sessions"
-msgstr ""
+msgstr "Sesiones"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__show_in_external_portal
@@ -1489,6 +1663,11 @@ msgstr "Mostrar en portal externo"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__stage_id
 msgid "Stage"
 msgstr "Estado"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "State / Province"
+msgstr "Estado / Provincia"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__state_log_ids
@@ -1515,6 +1694,11 @@ msgstr ""
 "Programada: Actividades futuras."
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "Street"
+msgstr "Calle"
+
+#. module: helpdesk_bol
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_subcategory_menu
 msgid "Sub-Categories"
 msgstr "Sub-Categorías"
@@ -1532,7 +1716,7 @@ msgstr "Sub-Categoría"
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__success_message
 msgid "Success message"
-msgstr ""
+msgstr "Mensaje de exito"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_ti
@@ -1552,20 +1736,23 @@ msgid ""
 "and you will soon receive an email with the follow-up to your ticket. We "
 "also recommend checking your spam folder."
 msgstr ""
+"Gracias por compartir su inquietud con nosotros. Estamos trabajando en "
+"su solicitud y pronto recibirá un correo electrónico con el seguimiento "
+"de su ticket. \n Le recomendamos revisar su bandeja de spam."
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
 #, python-format
 msgid "The selected area is the same as the current area"
-msgstr ""
+msgstr "El área seleccionada es la misma que la actual"
 
 #. module: helpdesk_bol
 #. odoo-python
 #: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
 #, python-format
 msgid "The ticket area has been changed"
-msgstr ""
+msgstr "El area del ticket ha sido cambiado"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__mail_server_id
@@ -1715,6 +1902,11 @@ msgid "Uses CTLP webservice to log in"
 msgstr "Usa el servicio web CTLP para iniciar sesión"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "VAT Number"
+msgstr "NIF"
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_register
 msgid "View My Tickets"
@@ -1822,6 +2014,11 @@ msgid "Your ticket number is:"
 msgstr "Su número de ticket es:"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
+msgid "Zip / Postal Code"
+msgstr "Código postal"
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_origen_form_view
 msgid "origen"
-msgstr ""
+msgstr "Origen"
