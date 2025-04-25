@@ -38,7 +38,7 @@
             <field name="close_from_portal">True</field>
             <field name="on_hold">False</field>
             <field name="fold">True</field>
-            <field name="mail_template_id" ref="False"/>
+            <field name="mail_template_id" ref=""/>
             <field name="company_id"/>
         </record>
 
