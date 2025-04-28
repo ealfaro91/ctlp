@@ -1793,6 +1793,11 @@ msgid "Ticket Type"
 msgstr "Tipo de solicitud"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
+msgid "Ticket closed successfully!"
+msgstr "Ticket cerrado con éxito!"
+
+#. module: helpdesk_bol
 #: model:ir.actions.server,name:helpdesk_bol.helpdesk_ticket_closure_ir_actions_server
 msgid "Ticket closure"
 msgstr "Cierre de ticket"

@@ -5,7 +5,7 @@ from odoo.exceptions import AccessError
 class HelpdeskTicket(models.Model):
     _name = "helpdesk.ticket"
     _description = "Helpdesk Ticket"
-    _rec_name = "name"
+    _rec_name = "number"
     _order = "create_date asc"
     _mail_post_access = "read"
     _inherit = ["mail.thread.cc", "mail.activity.mixin", "portal.mixin"]
@@ -111,13 +111,13 @@ class HelpdeskTicket(models.Model):
         help="Gives the sequence order when displaying a list of tickets.",
     )
     active = fields.Boolean(default=True, tracking=True)
-    display_name = fields.Char(compute='_compute_display_name')
+   # display_name = fields.Char(compute='_compute_display_name')
 
-    @api.depends('name', 'number')  # depends on the fields that make up your name
-    def _compute_display_name(self):
-        for record in self:
-            names = [record.number, record.name]  # adjust this line based on your needs
-            record.display_name = ': '.join(filter(None, names))
+    # @api.depends('name', 'number')  # depends on the fields that make up your name
+    # def _compute_display_name(self):
+    #     for record in self:
+    #         names = [record.number, record.name]  # adjust this line based on your needs
+    #         record.display_name = ': '.join(filter(None, names))
 
 
     def name_get(self):

@@ -34,6 +34,7 @@ class HelpdeskTicketController(http.Controller):
             'types': request.env['helpdesk.ticket.type'].sudo().search(domain),
             'categories': request.env['helpdesk.ticket.category'].sudo().search(domain),
             'locations': request.env['helpdesk.ticket.location'].sudo().search(domain),
+            'origens': request.env['helpdesk.ticket.origen'].sudo().search(domain),
             'submission_token': submission_token
         }
         # Display the ticket form for members. If the user is a member, they must be up to date with their payments.
@@ -49,8 +50,9 @@ class HelpdeskTicketController(http.Controller):
                 'area_id': area_id,
                 'types': request.env['helpdesk.ticket.type'].sudo().search(domain),
                 'categories': request.env['helpdesk.ticket.category'].sudo().search(domain),
-                'locations': request.env['helpdesk.ticket.location'].sudo().search(domain)}
-            )
+                'locations': request.env['helpdesk.ticket.location'].sudo().search(domain),
+                'origens': request.env['helpdesk.ticket.origen'].sudo().search(domain),
+            })
             return request.render("helpdesk_bol.gss_ticket_form", data)
         else:
             data.update({
@@ -93,6 +95,8 @@ class HelpdeskTicketController(http.Controller):
             'type_id': kw.get('type_id'),
             'category_id': kw.get('category_id', False),
             'location_id': kw.get('location_id'),
+            'origen_id': kw.get('origen_id'),
+            'priority': kw.get('priority'),
             'user_id': user_id,
         })
         if kw.get('attachments'):
