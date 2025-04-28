@@ -117,17 +117,18 @@ class HelpdeskTicketController(http.Controller):
                     {'reopen_reason': kw.get('reopen_reason'),
                      'stage_id': 	request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_in_progress').id,
                      'area_id': request.env['helpdesk.ticket.area'].sudo().search([
-                         ('default_reopen_area', '=', False)], limit=1).id,
-                   #  'type_id':,
-                    #'location_id':
-
+                         ('default_reopen_area', '=', True)], limit=1).id,
+                     'type_id': request.env['helpdesk.ticket.type'].sudo().search([
+                         ('default_reopen_type', '=', True)], limit=1).id,
+                     'location_id': request.env['helpdesk.ticket.location'].sudo().search([
+                         ('is_other', '=', True)], limit=1).id,
                      })
         return request.render("helpdesk_bol.ticket_register", {'hide_number': True})
 
     @http.route(
         "/change_stage/<int:ticket_id>/<action>", auth="user", website=True
     )
-    def change_stage(self, ticket_id=None, action=None):
+    def change_stage(self, ticket_id=None, action=None, **kw):
         """ permite al cliente que recibe el correo cambiar el estado de ticker
             para apertura o cierre definitivo
         """
@@ -137,6 +138,7 @@ class HelpdeskTicketController(http.Controller):
         #     return request.render("helpdesk_bol.link_expired")
 
         ticket = request.env["helpdesk.ticket"].sudo().browse(int(ticket_id))
+        # Closes the ticket
         if int(action) == 1:
             ticket.sudo().write({'stage_id': request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_done').id})
         return request.render(

@@ -13,6 +13,7 @@
         <t t-call="web.login_layout">
             <div class="background" t-attf-style="background-image: url('#{bg_img}'); background-color: #{color}; min-height: 100vh; background-size: cover;">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="hidden" name="redirect" t-att-value="redirect"/>
                 <div class="container py-5">
                     <div t-attf-class="card border-0 mx-auto bg-100 {{login_card_classes}} o_database_list" style="max-width: 300px;">
                         <div class="card-body">
@@ -22,6 +23,7 @@
                                      style="max-height:120px; max-width: 100%; width:auto"/>
                             </div>
                             <form class="oe_login_form" role="form" t-attf-action="/web/socios/login" method="post" onsubmit="this.action = '/web/socios/login' + location.hash">
+                                <input type="hidden" name="redirect" t-att-value="redirect"/>
                                 <div class="mb-3 field-login">
                                     <label for="login" class="form-label">Enter your ID card number</label>
                                     <input type="text" placeholder="ID card number" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="username" autofocus="autofocus" autocapitalize="off"/>
@@ -36,8 +38,8 @@
                                 <div t-attf-class="clearfix oe_login_buttons text-center gap-1 d-grid mb-1 {{'pt-2' if form_small else 'pt-3'}}">
                                     <button type="submit" class="btn btn-primary">Log in</button>
                                     <div class="o_login_auth"/>
+                                    <input type="hidden" name="redirect" t-att-value="redirect"/>
                                 </div>
-                                <input type="hidden" name="redirect" t-att-value="redirect"/>
                             </form>
                         </div>
                     </div>

@@ -81,6 +81,18 @@ class HelpdeskTicket(models.Model):
     has_locations = fields.Boolean(related="area_id.has_locations")
     has_origins = fields.Boolean(related="area_id.has_origins")
     has_categories = fields.Boolean(related="area_id.has_categories")
+    portal = fields.Char(
+        string="Portal", store=True, compute="_compute_portal",
+        help="Indicates if the user is a portal user"
+    )
+
+    @api.depends('partner_id', 'partner_id.is_member')
+    def _compute_portal(self):
+        for ticket in self:
+            if ticket.partner_id.is_member:
+                ticket.portal = "/web/socios/login?redirect="
+            else:
+                ticket.portal = "/web/login?redirect="
 
     @api.depends('derived_from_area_id')
     def _compute_derived_from_sdss(self):
@@ -495,7 +507,7 @@ class HelpdeskTicket(models.Model):
 
         # prepare headers (as sudo as accessing mail.alias.domain, restricted)
         headers = {}
-        base_mail_values.update({'email_from': self.company_id.email_formatted})
+        base_mail_values.update({'email_from': self.company_id.partner_id.email})
         if message_sudo.record_alias_domain_id.bounce_email:
             headers['Return-Path'] = message_sudo.record_alias_domain_id.bounce_email
         headers = self._notify_by_email_get_headers(headers=headers)

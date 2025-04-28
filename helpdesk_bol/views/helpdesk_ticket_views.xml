@@ -59,6 +59,7 @@
                 <field name="origen_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="has_origins==True" invisible="has_origins==False"/>
                 <field name="max_attention_time" widget="float_time"/>
                 <field name="resource_calendar_id" invisible="1" force_save="1"/>
+                <field name="portal" invisible="1"/>
             </field>
             <field name="user_id" position="attributes">
                 <attribute name="readonly">False</attribute>

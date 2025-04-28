@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import hashlib
+from xml.dom import ValidationErr
 
 import werkzeug
 
@@ -63,7 +64,6 @@ class Home(home.Home):
             #     return utils.redirect('/web/reset_password?', 303)
 
 
-        #return res
 
     def _login_redirect(self, uid, redirect=None):
         if not redirect and not is_user_internal(uid):
@@ -71,10 +71,11 @@ class Home(home.Home):
         return super()._login_redirect(uid, redirect=redirect)
 
     @http.route('/web/socios/login', type='http', auth='public', website=True, csrf=False)
-    def web_members_login(self, login=None, redirect=None, **kw):
+    def web_members_login(self, login=None,  redirect=None, **kw):
         values = {
             'website': request.website,
             'page_name': 'socios_login',
+            'redirect': redirect or request.params.get('redirect')
         }
         conf_param = request.env['ir.config_parameter'].sudo()
         orientation = conf_param.get_param('web_login_styles.orientation')
@@ -130,7 +131,7 @@ class Home(home.Home):
         #                               values)
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
            # return request.redirect(redirect)
-            return request.render('helpdesk_bol.login_socios', values)
+            return request.redirect(values.get('redirect'))
         if request.httprequest.method == 'POST':
             user = request.env['res.users'].sudo().search([('login', '=', login)], limit=1)
             _logger.info("Logging in: %s", user.login)
@@ -142,8 +143,13 @@ class Home(home.Home):
                 })
              # Manually authenticate the user
             _logger.info("Logging in: %s", user.password)
-            request.session.authenticate(request.db, login, login)  # password ignored here
-            return request.redirect('/help_desk')
+            request.session.authenticate(request.db, login, login)
+            return request.redirect(self._login_redirect(user.id, redirect=redirect))
+
+            if redirect:#
+                return request.redirect(redirect_url)
+            else:
+                return request.redirect('/help_desk')
 
         return request.render('helpdesk_bol.login_socios', values)
 

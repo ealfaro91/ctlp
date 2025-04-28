@@ -72,7 +72,7 @@ class ResUsers(models.Model):
                             'login': member.get('ci'),
                             'phone': member.get('phone'),
                             'mobile': member.get('mobile'),
-                            'email': member.get('email'),
+                            #'email': member.get('email'),
                             'member_code': member.get('socio_code'),
                             'vat': member.get('ci'),
                             'street': member.get('street'),
