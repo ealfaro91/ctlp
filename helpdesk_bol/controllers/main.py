@@ -75,7 +75,7 @@ class Home(home.Home):
         values = {
             'website': request.website,
             'page_name': 'socios_login',
-            'redirect': redirect or request.params.get('redirect')
+            'redirect': redirect or request.params.get('redirect') or '/help_desk'
         }
         conf_param = request.env['ir.config_parameter'].sudo()
         orientation = conf_param.get_param('web_login_styles.orientation')
