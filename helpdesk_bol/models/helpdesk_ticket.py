@@ -507,7 +507,7 @@ class HelpdeskTicket(models.Model):
 
         # prepare headers (as sudo as accessing mail.alias.domain, restricted)
         headers = {}
-        base_mail_values.update({'email_from': self.company_id.partner_id.email})
+        base_mail_values.update({'email_from': self.company_id.name})
         if message_sudo.record_alias_domain_id.bounce_email:
             headers['Return-Path'] = message_sudo.record_alias_domain_id.bounce_email
         headers = self._notify_by_email_get_headers(headers=headers)
