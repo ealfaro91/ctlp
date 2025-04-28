@@ -113,11 +113,15 @@ class HelpdeskTicketController(http.Controller):
 
     @http.route("/help_desk_reopen", auth="user", website=True)
     def help_desk_reopen(self, **kw):
+        area_id = request.env['helpdesk.ticket.area'].sudo().search([
+                         ('default_reopen_area', '=', True)], limit=1).id
+        team_id = request.env['helpdesk.ticket.team'].sudo().search([
+                         ('area_id', '=', area_id)], limit=1).id
         request.env["helpdesk.ticket"].sudo().browse(int(kw.get('id'))).write(
                     {'reopen_reason': kw.get('reopen_reason'),
                      'stage_id': 	request.env.ref('helpdesk_mgmt.helpdesk_ticket_stage_in_progress').id,
-                     'area_id': request.env['helpdesk.ticket.area'].sudo().search([
-                         ('default_reopen_area', '=', True)], limit=1).id,
+                     'team_id': team_id,
+                     'area_id': area_id ,
                      'type_id': request.env['helpdesk.ticket.type'].sudo().search([
                          ('default_reopen_type', '=', True)], limit=1).id,
                      'location_id': request.env['helpdesk.ticket.location'].sudo().search([
