@@ -60,7 +60,7 @@ class ChangeTicketAreaWizard(models.TransientModel):
         })
         self.ticket_id.write({
             'area_id': self.area_id.id,
-            'team_id': self.env['helpdesk.ticket.team'].search([('area_id', '=', self.area_id.id)]).id,
+            'team_id': self.env['helpdesk.ticket.team'].sudo().search([('area_id', '=', self.area_id.id)]).id,
             'type_id': self.ticket_type_id.id,
             'category_id': self.category_id.id,
             'subcategory_id': self.subcategory_id.id,

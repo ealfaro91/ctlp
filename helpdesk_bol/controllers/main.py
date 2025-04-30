@@ -146,10 +146,10 @@ class Home(home.Home):
             request.session.authenticate(request.db, login, login)
             return request.redirect(self._login_redirect(user.id, redirect=redirect))
 
-            if redirect:#
-                return request.redirect(redirect_url)
-            else:
-                return request.redirect('/help_desk')
+            #if redirect:#
+            #    return request.redirect(redirect_url)
+            #else:
+            #    return request.redirect('/help_desk')
 
         return request.render('helpdesk_bol.login_socios', values)
 

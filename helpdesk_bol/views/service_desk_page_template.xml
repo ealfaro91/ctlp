@@ -31,11 +31,11 @@
                             locationField.style.display = 'none'; // Show the location field
                         }
 
-                        if (selectedAreaOrigins == 'True') {
-                            origenField.style.display = 'block'; // Hide the location field
-                        } else {
-                            origenField.style.display = 'none'; // Show the location field
-                        }
+<!--                        if (selectedAreaOrigins == 'True') {-->
+<!--                            origenField.style.display = 'block'; // Hide the location field-->
+<!--                        } else {-->
+<!--                            origenField.style.display = 'none'; // Show the location field-->
+<!--                        }-->
                     }
 
                     document.addEventListener('DOMContentLoaded', function() {

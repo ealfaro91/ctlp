@@ -14,10 +14,10 @@ $("select[name='area_id']").change(function(){
           $select_location.val(0);
           $select_location.find("option:not(:first)").hide();
 
-           // Clear the origen_id field
-          let $select_origen = $("select[name='origen_id']");
-          $select_origen.val(0);
-          $select_origen.find("option:not(:first)").hide();
+//           // Clear the origen_id field
+//          let $select_origen = $("select[name='origen_id']");
+//          $select_origen.val(0);
+//          $select_origen.find("option:not(:first)").hide();
 });
 
 
