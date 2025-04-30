@@ -64,29 +64,33 @@ class ResUsers(models.Model):
                 for member in batch:
                     user_id = self.env['res.users'].search([('member_code', '=', member.get('socio_code'))])
                     if not user_id and member.get('ci'):
-                        _logger.info('Creating user: %s', member.get('name'))
-                        country_id = member.get('country_id')
-                        state_id = member.get('state_id')
-                        user_id = self.env['res.users'].create({
-                            'name': member.get('name'),
-                            'login': member.get('ci'),
-                            'phone': member.get('phone'),
-                            'mobile': member.get('mobile'),
-                            'email': member.get('email'),
-                            'member_code': member.get('socio_code'),
-                            'vat': member.get('ci'),
-                            'street': member.get('street'),
-                            'street2': member.get('street2'),
-                            'city': member.get('city'),
-                            'country_id': country_id[0] if country_id else False,
-                            'state_id': state_id[0] if state_id else False,
-                            'zip': member.get('zip'),
-                            'is_member': True,
-                            'payment_status': "paid",
-                            'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
-                        })
-                        self.env.cr.commit()
-                        _logger.info('User created: %s', user_id.name)
+                        try:
+                            _logger.info('Creating user: %s', member.get('name'))
+                            country_id = member.get('country_id')
+                            state_id = member.get('state_id')
+                            user_id = self.env['res.users'].create({
+                                'name': member.get('name'),
+                                'login': member.get('ci'),
+                                'password': member.get('ci'),
+                                'phone': member.get('phone'),
+                                'mobile': member.get('mobile'),
+                                'email': member.get('email'),
+                                'member_code': member.get('socio_code'),
+                                'vat': member.get('ci'),
+                                'street': member.get('street'),
+                                'street2': member.get('street2'),
+                                'city': member.get('city'),
+                                'country_id': country_id[0] if country_id else False,
+                                'state_id': state_id[0] if state_id else False,
+                                'zip': member.get('zip'),
+                                'is_member': True,
+                                'payment_status': "paid",
+                                'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
+                            })
+                            self.env.cr.commit()
+                            _logger.info('User created: %s', user_id.name)
+                        except Exception as e:
+                            _logger.error(e)
 
     def _update_members_payment_ws(self):
         """ Update the payment status of the members."""
