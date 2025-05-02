@@ -58,9 +58,10 @@ class ResUsers(models.Model):
         response = requests.post(url, json=payload, verify=False)
         result = response.json().get('result')
         if result:
-            batch_size = 50
+            batch_size = 100
             for i in range(0, len(result), batch_size):
                 batch = result[i:i + batch_size]
+                _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
                 for member in batch:
                     user_id = self.env['res.users'].search([('member_code', '=', member.get('socio_code'))])
                     if not user_id and member.get('ci'):
@@ -91,6 +92,9 @@ class ResUsers(models.Model):
                             _logger.info('User created: %s', user_id.name)
                         except Exception as commit_error:
                             _logger.error("Commit failed for user %s: %s", member.get('name'), commit_error)
+            # Pausa después de cada lote
+            _logger.info("Batch %s processed. Pausing before next batch...", (i // batch_size) + 1)
+            time.sleep(30)  # pausa de 2 segundos (ajustable)
 
     def _update_members_payment_ws(self):
         """ Update the payment status of the members."""
