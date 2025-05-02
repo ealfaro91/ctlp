@@ -64,10 +64,10 @@ class ResUsers(models.Model):
                 for member in batch:
                     user_id = self.env['res.users'].search([('member_code', '=', member.get('socio_code'))])
                     if not user_id and member.get('ci'):
-                        try:
-                            _logger.info('Creating user: %s', member.get('name'))
-                            country_id = member.get('country_id')
-                            state_id = member.get('state_id')
+                        _logger.info('Creating user: %s', member.get('name'))
+                        country_id = member.get('country_id')
+                        state_id = member.get('state_id')
+                        try :
                             user_id = self.env['res.users'].create({
                                 'name': member.get('name'),
                                 'login': member.get('ci'),
@@ -87,14 +87,10 @@ class ResUsers(models.Model):
                                 'payment_status': "paid",
                                 'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
                             })
-                            try:
-                                self.env.cr.commit()
-                            except Exception as commit_error:
-                                _logger.error("Commit failed for user %s: %s", member.get('name'), commit_error)
-                            else:
-                                _logger.info('User created: %s', user_id.name)
-                        except Exception as e:
-                            _logger.error("Error creating user %s: %s", member.get('name'), e)
+                            self.env.cr.commit()
+                            _logger.info('User created: %s', user_id.name)
+                        except Exception as commit_error:
+                            _logger.error("Commit failed for user %s: %s", member.get('name'), commit_error)
 
     def _update_members_payment_ws(self):
         """ Update the payment status of the members."""
