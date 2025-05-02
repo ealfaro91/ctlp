@@ -63,7 +63,7 @@ class ResUsers(models.Model):
                 batch = result[i:i + batch_size]
                 _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
                 for member in batch:
-                    user_id = self.env['res.users'].search([('member_code', '=', member.get('socio_code'))])
+                    user_id = self.env['res.users'].search(['|', ('login', '=', member.get('ci')), ('member_code', '=', member.get('socio_code'))])
                     if not user_id and member.get('ci'):
                         _logger.info('Creating user: %s', member.get('name'))
                         country_id = member.get('country_id')
