@@ -115,7 +115,11 @@ class ResPartner(models.Model):
         ])
 
         for partner in partners:
-            weeks_since_exit = (today - partner.real_exit_date).days // 7
+            reference_date = (
+                partner.last_weekly_activity_id.date_deadline if
+                partner.last_weekly_activity_id else partner.real_exit_date
+            )
+            weeks_since_exit = (today - reference_date).days // 7
 
             # If already passed 12 weeks, skip
             if weeks_since_exit >= 12:
@@ -144,9 +148,13 @@ class ResPartner(models.Model):
         ])
 
         for partner in partners:
+            reference_date = (
+                partner.last_biweekly_activity_id.date_deadline if
+                partner.last_biweekly_activity_id else partner.real_exit_date
+            )
 
             # Calculate how many full 2-week periods have passed
-            weeks_since_exit = (today - partner.real_exit_date).days // 7
+            weeks_since_exit = (today - reference_date).days // 7
             biweeks_since_exit = weeks_since_exit // 2
 
             # If more than 6 biweekly periods have passed, skip
@@ -177,8 +185,12 @@ class ResPartner(models.Model):
         ])
 
         for partner in partners:
-            months_since_exit = (today.year - partner.real_exit_date.year) * 12 + (
-                    today.month - partner.real_exit_date.month)
+            reference_date = (
+                partner.last_monthly_activity_id.date_deadline if
+                partner.last_monthly_activity_id else partner.real_exit_date
+            )
+            months_since_exit = (today.year - reference_date.year) * 12 + (
+                    today.month - reference_date.month)
 
             # Si ya pasaron 24 meses o más, omitir
             if months_since_exit >= 24:

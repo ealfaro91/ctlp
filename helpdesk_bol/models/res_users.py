@@ -87,10 +87,14 @@ class ResUsers(models.Model):
                                 'payment_status': "paid",
                                 'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
                             })
-                            self.env.cr.commit()
-                            _logger.info('User created: %s', user_id.name)
+                            try:
+                                self.env.cr.commit()
+                            except Exception as commit_error:
+                                _logger.error("Commit failed for user %s: %s", member.get('name'), commit_error)
+                            else:
+                                _logger.info('User created: %s', user_id.name)
                         except Exception as e:
-                            _logger.error(e)
+                            _logger.error("Error creating user %s: %s", member.get('name'), e)
 
     def _update_members_payment_ws(self):
         """ Update the payment status of the members."""
