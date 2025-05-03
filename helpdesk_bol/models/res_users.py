@@ -101,29 +101,37 @@ class ResUsers(models.Model):
         _logger.info('Updating payment status of the members')
         url = self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.ws_url')
         user_ids = self.env['res.users'].search([('is_member', '=', True)])
-        for user in user_ids:
-            payload_2 = {
-                "jsonrpc": "2.0",
-                "method": "call",
-                "params": {
-                    "service": "object",
-                    "method": "execute_kw",
-                    "args": [
-                        "ctlp",
-                        13621,
-                        "QboW7nm7qW3mZXPGpozEL3Z",
-                        "ctlp.lista.negra",
-                        "search_read",
-                        [[["socio_code", "=", user.member_code]]],
-                        {"fields": ["name", "socio_code"]}
-                    ]
-                },
-                "id": random.randint(0, 1000000000),
-            }
-            response = requests.post(url, json=payload_2, verify=False)
-            result = response.json().get('result')
-            if result:
-                user.payment_status = "unpaid"
+        batch_size = 100
+        for i in range(0, len(user_ids), batch_size):
+            batch = user_ids[i:i + batch_size]
+            _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
+            for user in batch:
+                payload_2 = {
+                    "jsonrpc": "2.0",
+                    "method": "call",
+                    "params": {
+                        "service": "object",
+                        "method": "execute_kw",
+                        "args": [
+                            "ctlp",
+                            13621,
+                            "QboW7nm7qW3mZXPGpozEL3Z",
+                            "ctlp.lista.negra",
+                            "search_read",
+                            [[["socio_code", "=", user.member_code]]],
+                            {"fields": ["name", "socio_code"]}
+                        ]
+                    },
+                    "id": random.randint(0, 1000000000),
+                }
+                response = requests.post(url, json=payload_2, verify=False)
+                result = response.json().get('result')
+                if result:
+                    user.payment_status = "unpaid"
+                    self.env.cr.commit()
+            # Pausa despues de cada lote
+            _logger.info("Batch %s processed. Pausing before next batch...", (i // batch_size) + 1)
+            time.sleep(30)  # pausa de 2 segundos (ajustable)
 
     def _action_reset_password(self):
         """ create signup token for each user, and send their signup url by email """
