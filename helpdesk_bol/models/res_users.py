@@ -100,38 +100,87 @@ class ResUsers(models.Model):
         """ Update the payment status of the members."""
         _logger.info('Updating payment status of the members')
         url = self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.ws_url')
+        self.env.cr.execute("SELECT id, member_code FROM res_users WHERE is_member = TRUE AND member_code IS NOT NULL")
         user_ids = self.env['res.users'].search([('is_member', '=', True)])
-        batch_size = 100
-        for i in range(0, len(user_ids), batch_size):
-            batch = user_ids[i:i + batch_size]
-            _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
-            for user in batch:
-                payload_2 = {
-                    "jsonrpc": "2.0",
-                    "method": "call",
-                    "params": {
-                        "service": "object",
-                        "method": "execute_kw",
-                        "args": [
-                            "ctlp",
-                            13621,
-                            "QboW7nm7qW3mZXPGpozEL3Z",
-                            "ctlp.lista.negra",
-                            "search_read",
-                            [[["socio_code", "=", user.member_code]]],
-                            {"fields": ["name", "socio_code"]}
-                        ]
-                    },
-                    "id": random.randint(0, 1000000000),
-                }
-                response = requests.post(url, json=payload_2, verify=False)
-                result = response.json().get('result')
-                if result:
-                    user.payment_status = "unpaid"
-                    self.env.cr.commit()
-            # Pausa despues de cada lote
-            _logger.info("Batch %s processed. Pausing before next batch...", (i // batch_size) + 1)
-            time.sleep(30)  # pausa de 2 segundos (ajustable)
+        user_rows = self.env.cr.fetchall()
+
+        member_code_map = {code: uid for uid, code in user_rows}
+        member_codes = list(member_code_map.keys())
+
+        if not member_codes:
+            _logger.info("No hay códigos de miembros para consultar.")
+            return
+
+        # Hacer una sola llamada al endpoint externo con todos los códigos
+        payload = {
+            "jsonrpc": "2.0",
+            "method": "call",
+            "params": {
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    "ctlp",
+                    13621,
+                    "QboW7nm7qW3mZXPGpozEL3Z",
+                    "ctlp.lista.negra",
+                    "search_read",
+                    [[["socio_code", "in", member_codes]]],
+                    {"fields": ["socio_code"]}
+                ]
+            },
+            "id": random.randint(0, 1000000000),
+        }
+
+        response = requests.post(url, json=payload, verify=False)
+        result = response.json().get('result', [])
+
+        # Extraer los member_codes que están en la lista negra
+        blacklist_codes = [r['socio_code'] for r in result if 'socio_code' in r]
+
+        if blacklist_codes:
+            user_ids_to_update = [member_code_map[code] for code in blacklist_codes if code in member_code_map]
+
+            # Ejecutar UPDATE directo en SQL
+            query = """
+                    UPDATE res_users
+                    SET payment_status = 'unpaid'
+                    WHERE id = ANY(%s)
+                """
+            self.env.cr.execute(query, (user_ids_to_update,))
+            _logger.info("Usuarios actualizados: %s", len(user_ids_to_update))
+        else:
+            _logger.info("Ningún código encontrado en lista negra.")
+        # batch_size = 100
+        # for i in range(0, len(user_ids), batch_size):
+        #     batch = user_ids[i:i + batch_size]
+        #     _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
+        #     for user in batch:
+        #         payload_2 = {
+        #             "jsonrpc": "2.0",
+        #             "method": "call",
+        #             "params": {
+        #                 "service": "object",
+        #                 "method": "execute_kw",
+        #                 "args": [
+        #                     "ctlp",
+        #                     13621,
+        #                     "QboW7nm7qW3mZXPGpozEL3Z",
+        #                     "ctlp.lista.negra",
+        #                     "search_read",
+        #                     [[["socio_code", "=", user.member_code]]],
+        #                     {"fields": ["name", "socio_code"]}
+        #                 ]
+        #             },
+        #             "id": random.randint(0, 1000000000),
+        #         }
+        #         response = requests.post(url, json=payload_2, verify=False)
+        #         result = response.json().get('result')
+        #         if result:
+        #             user.payment_status = "unpaid"
+        #             self.env.cr.commit()
+        #     # Pausa despues de cada lote
+        #     _logger.info("Batch %s processed. Pausing before next batch...", (i // batch_size) + 1)
+        #     time.sleep(30)  # pausa de 2 segundos (ajustable)
 
     def _action_reset_password(self):
         """ create signup token for each user, and send their signup url by email """
