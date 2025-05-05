@@ -26,17 +26,23 @@ class ResUsers(models.Model):
         string="Access Areas",
         compute="_compute_area_ids"
     )
-    is_member = fields.Boolean(string="Is Member", tracking=True)
+    is_member = fields.Boolean(
+        string="Is Member",
+        tracking=True,
+        store=True
+    )
     member_code = fields.Char(
         string="Member Code",
         help="Member code from Odoo v13",
-        tracking=True
+        tracking=True,
+        store=True
     )
     payment_status = fields.Selection(
         selection=[('unpaid', 'Unpaid'), ('paid', 'Paid')],
         string="Payment Status",
         help="Payment status from Odoo v13",
-        tracking=True
+        tracking=True,
+        store=True
     )
 
     @api.model
