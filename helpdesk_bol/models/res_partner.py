@@ -7,7 +7,6 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     area = fields.Char(string="Area", tracking=True)
-    member_code = fields.Char(string="Member Code", tracking=True)
     is_member = fields.Boolean(string="Is Member", tracking=True)
     member_code = fields.Char(
         string="Member Code",
