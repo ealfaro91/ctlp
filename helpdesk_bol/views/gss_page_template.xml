@@ -11,7 +11,7 @@
                         <div class="col-lg-10 col-xl-9 mx-auto">
                             <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
                                 <div class="card-body p-4 p-sm-5">
-                                    <h5 class="card-title text-center mb-5 fw-light fs-5">Register your requirement</h5>
+                                    <h1 class="text-center mb-5 fw-bold fs-5">REGISTRE SU REQUERIMIENTO</h1>
                                     <form action="/help_desk_close" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <input type="hidden" name="submission_token" t-att-value="submission_token"/>
