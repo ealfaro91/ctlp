@@ -19,12 +19,12 @@ class ResConfigSettings(models.TransientModel):
     )
     ws_url = fields.Char(
         string="Web service URL",
-        default="https://odootest.ctlp.bo/jsonrpc",
+        default="https://ctlp.bo/jsonrpc",
         config_parameter='helpdesk_bol.ws_url'
     )
     payment_ws = fields.Char(
         string="Payment Web service URL",
-        default="https://odootest.ctlp.bo/jsonrpc",
+        default="https://ctlp.bo/jsonrpc",
         config_parameter='helpdesk_bol.payment_ws'
     )
     payment_delayed_message = fields.Char(

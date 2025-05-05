@@ -39,6 +39,24 @@ class ResUsers(models.Model):
         tracking=True
     )
 
+    @api.model
+    def create(self, vals):
+        user = super().create(vals)
+        if user.partner_id:
+            user.partner_id.is_member = user.is_member
+            user.partner_id.member_code = user.member_code
+            user.partner_id.payment_status = user.payment_status
+        return user
+
+    def write(self, vals):
+        res = super().write(vals)
+        for user in self:
+            if 'member_code' or 'is_member' or 'payment_status' in vals and user.partner_id:
+                user.partner_id.member_code = vals['member_code']
+                user.partner_id.is_member = vals['is_member']
+                user.partner_id.payment_status = vals['payment_status']
+        return res
+
     def _compute_area_ids(self):
         for user in self:
             area_ids = self.env['helpdesk.ticket.team'].search([('user_ids', 'in', user.id)]).mapped('area_id')
@@ -113,9 +131,8 @@ class ResUsers(models.Model):
         _logger.info('Updating payment status of the members')
         url = self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.ws_url')
         self.env.cr.execute("SELECT id, member_code FROM res_users WHERE is_member = TRUE AND member_code IS NOT NULL")
-        user_ids = self.env['res.users'].search([('is_member', '=', True)])
         user_rows = self.env.cr.fetchall()
-
+        _logger.info("Found %s members to update", len(user_rows))
         member_code_map = {code: uid for uid, code in user_rows}
         member_codes = list(member_code_map.keys())
 

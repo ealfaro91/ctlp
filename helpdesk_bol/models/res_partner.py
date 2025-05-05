@@ -19,3 +19,4 @@ class ResPartner(models.Model):
         help="Payment status from Odoo v13",
         tracking=True
     )
+
