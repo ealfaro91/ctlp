@@ -22,10 +22,7 @@ class ChangeStateLog(models.Model):
         "res.users", string="User",
         required=True, tracking=True
     )
-    area_id = fields.Many2one(
-        "helpdesk.ticket.area", string="Area",
-        required=True, tracking=True
-    )
+
     date = fields.Datetime(
         string="Date", required=True,
         default=TODAY, tracking=True

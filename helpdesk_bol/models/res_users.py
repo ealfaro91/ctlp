@@ -58,9 +58,9 @@ class ResUsers(models.Model):
         res = super().write(vals)
         for user in self:
             if 'member_code' or 'is_member' or 'payment_status' in vals and user.partner_id:
-                user.partner_id.member_code = vals['member_code']
-                user.partner_id.is_member = vals['is_member']
-                user.partner_id.payment_status = vals['payment_status']
+                user.partner_id.member_code = vals.get('member_code')
+                user.partner_id.is_member = vals.get('is_member')
+                user.partner_id.payment_status = vals.get('payment_status')
         return res
 
     def _compute_area_ids(self):
@@ -99,13 +99,13 @@ class ResUsers(models.Model):
                 batch = result[i:i + batch_size]
                 _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
                 for member in batch:
-                    user_id = self.env['res.users'].search(['|', ('login', '=', member.get('ci')), ('member_code', '=', member.get('socio_code'))])
+                    user_id = self.env['res.users'].sudo().search(['|', ('login', '=', member.get('ci')), ('member_code', '=', member.get('socio_code'))])
                     if not user_id and member.get('ci'):
                         _logger.info('Creating user: %s', member.get('name'))
                         country_id = member.get('country_id')
                         state_id = member.get('state_id')
                         try :
-                            user_id = self.env['res.users'].create({
+                            user_id = self.env['res.users'].sudo().create({
                                 'name': member.get('name'),
                                 'login': member.get('ci'),
                                 'password': member.get('ci'),
@@ -134,6 +134,7 @@ class ResUsers(models.Model):
 
     def _update_members_payment_ws(self):
         """ Update the payment status of the members."""
+
         _logger.info('Updating payment status of the members')
         url = self.env['ir.config_parameter'].sudo().get_param('helpdesk_bol.ws_url')
         self.env.cr.execute("SELECT id, member_code FROM res_users WHERE is_member = TRUE AND member_code IS NOT NULL")
@@ -185,37 +186,6 @@ class ResUsers(models.Model):
             _logger.info("Usuarios actualizados: %s", len(user_ids_to_update))
         else:
             _logger.info("Ningún código encontrado en lista negra.")
-        # batch_size = 100
-        # for i in range(0, len(user_ids), batch_size):
-        #     batch = user_ids[i:i + batch_size]
-        #     _logger.info("Processing batch %s to %s", i + 1, i + len(batch))
-        #     for user in batch:
-        #         payload_2 = {
-        #             "jsonrpc": "2.0",
-        #             "method": "call",
-        #             "params": {
-        #                 "service": "object",
-        #                 "method": "execute_kw",
-        #                 "args": [
-        #                     "ctlp",
-        #                     13621,
-        #                     "QboW7nm7qW3mZXPGpozEL3Z",
-        #                     "ctlp.lista.negra",
-        #                     "search_read",
-        #                     [[["socio_code", "=", user.member_code]]],
-        #                     {"fields": ["name", "socio_code"]}
-        #                 ]
-        #             },
-        #             "id": random.randint(0, 1000000000),
-        #         }
-        #         response = requests.post(url, json=payload_2, verify=False)
-        #         result = response.json().get('result')
-        #         if result:
-        #             user.payment_status = "unpaid"
-        #             self.env.cr.commit()
-        #     # Pausa despues de cada lote
-        #     _logger.info("Batch %s processed. Pausing before next batch...", (i // batch_size) + 1)
-        #     time.sleep(30)  # pausa de 2 segundos (ajustable)
 
     def _action_reset_password(self):
         """ create signup token for each user, and send their signup url by email """
@@ -272,31 +242,3 @@ class ResUsers(models.Model):
                     })
                     mail.send()
             _logger.info("Password reset email sent for user <%s> to <%s>", user.login, user.email)
-
-    #
-    # @classmethod
-    # def _login(cls, db, login, password, user_agent_env):
-    #     if not password:
-    #         raise AccessDenied()
-    #     ip = request.httprequest.environ['REMOTE_ADDR'] if request else 'n/a'
-    #     try:
-    #         with cls.pool.cursor() as cr:
-    #             self = api.Environment(cr, SUPERUSER_ID, {})[cls._name]
-    #             with self._assert_can_auth(user=login):
-    #                 user = self.search(self._get_login_domain(login), order=self._get_login_order(), limit=1)
-    #                 if not user:
-    #                     raise AccessDenied()
-    #                 user = user.with_user(user)
-    #                 user._check_credentials(password, user_agent_env)
-    #                 tz = request.httprequest.cookies.get('tz') if request else None
-    #                 if tz in pytz.all_timezones and (not user.tz or not user.login_date):
-    #                     # first login or missing tz -> set tz to browser tz
-    #                     user.tz = tz
-    #                 user._update_last_login()
-    #     except AccessDenied:
-    #         _logger.info("Login failed for db:%s login:%s from %s", db, login, ip)
-    #         raise
-    #
-    #     _logger.info("Login successful for db:%s login:%s from %s", db, login, ip)
-    #
-    #     return user.id
