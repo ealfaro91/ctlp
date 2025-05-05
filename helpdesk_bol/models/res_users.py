@@ -49,18 +49,18 @@ class ResUsers(models.Model):
     def create(self, vals):
         user = super().create(vals)
         if user.partner_id:
-            user.partner_id.is_member = user.is_member
-            user.partner_id.member_code = user.member_code
-            user.partner_id.payment_status = user.payment_status
+            user.partner_id.sudo().is_member = user.is_member
+            user.partner_id.sudo().member_code = user.member_code
+            user.partner_id.sudo().payment_status = user.payment_status
         return user
 
     def write(self, vals):
         res = super().write(vals)
         for user in self:
             if 'member_code' or 'is_member' or 'payment_status' in vals and user.partner_id:
-                user.partner_id.member_code = vals.get('member_code')
-                user.partner_id.is_member = vals.get('is_member')
-                user.partner_id.payment_status = vals.get('payment_status')
+                user.partner_id.sudo().member_code = vals.get('member_code')
+                user.partner_id.sudo().is_member = vals.get('is_member')
+                user.partner_id.sudo().payment_status = vals.get('payment_status')
         return res
 
     def _compute_area_ids(self):
