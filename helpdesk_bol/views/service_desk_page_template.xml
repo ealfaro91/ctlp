@@ -31,11 +31,11 @@
                             locationField.style.display = 'none'; // Show the location field
                         }
 
-<!--                        if (selectedAreaOrigins == 'True') {-->
-<!--                            origenField.style.display = 'block'; // Hide the location field-->
-<!--                        } else {-->
-<!--                            origenField.style.display = 'none'; // Show the location field-->
-<!--                        }-->
+                        if (selectedAreaOrigins == 'True') {
+                            origenField.style.display = 'block'; // Hide the location field
+                        } else {
+                            origenField.style.display = 'none'; // Show the location field
+                        }
                     }
 
                     document.addEventListener('DOMContentLoaded', function() {
@@ -128,22 +128,22 @@
                                                     </select>
                                                 </div>
                                             </div>
-<!--                                            <div class="mb-4" id="origen_field" style="display: block;">-->
-<!--                                                <label for="origen_id" class="form-label">Origen</label>-->
-<!--                                                <div class="input-group">-->
-<!--                                                    <span class="input-group-text bg-light">-->
-<!--                                                        <i class="fa fa-location-arrow"/>-->
-<!--                                                    </span>-->
-<!--                                                    <select class="form-control" name="origen_id">-->
-<!--                                                        <option value=""/>-->
-<!--                                                        <t t-foreach="origens" t-as="origen">-->
-<!--                                                            <option t-att-value="origen.id" t-att-data-area_id="origen.area_id.id">-->
-<!--                                                                <t t-esc="origen.name"/>-->
-<!--                                                            </option>-->
-<!--                                                        </t>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
+                                            <div class="mb-4" id="origen_field" style="display: block;">
+                                                <label for="origen_id" class="form-label">Origen</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-location-arrow"/>
+                                                    </span>
+                                                    <select class="form-control" name="origen_id">
+                                                        <option value=""/>
+                                                        <t t-foreach="origens" t-as="origen">
+                                                            <option t-att-value="origen.id" t-att-data-area_id="origen.area_id.id">
+                                                                <t t-esc="origen.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="mb-4" id="location_field" style="display: block;">
                                                 <label for="location_id" class="form-label">Location</label>
                                                 <div class="input-group">
@@ -194,18 +194,44 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="mb-4">
+                                                <label for="priority_id" class="form-label">Priority</label>
+                                                <div class="input-group" role="group" aria-label="Priority">
+                                                        <!-- Radio oculto: value="0" para Low -->
+                                                        <input
+                                                          type="radio"
+                                                          class="btn-check"
+                                                          name="priority"
+                                                          id="priority_low"
+                                                          value="0"
+                                                          autocomplete="off"
+                                                          checked="checked"
+                                                        />
+                                                        <label class="btn btn-primary" for="priority_low">Low</label>
 
-<!--                                            <div class="mb-4">-->
-<!--                                                <label for="priority_id" class="form-label">Priority</label>-->
-<!--                                                <div class="input-group">-->
-<!--                                                    <div class="form-group">-->
-<!--                                                        <button type="button" class="btn btn-primary" t-on-click="set_priority('low')">Low</button>-->
-<!--                                                        <button type="button" class="btn btn-warning" t-on-click="set_priority('medium')">Medium</button>-->
-<!--                                                        <button type="button" class="btn btn-danger" t-on-click="set_priority('high')">High</button>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
+                                                        <!-- Radio oculto: value="1" para Medium -->
+                                                        <input
+                                                          type="radio"
+                                                          class="btn-check"
+                                                          name="priority"
+                                                          id="priority_medium"
+                                                          value="1"
+                                                          autocomplete="off"
+                                                        />
+                                                        <label class="btn btn-warning" for="priority_medium">Medium</label>
 
+                                                        <!-- Radio oculto: value="2" para High -->
+                                                        <input
+                                                          type="radio"
+                                                          class="btn-check"
+                                                          name="priority"
+                                                          id="priority_high"
+                                                          value="2"
+                                                          autocomplete="off"
+                                                        />
+                                                        <label class="btn btn-danger" for="priority_high">High</label>
+                                                </div>
+                                            </div>
                                             <div class="mb-4">
                                                 <label for="attachments" class="form-label">Attachment(s)</label>
                                                 <div class="input-group">

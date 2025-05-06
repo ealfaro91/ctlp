@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import logging
-
 from odoo import api, fields, models
 
 TODAY = fields.Datetime.now()
-_logger = logging.getLogger(__name__)
 
 
 class ChangeStateLog(models.Model):

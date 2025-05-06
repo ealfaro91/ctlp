@@ -223,12 +223,8 @@ class HelpdeskTicket(models.Model):
                     ),
                     "email_layout_xmlid": "mail.mail_notification_light",
                     "mail_server_id": ticket.area_id.mail_server_id.id,
-                 #   "email_from": ticket.area_id.mail_server_id.smtp_user
                 },
             )
-            ticket.stage_id.mail_template_id.mail_server_id = ticket.area_id.mail_server_id.id
-           # ticket.stage_id.mail_template_id.email_from = ticket.area_id.mail_server_id.smtp_user
-
         return res
 
     def _notify_get_action_link(self, link_type, **kwargs):
@@ -514,46 +510,3 @@ class HelpdeskTicket(models.Model):
         if headers:
             base_mail_values['headers'] = repr(headers)
         return base_mail_values
-
-    # def _notify_by_email_render_layout(self, message, recipients_group,
-    #                                    msg_vals=False,
-    #                                    render_values=None):
-    #     """ Renders the email layout for a given recipients group which
-    #     encapsulate the message body.
-    #
-    #     :param record message: <mail.message> record being notified. May be
-    #       void as 'msg_vals' superseeds it;
-    #     :param dict recipients_group: a dict containing data for the recipients,
-    #       see @ _notify_get_recipients_groups;
-    #     :param dict msg_vals: values dict used to create the message, allows to
-    #       skip message usage and spare some queries;
-    #     :param dict render_values: values to render the notification layout;
-    #
-    #     At this point expected values are
-    #       render_values: company, is_discussion, lang, message, model_description,
-    #                      record, record_name, signature, subtype, tracking_values,
-    #                      website_url
-    #       recipients_group: actions, button_access, has_button_access, recipients
-    #
-    #     :return str: rendered complete layout;
-    #     """
-    #     if render_values is None:
-    #         render_values = {}
-    #
-    #     email_layout_xmlid = msg_vals.get('email_layout_xmlid') if msg_vals else message.email_layout_xmlid
-    #     template_xmlid = email_layout_xmlid if email_layout_xmlid else 'mail.mail_notification_layout'
-    #
-    #     render_values = {**render_values, **recipients_group}
-    #     mail_body = self.env['ir.qweb']._render(
-    #         template_xmlid,
-    #         render_values,
-    #         minimal_qcontext=True,
-    #         raise_if_not_found=False,
-    #         lang=render_values.get('lang', self.env.lang),
-    #     )
-    #     if not mail_body:
-    #         _logger.warning(
-    #             'QWeb template %s not found or is empty when sending notification emails. Sending without layouting.',
-    #             template_xmlid)
-    #         mail_body = message.body
-    #     return mail_body
