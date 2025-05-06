@@ -63,6 +63,8 @@ class Home(home.Home):
             #     request.params['login_success'] = False
             #     return utils.redirect('/web/reset_password?', 303)
 
+
+
     def _login_redirect(self, uid, redirect=None):
         if not redirect and not is_user_internal(uid):
             redirect = '/my/account'
@@ -127,10 +129,9 @@ class Home(home.Home):
         # elif orientation == 'middle':
         #     response = request.render('web_login_styles.login_template_middle',
         #                               values)
-        # Lógica para manejar el login y redirigir correctamente
-        if request.httprequest.method == 'GET' and not request.session.uid:
-            # Si no hay sesión, forzamos el login
-            return request.render('helpdesk_bol.login_socios', values)
+        if request.httprequest.method == 'GET' and redirect and request.session.uid:
+           # return request.redirect(redirect)
+            return request.redirect(values.get('redirect'))
         if request.httprequest.method == 'POST':
             user = request.env['res.users'].sudo().search([('login', '=', login)], limit=1)
             _logger.info("Logging in: %s", user.login)
@@ -143,7 +144,7 @@ class Home(home.Home):
              # Manually authenticate the user
             _logger.info("Logging in: %s", user.password)
             request.session.authenticate(request.db, login, login)
-            if 'web/login' in redirect or redirect.endswith('?'):
+            if redirect.startswith('/web/login'):
                 redirect = '/help_desk'
             return request.redirect(self._login_redirect(user.id, redirect=redirect))
 
