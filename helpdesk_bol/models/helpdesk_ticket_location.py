@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class HelpdeskTicketLocation(models.Model):
@@ -7,7 +8,6 @@ class HelpdeskTicketLocation(models.Model):
     _description = "Helpdesk Ticket Location"
     _order = "sequence,name"
     _inherit = ["mail.thread", "mail.activity.mixin"]
-    _sql_constraints = [("is_other_uniq", "unique(is_other)", "Other location must be unique")]
 
     active = fields.Boolean(default=True, tracking=True)
     sequence = fields.Integer(
@@ -24,4 +24,16 @@ class HelpdeskTicketLocation(models.Model):
         ondelete="cascade"
     )
     is_other = fields.Boolean(string="Other", tracking=True)
+
+
+    @api.constrains('is_other')
+    def _check_unique_is_other(self):
+        for record in self:
+            if record.is_other:
+                existing = self.search([
+                    ('is_other', '=', True),
+                    ('id', '!=', record.id)
+                ], limit=1)
+                if existing:
+                    raise ValidationError("Only one record can have 'Is Other' set to True.")
 
