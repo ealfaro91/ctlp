@@ -144,6 +144,7 @@ class Home(home.Home):
              # Manually authenticate the user
             _logger.info("Logging in: %s", user.password)
             request.session.authenticate(request.db, login, login)
+            request.session.save()
             if redirect.startswith('/web/login'):
                 redirect = '/help_desk'
             return request.redirect(self._login_redirect(user.id, redirect=redirect))
