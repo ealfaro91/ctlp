@@ -72,11 +72,15 @@ class Home(home.Home):
 
     @http.route('/web/socios/login', type='http', auth='public', website=True, csrf=False)
     def web_members_login(self, login=None,  redirect=None, **kw):
-        values = {
-            'website': request.website,
-            'page_name': 'socios_login',
-            'redirect': redirect or request.params.get('redirect') or '/help_desk'
-        }
+        ensure_db()
+        request.params['login_success'] = False
+        values = {k: v for k, v in request.params.items() if k in SIGN_UP_REQUEST_PARAMS}
+
+        values['page_name'] = 'socios_login'
+        values['website'] = request.website
+        values['redirect'] = redirect or request.params.get('redirect') or '/help_desk'
+        request.params['password'] = login
+
         conf_param = request.env['ir.config_parameter'].sudo()
         orientation = conf_param.get_param('web_login_styles.orientation')
         image = conf_param.get_param('web_login_styles.image')
@@ -142,8 +146,12 @@ class Home(home.Home):
                     'error': _("ID card not found"),
                 })
              # Manually authenticate the user
-            _logger.info("Logging in: %s", user.password)
+            _logger.info("Logging in: %s", user.login)
             request.session.authenticate(request.db, login, login)
+            _logger.info("Redirect es: %s", redirect)
+
+            request.params['login_success'] = True
+
             if redirect.startswith('/web/login'):
                 redirect = '/help_desk'
             return request.redirect(self._login_redirect(user.id, redirect=redirect))
@@ -152,8 +160,11 @@ class Home(home.Home):
             #    return request.redirect(redirect_url)
             #else:
             #    return request.redirect('/help_desk')
-
-        return request.render('helpdesk_bol.login_socios', values)
+        response = request.render('helpdesk_bol.login_socios', values)
+        response.headers['Cache-Control'] = 'no-cache'
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
+        return response
 
     @http.route('/web/session/logout', type='http', auth="none")
     def logout(self, redirect='/web'):

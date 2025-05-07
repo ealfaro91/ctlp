@@ -12,8 +12,6 @@
     <template id="helpdesk_bol.login_socios" name="Login">
         <t t-call="web.login_layout">
             <div class="background" t-attf-style="background-image: url('#{bg_img}'); background-color: #{color}; min-height: 100vh; background-size: cover;">
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                <input type="hidden" name="redirect" t-att-value="redirect"/>
                 <div class="container py-5">
                     <div t-attf-class="card border-0 mx-auto bg-100 {{login_card_classes}} o_database_list" style="max-width: 300px;">
                         <div class="card-body">
@@ -23,6 +21,7 @@
                                      style="max-height:120px; max-width: 100%; width:auto"/>
                             </div>
                             <form class="oe_login_form" role="form" t-attf-action="/web/socios/login" method="post" onsubmit="this.action = '/web/socios/login' + location.hash">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <input type="hidden" name="redirect" t-att-value="redirect"/>
                                 <div class="mb-3 field-login">
                                     <label for="login" class="form-label">Enter your ID card number</label>
