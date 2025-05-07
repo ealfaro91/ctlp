@@ -5,6 +5,7 @@ import random
 import requests
 import time
 
+from odoo.http import request
 
 from odoo import api, fields, models, registry, SUPERUSER_ID, _
 from odoo.exceptions import ValidationError, UserError, AccessDenied
@@ -242,3 +243,9 @@ class ResUsers(models.Model):
                     })
                     mail.send()
             _logger.info("Password reset email sent for user <%s> to <%s>", user.login, user.email)
+
+
+    def fix_login(self):
+        for user in self:
+            if user.is_member:
+                request.session.authenticate(self.env.cr.dbname, user.login, user.login)

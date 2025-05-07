@@ -24,7 +24,8 @@ class HelpdeskTicketSubCategory(models.Model):
     )
     sequence = fields.Integer(
         string="Sequence",
-        default=10
+        default=10,
+        tracking=True,
     )
     max_attention_time = fields.Float(string="Max attention time (hours)", tracking=True)
     area_id = fields.Many2one(
@@ -34,8 +35,10 @@ class HelpdeskTicketSubCategory(models.Model):
         required=True
     )
     color = fields.Integer(
-        string="Color Index", related="area_id.color",
-        tracking=True, store=True
+        string="Color Index",
+        related="area_id.color",
+        tracking=True,
+        store=True
     )
 
 

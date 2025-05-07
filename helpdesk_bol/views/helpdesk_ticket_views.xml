@@ -25,8 +25,7 @@
                 <xpath expr="//field[@name='team_id']" position="move"/>
             </xpath>
             <xpath expr="//field[@name='team_id']" position="attributes">
-                <attribute name="readonly">True</attribute>
-                <attribute name="force_save">1</attribute>
+                <attribute name="groups">helpdesk_bol.group_helpdesk_area_changer</attribute>
             </xpath>
             <xpath expr="//field[@name='type_id']" position="before">
                 <field name="area_id" invisible="1"/>

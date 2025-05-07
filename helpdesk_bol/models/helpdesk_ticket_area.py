@@ -13,7 +13,8 @@ class HelpdeskTicketArea(models.Model):
     active = fields.Boolean(default=True, tracking=True)
     sequence = fields.Integer(
         string="Sequence",
-        default=10
+        default=10,
+        tracking=True,
     )
     name = fields.Char(
         string="Area", tracking=True,
