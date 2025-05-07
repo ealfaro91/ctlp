@@ -246,8 +246,8 @@ class ResUsers(models.Model):
 
 
     def fix_login(self):
-            user_ids = self.search([('is_member', '=', True)])
-            for user in user_ids:
-                request.session.authenticate(self.env.cr.dbname, user.login, user.login)
-                _logger.info(user.state)
+        user_ids = self.search([('is_member', '=', True)])
+        for user in user_ids:
+            request.session.authenticate(self.env.cr.dbname, user.login, user.login)
+            _logger.info(user.state)
 
