@@ -23,22 +23,22 @@
                         </h1>
                     </div>
                     <group>
-                        <group>
+                        <group string="General">
                             <field name="code"/>
                             <field name="color" widget="color_picker"/>
+                            <field name="sequence_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="mail_server_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        </group>
+                        <group string="Settings">
                             <field name="show_in_external_portal"/>
                             <field name="default_reopen_area"/>
                             <field name="has_locations"/>
                             <field name="has_categories"/>
                             <field name="has_origins"/>
                         </group>
-                        <group>
-                            <field name="sequence_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                            <field name="mail_server_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                        </group>
-                        <group>
-                            <field name="description"/>
-                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
