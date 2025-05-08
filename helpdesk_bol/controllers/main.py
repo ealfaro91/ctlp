@@ -65,10 +65,10 @@ class Home(home.Home):
 
 
 
-    def _login_redirect(self, uid, redirect=None):
-        if not redirect and not is_user_internal(uid):
-            redirect = '/my/account'
-        return super()._login_redirect(uid, redirect=redirect)
+    # def _login_redirect(self, uid, redirect=None):
+    #     if not redirect and not is_user_internal(uid):
+    #         redirect = '/my/account'
+    #     return super()._login_redirect(uid, redirect=redirect)
 
     @http.route('/web/socios/login', type='http', auth='public', website=True, csrf=False)
     def web_members_login(self, login=None,  redirect=None, **kw):
