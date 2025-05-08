@@ -147,8 +147,12 @@ class Home(home.Home):
                 })
              # Manually authenticate the user
             _logger.info("Logging in: %s", user.login)
-            uid =request.session.authenticate(request.db, login, login)
+            uid = request.session.authenticate(request.db, login, login)
             _logger.info("Redirect es: %s", redirect)
+            _logger.info("Session es: %s", request.session)
+            _logger.info("Usuario es: %s", uid)
+
+
 
             request.params['login_success'] = True
 
