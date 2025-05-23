@@ -1031,6 +1031,11 @@ msgid "Helpdesk Ticket Type"
 msgstr "Tipo de solicitudes del Helpdesk"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "High"
+msgstr "Alta"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_ticket_area_wizard__id
@@ -1228,6 +1233,11 @@ msgid "Logo"
 msgstr ""
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Low"
+msgstr "Baja"
+
+#. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_maintenance
 #: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_maintenance
 msgid "MANTENIMIENTO"
@@ -1253,6 +1263,11 @@ msgstr "Servidor de correo"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__max_attention_time
 msgid "Max attention time (hours)"
 msgstr "Tiempo máximo de atención (horas)"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Medium"
+msgstr "Media"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__member_code
@@ -1522,6 +1537,11 @@ msgstr "Teléfono"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.reopen_close_ticket_form
 msgid "Please provide a reason to reopen the ticket."
 msgstr "Por favor, proporcione un motivo para reabrir el ticket."
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
+msgid "Priority"
+msgstr "Prioridad"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__forced_password_change
