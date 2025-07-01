@@ -65,10 +65,10 @@ class Home(home.Home):
 
 
 
-    # def _login_redirect(self, uid, redirect=None):
-    #     if not redirect and not is_user_internal(uid):
-    #         redirect = '/my/account'
-    #     return super()._login_redirect(uid, redirect=redirect)
+    def _login_redirect(self, uid, redirect=None):
+        if not redirect and not is_user_internal(uid):
+            redirect = '/my/account'
+        return super()._login_redirect(uid, redirect=redirect)
 
     @http.route('/web/socios/login', type='http', auth='public', website=True, csrf=False)
     def web_members_login(self, login=None,  redirect=None, **kw):
@@ -135,7 +135,7 @@ class Home(home.Home):
         #                               values)
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
            # return request.redirect(redirect)
-            return request.redirect(values.get('redirect'))
+            return request.redirect(redirect)
         if request.httprequest.method == 'POST':
             user = request.env['res.users'].sudo().search([('login', '=', login)], limit=1)
             _logger.info("Logging in: %s", user.login)

@@ -13,7 +13,9 @@ class HelpdeskTicketTeam(models.Model):
         required=True, tracking=True
     )
     color = fields.Integer(
-        string="Color Index", related="area_id.color",
+        string="Color Index",
+        related="area_id.color",
+        default=False,
         tracking=True, store=True
     )
 

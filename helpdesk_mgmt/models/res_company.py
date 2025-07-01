@@ -4,8 +4,9 @@
 from odoo import fields, models
 
 
-class Company(models.Model):
-    _inherit = "res.company"
+class ResCompany(models.Model):
+    _name = "res.company"
+    _inherit = ["res.company", "mail.thread", "mail.activity.mixin"]
 
     helpdesk_mgmt_portal_select_team = fields.Boolean(
         string="Select team in Helpdesk portal",

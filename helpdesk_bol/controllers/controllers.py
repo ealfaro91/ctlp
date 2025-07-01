@@ -3,7 +3,6 @@ import base64
 import logging
 import uuid
 
-from datetime import datetime
 from odoo import http, _
 from odoo.http import request, Response
 

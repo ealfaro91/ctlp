@@ -10,6 +10,7 @@
                         const areaSelect = document.querySelector('select[name="area_id"]');
                         const locationField = document.getElementById('location_field');
                         const origenField = document.getElementById('origen_field');
+                        const priorityField = document.getElementById('origen_field');
                         const selectedOption = areaSelect.options[areaSelect.selectedIndex];
 
                         const areaLocations = selectedOption ? selectedOption.dataset.area_locations : null;
@@ -26,15 +27,17 @@
 
 
                         if (selectedAreaLocations == 'True') {
-                            locationField.style.display = 'block'; // Hide the location field
+                            locationField.style.display = 'block'; // Show the location field
                         } else {
-                            locationField.style.display = 'none'; // Show the location field
+                            locationField.style.display = 'none'; // Hide the location field
                         }
 
                         if (selectedAreaOrigins == 'True') {
-                            origenField.style.display = 'block'; // Hide the location field
+                            origenField.style.display = 'block'; // Show the location field
+                            priorityField.style.display = 'block'; // Show the location field
                         } else {
                             origenField.style.display = 'none'; // Show the location field
+                            priorityField.style.display = 'none'; // Show the location field
                         }
                     }
 
@@ -194,7 +197,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="mb-4">
+                                            <div class="mb-4" id="priority_field" style="display: none;">
                                                 <label for="priority_id" class="form-label">Priority</label>
                                                 <div class="input-group" role="group" aria-label="Priority">
                                                         <!-- Radio oculto: value="0" para Low -->

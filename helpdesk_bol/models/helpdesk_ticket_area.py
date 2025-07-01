@@ -111,15 +111,26 @@ class HelpdeskTicketArea(models.Model):
             "context": {"create": False},
         }
 
-    @api.constrains('default_reopen_area')
-    def _check_unique_is_other(self):
-        for record in self:
-            if record.default_reopen_area:
-                existing = self.search([
-                    ('default_reopen_area', '=', True),
-                    ('id', '!=', record.id)
-                ], limit=1)
-                if existing:
-                    raise ValidationError("Only one record can have 'Is Other' set to True.")
+    @api.model_create_multi
+    def create(self, vals):
+        areas = super(HelpdeskTicketArea, self).create(vals)
+        for area in areas:
+            self.env['helpdesk.ticket.team'].create({
+                'name': area.name,
+                'area_id': area.id,
+                'color': area.color,
+            })
+        return
+
+    # @api.constrains('default_reopen_area')
+    # def _check_unique_is_other(self):
+    #     for record in self:
+    #         if record.default_reopen_area:
+    #             existing = self.search([
+    #                 ('default_reopen_area', '=', True),
+    #                 ('id', '!=', record.id)
+    #             ], limit=1)
+    #             if existing:
+    #                 raise ValidationError("Only one record can have 'Is Other' set to True.")
 
 

@@ -33,17 +33,6 @@ class HelpdeskTeam(models.Model):
         check_company=True,
         tracking=True
     )
-    alias_id = fields.Many2one(
-        comodel_name="mail.alias",
-        string="Email",
-        ondelete="restrict",
-        tracking=True,
-        required=False,
-        help="The email address associated with \
-                               this channel. New emails received will \
-                               automatically create new tickets assigned \
-                               to the channel.",
-    )
     color = fields.Integer(string="Color Index", default=0, tracking=True)
     ticket_ids = fields.One2many(
         comodel_name="helpdesk.ticket",
