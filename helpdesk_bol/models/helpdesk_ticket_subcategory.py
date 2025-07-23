@@ -22,6 +22,13 @@ class HelpdeskTicketSubCategory(models.Model):
         tracking=True,
         domain="[('area_id', '=', area_id)]"
     )
+    type_id = fields.Many2one(
+        "helpdesk.ticket.type",
+        string="Type",
+        required=True,
+        tracking=True,
+        domain="[('area_id', '=', area_id)]"
+    )
     sequence = fields.Integer(
         string="Sequence",
         default=10,

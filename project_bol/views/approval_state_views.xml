@@ -1,0 +1,76 @@
+<odoo>
+        <!-- Tree View -->
+    <record id="view_approval_state_tree" model="ir.ui.view">
+        <field name="name">approval.state.tree</field>
+            <field name="model">approval.state</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="model_id"/>
+                    <field name="name"/>
+                    <field name="role_id"/>
+                    <field name="user_id"/>
+                    <field name="sequence"/>
+                    <field name="last_approval_role"/>
+                    <field name="mail_template_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+    <record id="view_order_approval_state_form" model="ir.ui.view">
+        <field name="name">approval.state.form</field>
+        <field name="model">approval.state</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="model_id"/>
+                        <field name="name"/>
+                        <field name="role_id"/>
+                        <field name="sequence"/>
+                    </group>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="mail_template_id"/>
+                        <field name="last_approval_role"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_order_approval_state_search" model="ir.ui.view">
+        <field name="name">approval.state.search</field>
+        <field name="model">approval.state</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_id"/>
+                <field name="name"/>
+                <field name="role_id"/>
+                <field name="sequence"/>
+                <filter string="Module" name="groupby_module" context="{'group_by': 'model_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_approval_state" model="ir.actions.act_window">
+        <field name="name">Approval State</field>
+        <field name="res_model">approval.state</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_module': 1}</field>
+    </record>
+
+    <menuitem id="menu_approval_state"
+              parent="project.menu_project_config"
+              action="action_approval_state"
+              sequence="5"/>
+
+
+
+</odoo>

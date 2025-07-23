@@ -22,6 +22,8 @@
                             </div>
                         </h1>
                     </div>
+                    <separator string="Description"/>
+                    <field name="description" nolabel="1"/>
                     <group>
                         <group string="General">
                             <field name="code"/>
@@ -37,9 +39,7 @@
                             <field name="has_origins"/>
                         </group>
                     </group>
-                    <group>
-                        <field name="description"/>
-                    </group>
+
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

@@ -25,9 +25,9 @@
         </record>
 
         <record id="helpdesk_ticket_team_sport" model="helpdesk.ticket.team">
-            <field name="name">COMMERCIAL</field>
-            <field name="area_id" ref="helpdesk_bol.helpdesk_ticket_area_commercial"/>
-            <field name="image_1920" type="base64" file="helpdesk_bol/static/src/img/commercial_icon.png"/>
+            <field name="name">SPORT</field>
+            <field name="area_id" ref="helpdesk_ticket_area_member_service_sport"/>
+<!--            <field name="image_1920" type="base64" file="helpdesk_bol/static/src/img/sport_icon.png"/>-->
         </record>
 
     </data>

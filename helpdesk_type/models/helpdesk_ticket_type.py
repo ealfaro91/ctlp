@@ -5,7 +5,6 @@ from odoo import fields, models, Command
 
 class HelpdeskType(models.Model):
     """Helpdesk Type"""
-
     _name = "helpdesk.ticket.type"
     _description = "Helpdesk Ticket Type"
     _order = "name asc"

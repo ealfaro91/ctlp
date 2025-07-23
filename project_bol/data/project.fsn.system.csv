@@ -1,0 +1,6 @@
+id,name,active
+system_odoo,ODOO,True
+system_saf,SAF,True
+system_molinetes,MOLINETES,True
+system_parqueo,PARQUEO CENTRAL,True
+system_other,OTRO,True

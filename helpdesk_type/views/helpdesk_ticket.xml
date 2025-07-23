@@ -5,7 +5,7 @@
     <record id="view_helpdesk_ticket_form_type" model="ir.ui.view">
         <field name="name">Add Type on Helpdesk</field>
         <field name="model">helpdesk.ticket</field>
-        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form" />
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
         <field name="arch" type="xml">
             <field name="category_id" position="before">
                 <field name="type_id"/>
@@ -29,4 +29,5 @@
             </xpath>
         </field>
     </record>
+
 </odoo>

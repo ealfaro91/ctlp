@@ -45,31 +45,30 @@ class ResUsers(models.Model):
         tracking=True,
         store=True
     )
-    #
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     users = super(ResUsers, self).create(vals_list)
-    #     for user in users:
-    #         if user.partner_id:
-    #             user.partner_id.sudo().is_member = user.is_member
-    #             user.partner_id.sudo().member_code = user.member_code
-    #             user.partner_id.sudo().payment_status = user.payment_status
-    #     return user
 
-    # def write(self, vals):
-    #     res = super().write(vals)
-    #     for user in self:
-    #         if 'member_code' or 'is_member' or 'payment_status' in vals and user.partner_id:
-    #             user.partner_id.sudo().member_code = vals.get('member_code')
-    #             user.partner_id.sudo().is_member = vals.get('is_member')
-    #             user.partner_id.sudo().payment_status = vals.get('payment_status')
-    #     return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        users = super(ResUsers, self).create(vals_list)
+        for user in users:
+            if user.partner_id:
+                user.partner_id.sudo().is_member = user.is_member
+                user.partner_id.sudo().member_code = user.member_code
+                user.partner_id.sudo().payment_status = user.payment_status
+        return user
+
+    def write(self, vals):
+        res = super().write(vals)
+        for user in self:
+            if 'member_code' or 'is_member' or 'payment_status' in vals and user.partner_id:
+                user.partner_id.sudo().member_code = vals.get('member_code')
+                user.partner_id.sudo().is_member = vals.get('is_member')
+                user.partner_id.sudo().payment_status = vals.get('payment_status')
+        return res
 
     def _compute_area_ids(self):
-        pass
-        # for user in self:
-        #     area_ids = self.env['helpdesk.ticket.team'].search([('user_ids', 'in', user.id)]).mapped('area_id')
-        #     user.area_ids = [(6, 0, area_ids.ids)]
+        for user in self:
+            area_ids = self.env['helpdesk.ticket.team'].search([('user_ids', 'in', user.id)]).mapped('area_id')
+            user.area_ids = [(6, 0, area_ids.ids)]
 
     # def _get_members_ws(self):
     #     """ Get the members from the web service and create
