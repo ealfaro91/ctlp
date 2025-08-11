@@ -1,6 +1,5 @@
 
 from . import approval_log
-from . import approval_state
 from . import project_fsn
 from . import project_fsn_benefit
 from . import project_fsn_system

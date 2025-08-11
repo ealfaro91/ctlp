@@ -1,0 +1,606 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* windx_documents_management_preview
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240522\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-11 11:44+0000\n"
+"PO-Revision-Date: 2025-08-11 11:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
+msgid "<i class=\"fa fa-building-o\" role=\"img\" aria-label=\"Company\" title=\"Company\"/>"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
+msgid "<span class=\"fw-bolder\">Reporting</span>"
+msgstr "
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.act_all_attachment_from_document_directory
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.act_attachment_from_document_directory
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.act_my_attachment_from_document_directory
+msgid "Add a new attachment"
+msgstr "Añadir un nuevo archivo adjunto"
+
+#. module: windx_documents_management_preview
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_all_document
+msgid "All Documents"
+msgstr "Todos los documentos"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: windx_documents_management_preview
+#: model:ir.model,name:windx_documents_management_preview.model_ir_attachment
+msgid "Attachment"
+msgstr "Archivo adjunto"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de archivos adjuntos"
+
+#. module: windx_documents_management_preview
+#: model:ir.actions.act_window,name:windx_documents_management_preview.act_all_attachment_from_document_directory
+#: model:ir.actions.act_window,name:windx_documents_management_preview.act_attachment_from_document_directory
+#: model:ir.actions.act_window,name:windx_documents_management_preview.act_my_attachment_from_document_directory
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__attachment_ids
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_tree
+msgid "Attachments"
+msgstr "Archivos adjuntos"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__avatar_1920
+msgid "Avatar"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__avatar_1024
+msgid "Avatar 1024"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__avatar_128
+msgid "Avatar 128"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__avatar_256
+msgid "Avatar 256"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__avatar_512
+msgid "Avatar 512"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "By assigned tags"
+msgstr "Por etiquetas asignadas"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "By parent directory"
+msgstr "Por directorio padre"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__child_ids
+msgid "Child Directories"
+msgstr "Directorios hijos"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__color
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__color
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_tree
+msgid "Color"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__color
+msgid "Color Index"
+msgstr "Color"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__complete_name
+msgid "Complete Name"
+msgstr "Nombre completo"
+
+#. module: windx_documents_management_preview
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_configuration
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.act_document_sub_directory
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.document_directory_kanban_action
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.document_directory_tree_action
+msgid "Create a new Directory"
+msgstr "Crear un nuevo directorio"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.directory_tag_action
+msgid "Create a new Directory Tag"
+msgstr "Crear una nueva etiqueta de directorio"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.actions.act_window,help:windx_documents_management_preview.document_tag_action
+msgid "Create a new Document Tag"
+msgstr "Crear una nueva etiqueta de documento"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "Created By"
+msgstr "Creado por"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__create_uid
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__create_uid
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__create_date
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__create_date
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: windx_documents_management_preview
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_directory
+msgid "Directories"
+msgstr "Directorios"
+
+#. module: windx_documents_management_preview
+#: model:ir.actions.act_window,name:windx_documents_management_preview.act_document_sub_directory
+#: model:ir.actions.act_window,name:windx_documents_management_preview.document_directory_kanban_action
+#: model:ir.actions.act_window,name:windx_documents_management_preview.document_directory_tree_action
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__document_directory_id
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__document_directory_id
+msgid "Directory"
+msgstr "Directorio"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__name
+msgid "Directory Name"
+msgstr "Nombre del directorio"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/components/directory_chart/directory_chart.xml:0
+#, python-format
+msgid "Directory Organization"
+msgstr "Organización del directorio"
+
+#. module: windx_documents_management_preview
+#: model:ir.actions.act_window,name:windx_documents_management_preview.directory_tag_action
+#: model:ir.model,name:windx_documents_management_preview.model_directory_tag
+msgid "Directory Tag"
+msgstr "Etiqueta de directorio"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.constraint,message:windx_documents_management_preview.constraint_directory_tag_directory_tag_name_uniq
+msgid "Directory Tag name already exists!"
+msgstr "La etiqueta de directorio ya existe!"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__directory_tag_ids
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__directory_tag_ids
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_directory_tag
+msgid "Directory Tags"
+msgstr "Etiquetas de directorio"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.constraint,message:windx_documents_management_preview.constraint_document_directory_directory_model_uniq
+msgid "Directory for this model already exists!"
+msgstr "¡El directorio para este modelo ya existe!"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__display_name
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__display_name
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: windx_documents_management_preview
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_root
+msgid "Document"
+msgstr "Documento"
+
+#. module: windx_documents_management_preview
+#: model:ir.model,name:windx_documents_management_preview.model_document_directory
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_attachment_search_inherit_document_management
+msgid "Document Directory"
+msgstr "Directorio de documentos"
+
+#. module: windx_documents_management_preview
+#: model:ir.actions.act_window,name:windx_documents_management_preview.document_tag_action
+#: model:ir.model,name:windx_documents_management_preview.model_document_tag
+msgid "Document Tag"
+msgstr "Etiqueta de documento"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.constraint,message:windx_documents_management_preview.constraint_document_tag_document_tag_name_uniq
+msgid "Document Tag name already exists!"
+msgstr "¡El nombre de la etiqueta de documento ya existe!"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__document_tag_ids
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__document_tag_ids
+#: model:ir.ui.menu,name:windx_documents_management_preview.daily_document_tag
+msgid "Document Tags"
+msgstr "Etiquetas de documento"
+
+#. module: windx_documents_management_preview
+#: model:ir.module.category,name:windx_documents_management_preview.module_documents_management
+msgid "Documents Management"
+msgstr "Gestión de documentos"
+
+#. module: windx_documents_management_preview
+#: model:res.groups,name:windx_documents_management_preview.group_documents_manager
+msgid "Documents Manager"
+msgstr "Administrador de documentos"
+
+#. module: windx_documents_management_preview
+#: model:res.groups,name:windx_documents_management_preview.group_documents_user
+msgid "Documents User"
+msgstr "Usuario de documentos"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#, python-format
+msgid "Docx file"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#, python-format
+msgid "Excel file"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+msgid "Files"
+msgstr "Archivos"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__id
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__id
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__id
+msgid "ID"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,help:windx_documents_management_preview.field_document_directory__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,help:windx_documents_management_preview.field_document_directory__message_has_error
+#: model:ir.model.fields,help:windx_documents_management_preview.field_document_directory__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__image_1920
+#, python-format
+msgid "Image"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__image_1024
+msgid "Image 1024"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__image_128
+msgid "Image 128"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__image_256
+msgid "Image 256"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__image_512
+msgid "Image 512"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__write_uid
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__write_uid
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__write_date
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__write_date
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__master_document_directory_id
+msgid "Master Directory"
+msgstr "Directorio maestro"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__model
+msgid "Model Name"
+msgstr "Nombre del modelo"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_attachment_search_inherit_document_management
+msgid "My Document"
+msgstr "Mi documento"
+
+#. module: windx_documents_management_preview
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_my_document
+msgid "My Documents"
+msgstr "Mis documentos"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+msgid "Notes..."
+msgstr "Notas..."
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,help:windx_documents_management_preview.field_document_directory__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,help:windx_documents_management_preview.field_document_directory__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#, python-format
+msgid "PDF file"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__parent_id
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "Parent Directory"
+msgstr "Directorio padre"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__parent_path
+msgid "Parent Path"
+msgstr "Directorio padre"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#, python-format
+msgid "Powerpoint file"
+msgstr "Archivo de Powerpoint"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/binary/binary_field.xml:0
+#: code:addons/windx_documents_management_preview/static/src/binary/binary_field.xml:0
+#, python-format
+msgid "Preview File"
+msgstr "Vista previa del archivo"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__model_id
+msgid "Related Model"
+msgstr "Modelo relacionado"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#. odoo-python
+#: code:addons/windx_documents_management_preview/models/ir_attachments.py:0
+#, python-format
+msgid "Send Email"
+msgstr "Enviar correo electrónico"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_attachment_form_inherit_document_management
+msgid "Send by Email"
+msgstr "Enviar por correo electrónico"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/components/directory_chart/directory_chart.xml:0
+#, python-format
+msgid "Show attachments"
+msgstr "Mostrar archivos adjuntos"
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+msgid "Sub Directories"
+msgstr "Subdirectorios"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__name
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_tag__name
+msgid "Tag Name"
+msgstr "Nombre de la etiqueta"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__tag_ids
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#, python-format
+msgid "Text file"
+msgstr "Archivo de texto"
+
+#. module: windx_documents_management_preview
+#: model:res.groups,comment:windx_documents_management_preview.group_documents_user
+msgid "The user will be able to approve document created by user."
+msgstr "El usuario podrá aprobar documentos creados por él."
+
+#. module: windx_documents_management_preview
+#: model:res.groups,comment:windx_documents_management_preview.group_documents_manager
+msgid "The user will have access to all documents and configuration."
+msgstr "El usuario tendrá acceso a todos los documentos y configuraciones."
+
+#. module: windx_documents_management_preview
+#. odoo-python
+#: code:addons/windx_documents_management_preview/models/ir_attachments.py:0
+#, python-format
+msgid "There are no contact and/or no email linked to this visitor."
+msgstr "No hay contactos y/o correos electrónicos vinculados a este visitante."
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__total_attachment
+msgid "Total Attachment"
+msgstr "Total de archivos adjuntos"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__total_sub_directory
+msgid "Total Sub Directories"
+msgstr "Total de subdirectorios"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__user_ids
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__user_ids
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__user_ids
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: windx_documents_management_preview
+#. odoo-javascript
+#: code:addons/windx_documents_management_preview/static/src/file_viewer/file_viewer_patch.xml:0
+#, python-format
+msgid "Video"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__visible_directory
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
+msgid "Visible Directory"
+msgstr "Directorio visible"
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.model.fields,help:windx_documents_management_preview.field_document_directory__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: windx_documents_management_preview
+#. odoo-python
+#: code:addons/windx_documents_management_preview/models/document_directory.py:0
+#, python-format
+msgid "You cannot create recursive document_directories."
+msgstr "No puedes crear directorios de documentos recursivos."
+
+#. module: windx_documents_management_preview
+#: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
+msgid "folder"
+msgstr "carpeta"

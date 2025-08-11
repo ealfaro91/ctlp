@@ -7,24 +7,54 @@ class ApprovalLog(models.Model):
     _description = "Approval log"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "id desc"
+    _rec_name = "role_id"
 
-    display_name = fields.Char(
-        string="Display Name",
-        compute="_compute_display_name",
-        store=True,
-        tracking=True,
+    def _get_role_domain(self):
+        return [
+            ('category_id', '=', self.env.ref("project_bol.module_fsn_category").id)
+        ]
+
+    def _get_user_domain(self):
+        return [
+            ('groups_id', 'in', self.role_id.id)
+        ]
+
+    sequence = fields.Integer(
+        string="Sequence",
+        required=False,
+        tracking=True
     )
-    user_id = fields.Many2one("res.users", string="User", default=lambda self: self.env.user)
-    date = fields.Datetime(string="Date", default=fields.Datetime.now)
-    sign_signature = fields.Binary(string="Digital Signature", groups=False)
     role_id = fields.Many2one(
-        "res.groups", string="Role",
+        "res.groups",
+        string="Role",
+        domain=_get_role_domain,
+        tracking=True
     )
-    last_approval_role = fields.Boolean(string="Last approval role")
+    user_id = fields.Many2one(
+        "res.users",
+        string="User",
+       # domain=_get_user_domain
+    )
+    image = fields.Binary(
+        string="Image",
+        related="user_id.image_1920",
+        readonly=True,
+        help="Image of the user who made the approval."
+    )
+    state = fields.Selection([
+        ("pending", "Pending"),
+        ("approved", "Approved")],
+        string="Status",
+        default="pending",
+        tracking=True
+    )
+    request_sign_date = fields.Datetime(string="Request sign date")
+    signed_date = fields.Datetime(string="Signed date")
+    sign_signature = fields.Binary(string="Digital Signature", groups=False)
     project_fsn_id = fields.Many2one(
         "project.fsn",
         string="Project FSN",
-        help="Functional Specification Note related to this approval log.",
+        help="Needs Request Form related to this approval log.",
         tracking=True,
     )
 

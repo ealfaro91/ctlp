@@ -1,0 +1,47 @@
+<odoo>
+
+    <record id="view_project_form_inh" model="ir.ui.view">
+        <field name="name">Project Form inh</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="before">
+                <group string="FSN Information" name="fsn_information">
+                    <group>
+                        <field name="fsn_id" invisible="not fsn_id" readonly="1"/>
+                        <field name="product_owner_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="product_manager_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    </group>
+                    <group>
+                        <field name="executer_area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="requested_area" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="amount_assigned" widget="monetary"/>
+                    <field name="amount_used" widget="monetary"/>
+                </group>
+                <group>
+                    <field name="delay_days"/>
+                    <field name="deviation"/>
+                    <field name="total_advance" widget="progressbar"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_view_kanban_progress_inherit" model="ir.ui.view">
+        <field name="name">project.view.kanban.progress.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="/kanban/templates/t/div" position="inside">
+                <field name="total_advance" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

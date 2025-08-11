@@ -1,5 +1,17 @@
 <odoo>
 
+    <!-- TREE VIEW -->
+
+    <record id="project_fsn_system_tree_view" model="ir.ui.view">
+        <field name="name">project.fsn.system.tree.view</field>
+        <field name="model">project.fsn.system</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
     <!-- FORM VIEW -->
 
     <record id="project_fsn_system_form_view" model="ir.ui.view">
@@ -27,17 +39,6 @@
         </field>
     </record>
 
-    <!-- TREE VIEW -->
-
-    <record id="project_fsn_system_tree_view" model="ir.ui.view">
-        <field name="name">project.fsn.system.tree.view</field>
-        <field name="model">project.fsn.system</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
 
     <!-- SEARCH VIEW -->
 

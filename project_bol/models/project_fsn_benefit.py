@@ -20,3 +20,9 @@ class ProjectFsnBenefit(models.Model):
         tracking=True,
         help="Indicates whether this benefit is currently active.",
     )
+    color = fields.Integer(
+        string="Color",
+        default=0,
+        tracking=True,
+        help="Color code for the benefit, used for categorization.",
+    )

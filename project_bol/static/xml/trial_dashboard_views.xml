@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Template of dashboard-->
+<templates>
+    <t t-name="trial_mini_dashboard.TrialAppDashboard" owl="1">
+        <div class="o_trial_dashboard container-fluid py-4 border-bottom bg-white">
+            <div class="row justify-content-between gap-3 gap-lg-0">
+                <div class="col-12 col-lg-5 col-xl-5 col-xxl-4 flex-grow-1 flex-lg-grow-0 flex-shrink-0">
+                    <div class="grid gap-4">
+                        <div class="g-col-3 g-col-sm-2 d-flex align-items-center py-2 justify-content-end text-end justify-content-lg-start text-lg-start">
+                            Today's Visits
+                        </div>
+                        <div class="g-col-9 g-col-sm-10 grid gap-1"
+                             style="display: flex; max-width:510px;">
+                            <div class="g-col-4 p-0"
+                                 t-on-click="setSearchContext"
+                                 title="Today's Total Appointments"
+                                 filter_name="app_today" style="width: 180px;">
+                                <a href="#"
+                                   class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2"
+                                         t-out="AppointmentData['today_appointments']"/>
+                                    Total
+                                </a>
+                            </div>
+                            <div class="g-col-4 p-0"
+                                 t-on-click="setSearchContext"
+                                 title="Today's In Progress Appointments"
+                                 filter_name="app_today_in_progress"
+                                 style="width: 180px;">
+                                <a href="#"
+                                   class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2"
+                                         t-out="AppointmentData['today_appointments_in_progress']"/>
+                                    Waiting - In Consultation
+                                </a>
+                            </div>
+                            <div class="g-col-4 p-0"
+                                 t-on-click="setSearchContext"
+                                 title="Today's Closed or Typed Appointments"
+                                 filter_name="app_today_closed_typed"
+                                 style="width: 180px;">
+                                <a href="#"
+                                   class="btn btn-primary w-100 h-100 border-0 rounded-0 text-capitalize fw-normal">
+                                    <div class="fs-2"
+                                         t-out="AppointmentData['today_appointments_closed_typed']"/>
+                                    Closed - Typed
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid gap-4">
+                        <div class="g-col-3 g-col-sm-2 d-flex align-items-center py-2 justify-content-end text-end justify-content-lg-start text-lg-start">
+                            My Visits
+                        </div>
+                        <div class="g-col-9 g-col-sm-10 grid gap-2 mt-2"
+                             style="display: flex; max-width:510px;">
+                            <div class="g-col-4 p-0"
+                                 t-on-click="setSearchContext"
+                                 title="My Today's Appointments"
+                                 filter_name="filter_my_today_appointments"
+                                 style="height: 57.75px; width: 166px; font-size: 24px;">
+                                <a href="#"
+                                   class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2"
+                                         style="font-size: 1.625rem !important;"
+                                         t-out="AppointmentData['my_appointments']"/>
+                                </a>
+                            </div>
+                            <div class="g-col-4 p-0"
+                                 t-on-click="setSearchContext"
+                                 title="My Today's Appointments - In Progress"
+                                 filter_name="filter_my_today_appointments_in_progress"
+                                 style="height: 57.75px; width: 166px; font-size: 24px;">
+                                <a href="#"
+                                   class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2"
+                                         style="font-size: 1.625rem !important;"
+                                         t-out="AppointmentData['my_appointments_in_progress']"/>
+                                </a>
+                            </div>
+                            <div class="g-col-4 p-0" t-on-click="setSearchContext"
+                                 title="My Today's Appointments - Closed or Typed"
+                                 filter_name="filter_my_today_appointments_closed_typed"
+                                 style="height: 57.75px; width: 166px; font-size: 24px;">
+                                <a href="#"
+                                   class="btn btn-light d-flex align-items-center w-100 h-100 p-0 border-0 bg-100 fw-normal">
+                                    <div class="w-100 p-2" style="font-size: 1.625rem !important;"
+                                         t-out="AppointmentData['my_appointments_closed_typed']"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7 col-xl-6 col-xxl-5 flex-shrink-0">
+                    <div class="d-flex flex-column justify-content-between gap-2 h-100">
+                        <div class="grid gap-2 h-100">
+                            <div class="g-col-6 g-col-md-6 grid gap-1 gap-md-4">
+                                <div class="g-col-12 g-col-sm-4 g-col-lg-6 d-flex align-items-center justify-content-center text-center justify-content-md-end text-md-end mt-4 mt-md-0">
+                                    Delegates Studies
+                                </div>
+                                <div class="g-col-12 g-col-sm-8 g-col-lg-5 d-flex align-items-center justify-content-center py-2 bg-light"  style="font-size: 24px;">
+                                        <span>
+                                            <t t-out="AppointmentData['studies']"/>
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="g-col-6 g-col-md-6 grid gap-1 gap-md-4">
+                                <div class="g-col-12 g-col-sm-4 g-col-lg-6 d-flex align-items-center py-2 justify-content-center text-center justify-content-md-end text-md-end mt-4 mt-md-0">
+                                    Total Visits This Week
+                                </div>
+                                <div class="g-col-12 g-col-sm-8 g-col-lg-6 d-flex align-items-center justify-content-center py-2 bg-light"  style="font-size: 24px;">
+                                        <span>
+                                            <t t-out="AppointmentData['this_week_appointments']"/>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

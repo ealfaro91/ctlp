@@ -4,29 +4,35 @@
 
     <record id="project_project_stage_0" model="project.project.stage">
         <field name="sequence">10</field>
-        <field name="name">Análisis de Viabilidad</field>
+        <field name="name">VIABILIDAD</field>
     </record>
 
     <record id="project_project_stage_1" model="project.project.stage">
         <field name="sequence">15</field>
-        <field name="name">Planificación</field>
+        <field name="name">PLANIFICACIÓN</field>
     </record>
 
     <record id="project_project_stage_2" model="project.project.stage">
         <field name="sequence">20</field>
-        <field name="name">Ejecución / Desarrollo</field>
+        <field name="name">EJECUCION/ DESARROLLO</field>
         <field name="fold" eval="True"/>
     </record>
 
     <record id="project_project_stage_3" model="project.project.stage">
         <field name="sequence">25</field>
-        <field name="name">Pruebas de Usuario</field>
+        <field name="name">PRUEBAS DE USUARIO</field>
         <field name="fold" eval="True"/>
     </record>
 
     <record id="project_project_stage_4" model="project.project.stage">
-        <field name="sequence">25</field>
-        <field name="name">Puesta en Producción</field>
+        <field name="sequence">30</field>
+        <field name="name">PASE A PRODUCCION</field>
+        <field name="fold" eval="True"/>
+    </record>
+
+    <record id="project_project_stage_4" model="project.project.stage">
+        <field name="sequence">35</field>
+        <field name="name">PRODUCCION</field>
         <field name="fold" eval="True"/>
     </record>
 

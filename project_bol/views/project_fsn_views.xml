@@ -4,13 +4,14 @@
         <field name="name">Project Fsn Tree</field>
         <field name="model">project.fsn</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="FSN" decoration-info="not approved" decoration-success="approved" js_class="project_fsn_dashboard_list" sample="1">
                 <field name="name"/>
-                <field name="version"/>
-                <field name="requested_by_id"/>
+                <field name="requested_by_id" widget="many2one_avatar_user"/>
                 <field name="area"/>
                 <field name="date_requested"/>
                 <field name="project_id"/>
+                <field name="approved" column_invisible="1"/>
+                <field name="active" column_invisible="1"/>
             </tree>
         </field>
     </record>
@@ -21,12 +22,14 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="approval_state_ids" invisible="1"/>
-                    <field name="approval_state_id" widget="statusbar"/>
                     <field name="approved" invisible="1"/>
-                    <button name="button_approve" type="object" string="Approve"/>
+                    <field name="sent_approval_request" invisible="1"/>
+                    <button name="button_send_approval_request" type="object" class="btn-primary"
+                            invisible="sent_approval_request" string="Send approval request" icon="fa-envelope"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="text-bg-success" invisible="not approved"/>
+                    <widget name="web_ribbon" title="Approval pending" bg_color="text-bg-danger" invisible="approved"/>
                     <div class="oe_title">
                         <label for="name"/>
                         <h1>
@@ -35,58 +38,68 @@
                             </div>
                         </h1>
                     </div>
+                    <separator/>
                     <group>
                         <group>
+                            <field name="company_id" invisible="1"/>
                             <field name="project_id" invisible="project_id == False" readonly="1"/>
-                            <field name="version"/>
-                            <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
                             <field name="area"/>
                             <field name="document_url" invisible="1"/>
+                            <field name="date_requested"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Description">
-                            <group>
-                                <field name="date_requested"/>
-                            </group>
-                            <div style="width:50%">
-                                <separator name="incident_description" string="Incident description"/>
-                                <field name="incident_description" nolabel="1"/>
-                            </div>
-                            <div style="width:50%">
-                                <separator name="request_objective" string="Request objective"/>
-                                <field name="request_objective" nolabel="1"/>
-                            </div>
-                            <div style="width:50%">
-                                <separator name="request_description" string="Request description"/>
-                                <field name="request_description"/>
-                            </div>
-                            <div style="width:50%">
-                                <separator name="controls_exceptions_assumptions" string="Controls"/>
-                                <field name="controls_exceptions_assumptions"/>
-                            </div>
-                            <div style="width:50%">
-                                <separator name="controls_exceptions_assumptions" string="Controls"/>
-                                <field name="strategic_alignment"/>
-                            </div>
                             <div>
                                 <separator name="problem_or_incident_identification" string="Problem incident identification"/>
                                 <field name="problem_or_incident_identification"/>
                             </div>
+                            <div>
+                                <separator name="incident_description" string="Incident description"/>
+                                <field name="incident_description" nolabel="1"/>
+                            </div>
+                            <div>
+                                <separator name="request_objective" string="Request objective"/>
+                                <field name="request_objective" nolabel="1"/>
+                            </div>
+                            <div>
+                                <separator name="request_description" string="Request description"/>
+                                <field name="request_description"/>
+                            </div>
+                            <div>
+                                <separator name="controls_exceptions_assumptions" string="Controls/exceptions/assumptions"/>
+                                <field name="controls_exceptions_assumptions"/>
+                            </div>
+                            <div>
+                                <separator name="strategic_alignment" string="Strategic Alignment"/>
+                                <field name="strategic_alignment"/>
+                            </div>
+                            <div>
+                                <separator name="problem_identification" string="Problem Identification"/>
+                                <field name="problem_identification"/>
+                            </div>
+
                             <group cols="2">
                                 <field name="problem_incident_recurrence"/>
                                 <field name="affected_system_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                                 <field name="request_benefits_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                             </group>
+                        </page>
+                        <page string="FSN Sin Firma">
                             <group>
-                                <field name="document_filename" colspan="2" invisible="1"/>
+                                <field name="document_filename" invisible="1"/>
                                 <field name="document" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename"/>
                             </group>
                         </page>
-                    </notebook>
-                    <notebook>
+                        <page string="FSN Firmado">
+                            <group>
+                                <field name="document_signed_filename" invisible="1"/>
+                                <field name="document_signed" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename" readonly="1"/>
+                            </group>
+                        </page>
                         <page string="Approval Log">
-                            <field name="approval_log_ids" nolabel="1" readonly="1"/>
+                            <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request"/>
                         </page>
                     </notebook>
                 </sheet>

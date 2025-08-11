@@ -3,20 +3,20 @@
     <!-- Project Task Stages -->
     <record id="project_task_type_stage_0" model="project.task.type">
         <field name="sequence">10</field>
-        <field name="name">To do</field>
+        <field name="name">POR HACER</field>
         <field name="fold" eval="True"/>
         <field name="weight">0</field>
     </record>
 
     <record id="project_task_type_stage_1" model="project.task.type">
         <field name="sequence">15</field>
-        <field name="name">In progress</field>
+        <field name="name">EN PROGRESO</field>
         <field name="weight">50</field>
     </record>
 
     <record id="project_task_type_stage_2" model="project.task.type">
         <field name="sequence">20</field>
-        <field name="name">Done</field>
+        <field name="name">HECHO</field>
         <field name="fold" eval="True"/>
         <field name="weight">100</field>
         <field name="is_completed">True</field>

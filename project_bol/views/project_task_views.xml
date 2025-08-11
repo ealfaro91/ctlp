@@ -1,0 +1,23 @@
+<odoo>
+
+    <record id="view_project_task_form_inh" model="ir.ui.view">
+        <field name="name">project.task.form.inh</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_ids']" position="after">
+                <field name="weight"/>
+                <field name="is_completed"/>
+            </xpath>
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

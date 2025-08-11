@@ -5,28 +5,30 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="before">
-                <group string="FSN Information" name="fsn_information">
-                    <group>
-                        <field name="fsn_id" invisible="not fsn_id" readonly="1"/>
-                        <field name="product_owner_id"/>
-                        <field name="product_manager_id"/>
+            <xpath expr="//notebook" position="inside">
+                <page string="Project Information" name="project_information">
+                    <group string="FSN Information" name="fsn_information">
+                        <group>
+                            <field name="fsn_id" invisible="not fsn_id" readonly="1"/>
+                            <field name="product_owner_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="product_manager_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="executer_area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="requested_area" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        </group>
                     </group>
-                    <group>
-                        <field name="executer_area_id"/>
-                        <field name="requested_area_id"/>
-                        <field name="requested_by_id"/>
+                    <group string="Amount Information" name="amount_information">
+                        <field name="amount_assigned" widget="monetary"/>
+                        <field name="amount_used" widget="monetary"/>
                     </group>
-                </group>
-                <group>
-                    <field name="amount_assigned" widget="monetary"/>
-                    <field name="amount_used" widget="monetary"/>
-                </group>
-                <group>
-                    <field name="delay_days"/>
-                    <field name="deviation"/>
-                    <field name="total_advance" widget="progressbar"/>
-                </group>
+                    <group group="Advance Information" name="advance_information">
+                        <field name="delay_days"/>
+                        <field name="deviation"/>
+                        <field name="total_advance" widget="progressbar"/>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
@@ -41,7 +43,6 @@
             </xpath>
         </field>
     </record>
-
 
 
 </odoo>

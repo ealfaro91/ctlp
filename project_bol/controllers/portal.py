@@ -8,14 +8,19 @@ from odoo.addons.portal.controllers.portal import CustomerPortal, pager as porta
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 
+import base64
 
 class Portalfsn(CustomerPortal):
+
     def _prepare_home_portal_values(self, counters):
+        """ Prepare the values for the home portal page."""
+
         values = super()._prepare_home_portal_values(counters)
         if "fsn_count" in counters:
             fsn_count = (
-                request.env["project.fsn"].search_count([
-                ])
+                len(request.env["approval.log"].sudo().search(
+                    [("user_id", "=", user)]
+                ).mapped("project_fsn_id"))
                 if request.env["project.fsn"].check_access_rights(
                     "read", raise_exception=False
                 )
@@ -23,10 +28,10 @@ class Portalfsn(CustomerPortal):
             )
             values["fsn_count"] = fsn_count
         if "fsn_to_sign_count" in counters:
-            member = request.env.user.partner_id.employee_ids
+            user = request.env.user
             values["fsn_to_sign_count"] = (
-                request.env["project.fsn"].search_count(
-                    [("employee_id", "in", member.ids), ("state", "=", "sent")]
+                request.env["approval.log"].sudo().search_count(
+                    [("user_id", "=", user), ("state", "=", "pending")]
                 )
                 if request.env["project.fsn"].check_access_rights(
                     "read", raise_exception=False
@@ -36,14 +41,14 @@ class Portalfsn(CustomerPortal):
         return values
 
     def _prepare_fsn_domain(self):
-        partner = request.env.user.partner_id
-        if partner.employee_ids:
-            return [
-                ("employee_id", "in", partner.employee_ids.ids),
-                ("state", "not in", ["in_process", "cancelled"]),
-            ]
-        else:
-            return []
+        # partner = request.env.user.partner_id
+        # if partner.employee_ids:
+        #     return [
+        #         ("employee_id", "in", partner.employee_ids.ids),
+        #         ("state", "not in", ["in_process", "cancelled"]),
+        #     ]
+        # else:
+        return []
 
     def _prepare_searchbar_sortings(self):
         return {
@@ -61,20 +66,17 @@ class Portalfsn(CustomerPortal):
         self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
     ):
         values = self._prepare_portal_layout_values()
-        fsn = request.env["project.fsn"]
+        fsn = request.env["approval.log"].sudo().search([("user_id", "=", request.env.user.id)]).mapped("project_fsn_id")
         domain = self._prepare_fsn_domain()
-
         searchbar_sortings = self._prepare_searchbar_sortings()
         if not sortby:
             sortby = "date"
         order = searchbar_sortings[sortby]["order"]
-
         if date_begin and date_end:
             domain += [
                 ("create_date", ">", date_begin),
                 ("create_date", "<=", date_end),
             ]
-
         # fsn count
         fsn_count = fsn.search_count(domain)
         # pager
@@ -95,7 +97,6 @@ class Portalfsn(CustomerPortal):
             offset=pager_values["offset"],
         )
         request.session["my_fsn_history"] = fsn.ids[:100]
-
         values.update(
             {
                 "date": date_begin,
@@ -108,7 +109,7 @@ class Portalfsn(CustomerPortal):
                 "sortby": sortby,
             }
         )
-        return request.render("trial_clinic.portal_my_fsn", values)
+        return request.render("project_bol.portal_my_fsn", values)
 
     @http.route(
         ["/my/fsn/<int:fsn_log_id>"],
@@ -139,7 +140,7 @@ class Portalfsn(CustomerPortal):
             return self._show_report(
                 model=fsn_sudo,
                 report_type=report_type,
-                report_ref="trial_clinic.report_fsn",
+                report_ref="project_bol.report_fsn",
                 download=download,
             )
 
@@ -148,7 +149,7 @@ class Portalfsn(CustomerPortal):
             "message": message,
             "action": fsn_sudo._get_portal_return_action(),
         }
-        return request.render("trial_clinic.my_fsn_log", values)
+        return request.render("project_bol.my_fsn", values)
 
     @http.route(
         ["/my/fsn/<int:fsn_log_id>/sign"],
@@ -172,22 +173,23 @@ class Portalfsn(CustomerPortal):
         except (AccessError, MissingError):
             return request.redirect("/my")
 
-        if not fsn_sudo._has_to_be_signed():
-            return {"error": _("The fsn is not in a state that can be signed.")}
+        # if not fsn_sudo._has_to_be_signed():
+        #     return {"error": _("The fsn is not in a state that can be signed.")}
         if not signature:
             return {"error": _("Signature is missing.")}
 
         try:
-            fsn_sudo.write(
-                {
-                    "employee_signature_date": fields.Datetime.now(),
-                    "employee_signature": signature,
-                    "employee_has_to_be_signed": False,
-                }
-            )
-            fsn_sudo.action_member_sign_off()
+            fsn_sudo = request.env['project.fsn'].sudo().browse(fsn_log_id)
+            fsn_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id).write({
+                'sign_signature': signature,
+                'signed_date': fields.Datetime.now(),
+                'state': 'approved',
+            })
+            fsn_sudo.document_signed = fsn_sudo.attach_signature_to_pdf(fsn_sudo.document, request.env.user.sign_signature)
+            #fsn_sudo.action_member_sign_off()
         except (TypeError, binascii.Error) as e:
-            return {"error": _("Invalid signature data.")}
+            raise e
+            # return {"error": _("Invalid signature data.")}
 
         # _message_post_helper(
         #     "project.fsn",
@@ -207,3 +209,4 @@ class Portalfsn(CustomerPortal):
             "redirect_url": "/my/fsn/%s?message=sign_ok&access_token=%s"
             % (fsn_sudo.id, access_token),
         }
+

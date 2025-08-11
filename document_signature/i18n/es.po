@@ -1,0 +1,137 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* trial_mini_dashboard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-25 17:03+0000\n"
+"PO-Revision-Date: 2024-10-25 17:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: trial_mini_dashboard
+#: model:ir.model,name:trial_mini_dashboard.model_ctms_clinic_appointment
+msgid "Appointment"
+msgstr "Cita"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Closed - Typed"
+msgstr "Cerrada - Digitado CRF"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Delegates Studies"
+msgstr "Estudios delegados"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "My Today's Appointments"
+msgstr "Mis Citas de Hoy"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "My Today's Appointments - Closed or Typed"
+msgstr "Mis Citas de Hoy - Cerradas o Digitadas"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "My Today's Appointments - In Progress"
+msgstr "Mis Citas de Hoy - En Progreso"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "My Visits"
+msgstr "Mis Citas"
+
+#. module: trial_mini_dashboard
+#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
+msgid "Today's Appointments - Mine"
+msgstr "Citas de hoy - Mías"
+
+#. module: trial_mini_dashboard
+#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
+msgid "Today's Appointments - Mine Closed or Typed"
+msgstr "Citas de hoy - Mías Cerradas o Digitadas"
+
+#. module: trial_mini_dashboard
+#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
+msgid "Today's Appointments - Mine In Progress"
+msgstr "Citas de hoy - Mías en Progreso"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Today's Closed or Typed Appointments"
+msgstr "Citas de Hoy Cerradas o Digitadas"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Today's In Progress Appointments"
+msgstr "Citas de Hoy en Progreso"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Today's Total Appointments"
+msgstr "Citas de Hoy Totales"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Today's Visits"
+msgstr "Citas de Hoy"
+
+#. module: trial_mini_dashboard
+#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
+msgid "Today's appointments - Closed or Typed"
+msgstr "Citas de hoy - Cerradas o Digitadas"
+
+#. module: trial_mini_dashboard
+#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
+msgid "Today's appointments - In Progress"
+msgstr "Citas de hoy - En Progreso"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Total"
+msgstr "Total"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Total Visits This Week"
+msgstr "Total de Citas de la Semana"
+
+#. module: trial_mini_dashboard
+#. odoo-javascript
+#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
+#, python-format
+msgid "Waiting - In Consultation"
+msgstr "En Espera - En Consulta"

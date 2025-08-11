@@ -34,12 +34,12 @@
                         <group string="Settings">
                             <field name="show_in_external_portal"/>
                             <field name="default_reopen_area"/>
+                            <field name="restricted_area"/>
                             <field name="has_locations"/>
                             <field name="has_categories"/>
                             <field name="has_origins"/>
                         </group>
                     </group>
-
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

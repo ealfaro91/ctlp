@@ -21,6 +21,11 @@ class HelpdeskTicketArea(models.Model):
         translate=True,
         required=True
     )
+    restricted_area = fields.Boolean(
+        string="Restricted Area",
+        default=False,
+        tracking=True
+    )
     code = fields.Char(
         string="Code",
         tracking=True,
@@ -122,15 +127,15 @@ class HelpdeskTicketArea(models.Model):
             })
         return
 
-    # @api.constrains('default_reopen_area')
-    # def _check_unique_is_other(self):
-    #     for record in self:
-    #         if record.default_reopen_area:
-    #             existing = self.search([
-    #                 ('default_reopen_area', '=', True),
-    #                 ('id', '!=', record.id)
-    #             ], limit=1)
-    #             if existing:
-    #                 raise ValidationError("Only one record can have 'Is Other' set to True.")
+    @api.constrains('default_reopen_area')
+    def _check_unique_reopen_area(self):
+        for record in self:
+            if record.default_reopen_area:
+                existing = self.search([
+                    ('default_reopen_area', '=', True),
+                    ('id', '!=', record.id)
+                ], limit=1)
+                if existing:
+                    raise ValidationError("Only one area can be set as reopen area.")
 
 
