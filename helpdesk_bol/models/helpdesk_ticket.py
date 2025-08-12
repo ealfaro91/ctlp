@@ -20,6 +20,24 @@ _logger = logging.getLogger(__name__)
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
+    def check_access_rule(self, operation):
+        group = self.env['res.groups'].browse(197)
+        if group and group in self.env.user.groups_id:
+            return
+        return super().check_access_rule(operation)
+
+    def read(self, fields=None, load='_classic_read'):
+        try:
+            return super().read(fields=fields, load=load)
+        except AccessError:
+            user = self.env.user
+            group = self.env['res.groups'].browse(197)
+            if group in self.env.user.groups_id:
+                # Devuelve lista vacía para no generar error en frontend
+                return []
+            else:
+                return []  # raise
+
     resource_calendar_id =  fields.Many2one(
         "resource.calendar",
         string="Work schedule",

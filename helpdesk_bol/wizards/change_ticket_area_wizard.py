@@ -54,11 +54,11 @@ class ChangeTicketAreaWizard(models.TransientModel):
         self.subcategory_id = False
 
     def change_area(self):
-        self.ensure_one()
-        self.ticket_id.write({
+        self.sudo().ensure_one()
+        self.sudo().ticket_id.write({
             'derived_from_area_id': self.ticket_id.area_id.id
         })
-        self.ticket_id.write({
+        self.sudo().ticket_id.write({
             'area_id': self.area_id.id,
             'team_id': self.env['helpdesk.ticket.team'].sudo().search([('area_id', '=', self.area_id.id)]).id,
             'type_id': self.ticket_type_id.id,
@@ -68,13 +68,13 @@ class ChangeTicketAreaWizard(models.TransientModel):
             'origen_id': self.origen_id.id,
             'user_id': self.user_id.id,
         })
+        self.env.cr.commit()
         return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'message': _("The ticket area has been changed"),
-                'next': {'type': 'ir.actions.act_window_close'},
-                'sticky': False,
-                'type': 'success',
-            }
-        }
+            'type': 'ir.actions.act_window',
+            'res_model': 'helpdesk.ticket',
+            'view_mode': 'tree',
+            'domain': [('id', '!=', self.sudo().ticket_id.id)],
+            'target': 'current',
+            'name': 'Tickets'}
+
+
