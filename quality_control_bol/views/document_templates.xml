@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- TICKET REGISTRATION FORM FOR GSS USERS -->
+
+    <template id="document_form" name="Register Your Requirement">
+        <t t-call="website.layout">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; height: auto; background-color: rgba(255, 255, 255, 1.0);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-xl-9 mx-auto">
+                            <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+                                <div class="card-body p-4 p-sm-5">
+                                    <h1 class="text-center mb-5 fw-bold fs-5">REGISTRE SU REQUERIMIENTO</h1>
+                                    <form action="/help_desk_close" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="submission_token" t-att-value="submission_token"/>
+                                        <div class="card-body">
+                                            <t t-if="error_message">
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    <span t-esc="error_message"/>
+                                                </div>
+                                            </t>
+                                            <!-- Requester Name and Area Fields -->
+                                            <div class="row mb-4">
+                                                <div class="col-md-4">
+                                                    <label for="name" class="form-label">Usuario</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-light">
+                                                            <i class="fa fa-user"/>
+                                                        </span>
+                                                        <input type="text" class="form-control" name="name" required="required" t-att-value="user.name" readonly="readonly"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="code" class="form-label">Correo</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-light">
+                                                            <i class="fa fa-envelope"/>
+                                                        </span>
+                                                        <input type="text" class="form-control" name="email" required="required" t-att-value="user.email" readonly="readonly"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Request Type Field -->
+                                            <div class="mb-4">
+                                                <label for="type_id" class="form-label">Tipo de archivo</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tasks"/>
+                                                    </span>
+                                                    <select class="form-control" name="type_id" required="required">
+                                                        <option value=""/>
+                                                        <t t-foreach="document_types" t-as="type">
+                                                            <option t-att-value="type.id">
+                                                                <t t-esc="type.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- Request Type Field -->
+                                            <div class="mb-4">
+                                                <label for="type_id" class="form-label">Area responsable</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tasks"/>
+                                                    </span>
+                                                    <select class="form-control" name="type_id" required="required">
+                                                        <option value=""/>
+                                                        <t t-foreach="areas" t-as="area">
+                                                            <option t-att-value="area.id">
+                                                                <t t-esc="area.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Title Field -->
+                                            <div class="mb-4">
+                                                <label for="title" class="form-label">Title</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tag"/>
+                                                    </span>
+                                                    <input type="text" class="form-control" name="title" required="required" placeholder="Title"/>
+                                                </div>
+                                            </div>
+                                            <!-- Description Field -->
+                                            <div class="mb-4">
+                                                <label for="description" class="form-label">Descripción</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-pencil"/>
+                                                    </span>
+                                                    <textarea class="form-control" name="description" rows="6" style="min-height: 150px; resize: vertical;" required="required"/>
+                                                </div>
+                                            </div>
+                                             <!-- Attachments Field -->
+                                            <div class="mb-4">
+                                                <label for="attachments" class="form-label">Attachment(s)</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-paperclip"/>
+                                                    </span>
+                                                    <input type="file" class="form-control" name="attachments" multiple="true" onchange="showFileNames()"/>
+                                                    <div id="fileList" class="mt-2"/>
+                                                </div>
+                                            </div>
+                                            <!-- Submit Button -->
+                                              <div class="d-grid mb-2">
+                                                  <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit"> <i class="fa fa-paper-plane"/>Submit</button>
+                                              </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

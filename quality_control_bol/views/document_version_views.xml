@@ -1,0 +1,80 @@
+<odoo>
+
+    <!-- TREE VIEW -->
+
+    <record id="document_version_tree_view" model="ir.ui.view">
+        <field name="name">document.version.tree.view</field>
+        <field name="model">document.version</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="version"/>
+                <field name="active" invisible="1"/>
+<!--                <field name="attachment_id"/>-->
+<!--                <field name="parent_version"/>-->
+<!--                <field name="deactivate_date"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+
+    <record id="document_version_form_view" model="ir.ui.view">
+        <field name="name">document.version.form.view</field>
+        <field name="model">document.version</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="version" string="Version"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field name="version"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="attachment_id"/>
+                        <field name="parent_version_id"/>
+                        <field name="deactivate_date"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+
+    <record id="document_version_search_view" model="ir.ui.view">
+        <field name="name">document.version.search.view</field>
+        <field name="model">document.version</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="version"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+
+    <record id="document_version_action" model="ir.actions.act_window">
+        <field name="name">Document Version</field>
+        <field name="res_model">document.version</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- MENUS -->
+
+   <menuitem
+        id="document_version_menu"
+        name="Document Version"
+        parent="windx_documents_management_preview.menu_document_configuration"
+        action="document_version_action"
+        sequence="16"/>
+
+
+</odoo>

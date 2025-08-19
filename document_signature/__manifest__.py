@@ -7,7 +7,7 @@
     "summary": "Sign documents with digital signatures",
     "author": "Elymar Alfaro",
     "website": "https://easofts.com",
-    "depends": ["base",],
+    "depends": ["base", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/res_users_views.xml",

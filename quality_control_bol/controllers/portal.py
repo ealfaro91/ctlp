@@ -10,33 +10,33 @@ from odoo.http import request
 
 import base64
 
-class Portalfsn(CustomerPortal):
+class DocumentPortal(CustomerPortal):
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
-        if "fsn_count" in counters:
-            fsn_count = (
-                request.env["project.fsn"].search_count([
+        if "document_count" in counters:
+            document_count = (
+                request.env["ir.attachment"].search_count([
                 ])
-                if request.env["project.fsn"].check_access_rights(
+                if request.env["ir.attachment"].check_access_rights(
                     "read", raise_exception=False
                 )
                 else 0
             )
-            values["fsn_count"] = fsn_count
-        # if "fsn_to_sign_count" in counters:
+            values["document_count"] = document_count
+        # if "document_to_sign_count" in counters:
         #     member = request.env.user.partner_id.employee_ids
-        #     values["fsn_to_sign_count"] = (
-        #         request.env["project.fsn"].search_count(
+        #     values["document_to_sign_count"] = (
+        #         request.env["ir.attachment"].search_count(
         #             [("employee_id", "in", member.ids), ("state", "=", "sent")]
         #         )
-        #         if request.env["project.fsn"].check_access_rights(
+        #         if request.env["ir.attachment"].check_access_rights(
         #             "read", raise_exception=False
         #         )
         #         else 0
         #     )
         return values
 
-    def _prepare_fsn_domain(self):
+    def _prepare_document_domain(self):
         # partner = request.env.user.partner_id
         # if partner.employee_ids:
         #     return [
@@ -53,17 +53,17 @@ class Portalfsn(CustomerPortal):
         }
 
     @http.route(
-        ["/my/fsn", "/my/fsn/page/<int:page>"],
+        ["/my/document", "/my/document/page/<int:page>"],
         type="http",
         auth="user",
         website=True,
     )
-    def portal_my_fsn(
+    def portal_my_document(
         self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
     ):
         values = self._prepare_portal_layout_values()
-        fsn = request.env["project.fsn"]
-        domain = self._prepare_fsn_domain()
+        document = request.env["ir.attachment"]
+        domain = self._prepare_document_domain()
 
         searchbar_sortings = self._prepare_searchbar_sortings()
         if not sortby:
@@ -76,51 +76,51 @@ class Portalfsn(CustomerPortal):
                 ("create_date", "<=", date_end),
             ]
 
-        # fsn count
-        fsn_count = fsn.search_count(domain)
+        # document count
+        document_count = document.search_count(domain)
         # pager
         pager_values = portal_pager(
-            url="/my/fsn",
+            url="/my/document",
             url_args={"date_begin": date_begin,
                       "date_end": date_end, "sortby": sortby},
-            total=fsn_count,
+            total=document_count,
             page=page,
             step=self._items_per_page,
         )
 
         # content according to pager and archive selected
-        fsn = fsn.search(
+        document = document.search(
             domain,
             order=order,
             limit=self._items_per_page,
             offset=pager_values["offset"],
         )
-        request.session["my_fsn_history"] = fsn.ids[:100]
+        request.session["my_document_history"] = document.ids[:100]
 
         values.update(
             {
                 "date": date_begin,
                 "date_end": date_end,
-                "fsn": fsn.sudo(),
-                "page_name": "fsn_log",
-                "default_url": "/my/fsn",
+                "document": document.sudo(),
+                "page_name": "document_log",
+                "default_url": "/my/document",
                 "pager": pager_values,
                 "searchbar_sortings": searchbar_sortings,
                 "sortby": sortby,
             }
         )
-        return request.render("project_bol.portal_my_fsn", values)
+        return request.render("quality_control_bol.portal_my_document", values)
 
     @http.route(
-        ["/my/fsn/<int:fsn_log_id>"],
+        ["/my/document/<int:document_log_id>"],
         type="http",
         auth="public",
         website=True,
         sitemap=False,
     )
-    def my_fsn_log_data(
+    def my_document_log_data(
         self,
-        fsn_log_id=None,
+        document_log_id=None,
         access_token=None,
         report_type=None,
         message=False,
@@ -128,9 +128,9 @@ class Portalfsn(CustomerPortal):
         **kw,
     ):
         try:
-            fsn_sudo = self._document_check_access(
-                "project.fsn",
-                fsn_log_id,
+            document_sudo = self._document_check_access(
+                "ir.attachment",
+                document_log_id,
                 access_token=access_token,
             )
         except (AccessError, MissingError):
@@ -138,65 +138,65 @@ class Portalfsn(CustomerPortal):
 
         if report_type in ("html", "pdf", "text"):
             return self._show_report(
-                model=fsn_sudo,
+                model=document_sudo,
                 report_type=report_type,
-                report_ref="project_bol.report_fsn",
+                report_ref="quality_control_bol.report_document",
                 download=download,
             )
 
         values = {
-            "fsn_log": fsn_sudo,
+            "document_log": document_sudo,
             "message": message,
-            "action": fsn_sudo._get_portal_return_action(),
+            "action": document_sudo._get_portal_return_action(),
         }
-        return request.render("project_bol.my_fsn", values)
+        return request.render("quality_control_bol.my_document", values)
 
     @http.route(
-        ["/my/fsn/<int:fsn_log_id>/sign"],
+        ["/my/document/<int:document_log_id>/sign"],
         type="json",
         auth="public",
         website=True,
         sitemap=False,
     )
-    def fsn_log_sign(
-        self, fsn_log_id, access_token=None, name=None, signature=None
+    def document_log_sign(
+        self, document_log_id, access_token=None, name=None, signature=None
     ):
         # get from query string if not on json param
         access_token = access_token or request.httprequest.args.get(
             "access_token")
         try:
-            fsn_sudo = self._document_check_access(
-                "project.fsn",
-                fsn_log_id,
+            document_sudo = self._document_check_access(
+                "ir.attachment",
+                document_log_id,
                 access_token=access_token,
             )
         except (AccessError, MissingError):
             return request.redirect("/my")
 
-        # if not fsn_sudo._has_to_be_signed():
-        #     return {"error": _("The fsn is not in a state that can be signed.")}
+        # if not document_sudo._has_to_be_signed():
+        #     return {"error": _("The document is not in a state that can be signed.")}
         if not signature:
             return {"error": _("Signature is missing.")}
 
         try:
-            fsn_sudo.write({
+            document_sudo.write({
                 'approval_log_ids': [(0, 0, {
                     'date': fields.Datetime.now(),
                     'sign_signature': signature,
                     # 'employee_has_to_be_signed': False,  # Si quieres también incluir este campo
                 })]
             })
-            fsn_sudo = request.env['project.fsn'].sudo().browse(fsn_log_id)
-            fsn_sudo.signed()
-            #fsn_sudo.action_member_sign_off()
+            document_sudo = request.env['ir.attachment'].sudo().browse(document_log_id)
+            document_sudo.signed()
+            #document_sudo.action_member_sign_off()
         except (TypeError, binascii.Error) as e:
             raise e
             # return {"error": _("Invalid signature data.")}
 
         # _message_post_helper(
-        #     "project.fsn",
-        #     fsn_sudo.id,
-        #     _("fsn signed by %s") % (name,),
+        #     "ir.attachment",
+        #     document_sudo.id,
+        #     _("document signed by %s") % (name,),
         #     **(
         #         {
         #             "token": access_token if access_token else {},
@@ -208,8 +208,8 @@ class Portalfsn(CustomerPortal):
 
         return {
             "force_refresh": True,
-            "redirect_url": "/my/fsn/%s?message=sign_ok&access_token=%s"
-            % (fsn_sudo.id, access_token),
+            "redirect_url": "/my/document/%s?message=sign_ok&access_token=%s"
+            % (document_sudo.id, access_token),
         }
 
 class PdfInlineController(http.Controller):
@@ -222,6 +222,6 @@ class PdfInlineController(http.Controller):
         pdf_bytes = base64.b64decode(pdf_data)
         headers = [
             ('Content-Type', 'application/pdf'),
-            ('Content-Disposition', 'inline; filename="document.pdf"'),
+            ('Content-Disposition', 'inline; filename="datas.pdf"'),
         ]
         return request.make_response(pdf_bytes, headers)

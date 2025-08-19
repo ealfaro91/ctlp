@@ -1331,7 +1331,7 @@ msgstr "Título"
 #. module: project_bol
 #: model:project.task.type,name:project_bol.project_task_type_stage_0
 msgid "To do"
-msgstr "Por hacer"
+msgstr "POR HACER"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__total_advance

@@ -2,23 +2,17 @@
 from odoo import models, fields, api
 
 
-class IrAttachment(models.Model):
-    _inherit = "ir.attachment"
-
-    # document_file_type_id = fields.Many2one(
-    #     comodel_name="document.file.type",
-    #     string="Document File Type",
-    #     help="The type of the document file, used to categorize and manage different file types.",
-    #     tracking=True
-    # )
-
-
 class DocumentFileType(models.Model):
     _name = "document.file.type"
     _description = "Document File Type"
     _inherit = ["mail.thread", "mail.activity.mixin", "portal.mixin",]
     _order = "create_date desc"
 
+    active = fields.Boolean(
+        string='Active',
+        default=True,
+        help="Indicates whether the document file type is active or not."
+    )
     name = fields.Char(
         string="File Type",
         required=True,
@@ -33,19 +27,19 @@ class DocumentFileType(models.Model):
     )
 
 
-class DocumentVersion(models.Model):
-    _name = 'document.version'
-    _inherit = ["mail.thread", "mail.activity.mixin", "portal.mixin",]
 
 
-    version = fields.Integer(
-          string='Version Number', default=0, readonly=True, copy=False)
-    # deactivate_date = fields.Date(string='Deactivated date', readonly=True)
-    # parent_test = fields.Many2one(
-    #       comodel_name='qc.test', string='Parent Test', copy=False)
-    # old_versions = fields.One2many(
-    #         comodel_name='qc.test', string='Old Versions',
-    #         inverse_name='parent_test', context={'active_test': False})
+class DocumentDirectory(models.Model):
+    _inherit = 'document.directory'
+
+    area_id = fields.Many2one(
+        comodel_name='helpdesk.ticket.area',
+        string='Area',
+        help="The area associated with the document directory, used for categorization and management.",
+        tracking=True
+    )
+ #   document_file_type_ids = fields.Many2one(
+
     # unrevisioned_name = fields.Char(
     #         string='Test Name', copy=True, readonly=True)
         #

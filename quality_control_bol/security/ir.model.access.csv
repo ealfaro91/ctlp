@@ -1,7 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_approval_state,approval_state_group_user,model_approval_state,base.group_user,1,1,1,1
-access_approval_log,approval_log_group_user,model_approval_log,base.group_user,1,1,1,1
-access_project_fsn,project_fsn_group_user,model_project_fsn,base.group_user,1,1,1,1
-acces_project_fsn_benefit,project_fsn_benefit_group_user,model_project_fsn_benefit,base.group_user,1,1,1,1
-acces_project_fsn_system,project_fsn_system_group_user,model_project_fsn_system,base.group_user,1,1,1,1
 acces_document_file_type,document_file_type_user,model_document_file_type,base.group_user,1,1,1,1
+acces_document_version,document_version_user,model_document_version,base.group_user,1,1,1,1

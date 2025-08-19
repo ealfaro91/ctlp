@@ -1409,3 +1409,17 @@ msgstr "cerrar"
 #: model:mail.template,subject:project_bol.fsn_approval_email
 msgid "{{ object.name }}"
 msgstr ""
+
+#. module: windx_documents_management_preview
+#: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_directory
+msgid "Directories"
+msgstr "Carpetas"
+
+#. module: windx_documents_management_preview
+#: model:ir.actions.act_window,name:windx_documents_management_preview.act_document_sub_directory
+#: model:ir.actions.act_window,name:windx_documents_management_preview.document_directory_kanban_action
+#: model:ir.actions.act_window,name:windx_documents_management_preview.document_directory_tree_action
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__document_directory_id
+#: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__document_directory_id
+msgid "Directory"
+msgstr "Carpeta"

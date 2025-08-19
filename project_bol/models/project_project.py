@@ -1,5 +1,5 @@
 
-from odoo import fields, models
+from odoo import fields, models, api, _
 
 
 class ProjectProject(models.Model):
@@ -73,9 +73,24 @@ class ProjectProject(models.Model):
     total_advance = fields.Float(
         string="Total Advance",
         tracking=True,
-        default=100,
+        compute="_compute_total_advance",
         help="The total advance payment made for this project.",
     )
+
+    def _compute_total_advance(self):
+        """ REVISAR """
+        for project in self:
+            tasks = project.task_ids
+            if not tasks:
+                project.total_advance = 0.0
+                continue
+                # Sumamos los weights de las etapas de todas las tareas
+                total_weight = sum(task.stage_id.weight for task in tasks)
+                # Weight máximo de etapas en el proyecto (opcional)
+                max_weight = max(project.stage_ids.mapped('weight')) or 1
+                # Avance como porcentaje
+                project.progress = (total_weight / (len(tasks) * max_weight)) * 100
+            project.total_advance = 0.0
 
     def _compute_deviation(self):
         for project in self:
@@ -87,3 +102,15 @@ class ProjectProject(models.Model):
             # if project.date_start and project.end_date:
             #     delay = (project.end_date - project.date_start).days
             #     project.delay_days = max(0, delay)
+
+    @api.model
+    def create(self, vals):
+        project = super(ProjectProject, self).create(vals)
+        task_type_ids = self.env.ref("project_bol.project_task_type_stage_0")
+        task_type_ids += self.env.ref("project_bol.project_task_type_stage_1")
+        task_type_ids += self.env.ref("project_bol.project_task_type_stage_2")
+        task_type_ids.sudo().write({
+            "project_ids": [(4, project.id)]
+        })
+        project_project_stage_0
+        return project

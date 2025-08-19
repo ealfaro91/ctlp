@@ -15,6 +15,7 @@
         "muk_web_dialog",
         "muk_web_theme",
         "project_bol",
+        "quality_control_bol",
     ],
     "license": "Other proprietary",
     "installable": True,

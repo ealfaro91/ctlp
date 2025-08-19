@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="view_project_project_stage_tree_inh" model="ir.ui.view">
+        <field name="name">project.project.stage.tree.inh</field>
+        <field name="model">project.project.stage</field>
+        <field name="inherit_id" ref="project.project_project_stage_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fold']" position="before">
+                <field name="weight"/>
+                <field name="is_completed"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_project_stage_form_inh" model="ir.ui.view">
+        <field name="name">project.project.stage.form.inh</field>
+        <field name="model">project.project.stage</field>
+        <field name="inherit_id" ref="project.project_project_stage_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fold']" position="before">
+                <field name="weight"/>
+                <field name="is_completed"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

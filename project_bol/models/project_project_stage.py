@@ -1,9 +1,9 @@
 from odoo import api, fields, models
 
 
-class ProjectTaskType(models.Model):
-    _name = "project.task.type"
-    _inherit = ["project.task.type", "mail.thread", "mail.activity.mixin"]
+class ProjectProjectStage(models.Model):
+    _name = "project.project.stage"
+    _inherit = ["project.project.stage", "mail.thread", "mail.activity.mixin"]
 
     weight = fields.Integer(
         string="Weight", default=0,
@@ -16,6 +16,5 @@ class ProjectTaskType(models.Model):
         default=False, help="Indicates if the task is completed",
         tracking=True,
     )
-    name = fields.Char(tracking=True)
-    sequence = fields.Integer(tracking=True)
+
 

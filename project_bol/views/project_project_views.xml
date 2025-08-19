@@ -33,13 +33,24 @@
         </field>
     </record>
 
+    <record id="project_view_tree_progress_inherit" model="ir.ui.view">
+        <field name="name">project.view.tree.progress.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="total_advance" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
     <record id="project_view_kanban_progress_inherit" model="ir.ui.view">
         <field name="name">project.view.kanban.progress.inherit</field>
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="/kanban/templates/t/div" position="inside">
-                <field name="total_advance" widget="progressbar"/>
+            <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">
+                <span title="Total Advance"/><field name="total_advance" widget="progressbar"/>
             </xpath>
         </field>
     </record>

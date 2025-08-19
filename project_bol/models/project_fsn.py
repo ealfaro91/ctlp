@@ -2,13 +2,14 @@
 import base64
 import io
 
-from PyPDF2 import PdfReader, PdfWriter
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.utils import ImageReader
-from reportlab.lib import colors
+#from PyPDF2 import PdfReader, PdfWriter
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
+# from reportlab.lib.utils import ImageReader
+# from reportlab.lib import colors
 
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class ProjectFsn(models.Model):
@@ -16,7 +17,6 @@ class ProjectFsn(models.Model):
     _description = "Project FSN (Needs Request Form)"
     _inherit = ["mail.thread", "mail.activity.mixin", "portal.mixin",]
     _order = "create_date desc"
-
 
     active = fields.Boolean(
         string="Active",
@@ -149,8 +149,12 @@ class ProjectFsn(models.Model):
         default=False,
         help="Indicates whether the approval request has been sent."
     )
-    approved = fields.Boolean(
-        string="Approved",
+    state = fields.Selection([
+        ("to_approve", "To Approve"),
+        ("approval_request", "Approval Request Sent"),
+        ("approved", "Approved")],
+        string="Status",
+        default="to_approve",
         store=True,
         compute="_compute_approval_state",
     )
@@ -175,84 +179,6 @@ class ProjectFsn(models.Model):
         compute="get_document_url", string="Portal Access Link"
     )
 
-    @staticmethod
-    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
-        """Adjunta una firma en un cuadrante específico de la última página."""
-        if not pdf_binary_base64 or not signature_image_base64:
-            return pdf_binary_base64  # Si falta algo, no modificamos
-
-        # Decodificar los datos binarios
-        pdf_data = base64.b64decode(pdf_binary_base64)
-        signature_image = base64.b64decode(signature_image_base64)
-
-        # Leer el PDF original
-        original_pdf = PdfReader(io.BytesIO(pdf_data))
-
-        # Buscar última página válida
-        last_page = None
-        last_page_index = None
-        for idx, page in reversed(list(enumerate(original_pdf.pages))):
-            try:
-                if hasattr(page, "mediabox") and len(page.mediabox) == 4:
-                    last_page = page
-                    last_page_index = idx
-                    break
-            except Exception:
-                continue
-
-        # Si no hay página válida, usar primera
-        if last_page is None:
-            last_page = original_pdf.pages[0]
-            last_page_index = 0
-            width, height = 595, 842  # tamaño A4 por defecto
-        else:
-            try:
-                width = float(last_page.mediabox.width)
-                height = float(last_page.mediabox.height)
-            except Exception:
-                width, height = 595, 842
-
-        # Configurar posiciones de cuadrantes
-        quadrant_positions = {
-            1: (width - 150, height - 100),  # arriba derecha
-            2: (50, height - 100),  # arriba izquierda
-            3: (width - 150, 50),  # abajo derecha
-            4: (50, 50),  # abajo izquierda
-        }
-
-        # Obtener coordenadas según el cuadrante
-        x, y = quadrant_positions.get(quadrant, quadrant_positions[1])
-        sig_width, sig_height = 120, 50
-
-        # Crear PDF con la firma
-        packet = io.BytesIO()
-        can = canvas.Canvas(packet, pagesize=(width, height))
-        can.setFillColor(colors.white)
-        can.rect(x, y, sig_width, sig_height, fill=1, stroke=0)
-        can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y, width=sig_width, height=sig_height, mask='auto')
-        can.save()
-
-        # Fusionar firma con la última página
-        packet.seek(0)
-        signature_pdf = PdfReader(packet)
-        writer = PdfWriter()
-
-        for i, page in enumerate(original_pdf.pages):
-            if i == last_page_index:
-                page.merge_page(signature_pdf.pages[0])
-            writer.add_page(page)
-
-        # Guardar PDF final
-        output_stream = io.BytesIO()
-        writer.write(output_stream)
-        output_stream.seek(0)
-
-        return base64.b64encode(output_stream.read())
-
-    def signed(self):
-        new_pdf = self.attach_signature_to_pdf(self.document, self.requested_by_id.sign_signature)
-        self.document_signed = new_pdf
-
     @api.depends("approval_log_ids")
     def _compute_approval_state(self):
         """Compute the approval state based on the approval
@@ -260,10 +186,14 @@ class ProjectFsn(models.Model):
         for fsn in self:
             fsn.approved = False
             if fsn.approval_log_ids:
-                fsn.approved = all(
+                fsn.state = "approved" if all(
                     log.state == "approved" for log in fsn.approval_log_ids
-                )
-                if fsn.approved:
+                ) else "to_approve" if not fsn.sent_approval_request else "approval_request"
+                if fsn.state == "approved":
+                    mail_template = self.env.ref(
+                        "project_bol.fsn_approved_notification", raise_if_not_found=True
+                    )
+                    mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
                     fsn._action_create_project()
 
     def get_document_url(self):
@@ -287,7 +217,9 @@ class ProjectFsn(models.Model):
         return "/my/fsn/%s/sign?access_token=%s" % (self.id, self.access_token)
 
     def button_send_approval_request(self):
-        """Send approval request emails to all users in the approval log."""
+        """Send approval request emails to all users in the approval log.
+        returns a notification message."""
+
         for rec in self:
             if not rec.approval_log_ids:
                 raise ValidationError(
@@ -295,30 +227,34 @@ class ProjectFsn(models.Model):
                 )
             for user in rec.approval_log_ids.mapped("user_id"):
                 mail_template = self.env.ref(
-                    "project_bol.fsn_approval_email", raise_if_not_found=True
+                    "project_bol.fsn_approval_request_email", raise_if_not_found=True
                 )
-                mail_template.send_mail(
+                # Aquí estamos pasando al contexto el usuario
+                mail_template.sudo().with_context(
+                    email_to=user.email_formatted,
+                    user_id=user
+                ).send_mail(
                     rec.id, force_send=False, raise_exception=True
                 )
             rec.sent_approval_request = True
             return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'message': _("The approval request has been sent successfully."),
-                    'next': {'type': 'ir.actions.act_window_close'},
-                    'sticky': False,
-                    'type': 'success',
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("The approval request has been sent successfully."),
+                    "next": {"type": "ir.actions.act_window_close"},
+                    "sticky": False,
+                    "type": "success",
                 }
             }
 
     def _action_create_project(self):
-        """Create a project from the ticket."""
+        """Creates a project with fsn values."""
         self.ensure_one()
         project = self.env["project.project"].create({
             "name": self.name,
             "description": self.incident_description,
-            "user_id": self.requested_by_id.id,
+            "requested_by_id": self.requested_by_id.id,
             "fsn_id": self.id,
             "requested_by_id": self.requested_by_id.id,
             "date_start": self.date_start_project,
@@ -326,14 +262,12 @@ class ProjectFsn(models.Model):
             "requested_area": self.area
         })
         self.project_id = project.id
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "project.project",
-            "res_id": project.id,
-            "view_mode": "form",
-            "target": "current",
-        }
-
+        mail_template = self.env.ref(
+            "project_bol.project_creation_email", raise_if_not_found=True
+        )
+        mail_template.sudo().with_context(
+            email_to=user.email_formatted,
+        ).send_mail(self.project_id.id, force_send=True, raise_exception=True)
 
     @api.model
     def get_dashboard_values(self):

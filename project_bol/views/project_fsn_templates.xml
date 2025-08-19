@@ -1,97 +1,88 @@
 <odoo>
 
+
+    <!-- This template is used to display the FSN menu entries in the portal breadcrumbs -->
+
     <template id="portal_my_home_menu_fsn" name="Portal layout : Fsn menu entries" inherit_id="portal.portal_breadcrumbs" priority="10">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'fsn_log' or fsn_log" t-attf-class="breadcrumb-item #{'active ' if not fsn_log else ''}">
-                <a t-if="fsn_log" t-attf-href="/my/delegations?{{ keep_query() }}">FSN to approve</a>
+            <li t-if="page_name == 'fsn' or fsn" t-attf-class="breadcrumb-item #{'active ' if not fsn else ''}">
+                <a t-if="fsn" t-attf-href="/my/fsn?{{ keep_query() }}">FSN to approve</a>
                 <t t-else="">FSN to approve</t>
             </li>
-            <li t-if="fsn_log" class="breadcrumb-item active">
-                <t t-out="fsn_log.name" t-if="fsn_log.name != '/'"/>
+            <li t-if="fsn" class="breadcrumb-item active">
+                <t t-out="fsn.name" t-if="fsn.name != '/'"/>
                 <t t-else=""><em>Draft Delegation</em></t>
             </li>
         </xpath>
     </template>
 
-    <template id="portal_my_home_fsn" name="Show Fsn to approve" inherit_id="portal.portal_my_home" priority="20">
+    <!-- Sign -->
+
+    <template id="portal_my_home_fsn" name="Show FSN to approve" inherit_id="portal.portal_my_home" priority="20">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">FSN</t>
                 <t t-set="url" t-value="'/my/fsn'"/>
-                <t t-set="text">Sing, follow and download your fsn.</t>
+                <t t-set="text">Sign, follow and download your fsn.</t>
                 <t t-set="placeholder_count" t-value="'fsn_count'"/>
             </t>
         </xpath>
     </template>
 
+    <!-- FSN Portal -->
+
     <template id="portal_my_fsn" name="My FSN approval">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
-
             <t t-call="portal.portal_searchbar">
-                <t t-set="title">Fsn Approval</t>
+                <t t-set="title">FSN Approval</t>
             </t>
-
-            <div t-if="not delegations" class="alert alert-warning" role="alert">
+            <div t-if="not fsn" class="alert alert-warning" role="alert">
                 There are currently no pending fsn approvals for your account.
             </div>
-
-            <t t-if="delegations" t-call="portal.portal_table">
+            <t t-if="fsn" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
                         <th>Name</th>
-                        <th>Study</th>
-                        <th>Role</th>
-                        <th>Start Date</th>
-                        <th>State</th>
-                        <th></th>
+                        <th>Requester</th>
+                        <th>Request date</th>
+                        <th>Area</th>
                     </tr>
                 </thead>
-
-                <t t-foreach="delegations" t-as="delegation">
+                <t t-foreach="fsn" t-as="f">
                     <tr>
                         <td>
-                            <a t-attf-href="/my/delegations/#{delegation.id}?{{ keep_query() }}"><t t-esc="delegation.name"/></a>
+                            <a t-attf-href="/my/fsn/#{f.id}?{{ keep_query() }}"><t t-esc="f.name"/></a>
                         </td>
                         <td>
-                            <span t-field="delegation.project_id"/>
+                            <span t-field="f.requested_by_id.name"/>
                         </td>
                         <td>
-                            <span t-field="delegation.role_id"/>
+                            <span t-field="f.date_requested"/>
                         </td>
                         <td>
-                            <span t-field="delegation.date_start"/>
+                            <span t-field="f.area"/>
                         </td>
                         <td class="tx_status text-start">
-                            <t t-if="delegation.state == 'in_process'">
+                            <t t-if="f.state == 'to_approve'">
                                 <span class="badge rounded-pill text-bg-info">
                                     <span class="d-none d-md-inline"> Draft</span>
                                 </span>
                             </t>
-                            <t t-if="delegation.state == 'sent'">
+                            <t t-if="f.state == 'approval_request'">
                                 <span class="badge rounded-pill text-bg-warning">
                                     <span class="d-none d-md-inline"> To Be Signed</span>
                                 </span>
                             </t>
-                            <t t-if="delegation.state == 'delegated'">
+                            <t t-if="f.state == 'approved'">
                                 <span class="badge rounded-pill text-bg-success">
                                     <span class="d-none d-md-inline"> Delegated</span>
-                                </span>
-                            </t>
-                            <t t-if="delegation.state == 'cancelled'">
-                                <span class="badge rounded-pill text-bg-danger">
-                                    <span class="d-none d-md-inline"> Cancelled </span>
-                                </span>
-                            </t>
-                            <t t-if="delegation.state == 'ended'">
-                                <span class="badge rounded-pill text-bg-success">
-                                    <span class="d-none d-md-inline"> Ended </span>
                                 </span>
                             </t>
                         </td>
                         <td>
                             <t>
-                                <a class="btn btn-primary" target="_blank" title="FSN PDF" t-att-href="'/report/pdf/trial_clinic.report_delegation_template/'+str(delegation.id)">Print PDF</a>
+                                <a class="btn btn-primary" target="_blank" title="FSN PDF" t-att-href="'/report/pdf/project_bol.report_delegation_template/'+str(delegation.id)">Print PDF</a>
                             </t>
                         </td>
                     </tr>
@@ -100,55 +91,52 @@
         </t>
     </template>
 
-    <template id="my_fsn" name="My Digital Delegation Sign" inherit_id="portal.portal_sidebar" primary="True">
+    <!-- My FSN to sign template -->
+
+    <template id="my_fsn" name="My Digital FSN Sign" inherit_id="portal.portal_sidebar" primary="True">
         <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
             <t t-set="o_portal_fullwidth_alert">
                 <t t-call="portal.portal_back_in_edit_mode">
-                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (fsn_log._name, fsn_log.id, action.id)"/>
+                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (fsn.name, fsn.id, action.id)"/>
                 </t>
             </t>
             <div class="row mt16 o_portal_doc_sidebar">
                 <!-- Sidebar -->
                 <t t-call="portal.portal_record_sidebar">
                     <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
-
                     <t t-set="title">
-                        <h2 class="mb-0"><b t-field="fsn_log.name"/> </h2>
+                        <h2 class="mb-0"><b t-field="fsn.name"/> </h2>
                     </t>
                     <t t-set="entries">
                         <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
                             <li class="list-group-item d-grid align-content-start">
-
                                 <a role="button" class="btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
                                     <i class="fa fa-check"/> Accept &amp; Sign
                                 </a>
-
                                 <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
                                     <div class="btn-group flex-grow-1 me-1 mb-1">
-                                        <a class="btn btn-secondary btn-block o_download_btn" t-attf-href="/my/fsn/#{fsn_log.id}?report_type=pdf&amp;download=True" title="Download"><i class="fa fa-download"/> Download</a>
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-attf-href="/my/fsn/#{fsn.id}?report_type=pdf&amp;download=True" title="Download"><i class="fa fa-download"/> Download</a>
                                     </div>
                                     <div class="btn-group flex-grow-1 mb-1">
-                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-attf-href="/my/fsn/#{fsn_log.id}?report_type=pdf" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-attf-href="/my/fsn/#{fsn.id}?report_type=pdf" id="print_fsn_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
                                     </div>
                                 </div>
                             </li>
-
                             <li class="navspy list-group-item ps-0 flex-grow-1" t-ignore="true" role="complementary">
                                 <ul class="nav flex-column bs-sidenav"></ul>
                             </li>
-
                             <li class="list-group-item flex-grow-1">
                                 <div class="small mb-1">
-                                    <strong class="text-muted">Aprobador</strong>
+                                    <strong class="text-muted">Approver</strong>
                                 </div>
                                 <div class="row flex-nowrap">
                                     <div class="col flex-grow-0 pe-2">
                                         <img class="rounded-circle mr4 float-start o_portal_contact_img"
-                                             t-att-src="image_data_uri(fsn_log.requested_by_id.avatar_128)"
+                                             t-att-src="image_data_uri(approval_user.avatar_128)"
                                              alt="Contact"/>
                                     </div>
                                     <div class="col ps-0" style="min-width: 150px">
-                                        <span t-field="fsn_log.requested_by_id"
+                                        <span t-esc="approval_user"
                                             t-options='{"widget": "contact", "fields": ["name", "phone", "email"], "no_marker": True}'/>
                                         <a href="#discussion" class="small">
                                             <i class="fa fa-comment"></i> Send message
@@ -164,8 +152,8 @@
                 <div id="document_page_content" class="col-12 col-lg-9 col-xl-8 mt-5 mt-lg-0">
                     <!-- modal relative to the actions sign -->
                     <div role="dialog" class="modal fade" id="modalaccept">
-                        <div class="modal-dialog" t-if="fsn_log">
-                            <form id="accept" method="POST" t-att-data-order-id="fsn_log.id" class="js_accept_json modal-content js_website_submit_form">
+                        <div class="modal-dialog" t-if="fsn">
+                            <form id="accept" method="POST" t-att-data-order-id="fsn.id" class="js_accept_json modal-content js_website_submit_form">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <header class="modal-header">
                                     <h4 class="modal-title">Approve Needs Request Form </h4>
@@ -175,12 +163,13 @@
                                     <p>
                                         <span>By signing this FSN, I agree to the content :</span>
                                         <ul>
-                                            <li><span>Accepted on the behalf of:</span> <b t-field="fsn_log.requested_by_id.name"/></li>
+<!--                                            <b t-field="approval_user.role_id.name"/>-->
+                                            <li><span>Accepted on the behalf of:</span>  - <b t-field="approval_user.name"/></li>
                                         </ul>
                                     </p>
                                     <t t-call="portal.signature_form">
-                                        <t t-set="call_url" t-value="fsn_log.get_portal_sign_url()"/>
-                                        <t t-set="default_name" t-value="fsn_log.requested_by_id.name"/>
+                                        <t t-set="call_url" t-value="fsn.get_portal_sign_url()"/>
+                                        <t t-set="default_name" t-value="approval_user.name"/>
                                     </t>
                                 </main>
                             </form>
@@ -191,27 +180,12 @@
                     <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissable d-print-none" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
                         <strong>Thank You!</strong>
-                        Your delegation log has been signed.
+                        Your FSN has been signed.
                     </div>
-<!--                    <div t-if="fsn_log.state == 'delegated'" class="alert alert-success alert-dismissible d-print-none" role="alert">-->
-<!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>-->
-<!--                        <strong>This delegation is authorized and valid.</strong>-->
-<!--                    </div>-->
-<!--                    <div t-if="fsn_log.state == 'cancelled'" class="alert alert-danger alert-dismissible d-print-none" role="alert">-->
-<!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>-->
-<!--                        <strong>This delegation has been canceled.</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new delegation.</a>-->
-<!--                    </div>-->
-<!--                    <div t-if="fsn_log.state == 'ended'" class="alert alert-danger alert-dismissible d-print-none" role="alert">-->
-<!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>-->
-<!--                        <strong>This delegation has been ended.</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new delegation.</a>-->
-<!--                    </div>-->
-
-
                     <!-- main content -->
-                    <div t-attf-class="#{'pb-5' if report_type == 'html' else ''}" id="fsn_log_content">
+                    <div t-attf-class="#{'pb-5' if report_type == 'html' else ''}" id="fsn_content">
                         <div t-call="project_bol.my_fsn_content"/>
                     </div>
-
                     <!-- bottom actions -->
                     <div class="d-flex justify-content-center gap-1 d-print-none">
                         <div class="col-sm-auto mt8">
@@ -223,13 +197,12 @@
                             <a role="button" class="btn btn-secondary" href="#discussion"><i class="fa fa-comment"/> Feedback</a>
                         </div>
                     </div>
-
                     <!-- chatter -->
                     <hr/>
-                    <div id="fsn_log_communication">
+                    <div id="fsn_communication">
                         <h3>Communication history</h3>
                         <t t-call="portal.message_thread">
-                            <t t-set="object" t-value="fsn_log"/>
+                            <t t-set="object" t-value="fsn"/>
                         </t>
                     </div>
 
@@ -238,27 +211,21 @@
         </xpath>
     </template>
 
+     <!-- FSN Attachment Content Template -->
     <template id="my_fsn_content" name="FSN Content">
         <div id="fsn_report_content" class="col-12 col-lg mt32">
             <div class="o_portal_html_view shadow p-3" style="background-color: white;">
-<t t-if="fsn_log.document">
-    <iframe
-        t-att-src="'/pdf_inline/project.fsn/%s/document' % fsn_log.id"
-        width="100%"
-        height="800px"
-        frameborder="0"
-        type="application/pdf"/>
-</t>
-<t t-else="">
-    <p>No PDF attached to this FSN log.</p>
-</t>
-
-<!--                <t t-else="">-->
-<!--                    <p>No PDF attached to this FSN log.</p>-->
-<!--                </t>-->
-<!--                <t t-call="trial_clinic.report_delegation_document" t-lang="fsn_log.requeste_by_id.lang">-->
-<!--                    <t t-set="doc" t-value="fsn_log.sudo()"/>-->
-<!--                </t>-->
+                <t t-if="fsn.document">
+                    <iframe
+                        t-att-src="'/pdf_inline/project.fsn/%s/document' % fsn.id"
+                        width="100%"
+                        height="800px"
+                        frameborder="0"
+                        type="application/pdf"/>
+                </t>
+                <t t-else="">
+                    <p>No PDF attached to this FSN.</p>
+                </t>
             </div>
         </div>
     </template>

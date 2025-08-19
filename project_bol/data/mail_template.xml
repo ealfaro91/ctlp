@@ -1,7 +1,8 @@
 <odoo>
     <data noupdate="0">
 
-        <record id="fsn_approval_email" model="mail.template">
+    <!-- FSN EMAILS -->
+        <record id="fsn_approval_request_email" model="mail.template">
             <field name="name">FSN Approval</field>
             <field name="email_from">{{ user.email_formatted }}</field>
             <field name="subject">{{ object.name }}</field>
@@ -20,10 +21,10 @@
                                                 <tr>
                                                     <td valign="middle">
                                                         <span style="font-size: 10px;">Your Account</span><br/>
-                                                        <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''"/>
+                                                        <span style="font-size: 20px; font-weight: bold;" t-out="user.partner_id.name or ''"/>
                                                     </td>
-                                                    <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
-                                                        <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
+                                                    <td valign="middle" align="right" t-if="not user_id.company_id.uses_default_logo">
+                                                        <img t-attf-src="/logo.png?company={{ user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user_id.company_id.name"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -41,21 +42,21 @@
                                                 <tr>
                                                     <td valign="top" style="font-size: 13px;">
                                                         <div>
-                                                            Dear <strong><t t-out="recipient.name"/></strong>,<br/>
+                                                            Dear <strong><t t-out="user.name"/></strong>, the following FSN requires your approval.<br/>
                                                             <ul>
                                                                 <li>FSN: <t t-out="object.name"/></li>
                                                                 <li>Portal Access Link:  <a t-attf-href="{{ object.document_url }}"><t t-out="object.document_url"/></a></li>
                                                             </ul>
                                                             <br/>
                                                             <p>Greetings.</p>
+                                                            <p> This is an automatic message, please de not reply</p>
                                                         </div>
                                                     </td></tr>
                                                     <tr>
                                                         <td style="text-align:center;">
                                                             <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
                                                         </td>
-                                                        <p> This is an automatic message, please de not reply</p>
-                                                </tr>
+                                                    </tr>
                                             </table>
                                         </td>
                                     </tr>
@@ -65,14 +66,14 @@
                                             <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
                                                 <tr>
                                                     <td valign="middle" align="left">
-                                                        <t t-out="object.user_id.company_id.name or ''"/>
+                                                        <t t-out="user_id.company_id.name or ''"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td valign="middle" align="left" style="opacity: 0.7;">
-                                                        <t t-out="object.user_id.company_id.phone or ''"/>
-                                                        <t t-if="object.user_id.company_id.website">
-                                                            | <a t-attf-href="'%s' % {{ object.user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.website or ''"/>
+                                                        <t t-out="user_id.company_id.phone or ''"/>
+                                                        <t t-if="user_id.company_id.website">
+                                                            | <a t-attf-href="'%s' % {{ user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="user_id.company_id.website or ''"/>
                                                         </t>
                                                     </td>
                                                 </tr>
@@ -87,8 +88,8 @@
             </field>
         </record>
 
-        <record id="project_creation_email" model="mail.template">
-            <field name="name">Project Creation</field>
+        <record id="fsn_approved_notification" model="mail.template">
+            <field name="name">FSN has been approved</field>
             <field name="email_from">{{ user.email_formatted }}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project.model_project_project"/>
@@ -96,18 +97,100 @@
             <field name="body_html" type="html">
                 <div style="margin:auto;background: #FFFFFF;color:#777777">
                     <p>Hello <t t-out="object.user_id"/></p>
-                    <p>The following project has been created.</p>
+                    <p>The following email is to notify that the FSN has been approved by all users.</p>
                     <ul>
                         <li>
-                            Project: <t t-out="object.name"/>
+                            FSN: <t t-out="object.name"/>
                         </li>
                         <li>
-                            Link:  <a t-attf-href="{{ object.document_url }}"><t t-out="object.document_url"/></a>
+                            Link:  <a t-attf-href="{{ object.document_url_signed }}"><t t-out="object.document_url_signed"/></a>
                         </li>
                     </ul>
                     <p>This is an automatically generated email, please do not reply.</p>
                     <p>Best regards.</p><br/>
                 </div>
+            </field>
+        </record>
+
+        <!-- PROJECT EMAILS -->
+
+
+        <record id="project_creation_email" model="mail.template">
+            <field name="name">Project Creation</field>
+            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="subject">{{ object.name }}</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                    <tbody>
+                        <!-- HEADER -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tr>
+                                        <td valign="middle">
+                                            <span style="font-size: 10px;">Your Account</span><br/>
+                                            <span style="font-size: 20px; font-weight: bold;" t-out="object.user_id.name or ''"/>
+                                        </td>
+                                        <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
+                                            <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- CONTENT -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tr>
+                                        <td valign="top" style="font-size: 13px;">
+                                            <div>
+                                                Dear <strong><t t-out="object.user_id.name"/></strong>,<br/>
+                                                <ul>
+                                                    <li>Project: <t t-out="object.name"/></li>
+                                                </ul>
+                                                <br/>
+                                                <p>Greetings.</p>
+                                            </div>
+                                        </td></tr>
+                                    <tr>
+                                        <td style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                        </td>
+                                        <p> This is an automatic message, please de not reply</p>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- FOOTER -->
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                    <tr>
+                                        <td valign="middle" align="left">
+                                            <t t-out="object.user_id.company_id.name or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="middle" align="left" style="opacity: 0.7;">
+                                            <t t-out="object.user_id.company_id.phone or ''"/>
+                                            <t t-if="object.user_id.company_id.website">
+                                                | <a t-attf-href="'%s' % {{ object.user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.website or ''"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </field>
         </record>
 

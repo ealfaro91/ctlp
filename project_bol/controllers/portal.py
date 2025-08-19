@@ -4,7 +4,6 @@ import binascii
 from odoo import http, fields, _
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
-# from odoo.addons.portal.controllers.mail import _message_post_helper
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 
@@ -102,7 +101,7 @@ class Portalfsn(CustomerPortal):
                 "date": date_begin,
                 "date_end": date_end,
                 "fsn": fsn.sudo(),
-                "page_name": "fsn_log",
+                "page_name": "fsn",
                 "default_url": "/my/fsn",
                 "pager": pager_values,
                 "searchbar_sortings": searchbar_sortings,
@@ -112,15 +111,15 @@ class Portalfsn(CustomerPortal):
         return request.render("project_bol.portal_my_fsn", values)
 
     @http.route(
-        ["/my/fsn/<int:fsn_log_id>"],
+        ["/my/fsn/<int:fsn_id>"],
         type="http",
         auth="public",
         website=True,
         sitemap=False,
     )
-    def my_fsn_log_data(
+    def my_fsn_data(
         self,
-        fsn_log_id=None,
+        fsn_id=None,
         access_token=None,
         report_type=None,
         message=False,
@@ -130,7 +129,7 @@ class Portalfsn(CustomerPortal):
         try:
             fsn_sudo = self._document_check_access(
                 "project.fsn",
-                fsn_log_id,
+                fsn_id,
                 access_token=access_token,
             )
         except (AccessError, MissingError):
@@ -145,21 +144,22 @@ class Portalfsn(CustomerPortal):
             )
 
         values = {
-            "fsn_log": fsn_sudo,
+            "fsn": fsn_sudo,
+            "approval_user": request.env.user,
             "message": message,
             "action": fsn_sudo._get_portal_return_action(),
         }
         return request.render("project_bol.my_fsn", values)
 
     @http.route(
-        ["/my/fsn/<int:fsn_log_id>/sign"],
+        ["/my/fsn/<int:fsn_id>/sign"],
         type="json",
         auth="public",
         website=True,
         sitemap=False,
     )
-    def fsn_log_sign(
-        self, fsn_log_id, access_token=None, name=None, signature=None
+    def fsn_sign(
+        self, fsn_id, access_token=None, name=None, signature=None
     ):
         # get from query string if not on json param
         access_token = access_token or request.httprequest.args.get(
@@ -167,7 +167,7 @@ class Portalfsn(CustomerPortal):
         try:
             fsn_sudo = self._document_check_access(
                 "project.fsn",
-                fsn_log_id,
+                fsn_id,
                 access_token=access_token,
             )
         except (AccessError, MissingError):
@@ -179,7 +179,7 @@ class Portalfsn(CustomerPortal):
             return {"error": _("Signature is missing.")}
 
         try:
-            fsn_sudo = request.env['project.fsn'].sudo().browse(fsn_log_id)
+            fsn_sudo = request.env['project.fsn'].sudo().browse(fsn_id)
             fsn_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id).write({
                 'sign_signature': signature,
                 'signed_date': fields.Datetime.now(),
