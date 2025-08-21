@@ -53,6 +53,14 @@ class IrAttachment(models.Model):
     def button_send_approval_request(self):
         self.ensure_one()
 
+    @api.onchange('document_directory_id')
+    def _onchange_user_ids(self):
+        for rec in self:
+            rec.user_ids = False
+            if rec.document_directory_id:
+                rec.user_ids = rec.document_directory_id.user_ids
+
+    user_ids = fields.Many2many("res.users", string="Users", related=False)
     document_file_type_id = fields.Many2one(
         comodel_name="document.file.type",
         string="Document File Type",
@@ -99,20 +107,14 @@ class IrAttachment(models.Model):
         ('to_approve', 'To Approve'),
         ('approved', 'Approved'),
         ('published', 'Published')],
-    string='Estado',
-    default='to_review'
+        string='Estado',
+        default='to_review'
     )
     privacy_type = fields.Selection([
-         ('private', 'Privado'), ('public', 'Public')],
+         ('private', 'Private'), ('public', 'Public')],
          string='Tipo de privacidad',
         default='private',
-     )
-    published = fields.Boolean(
-        string='Publicado',
-        default=False,
-        help="Indicates whether the document is published or not."
     )
-
     area_id = fields.Many2one(
         comodel_name='helpdesk.ticket.area',
         string='Area',

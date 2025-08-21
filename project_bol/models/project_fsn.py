@@ -2,12 +2,6 @@
 import base64
 import io
 
-#from PyPDF2 import PdfReader, PdfWriter
-# from reportlab.pdfgen import canvas
-# from reportlab.lib.pagesizes import letter
-# from reportlab.lib.utils import ImageReader
-# from reportlab.lib import colors
-
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
@@ -140,7 +134,19 @@ class ProjectFsn(models.Model):
         required=True,
         help="The benefits expected from this request.",
     )
-    approval_log_ids = fields.One2many(
+    author_user_ids = fields.One2many(
+        "res.users", "project_fsn_id3",
+        string="Author Users",
+        tracking=True,
+        help="Users who authored this Needs Request Form.",
+    )
+    reviewer_user_ids = fields.One2many(
+        "res.users", "project_fsn_id2",
+        string="Reviewer Users",
+        tracking=True,
+        help="Users who will review this Needs Request Form.",
+    )
+    approval_user_ids = fields.One2many(
         "approval.log", "project_fsn_id",
         string="Approval Log ids",
     )
@@ -152,11 +158,12 @@ class ProjectFsn(models.Model):
     state = fields.Selection([
         ("to_approve", "To Approve"),
         ("approval_request", "Approval Request Sent"),
-        ("approved", "Approved")],
+        ("approved", "Approved"), ("cancelled", "Cancelled")],
         string="Status",
         default="to_approve",
         store=True,
         compute="_compute_approval_state",
+        inverse="_inverse_compute_approval_state",
     )
     document_filename = fields.Char(
         string="Document File Name",
@@ -179,16 +186,33 @@ class ProjectFsn(models.Model):
         compute="get_document_url", string="Portal Access Link"
     )
 
-    @api.depends("approval_log_ids")
+    def button_cancel(self):
+        self.state = "cancelled"
+
+    def _inverse_compute_approval_state(self):
+        """Inverse method to set the state of the FSN based on the approval log."""
+        for fsn in self:
+            if fsn.state == "to_approve":
+                fsn.sent_approval_request = False
+            elif fsn.state == "approval_request":
+                fsn.sent_approval_request = True
+            elif fsn.state == "approved":
+                fsn.sent_approval_request = True
+            elif fsn.state == "cancelled":
+                fsn.sent_approval_request = False
+
+    @api.depends("approval_log_ids", "sent_approval_request")
     def _compute_approval_state(self):
         """Compute the approval state based on the approval
          log and create a project if all approvals are done."""
         for fsn in self:
-            fsn.approved = False
+            fsn.state = "to_approve" if not fsn.sent_approval_request and not fsn.approval_log_ids else fsn.state
+            fsn.state = "approval_request" if fsn.sent_approval_request and not all(
+                log.state == "approved" for log in fsn.approval_log_ids
+            ) else "to_approve"
             if fsn.approval_log_ids:
-                fsn.state = "approved" if all(
-                    log.state == "approved" for log in fsn.approval_log_ids
-                ) else "to_approve" if not fsn.sent_approval_request else "approval_request"
+                if all(log.state == "approved" for log in fsn.approval_log_ids):
+                    fsn.state = "approved"
                 if fsn.state == "approved":
                     mail_template = self.env.ref(
                         "project_bol.fsn_approved_notification", raise_if_not_found=True
@@ -211,7 +235,7 @@ class ProjectFsn(models.Model):
     def _get_portal_return_action(self):
         """Return the action used to display record when returning from customer portal."""
         self.ensure_one()
-        return self.env.ref("project_bol.approval_log_action")
+        return self.env.ref("document_signature.approval_log_action")
 
     def get_portal_sign_url(self):
         return "/my/fsn/%s/sign?access_token=%s" % (self.id, self.access_token)

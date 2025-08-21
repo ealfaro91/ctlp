@@ -102,9 +102,9 @@
                         <li>
                             FSN: <t t-out="object.name"/>
                         </li>
-                        <li>
-                            Link:  <a t-attf-href="{{ object.document_url_signed }}"><t t-out="object.document_url_signed"/></a>
-                        </li>
+<!--                        <li>-->
+<!--                            Link:  <a t-attf-href="{{ object.document_url_signed }}"><t t-out="object.document_url_signed"/></a>-->
+<!--                        </li>-->
                     </ul>
                     <p>This is an automatically generated email, please do not reply.</p>
                     <p>Best regards.</p><br/>

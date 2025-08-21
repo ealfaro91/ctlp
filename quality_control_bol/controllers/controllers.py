@@ -28,5 +28,4 @@ class DocumentController(http.Controller):
             'areas': request.env['helpdesk.ticket.area'].sudo().search(domain),
             'submission_token': submission_token
         }
-
         return request.render("quality_control_bol.document_form", data)

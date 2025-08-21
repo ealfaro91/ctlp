@@ -61,7 +61,7 @@ class ProjectProject(models.Model):
     delay_days = fields.Integer(
         string="Delay Days",
         tracking=True,
-        compute="_compute_delay_days",
+        compute="_compute_deviation",
         help="The number of days this project is delayed.",
     )
     deviation = fields.Float(
@@ -76,6 +76,18 @@ class ProjectProject(models.Model):
         compute="_compute_total_advance",
         help="The total advance payment made for this project.",
     )
+    is_completed = fields.Boolean(
+        string="Is Completed",
+        tracking=True,
+        help="Indicates whether the project is completed.",
+        #related="stage_id.is_completed"
+    )
+    closed_date = fields.Datetime(
+        string="Closed Date",
+        tracking=True,
+        help="The date when the project was closed."
+    )
+
 
     def _compute_total_advance(self):
         """ REVISAR """
@@ -93,18 +105,23 @@ class ProjectProject(models.Model):
             project.total_advance = 0.0
 
     def _compute_deviation(self):
-        for project in self:
-            project.deviation = 0.0
-
-    def _compute_delay_days(self):
+        """ Compute delay days and deviation percentage for each project. """
         for project in self:
             project.delay_days = 0
-            # if project.date_start and project.end_date:
-            #     delay = (project.end_date - project.date_start).days
-            #     project.delay_days = max(0, delay)
+            project.deviation = 0.0
+            if project.end_date:
+                if project.closed_date:
+                    delay = (project.closed_date.date() - project.end_date).days
+                    project.delay_days = max(0, delay)
+
+                    # calcular duración original
+                    if project.start_date:
+                        duration = (project.end_date - project.start_date.date()).days or 1
+                        project.deviation = (project.delay_days / duration) * 100
 
     @api.model
     def create(self, vals):
+        """ Override create method to set default values and link task types. """
         project = super(ProjectProject, self).create(vals)
         task_type_ids = self.env.ref("project_bol.project_task_type_stage_0")
         task_type_ids += self.env.ref("project_bol.project_task_type_stage_1")
@@ -112,5 +129,5 @@ class ProjectProject(models.Model):
         task_type_ids.sudo().write({
             "project_ids": [(4, project.id)]
         })
-        project_project_stage_0
+    #    project_project_stage_0
         return project

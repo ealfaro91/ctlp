@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
+
+import base64
+import io
+
 import datetime
 
 from dateutil.relativedelta import relativedelta
 
+#from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 from reportlab.lib import colors
+
+
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
+# from reportlab.lib.utils import ImageReader
+# from reportlab.lib import colors
 
 from odoo import api, models, fields
 import pytz

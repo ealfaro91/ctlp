@@ -14,7 +14,6 @@
         "data/mail_template.xml",
         "security/ir.model.access.csv",
         "security/project_fsn_security.xml",
-       # "views/document_version_templates.xml",
         "views/approval_log_views.xml",
         "views/project_fsn_benefit_views.xml",
         "views/project_fsn_system_views.xml",

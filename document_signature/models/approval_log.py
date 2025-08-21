@@ -1,4 +1,6 @@
 
+
+
 from odoo import api, fields , models
 
 
@@ -33,6 +35,12 @@ class ApprovalLog(models.Model):
         ("approved", "Approved")],
         string="Status",
         default="pending",
+        tracking=True
+    )
+    approval_type = fields.Selection(
+        [("author", "Author"),("reviewer", "Reviewer"), ("approver", "Approver")],
+        string="Approval Type",
+        default="approver",
         tracking=True
     )
     request_sign_date = fields.Datetime(string="Request sign date")

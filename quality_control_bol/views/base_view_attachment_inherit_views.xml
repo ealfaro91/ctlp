@@ -18,15 +18,18 @@
            </field>
     </record>
 
-    <record id="ir_attachment_view_inh" model="ir.ui.view">
-        <field name="name">ir.attachment.view.inh</field>
+    <record id="ir_attachment_view_form_inh" model="ir.ui.view">
+        <field name="name">ir.attachment.view.form.inh</field>
         <field name="model">ir.attachment</field>
         <field name="inherit_id" ref="base.view_attachment_form"/>
         <field name="mode">extension</field>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="state" widget="statusbar"/>
+            </xpath>
             <xpath expr="//label[@for='name']" position="before">
 <!--                <widget name="web_ribbon" title="Approved" bg_color="text-bg-success"/>-->
-                <widget name="web_ribbon" title="Publicado" bg_color="text-bg-info"/>
+                <widget name="web_ribbon" title="Publicado" bg_color="text-bg-info" invisible="state != 'published'"/>
             </xpath>
             <xpath expr="//field[@name='mimetype']" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -48,28 +51,47 @@
             </xpath>
             <xpath expr="//sheet" position="inside">
                 <notebook>
-                    <page string="Reviewers">
-                        <field name="reviewer_ids" nolabel="1">
-                            <tree editable="bottom" string="Approval Log">
-                                <field name="sequence" widget="handle"/>
-                                <field name="user_id" widget="many2one_avatar_user"/>
-                                <field name="request_sign_date"/>
-                                <field name="signed_date"/>
-                                <field name="attachment_id" column_invisible="1"/>
-                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>
-                            </tree>
-                        </field>
+                    <page string="Approval log">
+                        <label for="author_user_ids" string="Authors"/>
+                        <field name="author_user_ids" readonly="sent_approval_request"  context="{'default_approval_type': 'author'}">
+                        <label for="reviewer_user_ids" string="Reviewers"/>
+                        <field name="reviewer_user_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'reviewer'}">
+                        <label for="approval_user_ids" string="Approvers"/>
+                        <field name="approval_user_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'approver'}">
                     </page>
-                    <page string="Approvers">
-                        <field name="approval_log_ids" nolabel="1">
-                            <tree editable="bottom" string="Approval Log">
-                                <field name="sequence" widget="handle"/>
-                                <field name="user_id" widget="many2one_avatar_user"/>
-                                <field name="attachment_id" column_invisible="1"/>
-                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>
-                            </tree>
-                        </field>
-                    </page>
+<!--                        <field name="author_ids" nolabel="1" context="{'default_attachment_id': active_id, 'default_approval_type': 'author'}">-->
+<!--                            <tree editable="bottom" string="Approval Log">-->
+<!--                                <field name="sequence" widget="handle"/>-->
+<!--                                <field name="user_id" widget="many2one_avatar_user"/>-->
+<!--                                <field name="request_sign_date"/>-->
+<!--                                <field name="signed_date"/>-->
+<!--                                <field name="attachment_id" column_invisible="1"/>-->
+<!--                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                    <page string="Reviewers">-->
+<!--                        <field name="reviewer_ids" nolabel="1" context="{'default_attachment_id': active_id, 'default_approval_type': 'reviewer'}">-->
+<!--                            <tree editable="bottom" string="Approval Log">-->
+<!--                                <field name="sequence" widget="handle"/>-->
+<!--                                <field name="user_id" widget="many2one_avatar_user"/>-->
+<!--                                <field name="request_sign_date"/>-->
+<!--                                <field name="signed_date"/>-->
+<!--                                <field name="attachment_id" column_invisible="1"/>-->
+<!--                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                    <page string="Approvers">-->
+<!--                        <field name="approval_log_ids" nolabel="1"  context="{'default_attachment_id': active_id, 'default_approval_type': 'approver'}">-->
+<!--                            <tree editable="bottom" string="Approval Log">-->
+<!--                                <field name="sequence" widget="handle"/>-->
+<!--                                <field name="user_id" widget="many2one_avatar_user"/>-->
+<!--                                <field name="attachment_id" column_invisible="1"/>-->
+<!--                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
                     <page string="Versions">
                         <field name="version_ids" nolabel="1"/>
                     </page>

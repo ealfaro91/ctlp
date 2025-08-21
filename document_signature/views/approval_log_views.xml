@@ -1,0 +1,58 @@
+<odoo>
+        <!-- TREE VIEW -->
+    <record id="view_approval_log_tree" model="ir.ui.view">
+        <field name="name">aproval.log.tree</field>
+            <field name="model">approval.log</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Approval Log">
+                    <field name="sequence" widget="handle"/>
+                    <field name="role_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" />
+                    <field name="user_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
+                    <field name="request_sign_date" readonly="1"/>
+                    <field name="signed_date" readonly="1"/>
+                    <field name="state" widget="badge" decoration-success="state == 'approved'" decoration-danger="state == 'pending'" readonly="1"/>
+                    <field name="approval_type" column_invisible="1"/>
+                    <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- FORM VIEW -->
+        <record id="view_approval_log_form" model="ir.ui.view">
+            <field name="name">aproval.log.form</field>
+            <field name="model">approval.log</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" readonly="1" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="text-bg-success" invisible="state == 'pending'"/>
+                    <widget name="web_ribbon" title="Approval pending" bg_color="text-bg-danger" invisible="state == 'approved'"/>
+                        <group>
+                           <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="request_sign_date" readonly="1"/>
+                            <field name="signed_date" readonly="1"/>
+                            <field name="role_id"/>
+                            <field name="approval_type" invisible="1"/>
+                            <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',200]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <!-- ACTION -->
+    <record id="approval_log_action" model="ir.actions.act_window">
+        <field name="name">Approval Log</field>
+        <field name="res_model">approval.log</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p>
+        </field>
+    </record>
+
+</odoo>
+

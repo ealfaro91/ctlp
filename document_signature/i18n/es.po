@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* trial_mini_dashboard
+# 	* document_signature
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 17:03+0000\n"
-"PO-Revision-Date: 2024-10-25 17:03+0000\n"
+"POT-Creation-Date: 2025-08-21 16:55+0000\n"
+"PO-Revision-Date: 2025-08-21 16:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,123 +15,310 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: trial_mini_dashboard
-#: model:ir.model,name:trial_mini_dashboard.model_ctms_clinic_appointment
-msgid "Appointment"
-msgstr "Cita"
+#. module: document_signature
+#: model:ir.model,name:document_signature.model_document_signature_mixin
+msgid "Abstract Model for Document Signature"
+msgstr "Modelo Abstracto para Firma de Documentos"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Closed - Typed"
-msgstr "Cerrada - Digitado CRF"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Delegates Studies"
-msgstr "Estudios delegados"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_ids
+msgid "Activities"
+msgstr "Actividades"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "My Today's Appointments"
-msgstr "Mis Citas de Hoy"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de Excepción de Actividad"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "My Today's Appointments - Closed or Typed"
-msgstr "Mis Citas de Hoy - Cerradas o Digitadas"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_state
+msgid "Activity State"
+msgstr "Estado de Actividad"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "My Today's Appointments - In Progress"
-msgstr "Mis Citas de Hoy - En Progreso"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de Tipo de Actividad"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "My Visits"
-msgstr "Mis Citas"
+#. module: document_signature
+#: model:ir.actions.act_window,name:document_signature.approval_log_action
+#: model_terms:ir.ui.view,arch_db:document_signature.view_approval_log_tree
+msgid "Approval Log"
+msgstr "Registro de Aprobación"
 
-#. module: trial_mini_dashboard
-#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
-msgid "Today's Appointments - Mine"
-msgstr "Citas de hoy - Mías"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__approval_type
+msgid "Approval Type"
+msgstr "Tipo de Aprobación"
 
-#. module: trial_mini_dashboard
-#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
-msgid "Today's Appointments - Mine Closed or Typed"
-msgstr "Citas de hoy - Mías Cerradas o Digitadas"
+#. module: document_signature
+#: model:ir.model,name:document_signature.model_approval_log
+msgid "Approval log"
+msgstr "Registro de Aprobación"
 
-#. module: trial_mini_dashboard
-#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
-msgid "Today's Appointments - Mine In Progress"
-msgstr "Citas de hoy - Mías en Progreso"
+#. module: document_signature
+#: model_terms:ir.ui.view,arch_db:document_signature.view_approval_log_form
+msgid "Approval pending"
+msgstr "Aprobación pendiente"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Today's Closed or Typed Appointments"
-msgstr "Citas de Hoy Cerradas o Digitadas"
+#. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__state__approved
+#: model_terms:ir.ui.view,arch_db:document_signature.view_approval_log_form
+msgid "Approved"
+msgstr "Aprobado"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Today's In Progress Appointments"
-msgstr "Citas de Hoy en Progreso"
+#. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__approval_type__approver
+msgid "Approver"
+msgstr "Aprobador"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Today's Total Appointments"
-msgstr "Citas de Hoy Totales"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de Adjuntos"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Today's Visits"
-msgstr "Citas de Hoy"
 
-#. module: trial_mini_dashboard
-#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
-msgid "Today's appointments - Closed or Typed"
-msgstr "Citas de hoy - Cerradas o Digitadas"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__create_uid
+msgid "Created by"
+msgstr "Creado por"
 
-#. module: trial_mini_dashboard
-#: model_terms:ir.ui.view,arch_db:trial_mini_dashboard.ctms_clinic_appointment_view_dashboard_:search
-msgid "Today's appointments - In Progress"
-msgstr "Citas de hoy - En Progreso"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__create_date
+msgid "Created on"
+msgstr "Creado el"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Total"
-msgstr "Total"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__sign_signature
+#: model:ir.model.fields,field_description:document_signature.field_res_users__sign_signature
+msgid "Digital Signature"
+msgstr "Firma Digital"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Total Visits This Week"
-msgstr "Total de Citas de la Semana"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_res_users__sign_initials
+msgid "Digitial Initials"
+msgstr "Iniciales Digitales"
 
-#. module: trial_mini_dashboard
-#. odoo-javascript
-#: code:addons/trial_mini_dashboard/static/src/xml/trial_dashboard_views.xml:0
-#, python-format
-msgid "Waiting - In Consultation"
-msgstr "En Espera - En Consulta"
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__display_name
+msgid "Display Name"
+msgstr "Nombre para Mostrar"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome p. ej. fa-tasks"
+
+#. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__position__footer
+#: model:ir.model.fields.selection,name:document_signature.selection__document_signature_mixin__position__footer
+msgid "Footer"
+msgstr "Pie de página"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__has_message
+msgid "Has Message"
+msgstr "Tiene un mensaje"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__id
+msgid "ID"
+msgstr ""
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__image
+msgid "Image"
+msgstr "Imagen"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__image
+msgid "Image of the user who made the approval."
+msgstr "Imagen del usuario que realizó la aprobación."
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de envío de mensaje"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la siguiente actividad"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la siguiente actividad"
+
+#. module: document_signature
+#: model_terms:ir.actions.act_window,help:document_signature.approval_log_action
+msgid "No data yet!"
+msgstr "¡No hay datos todavía!"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__state__pending
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__position
+#: model:ir.model.fields,field_description:document_signature.field_document_signature_mixin__position
+msgid "Posición de la firma"
+msgstr "Posición de la firma"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__request_sign_date
+msgid "Request sign date"
+msgstr "Fecha de solicitud de firma"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario Responsable"
+
+#. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__approval_type__reviewer
+msgid "Reviewer"
+msgstr "Revisor"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__role_id
+msgid "Role"
+msgstr "Rol"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: document_signature
+#: model_terms:ir.ui.view,arch_db:document_signature.view_users_form
+msgid "Signature"
+msgstr "Firma"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__signed_date
+msgid "Signed date"
+msgstr "Fecha de firma"
+
+#. module: document_signature
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha límite ya ha pasado\n"
+"Hoy: la fecha límite es hoy\n"
+"Planificada: actividades futuras."
+
+
+#. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__position__top
+#: model:ir.model.fields.selection,name:document_signature.selection__document_signature_mixin__position__top
+msgid "Top"
+msgstr "Superior"
+
+#. module: document_signature
+#: model:ir.model.fields,help:document_signature.field_approval_log__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción en el registro."
+
+#. module: document_signature
+#: model:ir.model,name:document_signature.model_res_users
+#: model:ir.model.fields,field_description:document_signature.field_approval_log__user_id
+msgid "User"
+msgstr "Usuario"
+

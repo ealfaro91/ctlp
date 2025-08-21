@@ -145,7 +145,8 @@ class DocumentPortal(CustomerPortal):
             )
 
         values = {
-            "document_log": document_sudo,
+            "document": document_sudo,
+            "approval_log": document_sudo.approval_log_ids.filtered(lambda log: log.user_id == request.env.user),
             "message": message,
             "action": document_sudo._get_portal_return_action(),
         }
@@ -211,17 +212,3 @@ class DocumentPortal(CustomerPortal):
             "redirect_url": "/my/document/%s?message=sign_ok&access_token=%s"
             % (document_sudo.id, access_token),
         }
-
-class PdfInlineController(http.Controller):
-    @http.route('/pdf_inline/<model>/<int:record_id>/<field>', type='http', auth='user')
-    def pdf_inline(self, model, record_id, field):
-        record = request.env[model].sudo().browse(record_id)
-        pdf_data = getattr(record, field)
-        if not pdf_data:
-            return request.not_found()
-        pdf_bytes = base64.b64decode(pdf_data)
-        headers = [
-            ('Content-Type', 'application/pdf'),
-            ('Content-Disposition', 'inline; filename="datas.pdf"'),
-        ]
-        return request.make_response(pdf_bytes, headers)

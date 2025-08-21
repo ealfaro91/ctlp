@@ -11,7 +11,7 @@
             </li>
             <li t-if="fsn" class="breadcrumb-item active">
                 <t t-out="fsn.name" t-if="fsn.name != '/'"/>
-                <t t-else=""><em>Draft Delegation</em></t>
+                <t t-else=""><em></em></t>
             </li>
         </xpath>
     </template>
@@ -29,7 +29,7 @@
         </xpath>
     </template>
 
-    <!-- FSN Portal -->
+    <!-- FSN PORTAL -->
 
     <template id="portal_my_fsn" name="My FSN approval">
         <t t-call="portal.portal_layout">
@@ -91,7 +91,7 @@
         </t>
     </template>
 
-    <!-- My FSN to sign template -->
+    <!-- FSN TO SIGN TEMPLATE -->
 
     <template id="my_fsn" name="My Digital FSN Sign" inherit_id="portal.portal_sidebar" primary="True">
         <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
@@ -132,11 +132,11 @@
                                 <div class="row flex-nowrap">
                                     <div class="col flex-grow-0 pe-2">
                                         <img class="rounded-circle mr4 float-start o_portal_contact_img"
-                                             t-att-src="image_data_uri(approval_user.avatar_128)"
+                                             t-att-src="image_data_uri(approval_log.user_id.avatar_128)"
                                              alt="Contact"/>
                                     </div>
                                     <div class="col ps-0" style="min-width: 150px">
-                                        <span t-esc="approval_user"
+                                        <span t-esc="approval_log.user_id"
                                             t-options='{"widget": "contact", "fields": ["name", "phone", "email"], "no_marker": True}'/>
                                         <a href="#discussion" class="small">
                                             <i class="fa fa-comment"></i> Send message
@@ -147,7 +147,6 @@
                         </ul>
                     </t>
                 </t>
-
                 <!-- Page content -->
                 <div id="document_page_content" class="col-12 col-lg-9 col-xl-8 mt-5 mt-lg-0">
                     <!-- modal relative to the actions sign -->
@@ -163,19 +162,17 @@
                                     <p>
                                         <span>By signing this FSN, I agree to the content :</span>
                                         <ul>
-<!--                                            <b t-field="approval_user.role_id.name"/>-->
-                                            <li><span>Accepted on the behalf of:</span>  - <b t-field="approval_user.name"/></li>
+                                            <li><span>Accepted on the behalf of:</span>  <b t-field="approval_log.role_id.name"/> - <b t-field="approval_log.user_id.name"/></li>
                                         </ul>
                                     </p>
                                     <t t-call="portal.signature_form">
                                         <t t-set="call_url" t-value="fsn.get_portal_sign_url()"/>
-                                        <t t-set="default_name" t-value="approval_user.name"/>
+                                        <t t-set="default_name" t-value="approval_log.user_id.name"/>
                                     </t>
                                 </main>
                             </form>
                         </div>
                     </div>
-
                     <!-- status messages -->
                     <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissable d-print-none" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
@@ -205,13 +202,14 @@
                             <t t-set="object" t-value="fsn"/>
                         </t>
                     </div>
-
                 </div>
             </div>
         </xpath>
     </template>
 
-     <!-- FSN Attachment Content Template -->
+
+     <!-- FSN ATTACHMENT CONTENT TEMPLATE -->
+
     <template id="my_fsn_content" name="FSN Content">
         <div id="fsn_report_content" class="col-12 col-lg mt32">
             <div class="o_portal_html_view shadow p-3" style="background-color: white;">

@@ -15,7 +15,25 @@ class ApprovalLog(models.Model):
             ('groups_id', 'in', self.role_id.id)
         ]
 
+    role_id = fields.Many2one(
+        domain=lambda self: self._get_role_domain(),
+    )
+    user_id = fields.Many2one(
+        domain=lambda self: self._get_user_domain(),
+    )
     project_fsn_id = fields.Many2one(
+        "project.fsn",
+        string="Project FSN",
+        help="Needs Request Form related to this approval log.",
+        tracking=True,
+    )
+    project_fsn_id2 = fields.Many2one(
+        "project.fsn",
+        string="Project FSN",
+        help="Needs Request Form related to this approval log.",
+        tracking=True,
+    )
+    project_fsn_id3 = fields.Many2one(
         "project.fsn",
         string="Project FSN",
         help="Needs Request Form related to this approval log.",

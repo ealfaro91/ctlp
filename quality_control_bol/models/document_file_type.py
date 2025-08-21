@@ -26,18 +26,6 @@ class DocumentFileType(models.Model):
         help="The sequence used to order the file types.",
     )
 
-
-
-
-class DocumentDirectory(models.Model):
-    _inherit = 'document.directory'
-
-    area_id = fields.Many2one(
-        comodel_name='helpdesk.ticket.area',
-        string='Area',
-        help="The area associated with the document directory, used for categorization and management.",
-        tracking=True
-    )
  #   document_file_type_ids = fields.Many2one(
 
     # unrevisioned_name = fields.Char(

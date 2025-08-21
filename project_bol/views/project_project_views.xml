@@ -51,6 +51,7 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">
                 <span title="Total Advance"/><field name="total_advance" widget="progressbar"/>
+                <span title="Deviation"/><field name="deviation" widget="progressbar"/>
             </xpath>
         </field>
     </record>
