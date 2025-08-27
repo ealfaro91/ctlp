@@ -87,7 +87,13 @@ class ProjectProject(models.Model):
         tracking=True,
         help="The date when the project was closed."
     )
-
+    stage_ids = fields.One2many(
+        "project.project.stage.advance",
+        "project_id",
+        string="Stage Advances",
+        tracking=True,
+        help="The stages and their advances for this project.",
+    )
 
     def _compute_total_advance(self):
         """ REVISAR """
@@ -109,14 +115,14 @@ class ProjectProject(models.Model):
         for project in self:
             project.delay_days = 0
             project.deviation = 0.0
-            if project.end_date:
+            if project.date:
                 if project.closed_date:
-                    delay = (project.closed_date.date() - project.end_date).days
+                    delay = (project.closed_date.date() - project.date).days
                     project.delay_days = max(0, delay)
 
                     # calcular duración original
                     if project.start_date:
-                        duration = (project.end_date - project.start_date.date()).days or 1
+                        duration = (project.date - project.date_start.date()).days or 1
                         project.deviation = (project.delay_days / duration) * 100
 
     @api.model
@@ -129,5 +135,31 @@ class ProjectProject(models.Model):
         task_type_ids.sudo().write({
             "project_ids": [(4, project.id)]
         })
+        project.stage_ids = [
+            (0, 0, {
+                "stage_id": self.env.ref("project_bol.project_project_stage_0").id,
+                "project_id": project.id,
+            }),
+            (0, 0, {
+                "stage_id": self.env.ref("project_bol.project_project_stage_1").id,
+                "project_id": project.id,
+            }),
+            (0, 0, {
+                "stage_id": self.env.ref("project_bol.project_project_stage_2").id,
+                "project_id": project.id,
+            }),
+            (0, 0, {
+                "stage_id": self.env.ref("project_bol.project_project_stage_3").id,
+                "project_id": project.id,
+            }),
+            (0, 0, {
+                "stage_id": self.env.ref("project_bol.project_project_stage_4").id,
+                "project_id": project.id,
+            }),
+            (0, 0, {
+                "stage_id": self.env.ref("project_bol.project_project_stage_5").id,
+                "project_id": project.id,
+            }),
+        ]
     #    project_project_stage_0
         return project

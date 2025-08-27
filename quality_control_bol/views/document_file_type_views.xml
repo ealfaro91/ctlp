@@ -7,7 +7,7 @@
         <field name="model">document.file.type</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
-                <field name="active"/>
+                <field name="active" column_invisible="1"/>
                 <field name="name"/>
                 <field name="sequence"/>
             </tree>

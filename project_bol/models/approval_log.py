@@ -19,30 +19,16 @@ class ApprovalLog(models.Model):
         domain=lambda self: self._get_role_domain(),
     )
     user_id = fields.Many2one(
-        domain=lambda self: self._get_user_domain(),
+     #   domain=lambda self: self._get_user_domain(),
     )
     project_fsn_id = fields.Many2one(
         "project.fsn",
         string="Project FSN",
-        help="Needs Request Form related to this approval log.",
-        tracking=True,
-    )
-    project_fsn_id2 = fields.Many2one(
-        "project.fsn",
-        string="Project FSN",
-        help="Needs Request Form related to this approval log.",
-        tracking=True,
-    )
-    project_fsn_id3 = fields.Many2one(
-        "project.fsn",
-        string="Project FSN",
-        help="Needs Request Form related to this approval log.",
-        tracking=True,
     )
 
     def _signed(self):
         """ Calls the method to attach the signature to the PDF document. """
-        new_pdf = self.attach_signature_to_pdf(self.project_fsn_id.document, self.user_id.sign_signature)
+        new_pdf = self.attach_signature_to_pdf(self.project_fsn_id.document_signed, self.user_id.sign_signature)
         self.project_fsn_id.document_signed = new_pdf
 
     def _compute_display_name(self):

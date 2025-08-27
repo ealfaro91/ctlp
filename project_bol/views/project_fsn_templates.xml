@@ -215,7 +215,7 @@
             <div class="o_portal_html_view shadow p-3" style="background-color: white;">
                 <t t-if="fsn.document">
                     <iframe
-                        t-att-src="'/pdf_inline/project.fsn/%s/document' % fsn.id"
+                        t-att-src="'/pdf_inline/project.fsn/%s/document_signed' % fsn.id"
                         width="100%"
                         height="800px"
                         frameborder="0"

@@ -4,7 +4,7 @@
     "version": "17.0",
     "license": "AGPL-3",
     "summary": "",
-    "depends": ["project_bol", "windx_documents_management_preview", "document_signature"],
+    "depends": ["project_bol", "windx_documents_management_preview", "document_signature", "helpdesk_bol"],
     "data": [
        # "data/document.file.type.xml",
         "data/mail_template.xml",

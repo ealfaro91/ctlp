@@ -25,8 +25,15 @@
         <field name="mode">extension</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
+                <button name="button_author_sign" type="object" class="btn-primary"
+                            invisible="signed_by_author" string="Firma del autor" icon="fa-pencil"/>
+                <button name="button_publish_document" type="object" class="btn-primary" string="Publicar" icon="fa-bullhorn"/>
+                <button name="button_send_approval_request" type="object" class="btn-info" string="Enviar para aprobación" icon="fa-envelope"/>
                 <field name="state" widget="statusbar"/>
+                <field name="signed_by_author" invisible="1"/>
+                <field name="sent_approval_request" invisible="1"/>
             </xpath>
+
             <xpath expr="//label[@for='name']" position="before">
 <!--                <widget name="web_ribbon" title="Approved" bg_color="text-bg-success"/>-->
                 <widget name="web_ribbon" title="Publicado" bg_color="text-bg-info" invisible="state != 'published'"/>
@@ -41,10 +48,16 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='datas']" position="after">
-                <field name="privacy_type"/>
-                <field name="version_id"/>
-                <field name="area_id"/>
-                <field name="document_file_type_id"/>
+                <group>
+                    <field name="document_file_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="privacy_type"/>
+                    <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="version_id"/>
+                    <field name="document_file_type_ids" invisible="1"/>
+<!--
+                    <field name="user_ids" widget="" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+-->
+                </group>
             </xpath>
             <xpath expr="//field[@name='type']" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -52,12 +65,10 @@
             <xpath expr="//sheet" position="inside">
                 <notebook>
                     <page string="Approval log">
-                        <label for="author_user_ids" string="Authors"/>
-                        <field name="author_user_ids" readonly="sent_approval_request"  context="{'default_approval_type': 'author'}">
-                        <label for="reviewer_user_ids" string="Reviewers"/>
-                        <field name="reviewer_user_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'reviewer'}">
-                        <label for="approval_user_ids" string="Approvers"/>
-                        <field name="approval_user_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'approver'}">
+                        <label for="reviewer_ids" string="Reviewers"/>
+                        <field name="reviewer_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'reviewer'}"/>
+                        <label for="approval_log_ids" string="Approvers"/>
+                        <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'approver'}"/>
                     </page>
 <!--                        <field name="author_ids" nolabel="1" context="{'default_attachment_id': active_id, 'default_approval_type': 'author'}">-->
 <!--                            <tree editable="bottom" string="Approval Log">-->
@@ -110,10 +121,7 @@
                     <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
                 </div>
             </xpath>
-            <xpath expr="//header" position="inside">
-                <button name="button_send_reviewer_request" type="object" class="btn-info" string="Enviar para aprobación" icon="fa-envelope"/>
-                <button name="button_publish_document" type="object" class="btn-primary" string="Publicar" icon="fa-bullhorn"/>
-            </xpath>
+
         </field>
     </record>
 

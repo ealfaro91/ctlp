@@ -1,15 +1,15 @@
 <odoo>
 
-<!--    <record id="ir_attachment_view_kanban_inh" model="ir.ui.view">-->
-<!--        <field name="name">document.directory.view.kanban.inh</field>-->
-<!--        <field name="model">document.directory</field>-->
-<!--        <field name="inherit_id" ref="windx_documents_management_preview.document_directory_view_kanban"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//div[hasclass('col-6')]" position="attributes">-->
-<!--                <attribute name="class">col-4</attribute>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="ir_attachment_view_kanban_inh" model="ir.ui.view">
+        <field name="name">document.directory.view.kanban.inh</field>
+        <field name="model">document.directory</field>
+        <field name="inherit_id" ref="windx_documents_management_preview.document_directory_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('col-6')]" position="attributes">
+                <attribute name="class">col-4</attribute>
+            </xpath>
+        </field>
+    </record>
 
     <record id="document_directory_view_inh" model="ir.ui.view">
         <field name="name">document.directory.view.inh</field>
@@ -19,11 +19,15 @@
             <xpath expr="//field[@name='model_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='visible_directory']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
             <xpath expr="//field[@name='model']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='parent_id']" position="after">
-                <field name="area_id"/>
+                <field name="document_file_type_ids" widget="many2many_tags"/>
+                <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
             </xpath>
             <xpath expr="//page[@name='user_ids']" position="replace">
                 <page string="Users" name="user_ids">

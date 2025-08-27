@@ -8,9 +8,9 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="version"/>
-                <field name="active" invisible="1"/>
-<!--                <field name="attachment_id"/>-->
-<!--                <field name="parent_version"/>-->
+                <field name="active" column_invisible="1"/>
+<!--               <field name="attachment_id"/>-->
+<!--¡               <field name="parent_version_id"/>-->
 <!--                <field name="deactivate_date"/>-->
             </tree>
         </field>

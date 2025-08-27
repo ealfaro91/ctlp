@@ -27,7 +27,11 @@
                 <header>
                     <field name="sent_approval_request" invisible="1"/>
                     <button name="button_send_approval_request" type="object" class="btn-primary"
-                            invisible="sent_approval_request" string="Send approval request" icon="fa-envelope"/>
+                            invisible="sent_approval_request or not signed_by_author" string="Send approval request" icon="fa-envelope"/>
+                    <button name="button_cancel" type="object" class="btn-secondary"
+                            invisible="state == 'cancelled'" string="Cancelar" icon="fa-ban"/>
+                    <button name="button_author_sign" type="object" class="btn-primary"
+                            invisible="signed_by_author" string="Firma del revisor" icon="fa-pencil"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -37,7 +41,7 @@
                         <label for="name"/>
                         <h1>
                             <div class="d-flex">
-                                <field name="name"/>
+                                <field name="name" readonly="state != 'to_approve'"/>
                             </div>
                         </h1>
                     </div>
@@ -46,10 +50,11 @@
                         <group>
                             <field name="company_id" invisible="1"/>
                             <field name="project_id" invisible="project_id == False" readonly="1"/>
-                            <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
+                            <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user" readonly="state != 'to_approve'"/>
                             <field name="area"/>
                             <field name="document_url" invisible="1"/>
-                            <field name="date_requested"/>
+                            <field name="date_requested"  readonly="state != 'to_approve'"/>
+                            <field name="signed_by_author" invisible="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -57,46 +62,49 @@
                             <group>
                                 <group>
                                     <label for="problem_or_incident_identification" string="Problem incident identification"/>
-                                    <field name="problem_or_incident_identification" nolabel="1"/>
+                                    <field name="problem_or_incident_identification" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                                 <group>
                                     <label for="incident_description" string="Incident description"/>
-                                    <field name="incident_description" nolabel="1"/>
+                                    <field name="incident_description" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                                 <group>
                                     <label for="request_objective" string="Request objective"/>
-                                    <field name="request_objective" nolabel="1"/>
+                                    <field name="request_objective" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                                 <group>
                                     <label for="request_description" string="Request description"/>
-                                    <field name="request_description" nolabel="1"/>
+                                    <field name="request_description" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                                 <group>
                                     <label for="controls_exceptions_assumptions" string="Controls/exceptions/assumptions"/>
-                                    <field name="controls_exceptions_assumptions" nolabel="1"/>
+                                    <field name="controls_exceptions_assumptions" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                                 <group>
                                     <label for="strategic_alignment" string="Strategic Alignment"/>
-                                    <field name="strategic_alignment" nolabel="1"/>
+                                    <field name="strategic_alignment" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                                 <group>
                                     <label for="problem_identification" string="Problem Identification"/>
-                                    <field name="problem_identification" nolabel="1"/>
+                                    <field name="problem_identification" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
                             </group>
                             <separator/>
                             <group>
                                  <group>
-                                <field name="problem_incident_recurrence"/>
-                                <field name="affected_system_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                                <field name="request_benefits_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field name="problem_incident_recurrence" readonly="state != 'to_approve'"/>
+                                <field name="affected_system_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" readonly="state != 'to_approve'"/>
+                                <field name="request_benefits_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" readonly="state != 'to_approve'"/>
                                  </group>
                             </group>
+                        </page>
+                        <page string="Approval Log">
+                            <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request"/>
                         </page>
                         <page string="FSN Sin Firma">
                             <group>
                                 <field name="document_filename" invisible="1"/>
-                                <field name="document" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename"/>
+                                <field name="document" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename" readonly="state != 'to_approve'"/>
                             </group>
                         </page>
                         <page string="FSN Firmado">
@@ -105,14 +113,7 @@
                                 <field name="document_signed" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename" readonly="1"/>
                             </group>
                         </page>
-                        <page string="Approval Log">
-                            <label for="author_user_ids" string="Authors"/>
-                            <field name="author_user_ids" readonly="sent_approval_request"  context="{'default_approval_type': 'author'}">
-                            <label for="reviewer_user_ids" string="Reviewers"/>
-                            <field name="reviewer_user_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'reviewer'}">
-                            <label for="approval_user_ids" string="Approvers"/>
-                            <field name="approval_user_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'approver'}">
-                        </page>
+
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

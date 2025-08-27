@@ -29,6 +29,15 @@
                         <field name="total_advance" widget="progressbar"/>
                     </group>
                 </page>
+                <page string="Etapas del proyecto">
+                    <field name="stage_ids" readonly="1">
+                        <tree editable="bottom" string="Avance de etapas">
+                            <field name="project_id" column_invisible="1"/>
+                            <field name="stage_id"/>
+                            <field name="advance" widget="progressbar"/>
+                        </tree>
+                    </field>
+                </page>
             </xpath>
         </field>
     </record>
@@ -51,7 +60,7 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">
                 <span title="Total Advance"/><field name="total_advance" widget="progressbar"/>
-                <span title="Deviation"/><field name="deviation" widget="progressbar"/>
+<!--                <span title="Deviation"/><field name="deviation" widget="progressbar"/>-->
             </xpath>
         </field>
     </record>

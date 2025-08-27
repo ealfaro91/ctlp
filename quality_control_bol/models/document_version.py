@@ -40,7 +40,8 @@ class DocumentVersion(models.Model):
         'document.version',
         'parent_version_id',
         string='Old Versions',
-        context={'active_test': False})
+        context={'active_test': False}
+    )
     attachment_id = fields.Many2one(
         comodel_name='ir.attachment',
         string='Attachment',

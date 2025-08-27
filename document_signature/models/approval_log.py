@@ -23,6 +23,8 @@ class ApprovalLog(models.Model):
     user_id = fields.Many2one(
         "res.users",
         string="User",
+        required=True,
+        tracking=True
     )
     image = fields.Binary(
         string="Image",
@@ -43,8 +45,14 @@ class ApprovalLog(models.Model):
         default="approver",
         tracking=True
     )
-    request_sign_date = fields.Datetime(string="Request sign date")
-    signed_date = fields.Datetime(string="Signed date")
+    request_sign_date = fields.Datetime(
+        string="Request sign date",
+        tracking=True
+    )
+    signed_date = fields.Datetime(
+        string="Signed date",
+        tracking=True
+    )
     sign_signature = fields.Binary(string="Digital Signature", groups=False)
 
     def _compute_display_name(self):

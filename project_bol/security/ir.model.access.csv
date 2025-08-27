@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_project_fsn,project_fsn_group_user,model_project_fsn,base.group_user,1,1,1,1
 acces_project_fsn_benefit,project_fsn_benefit_group_user,model_project_fsn_benefit,base.group_user,1,1,1,1
 acces_project_fsn_system,project_fsn_system_group_user,model_project_fsn_system,base.group_user,1,1,1,1
+acces_project_project_stage_advance,project_project_stage_advance_group_user,model_project_project_stage_advance,base.group_user,1,1,1,1
