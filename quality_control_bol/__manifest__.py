@@ -6,7 +6,7 @@
     "summary": "",
     "depends": ["project_bol", "windx_documents_management_preview", "document_signature", "helpdesk_bol"],
     "data": [
-       # "data/document.file.type.xml",
+        "data/document.file.type.csv",
         "data/mail_template.xml",
         "security/ir.model.access.csv",
         "views/base_view_attachment_inherit_views.xml",

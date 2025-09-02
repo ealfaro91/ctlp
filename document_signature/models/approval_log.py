@@ -40,7 +40,7 @@ class ApprovalLog(models.Model):
         tracking=True
     )
     approval_type = fields.Selection(
-        [("author", "Author"),("reviewer", "Reviewer"), ("approver", "Approver")],
+        [("reviewer", "Reviewer"), ("approver", "Approver")],
         string="Approval Type",
         default="approver",
         tracking=True
@@ -54,6 +54,7 @@ class ApprovalLog(models.Model):
         tracking=True
     )
     sign_signature = fields.Binary(string="Digital Signature", groups=False)
+
 
     def _compute_display_name(self):
         for record in self:

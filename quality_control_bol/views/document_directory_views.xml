@@ -1,12 +1,19 @@
 <odoo>
 
-    <record id="ir_attachment_view_kanban_inh" model="ir.ui.view">
+    <record id="document_directory_view_kanban_inh" model="ir.ui.view">
         <field name="name">document.directory.view.kanban.inh</field>
         <field name="model">document.directory</field>
         <field name="inherit_id" ref="windx_documents_management_preview.document_directory_view_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('col-6')]" position="attributes">
                 <attribute name="class">col-4</attribute>
+            </xpath>
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="default_group_by">area_id</attribute>
+                 <attribute name="group_create">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="area_id" invisible="1"/>
             </xpath>
         </field>
     </record>
@@ -19,6 +26,19 @@
             <xpath expr="//field[@name='model_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="before">
+                <div class="oe_title">
+                    <label for="name" string="Folder"/>
+                    <h1>
+                        <div class="d-flex">
+                            <field name="name"/>
+                        </div>
+                    </h1>
+                </div>
+            </xpath>
             <xpath expr="//field[@name='visible_directory']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -26,8 +46,8 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='parent_id']" position="after">
-                <field name="document_file_type_ids" widget="many2many_tags"/>
                 <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                <field name="document_file_type_ids" widget="many2many_tags"/>
             </xpath>
             <xpath expr="//page[@name='user_ids']" position="replace">
                 <page string="Users" name="user_ids">

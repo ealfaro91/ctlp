@@ -16,3 +16,9 @@ class DocumentDirectory(models.Model):
         help="The area associated with the document, useful for organizing documents by their relevant areas.",
         tracking=True
     )
+
+    @api.onchange('area_id')
+    def _onchange_area_id(self):
+        for dir in self:
+            if dir.area_id:
+                dir.color = dir.area_id.color

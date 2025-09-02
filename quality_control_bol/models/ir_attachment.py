@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
 
+from odoo.exceptions import ValidationError
+
 
 import io
 import base64
@@ -9,37 +11,206 @@ from reportlab.lib.utils import ImageReader
 from PyPDF2 import PdfFileReader, PdfFileWriter  # 👈 API vieja
 
 
-
 class IrAttachment(models.Model):
     _name = "ir.attachment"
     _inherit = ["ir.attachment", "mail.thread", "mail.activity.mixin", "portal.mixin"]
 
+
+    signed_by_author = fields.Boolean(
+        string="Signed by Author",
+        default=False,
+        help="Indicates whether the document has been signed by the author."
+    )
+    sent_approval_request = fields.Boolean(
+        string="Sent Approval Request",
+        default=False,
+        help="Indicates whether the approval request has been sent."
+    )
+    published = fields.Boolean(
+        string="Publicado",
+        default=False,
+    )
+    user_ids = fields.Many2many(
+        "res.users",
+        string="Usuarios permitidos",
+        related=False,
+        readonly=False,
+       # domain="[('id','in', document_directory_id.user_ids)]"
+    )
+    document_file_type_id = fields.Many2one(
+        comodel_name="document.file.type",
+        string="Document File Type",
+        help="The type of the document file, used to categorize and manage different file types.",
+        domain="[('parent_type_id', '=', False)]",
+        tracking=True
+    )
+    child_type_id = fields.Many2one(
+        comodel_name="document.file.type",
+        string="Subcategory file type",
+        domain="[('parent_type_id', '=', document_file_type_id)]",
+    )
+    has_subcategories = fields.Boolean(
+        string='Has Subcategories',
+        related="document_file_type_id.has_subcategories",
+        store=True,
+        readonly=True
+    )
+    document_file_type_ids = fields.Many2many(
+        comodel_name="document.file.type",
+        string="Document File Types",
+        related="document_directory_id.document_file_type_ids",
+        help="The types of document files associated with the selected directory.",
+        readonly=True
+    )
+    approval_log_ids = fields.One2many(
+        comodel_name="approval.log",
+        inverse_name="attachment_id",
+        string="Approvers",
+    )
+    reviewer_ids = fields.One2many(
+        comodel_name="approval.log",
+        inverse_name="document_id",
+        string="Reviewers",
+    )
+    version_id = fields.Many2one(
+        comodel_name='document.version',
+        string='Document Version',
+        help="The version of the document attachment.",
+        tracking=True
+    )
+    version_ids = fields.One2many(
+        comodel_name='document.version',
+        inverse_name='attachment_id',
+        string='Document Versions',
+        help="List of versions for this document attachment.",
+    )
+    obsolete = fields.Boolean(
+        string='Obsolete',
+        default=False,
+        store=True,
+        compute='_compute_obsolete',
+    )
+    state = fields.Selection([
+        ('to_review', 'To Review'),
+        ('reviewed', 'Reviewed'),
+        ('to_approve', 'To Approve'),
+        ('approved', 'Approved'),
+        ('published', 'Published')],
+        string='Estado',
+        default='to_review',
+        compute='_compute_approval_state'
+    )
+    privacy_type = fields.Selection([
+         ('private', 'Private'), ('public', 'Public')],
+         string='Tipo de privacidad',
+        default='private',
+        required=True,
+    )
+    area_id = fields.Many2one(
+        comodel_name='helpdesk.ticket.area',
+        string='Area',
+        help="The area associated with the document, used for categorization and management.",
+        tracking=True,
+        related="document_directory_id.area_id",
+    )
+    document_signed = fields.Binary(
+        string="Signed Document",
+        attachment=True,
+    )
+    document_signed_filename = fields.Char(
+        string="Document Signed File Name",
+        tracking=True
+    )
+    document_url = fields.Char(
+        compute="get_document_url", string="Portal Access Link"
+    )
+
+    def button_author_sign(self):
+        """ Calls the method to attach the signature to the PDF document. """
+        new_pdf = self.attach_signature_to_pdf(self.datas, self.create_uid.sign_signature)
+        self.document_signed = new_pdf
+        self.signed_by_author = True
+
+
+    # @api.onchange('document_directory_id')
+    # def _onchange_user_ids(self):
+    #     for rec in self:
+    #         rec.user_ids = False
+    #         if rec.document_directory_id:
+    #             rec.user_ids = rec.document_directory_id.user_ids
+
+    @api.depends('version_id.deactivate_date', 'version_id')
+    def _compute_obsolete(self):
+        for rec in self:
+            rec.obsolete = any(version.deactivate_date for version in rec.version_ids)
+    #
+    # def _inverse_compute_approval_state(self):
+    #     """Inverse method to set the state of the FSN based on the approval log."""
+    #     for fsn in self:
+    #         fsn.state = "to_review"
+    #         if all(log.state == "approved" for log in fsn.approval_log_ids):
+    #             fsn.state = "approved"
+    #
+            #     fsn.sent_approval_request = False
+            # elif fsn.state == "to_approve":
+            #     fsn.sent_approval_request = True
+            # elif fsn.state == "approved":
+            #     fsn.sent_approval_request = True
+            # elif fsn.state == "cancelled":
+            #     fsn.sent_approval_request = False
+            # elif fsn.state == "cancelled":
+            #     fsn.sent_approval_request = False
+
+    @api.depends("approval_log_ids", "sent_approval_request", "approval_log_ids.state", "published")
+    def _compute_approval_state(self):
+        """Compute the approval state based on the approval
+         log and create a project if all approvals are done."""
+        for fsn in self:
+            fsn.state = "to_review"
+            if fsn.sent_approval_request and not all(log.state == "approved" for log in fsn.approval_log_ids):
+                fsn.state = "to_approve"
+            if all(log.state == "approved" for log in fsn.approval_log_ids):
+                fsn.state = "approved"
+            if fsn.published:
+                fsn.state = "published"
+            # fsn.state = "approval_request" if fsn.sent_approval_request and not all(
+            #     log.state == "approved" for log in fsn.approval_log_ids
+            # ) else "to_approve"
+            # if fsn.approval_log_ids:
+            #     if all(log.state == "approved" for log in fsn.approval_log_ids):
+            #         fsn.state = "approved"
+            #     if fsn.state == "approved":
+            #         mail_template = self.env.ref(
+            #             "project_bol.fsn_approved_notification", raise_if_not_found=True
+            #         )
+            #         mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
+            #         fsn._action_create_project()
+
     def button_publish_document(self):
         """Publish the document, making it accessible to the public."""
         self.ensure_one()
-        if not self.published:
-            self.published = True
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'message': _("El documento ha sido publicado."),
-                    'next': {'type': 'ir.actions.act_window_close'},
-                    'sticky': False,
-                    'type': 'success',
-                }
+        self.published = True
+        for user in self.user_ids + self.approval_log_ids.mapped("user_id"):
+            mail_template = self.env.ref(
+                "quality_control_bol.document_published_notification", raise_if_not_found=True
+            )
+            mail_template.sudo().with_context(
+                email_to=user.email_formatted,
+                user=user
+            ).send_mail(
+                self.id, force_send=False, raise_exception=True
+            )
+        self.state = 'published'
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'message': _("El documento ha sido publicado."),
+                'next': {'type': 'ir.actions.act_window_close'},
+                'sticky': False,
+                'type': 'success',
             }
-        else:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'message': _("El documento ya está publicado."),
-                    'next': {'type': 'ir.actions.act_window_close'},
-                    'sticky': False,
-                    'type': 'warning',
-                }
-            }
+        }
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
@@ -143,111 +314,6 @@ class IrAttachment(models.Model):
                 'type': 'success',
             }
         }
-    signed_by_author = fields.Boolean(
-        string="Signed by Author",
-        default=False,
-        help="Indicates whether the document has been signed by the author."
-    )
-    sent_approval_request = fields.Boolean(
-        string="Sent Approval Request",
-        default=False,
-        help="Indicates whether the approval request has been sent."
-    )
-    def button_author_sign(self):
-        """ Calls the method to attach the signature to the PDF document. """
-        new_pdf = self.attach_signature_to_pdf(self.datas, self.create_uid.sign_signature)
-        self.document_signed = new_pdf
-        self.signed_by_author = True
-
-
-
-    @api.onchange('document_directory_id')
-    def _onchange_user_ids(self):
-        for rec in self:
-            rec.user_ids = False
-            if rec.document_directory_id:
-                rec.user_ids = rec.document_directory_id.user_ids
-
-    user_ids = fields.Many2many(
-        "res.users",
-        string="Usuarios permitidos",
-        related=False,
-        readonly=False
-    )
-    document_file_type_id = fields.Many2one(
-        comodel_name="document.file.type",
-        string="Document File Type",
-        help="The type of the document file, used to categorize and manage different file types.",
-      #  domain="[('document_directory_ids', 'in', document_directory_id)]",
-        tracking=True
-    )
-    document_file_type_ids = fields.Many2many(
-        comodel_name="document.file.type",
-        string="Document File Types",
-        related="document_directory_id.document_file_type_ids",
-        help="The types of document files associated with the selected directory.",
-        readonly=True
-    )
-    approval_log_ids = fields.One2many(
-        comodel_name="approval.log",
-        inverse_name="attachment_id",
-        string="Approvers",
-    )
-    reviewer_ids = fields.One2many(
-        comodel_name="approval.log",
-        inverse_name="document_id",
-        string="Reviewers",
-    )
-    version_id = fields.Many2one(
-        comodel_name='document.version',
-        string='Document Version',
-        help="The version of the document attachment.",
-        tracking=True
-    )
-    version_ids = fields.One2many(
-        comodel_name='document.version',
-        inverse_name='attachment_id',
-        string='Document Versions',
-        help="List of versions for this document attachment.",
-    )
-    # obsolete = fields.Boolean(
-    #     string='Obsolete',
-    #     default=False,
-    #     help="Indicates whether the document is obsolete."
-    # )
-    state = fields.Selection([
-        ('to_review', 'To Review'),
-        ('reviewed', 'Reviewed'),
-        ('to_approve', 'To Approve'),
-        ('approved', 'Approved'),
-        ('published', 'Published')],
-        string='Estado',
-        default='to_review'
-    )
-    privacy_type = fields.Selection([
-         ('private', 'Private'), ('public', 'Public')],
-         string='Tipo de privacidad',
-        default='private',
-        required=True,
-    )
-    area_id = fields.Many2one(
-        comodel_name='helpdesk.ticket.area',
-        string='Area',
-        help="The area associated with the document, used for categorization and management.",
-        tracking=True,
-        related="document_directory_id.area_id",
-    )
-    document_signed = fields.Binary(
-        string="Signed Document",
-        attachment=True,
-    )
-    document_signed_filename = fields.Char(
-        string="Document Signed File Name",
-        tracking=True
-    )
-    document_url = fields.Char(
-        compute="get_document_url", string="Portal Access Link"
-    )
 
     def get_document_url(self):
         """Generate the URL for the document in the portal."""
@@ -264,7 +330,7 @@ class IrAttachment(models.Model):
     def _get_portal_return_action(self):
         """Return the action used to display record when returning from customer portal."""
         self.ensure_one()
-        return self.env.ref("project_bol.approval_log_action")
+        return self.env.ref("document_signature.approval_log_action")
 
     def get_portal_sign_url(self):
         return "/my/document/%s/sign?access_token=%s" % (self.id, self.access_token)
@@ -273,10 +339,6 @@ class IrAttachment(models.Model):
     def button_send_approval_request(self):
         """Send approval request emails to all users in the approval log."""
         for rec in self:
-            if not rec.reviewer_ids:
-                raise ValidationError(
-                    _("There are no users in the approval log to send the request.")
-                )
             if not rec.approval_log_ids:
                 raise ValidationError(
                     _("There are no users in the approval log to send the request.")
@@ -288,6 +350,8 @@ class IrAttachment(models.Model):
                 mail_template.send_mail(
                     rec.id, force_send=False, raise_exception=True
                 )
+            for log in rec.approval_log_ids:
+                log.request_sign_date = fields.Datetime.now()
             rec.sent_approval_request = True
             return {
                 'type': 'ir.actions.client',

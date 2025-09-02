@@ -25,6 +25,43 @@ class DocumentFileType(models.Model):
         default=10,
         help="The sequence used to order the file types.",
     )
+    has_subcategories = fields.Boolean(
+        string='Has Subcategories',
+        default=False,
+        help="Indicates whether this document file type has subcategories.",
+        tracking=True
+    )
+    is_parent_type = fields.Boolean(
+        string='Is Parent Type',
+        default=True,
+        help="Indicates whether this document file type is a parent type.",
+        tracking=True
+    )
+
+    parent_type_id = fields.Many2one(
+        'document.file.type',
+        string='Parent Type',
+        ondelete='set null',
+        help="The parent type of this document file type.",
+        tracking=True,
+        index=True,
+        domain=[('parent_type_id', '=', False)]
+    )
+    child_type_ids = fields.One2many(
+        'document.file.type',
+        'parent_type_id',
+        string='Child Types',
+        help="The child types of this document file type.",
+        tracking=True,
+        index=True,
+        copy=False
+    )
+
+    @api.onchange('parent_type_id')
+    def _onchange_parent_type_id(self):
+        for rec in self:
+            if rec.parent_type_id:
+                rec.is_parent_type = False
 
  #   document_file_type_ids = fields.Many2one(
 

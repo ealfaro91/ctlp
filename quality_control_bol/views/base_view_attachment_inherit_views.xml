@@ -6,6 +6,20 @@
 <!--            <field name="inherit_id" ref="windx_documents_management_preview.menu_document_root"/>-->
 <!--            <field name="web_icon" type="char">quality_control_bol,static/description/icon.png</field>-->
 <!--        </record>-->
+     <record id="ir_attachment_view_search_inh" model="ir.ui.view">
+        <field name="name">ir.attachment.view.search.inh</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="windx_documents_management_preview.view_attachment_search_inherit_document_management"/>
+         <field name="arch" type="xml">
+             <xpath expr="//filter[@name='my_document']" position="after">
+                 <filter name="document_type" string="Tipo de documento" context="{'group_by':'document_file_type_id'}"/>
+             </xpath>
+         </field>
+    </record>
+
+<!--
+    	windx_documents_management_preview.act_all_attachment_from_document_directory
+-->
 
     <record id="ir_attachment_view_kanban_inh" model="ir.ui.view">
         <field name="name">ir.attachment.view.kanban.inh</field>
@@ -13,8 +27,15 @@
         <field name="inherit_id" ref="mail.view_document_file_kanban"/>
            <field name="arch" type="xml">
                <xpath expr="//kanban" position="attributes">
-                <attribute name="default_group_by">privacy_type</attribute>
-            </xpath>
+                   <attribute name="default_group_by">document_file_type_id</attribute>
+               </xpath>
+               <xpath expr="//field[@name='name']" position="after">
+                   <field name="state"/>
+                   <field name="document_file_type_id"/>
+               </xpath>
+                <xpath expr="//div[hasclass('o_kanban_image')]" position="before">
+                    <widget name="web_ribbon" title="Publicado" bg_color="text-bg-info" invisible="state != 'published'"/>
+               </xpath>
            </field>
     </record>
 
@@ -27,21 +48,40 @@
             <xpath expr="//header" position="inside">
                 <button name="button_author_sign" type="object" class="btn-primary"
                             invisible="signed_by_author" string="Firma del autor" icon="fa-pencil"/>
-                <button name="button_publish_document" type="object" class="btn-primary" string="Publicar" icon="fa-bullhorn"/>
-                <button name="button_send_approval_request" type="object" class="btn-info" string="Enviar para aprobación" icon="fa-envelope"/>
+                <button name="button_publish_document" type="object" class="btn-primary" string="Publicar" icon="fa-bullhorn"
+                        invisible="privacy_type != 'public' or state == 'published'"/>
+                <button name="button_send_approval_request" type="object"
+                        class="btn-info" string="Enviar para aprobación"
+                        icon="fa-envelope" invisible="sent_approval_request"/>
                 <field name="state" widget="statusbar"/>
                 <field name="signed_by_author" invisible="1"/>
                 <field name="sent_approval_request" invisible="1"/>
+                <field name="published" invisible="1"/>
             </xpath>
 
             <xpath expr="//label[@for='name']" position="before">
 <!--                <widget name="web_ribbon" title="Approved" bg_color="text-bg-success"/>-->
                 <widget name="web_ribbon" title="Publicado" bg_color="text-bg-info" invisible="state != 'published'"/>
             </xpath>
+            <xpath expr="//label[@for='datas']" position="replace">
+                <label for="datas" class="mt-1" string="Archivo"/>
+            </xpath>
             <xpath expr="//field[@name='mimetype']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='user_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+             <xpath expr="//field[@name='directory_tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='document_directory_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
             <xpath expr="//group[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group[4]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//group[5]" position="attributes">
@@ -49,14 +89,19 @@
             </xpath>
             <xpath expr="//field[@name='datas']" position="after">
                 <group>
-                    <field name="document_file_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                    <field name="privacy_type"/>
+                    <field name="document_directory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="privacy_type"/>
+                    <field name="document_file_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="has_subcategories" invisible="1"/>
+                    <field name="child_type_id" invisible="not has_subcategories"/>
                     <field name="version_id"/>
+                </group>
+
+                <group>
                     <field name="document_file_type_ids" invisible="1"/>
-<!--
-                    <field name="user_ids" widget="" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
--->
+                    <field name="user_ids" string="Usuarios con acceso"  widget="many2many_tags"  options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="directory_tag_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                 </group>
             </xpath>
             <xpath expr="//field[@name='type']" position="attributes">
@@ -65,44 +110,20 @@
             <xpath expr="//sheet" position="inside">
                 <notebook>
                     <page string="Approval log">
-                        <label for="reviewer_ids" string="Reviewers"/>
-                        <field name="reviewer_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'reviewer'}"/>
-                        <label for="approval_log_ids" string="Approvers"/>
-                        <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request"  context="{'default_approval_type': 'approver'}"/>
+                        <label for="approval_log_ids" string="Reviewers and Approvers"/>
+                        <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request">
+                            <tree editable="bottom">
+                                <field name="attachment_id" column_invisible="1"/>
+                                <field name="sequence" widget="handle"/>
+                                <field name="user_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
+                                <field name="approval_type"/>
+                                <field name="request_sign_date" readonly="1"/>
+                                <field name="state" widget="badge" decoration-success="state == 'approved'" decoration-danger="state == 'pending'" readonly="1"/>
+                                <field name="signed_date" readonly="1"/>
+                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>
+                            </tree>
+                        </field>
                     </page>
-<!--                        <field name="author_ids" nolabel="1" context="{'default_attachment_id': active_id, 'default_approval_type': 'author'}">-->
-<!--                            <tree editable="bottom" string="Approval Log">-->
-<!--                                <field name="sequence" widget="handle"/>-->
-<!--                                <field name="user_id" widget="many2one_avatar_user"/>-->
-<!--                                <field name="request_sign_date"/>-->
-<!--                                <field name="signed_date"/>-->
-<!--                                <field name="attachment_id" column_invisible="1"/>-->
-<!--                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>-->
-<!--                            </tree>-->
-<!--                        </field>-->
-<!--                    </page>-->
-<!--                    <page string="Reviewers">-->
-<!--                        <field name="reviewer_ids" nolabel="1" context="{'default_attachment_id': active_id, 'default_approval_type': 'reviewer'}">-->
-<!--                            <tree editable="bottom" string="Approval Log">-->
-<!--                                <field name="sequence" widget="handle"/>-->
-<!--                                <field name="user_id" widget="many2one_avatar_user"/>-->
-<!--                                <field name="request_sign_date"/>-->
-<!--                                <field name="signed_date"/>-->
-<!--                                <field name="attachment_id" column_invisible="1"/>-->
-<!--                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>-->
-<!--                            </tree>-->
-<!--                        </field>-->
-<!--                    </page>-->
-<!--                    <page string="Approvers">-->
-<!--                        <field name="approval_log_ids" nolabel="1"  context="{'default_attachment_id': active_id, 'default_approval_type': 'approver'}">-->
-<!--                            <tree editable="bottom" string="Approval Log">-->
-<!--                                <field name="sequence" widget="handle"/>-->
-<!--                                <field name="user_id" widget="many2one_avatar_user"/>-->
-<!--                                <field name="attachment_id" column_invisible="1"/>-->
-<!--                                <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>-->
-<!--                            </tree>-->
-<!--                        </field>-->
-<!--                    </page>-->
                     <page string="Versions">
                         <field name="version_ids" nolabel="1"/>
                     </page>
@@ -125,19 +146,6 @@
         </field>
     </record>
 
-    <record id="document_directory_kanban_view_inh" model="ir.ui.view">
-        <field name="name">document.directory.kanban.view.inh</field>
-        <field name="model">document.directory</field>
-        <field name="inherit_id" ref="windx_documents_management_preview.document_directory_view_kanban"/>
-        <field name="arch" type="xml">
-            <xpath expr="//kanban" position="attributes">
-                <attribute name="default_group_by">area_id</attribute>
-            </xpath>
-<!--            <xpath expr="//field[@name='tag_ids'" position="before">-->
-<!--                  <field name="area_id" widget="badge" options="{'color_field': 'color'}"/>-->
-<!--            </xpath>-->
-        </field>
-    </record>
 
 
 

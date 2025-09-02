@@ -6,12 +6,12 @@
         <field name="name">document.version.tree.view</field>
         <field name="model">document.version</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree>
+                <field name="attachment_id"/>
                 <field name="version"/>
+                <field name="parent_version_id"/>
+                <field name="deactivate_date"/>
                 <field name="active" column_invisible="1"/>
-<!--               <field name="attachment_id"/>-->
-<!--¡               <field name="parent_version_id"/>-->
-<!--                <field name="deactivate_date"/>-->
             </tree>
         </field>
     </record>
@@ -24,11 +24,13 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
                     <div class="oe_title">
                         <label for="version" string="Version"/>
                         <h1>
                             <div class="d-flex">
                                 <field name="version"/>
+                                <field name="active" invisible="1"/>
                             </div>
                         </h1>
                     </div>

@@ -6,34 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-21 16:41+0000\n"
-"PO-Revision-Date: 2025-08-21 16:41+0000\n"
+"POT-Creation-Date: 2025-09-01 16:12+0000\n"
+"PO-Revision-Date: 2025-09-01 16:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: project_bol
-#: model:mail.template,body_html:project_bol.fsn_approved_notification
-msgid ""
-"<div style=\"margin:auto;background: #FFFFFF;color:#777777\">\n"
-"                    <p>Hello <t t-out=\"object.user_id\"></t></p>\n"
-"                    <p>The following email is to notify that the FSN has been approved by all users.</p>\n"
-"                    <ul>\n"
-"                        <li>\n"
-"                            FSN: <t t-out=\"object.name\"></t>\n"
-"                        </li>\n"
-"<!--                        <li>-->\n"
-"<!--                            Link:  <a t-attf-href=\"{{ object.document_url_signed }}\"><t t-out=\"object.document_url_signed\"/></a>-->\n"
-"<!--                        </li>-->\n"
-"                    </ul>\n"
-"                    <p>This is an automatically generated email, please do not reply.</p>\n"
-"                    <p>Best regards.</p><br>\n"
-"                </div>\n"
-"            "
-msgstr ""
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
@@ -86,11 +66,6 @@ msgstr ""
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.project_view_kanban_progress_inherit
-msgid "<span title=\"Deviation\"/>"
-msgstr "<span title=\"Desviación\"/>"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.project_view_kanban_progress_inherit
 msgid "<span title=\"Total Advance\"/>"
 msgstr "<span title=\"Avance Total\"/>"
 
@@ -115,8 +90,90 @@ msgid ""
 "<strong>Thank You!</strong>\n"
 "                        Your FSN has been signed."
 msgstr ""
-"<strong>Thank You!</strong>\n"
+"<strong>Gracias!</strong>\n"
 "                        Su FSN ha sido firmado."
+
+#. module: project_bol
+#: model:mail.template,body_html:project_bol.fsn_approved_notification
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                       <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Dear <strong><t t-out=\"user.name\"></t></strong>, the following FSN requires has been approved.<br>\n"
+"                                                            <ul>\n"
+"                                                                <li>FSN: <t t-out=\"object.name\"></t></li>\n"
+"                                                                <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                            </ul>\n"
+"                                                            <br>\n"
+"                                                            <p>Greetings.</p>\n"
+"                                                            <p> This is an automatic message, please de not reply</p>\n"
+"                                                        </div>\n"
+"                                                    </td></tr>\n"
+"                                                    <tr>\n"
+"                                                        <td style=\"text-align:center;\">\n"
+"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                        </td>\n"
+"                                                    </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <!-- FOOTER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\">\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                        </t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
+msgstr ""
 
 #. module: project_bol
 #: model:mail.template,body_html:project_bol.fsn_approval_request_email
@@ -135,8 +192,8 @@ msgid ""
 "                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
 "                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
 "                                                    </td>\n"
-"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user_id.company_id.uses_default_logo\">\n"
-"                                                        <img t-attf-src=\"/logo.png?company={{ user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user_id.company_id.name\">\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
 "                                                <tr>\n"
@@ -178,14 +235,14 @@ msgid ""
 "                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                                                <tr>\n"
 "                                                    <td valign=\"middle\" align=\"left\">\n"
-"                                                        <t t-out=\"user_id.company_id.name or ''\"></t>\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
 "                                                <tr>\n"
 "                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                                                        <t t-out=\"user_id.company_id.phone or ''\"></t>\n"
-"                                                        <t t-if=\"user_id.company_id.website\">\n"
-"                                                            | <a t-attf-href=\"'%s' % {{ user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user_id.company_id.website or ''\"></a>\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
 "                                                        </t>\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
@@ -310,7 +367,7 @@ msgid ""
 "                                    <tr>\n"
 "                                        <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                            <div>\n"
-"                                                Dear <strong><t t-out=\"object.user_id.name\"></t></strong>,<br>\n"
+"                                                Dear <strong><t t-out=\"object.user_id.name\"></t></strong>, the following project has been created<br>\n"
 "                                                <ul>\n"
 "                                                    <li>Project: <t t-out=\"object.name\"></t></li>\n"
 "                                                </ul>\n"
@@ -353,11 +410,6 @@ msgid ""
 msgstr ""
 
 #. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__incident_description
-msgid "A description of the incident related to this ticket."
-msgstr "Descripción del incidente relacionado con este ticket."
-
-#. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__request_description
 msgid "A detailed description of the request related to this ticket."
 msgstr "Descripción detallada de la solicitud relacionada con este ticket."
@@ -372,6 +424,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_needaction
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_needaction
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_needaction
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_needaction
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_needaction
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_needaction
 msgid "Action Needed"
@@ -389,6 +442,7 @@ msgstr "Activo"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_ids
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_ids
 msgid "Activities"
@@ -399,6 +453,7 @@ msgstr "Actividades"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_exception_decoration
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_exception_decoration
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_exception_decoration
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_exception_decoration
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_exception_decoration
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_exception_decoration
 msgid "Activity Exception Decoration"
@@ -409,6 +464,7 @@ msgstr "Decoración de Excepción de Actividad"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_state
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_state
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_state
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_state
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_state
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_state
 msgid "Activity State"
@@ -419,10 +475,16 @@ msgstr "Estado de Actividad"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_type_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_type_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_type_icon
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_type_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_type_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "Icono de Tipo de Actividad"
+
+#. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__advance
+msgid "Advance (%)"
+msgstr "Avance (%)"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__affected_system_id
@@ -448,11 +510,6 @@ msgstr "Monto Ejecutado"
 #: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
 msgid "Approval Log"
 msgstr "Registro de Aprobación"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__approval_log_ids
-msgid "Approval Log ids"
-msgstr "IDs de Registro de Aprobación"
 
 #. module: project_bol
 #: model:ir.model.fields.selection,name:project_bol.selection__project_fsn__state__approval_request
@@ -491,10 +548,16 @@ msgstr "Área"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_attachment_count
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_attachment_count
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_attachment_count
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_attachment_count
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_attachment_count
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_attachment_count
 msgid "Attachment Count"
 msgstr "Número de Adjuntos"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
+msgid "Avance de etapas"
+msgstr ""
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.project_fsn_benefit_form_view
@@ -505,6 +568,16 @@ msgstr "Beneficios"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__name
 msgid "Benefit Name"
 msgstr "Nombre del Beneficio"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "Cancelar"
+msgstr ""
+
+#. module: project_bol
+#: model:ir.model.fields.selection,name:project_bol.selection__project_fsn__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
@@ -557,6 +630,7 @@ msgstr "Controles/excepciones/suposiciones"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__create_uid
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__create_uid
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__create_uid
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
@@ -564,6 +638,7 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__create_date
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__create_date
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__create_date
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__create_date
 msgid "Created on"
 msgstr "Creado el"
 
@@ -624,6 +699,7 @@ msgstr "Iniciales Digitales"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__display_name
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__display_name
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__display_name
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__display_name
 msgid "Display Name"
 msgstr "Nombre para Mostrar"
 
@@ -655,6 +731,11 @@ msgstr ""
 #. module: project_bol
 #: model:project.task.type,name:project_bol.project_task_type_stage_1
 msgid "EN PROGRESO"
+msgstr ""
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
+msgid "Etapas del proyecto"
 msgstr ""
 
 #. module: project_bol
@@ -702,7 +783,7 @@ msgstr ""
 #. module: project_bol
 #: model:mail.template,name:project_bol.fsn_approved_notification
 msgid "FSN has been approved"
-msgstr ""
+msgstr "El FSN ha sido aprobado"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_menu_fsn
@@ -710,10 +791,16 @@ msgid "FSN to approve"
 msgstr "FSN por aprobar"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "Firma del revisor"
+msgstr ""
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_follower_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_follower_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_follower_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_follower_ids
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_follower_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_follower_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_follower_ids
 msgid "Followers"
@@ -724,6 +811,7 @@ msgstr "Seguidores"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_partner_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_partner_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_partner_ids
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_partner_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_partner_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_partner_ids
 msgid "Followers (Partners)"
@@ -734,6 +822,7 @@ msgstr "Seguidores (Contactos)"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_type_icon
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_type_icon
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__activity_type_icon
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__activity_type_icon
 #: model:ir.model.fields,help:project_bol.field_project_task__activity_type_icon
 #: model:ir.model.fields,help:project_bol.field_project_task_type__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
@@ -764,6 +853,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__has_message
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__has_message
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__has_message
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__has_message
 #: model:ir.model.fields,field_description:project_bol.field_project_task__has_message
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__has_message
 msgid "Has Message"
@@ -780,6 +870,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__id
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__id
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__id
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__id
 msgid "ID"
 msgstr ""
 
@@ -788,6 +879,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_exception_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_exception_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_exception_icon
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_exception_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_exception_icon
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_exception_icon
 msgid "Icon"
@@ -798,6 +890,7 @@ msgstr "Icono"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_exception_icon
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_exception_icon
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__activity_exception_icon
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__activity_exception_icon
 #: model:ir.model.fields,help:project_bol.field_project_task__activity_exception_icon
 #: model:ir.model.fields,help:project_bol.field_project_task_type__activity_exception_icon
 msgid "Icon to indicate an exception activity."
@@ -814,6 +907,7 @@ msgstr "Identificación del problema o incidente relacionado con este ticket."
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_needaction
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_needaction
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__message_needaction
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__message_needaction
 #: model:ir.model.fields,help:project_bol.field_project_task__message_needaction
 #: model:ir.model.fields,help:project_bol.field_project_task_type__message_needaction
 msgid "If checked, new messages require your attention."
@@ -828,22 +922,14 @@ msgstr "Si está marcado, los nuevos mensajes requieren su atención."
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_has_sms_error
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__message_has_error
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__message_has_sms_error
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__message_has_error
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__message_has_sms_error
 #: model:ir.model.fields,help:project_bol.field_project_task__message_has_error
 #: model:ir.model.fields,help:project_bol.field_project_task__message_has_sms_error
 #: model:ir.model.fields,help:project_bol.field_project_task_type__message_has_error
 #: model:ir.model.fields,help:project_bol.field_project_task_type__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__incident_description
-msgid "Incident Description"
-msgstr "Descripción del Incidente"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Incident description"
-msgstr "Descripción del Incidente"
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__problem_incident_recurrence
@@ -859,6 +945,11 @@ msgstr ""
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__sent_approval_request
 msgid "Indicates whether the approval request has been sent."
+msgstr ""
+
+#. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_fsn__signed_by_author
+msgid "Indicates whether the document has been signed by the author."
 msgstr ""
 
 #. module: project_bol
@@ -891,6 +982,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_is_follower
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_is_follower
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_is_follower
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_is_follower
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_is_follower
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_is_follower
 msgid "Is Follower"
@@ -900,6 +992,7 @@ msgstr "Es un seguidor"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__write_uid
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__write_uid
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__write_uid
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -907,6 +1000,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__write_date
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__write_date
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__write_date
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -915,6 +1009,7 @@ msgstr "Última actualización el"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_has_error
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_has_error
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_has_error
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_has_error
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_has_error
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_has_error
 msgid "Message Delivery error"
@@ -925,6 +1020,7 @@ msgstr "Error de envío de mensaje"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_ids
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_ids
 msgid "Messages"
@@ -935,6 +1031,7 @@ msgstr "Mensajes"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__my_activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__my_activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__my_activity_date_deadline
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__my_activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_task__my_activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__my_activity_date_deadline
 msgid "My Activity Deadline"
@@ -952,12 +1049,7 @@ msgstr "Título"
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__fsn_id
 msgid "Needs Request Form"
-msgstr "Formulario de Solicitud de Necesidades (FSN)"
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__project_fsn_id
-msgid "Needs Request Form related to this approval log."
-msgstr ""
+msgstr "Notas de Especificación Funcional"
 
 #. module: project_bol
 #. odoo-python
@@ -971,6 +1063,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_date_deadline
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_date_deadline
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -981,6 +1074,7 @@ msgstr "Fecha límite de la siguiente actividad"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_summary
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_summary
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_summary
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_summary
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_summary
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_summary
 msgid "Next Activity Summary"
@@ -991,6 +1085,7 @@ msgstr "Resumen de la siguiente actividad"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_type_id
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_type_id
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_type_id
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_type_id
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_type_id
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_type_id
 msgid "Next Activity Type"
@@ -1011,6 +1106,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_needaction_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_needaction_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_needaction_counter
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_needaction_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_needaction_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_needaction_counter
 msgid "Number of Actions"
@@ -1021,6 +1117,7 @@ msgstr "Número de acciones"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_has_error_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_has_error_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_has_error_counter
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_has_error_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_has_error_counter
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_has_error_counter
 msgid "Number of errors"
@@ -1031,6 +1128,7 @@ msgstr "Número de errores"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_needaction_counter
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_needaction_counter
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__message_needaction_counter
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__message_needaction_counter
 #: model:ir.model.fields,help:project_bol.field_project_task__message_needaction_counter
 #: model:ir.model.fields,help:project_bol.field_project_task_type__message_needaction_counter
 msgid "Number of messages requiring action"
@@ -1041,6 +1139,7 @@ msgstr "Número de mensajes que requieren una acción"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_has_error_counter
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_has_error_counter
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__message_has_error_counter
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__message_has_error_counter
 #: model:ir.model.fields,help:project_bol.field_project_task__message_has_error_counter
 #: model:ir.model.fields,help:project_bol.field_project_task_type__message_has_error_counter
 msgid "Number of messages with delivery error"
@@ -1059,7 +1158,7 @@ msgstr ""
 #. module: project_bol
 #: model:project.task.type,name:project_bol.project_task_type_stage_0
 msgid "POR HACER"
-msgstr "Por hacer"
+msgstr "POR HACER"
 
 #. module: project_bol
 #: model:project.project.stage,name:project_bol.project_project_stage_5
@@ -1127,6 +1226,7 @@ msgstr "Dueño del Producto"
 #. module: project_bol
 #: model:ir.model,name:project_bol.model_project_project
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__project_id
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__project_id
 msgid "Project"
 msgstr "Proyecto"
 
@@ -1183,13 +1283,14 @@ msgstr "Información del Proyecto"
 #: model:ir.model,name:project_bol.model_project_project_stage
 #: model:ir.model.fields,field_description:project_bol.field_project_task__project_stage_id
 msgid "Project Stage"
-msgstr "Etapa del Proyecto"
+msgstr "Etapa del proyecto"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__rating_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__rating_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__rating_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__rating_ids
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__rating_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task__rating_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__rating_ids
 msgid "Ratings"
@@ -1198,7 +1299,7 @@ msgstr "Calificaciones"
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_benefits_ids
 msgid "Request Benefits"
-msgstr "Beneficios del proyecto"
+msgstr "Solicitud de Beneficios"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_description
@@ -1248,16 +1349,28 @@ msgstr "Solicitante"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_user_id
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_user_id
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__activity_user_id
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__activity_user_id
 #: model:ir.model.fields,field_description:project_bol.field_project_task__activity_user_id
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario Responsable"
 
 #. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_fsn__approval_log_ids
+msgid "Reviewer Users"
+msgstr "IDs de Registro de Aprobación"
+
+#. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_approval_log__role_id
+msgid "Role"
+msgstr "Rol"
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_has_sms_error
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_has_sms_error
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_has_sms_error
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__message_has_sms_error
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__message_has_sms_error
 #: model:ir.model.fields,field_description:project_bol.field_project_task__message_has_sms_error
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_has_sms_error
 msgid "SMS Delivery error"
@@ -1301,9 +1414,24 @@ msgid "Signed Document"
 msgstr "Documento Firmado"
 
 #. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_fsn__signed_by_author
+msgid "Signed by Author"
+msgstr ""
+
+#. module: project_bol
 #: model:res.groups,name:project_bol.group_fsn_requester
 msgid "Solicitante (GAS)"
 msgstr ""
+
+#. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__stage_id
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_project__stage_ids
+msgid "Stage Advances"
+msgstr "Avances de Etapa"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__state
@@ -1316,6 +1444,7 @@ msgstr "Estado"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_state
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_state
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__activity_state
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__activity_state
 #: model:ir.model.fields,help:project_bol.field_project_task__activity_state
 #: model:ir.model.fields,help:project_bol.field_project_task_type__activity_state
 msgid ""
@@ -1453,14 +1582,34 @@ msgid "The objective of the request related to this ticket."
 msgstr "El objetivo de la solicitud relacionada con este ticket."
 
 #. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__advance
+msgid "The percentage of advance for this stage."
+msgstr ""
+
+#. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__project_id
+msgid "The project associated with this stage advance."
+msgstr ""
+
+#. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__project_id
 msgid "The project this ticket is related to."
 msgstr "El proyecto al que está relacionado este ticket."
 
 #. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__stage_id
+msgid "The stage associated with this advance."
+msgstr ""
+
+#. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_task__project_stage_id
 msgid "The stage of the project this task belongs to."
 msgstr "Etapa del proyecto a la que pertenece esta tarea."
+
+#. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_project__stage_ids
+msgid "The stages and their advances for this project."
+msgstr ""
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__affected_system_id
@@ -1502,7 +1651,8 @@ msgstr "Actualmente no hay aprobaciones de fsn pendientes para usted."
 #: code:addons/project_bol/models/project_fsn.py:0
 #, python-format
 msgid "There are no users in the approval log to send the request."
-msgstr "No hay usuarios en el registro de aprobación para enviar la solicitud."
+msgstr ""
+"No hay usuarios en el registro de aprobación para enviar la solicitud."
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__name
@@ -1524,6 +1674,7 @@ msgstr "Avance Total"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_exception_decoration
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_exception_decoration
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__activity_exception_decoration
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__activity_exception_decoration
 #: model:ir.model.fields,help:project_bol.field_project_task__activity_exception_decoration
 #: model:ir.model.fields,help:project_bol.field_project_task_type__activity_exception_decoration
 msgid "Type of the exception activity on record."
@@ -1531,8 +1682,14 @@ msgstr "Tipo de actividad de excepción en el registro."
 
 #. module: project_bol
 #: model:ir.model,name:project_bol.model_res_users
+#: model:ir.model.fields,field_description:project_bol.field_approval_log__user_id
 msgid "User"
 msgstr "Usuario"
+
+#. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_fsn__approval_log_ids
+msgid "Users who will review this Needs Request Form."
+msgstr ""
 
 #. module: project_bol
 #: model:project.project.stage,name:project_bol.project_project_stage_0
@@ -1544,6 +1701,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__website_message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__website_message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__website_message_ids
+#: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__website_message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task__website_message_ids
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__website_message_ids
 msgid "Website Messages"
@@ -1554,6 +1712,7 @@ msgstr "Mensajes del sitio web"
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__website_message_ids
 #: model:ir.model.fields,help:project_bol.field_project_fsn_system__website_message_ids
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__website_message_ids
+#: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__website_message_ids
 #: model:ir.model.fields,help:project_bol.field_project_task__website_message_ids
 #: model:ir.model.fields,help:project_bol.field_project_task_type__website_message_ids
 msgid "Website communication history"
@@ -1580,6 +1739,11 @@ msgstr "Sí"
 #: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
 msgid "close"
 msgstr "cerrar"
+
+#. module: project_bol
+#: model:ir.model,name:project_bol.model_project_project_stage_advance
+msgid "project.project.stage.advance"
+msgstr ""
 
 #. module: project_bol
 #: model:mail.template,subject:project_bol.fsn_approval_request_email

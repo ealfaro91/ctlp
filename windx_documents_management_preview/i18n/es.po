@@ -107,12 +107,12 @@ msgstr "Por etiquetas asignadas"
 #. module: windx_documents_management_preview
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
 msgid "By parent directory"
-msgstr "Por directorio padre"
+msgstr "Por carpeta padre"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__child_ids
 msgid "Child Directories"
-msgstr "Directorios hijos"
+msgstr "carpetas hijos"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__color
@@ -148,12 +148,12 @@ msgstr "Configuración"
 #: model_terms:ir.actions.act_window,help:windx_documents_management_preview.document_directory_kanban_action
 #: model_terms:ir.actions.act_window,help:windx_documents_management_preview.document_directory_tree_action
 msgid "Create a new Directory"
-msgstr "Crear un nuevo directorio"
+msgstr "Crear un nuevo carpeta"
 
 #. module: windx_documents_management_preview
 #: model_terms:ir.actions.act_window,help:windx_documents_management_preview.directory_tag_action
 msgid "Create a new Directory Tag"
-msgstr "Crear una nueva etiqueta de directorio"
+msgstr "Crear una nueva etiqueta de carpeta"
 
 #. module: windx_documents_management_preview
 #: model_terms:ir.actions.act_window,help:windx_documents_management_preview.document_tag_action
@@ -182,7 +182,7 @@ msgstr "Creado el"
 #. module: windx_documents_management_preview
 #: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_directory
 msgid "Directories"
-msgstr "Directorios"
+msgstr "Carpetas"
 
 #. module: windx_documents_management_preview
 #: model:ir.actions.act_window,name:windx_documents_management_preview.act_document_sub_directory
@@ -191,42 +191,42 @@ msgstr "Directorios"
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__document_directory_id
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__document_directory_id
 msgid "Directory"
-msgstr "Directorio"
+msgstr "Carpeta"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__name
 msgid "Directory Name"
-msgstr "Nombre del directorio"
+msgstr "Nombre del carpeta"
 
 #. module: windx_documents_management_preview
 #. odoo-javascript
 #: code:addons/windx_documents_management_preview/static/src/components/directory_chart/directory_chart.xml:0
 #, python-format
 msgid "Directory Organization"
-msgstr "Organización del directorio"
+msgstr "Organización del carpeta"
 
 #. module: windx_documents_management_preview
 #: model:ir.actions.act_window,name:windx_documents_management_preview.directory_tag_action
 #: model:ir.model,name:windx_documents_management_preview.model_directory_tag
 msgid "Directory Tag"
-msgstr "Etiqueta de directorio"
+msgstr "Etiqueta de carpeta"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.constraint,message:windx_documents_management_preview.constraint_directory_tag_directory_tag_name_uniq
 msgid "Directory Tag name already exists!"
-msgstr "La etiqueta de directorio ya existe!"
+msgstr "La etiqueta de carpeta ya existe!"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__directory_tag_ids
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__directory_tag_ids
 #: model:ir.ui.menu,name:windx_documents_management_preview.menu_directory_tag
 msgid "Directory Tags"
-msgstr "Etiquetas de directorio"
+msgstr "Etiquetas de carpeta"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.constraint,message:windx_documents_management_preview.constraint_document_directory_directory_model_uniq
 msgid "Directory for this model already exists!"
-msgstr "¡El directorio para este modelo ya existe!"
+msgstr "¡El carpeta para este modelo ya existe!"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__display_name
@@ -238,13 +238,13 @@ msgstr "Nombre para mostrar"
 #. module: windx_documents_management_preview
 #: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_root
 msgid "Document"
-msgstr "Documento"
+msgstr "Documentos"
 
 #. module: windx_documents_management_preview
 #: model:ir.model,name:windx_documents_management_preview.model_document_directory
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_attachment_search_inherit_document_management
 msgid "Document Directory"
-msgstr "Directorio de documentos"
+msgstr "carpeta de documentos"
 
 #. module: windx_documents_management_preview
 #: model:ir.actions.act_window,name:windx_documents_management_preview.document_tag_action
@@ -386,7 +386,7 @@ msgstr "Última actualización el"
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__master_document_directory_id
 msgid "Master Directory"
-msgstr "Directorio maestro"
+msgstr "Carpeta maestra"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__message_has_error
@@ -454,12 +454,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__parent_id
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
 msgid "Parent Directory"
-msgstr "Directorio padre"
+msgstr "Carpeta padre"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__parent_path
 msgid "Parent Path"
-msgstr "Directorio padre"
+msgstr "Carpeta padre"
 
 #. module: windx_documents_management_preview
 #. odoo-javascript
@@ -514,7 +514,7 @@ msgstr "Mostrar archivos adjuntos"
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_form
 msgid "Sub Directories"
-msgstr "Subdirectorios"
+msgstr "Subcarpetas"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_directory_tag__name
@@ -560,7 +560,7 @@ msgstr "Total de archivos adjuntos"
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__total_sub_directory
 msgid "Total Sub Directories"
-msgstr "Total de subdirectorios"
+msgstr "Total de subcarpetas"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__user_ids
@@ -581,7 +581,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__visible_directory
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.view_document_directory_filter
 msgid "Visible Directory"
-msgstr "Directorio visible"
+msgstr "Carpeta visible"
 
 #. module: windx_documents_management_preview
 #: model:ir.model.fields,field_description:windx_documents_management_preview.field_document_directory__website_message_ids
@@ -598,7 +598,7 @@ msgstr "Historial de comunicación del sitio web"
 #: code:addons/windx_documents_management_preview/models/document_directory.py:0
 #, python-format
 msgid "You cannot create recursive document_directories."
-msgstr "No puedes crear directorios de documentos recursivos."
+msgstr "No puedes crear carpetas de documentos recursivos."
 
 #. module: windx_documents_management_preview
 #: model_terms:ir.ui.view,arch_db:windx_documents_management_preview.document_directory_view_kanban

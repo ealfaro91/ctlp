@@ -9,7 +9,6 @@ from odoo.http import request
 class PdfInlineController(http.Controller):
     """Controller to handle inline PDF display in Odoo."""
 
-
     @http.route('/pdf_inline/<model>/<int:record_id>/<field>', type='http', auth='user')
     def pdf_inline(self, model, record_id, field):
         record = request.env[model].sudo().browse(record_id)

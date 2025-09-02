@@ -12,6 +12,16 @@ class ProjectTask(models.Model):
         tracking=True,
         help="The stage of the project this task belongs to.",
     )
+    advance = fields.Float(
+        string="Advance",
+        compute="_compute_advance",
+        help="The percentage of advance for this task."
+    )
+
+    @api.depends('stage_id')
+    def _compute_advance(self):
+        for record in self:
+            record.advance = record.stage_id.weight
 
     # @api.depends('child_ids')
     # def _check_has_child(self):

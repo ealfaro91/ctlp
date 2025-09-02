@@ -1,1 +1,5 @@
-id,name
+id,name,is_parent_type
+document_file_type_1,Fichas de Procesos,True
+document_file_type_2,Manuales de Procedimientos,True
+document_file_type_3,Manual de Organización y Funciones,True
+document_file_type_4,Reglamentos,True

@@ -6,10 +6,12 @@
         <field name="name">document.file.type.tree.view</field>
         <field name="model">document.file.type</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree>
                 <field name="active" column_invisible="1"/>
                 <field name="name"/>
                 <field name="sequence"/>
+                <field name="has_subcategories"/>
+                <field name="is_parent_type" column_invisible="1"/>
             </tree>
         </field>
     </record>
@@ -27,9 +29,16 @@
                         <h1>
                             <div class="d-flex">
                                 <field name="name"/>
+                                <field name="active" invisible="1"/>
                             </div>
                         </h1>
                     </div>
+                   <group>
+                       <field name="is_parent_type" invisible="1"/>
+                       <field name="has_subcategories"/>
+                       <field name="parent_type_id" invisible="not has_subcategories"/>
+                       <field name="child_type_ids" invisible="not has_subcategories"/>
+                   </group>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
@@ -48,6 +57,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
+                <filter name="document_type" string="Tipo de documento principal" context="{'group_by':'is_parent_type'}"/>
             </search>
         </field>
     </record>

@@ -29,3 +29,4 @@ class DocumentController(http.Controller):
             'submission_token': submission_token
         }
         return request.render("quality_control_bol.document_form", data)
+

@@ -21,7 +21,6 @@ class ProjectProjectStageAdvance(models.Model):
     )
     advance = fields.Float(
         string="Advance (%)",
-        required=True,
         compute="_compute_advance",
         help="The percentage of advance for this stage.",
     )
@@ -30,16 +29,10 @@ class ProjectProjectStageAdvance(models.Model):
     def _compute_advance(self):
         for record in self:
             record.advance = 0.0
-            # Obtener tareas de esta etapa
             tasks = record.project_id.task_ids.filtered(lambda t: t.stage_id == record.stage_id)
-
             if len(tasks) == 0:
                 continue
-
-            # Sumar los weights de las tareas
             total_task_weight = sum(task.stage_id.weight for task in tasks)
-
-            # Promedio por número de tareas
             record.advance = total_task_weight / len(tasks)
 
 

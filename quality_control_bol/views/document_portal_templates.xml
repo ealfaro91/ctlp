@@ -2,12 +2,12 @@
 
     <template id="portal_my_home_menu_document" name="Portal layout : document menu entries" inherit_id="portal.portal_breadcrumbs" priority="10">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'document_log' or document_log" t-attf-class="breadcrumb-item #{'active ' if not document_log else ''}">
-                <a t-if="document_log" t-attf-href="/my/documents?{{ keep_query() }}">document to approve</a>
+            <li t-if="page_name == 'document' or document" t-attf-class="breadcrumb-item #{'active ' if not document else ''}">
+                <a t-if="document" t-attf-href="/my/documents?{{ keep_query() }}">document to approve</a>
                 <t t-else="">Document to approve</t>
             </li>
-            <li t-if="document_log" class="breadcrumb-item active">
-                <t t-out="document_log.name" t-if="document_log.name != '/'"/>
+            <li t-if="document" class="breadcrumb-item active">
+                <t t-out="document.name" t-if="document.name != '/'"/>
                 <t t-else=""><em>Draft Document</em></t>
             </li>
         </xpath>
@@ -27,71 +27,80 @@
     <template id="portal_my_document" name="My document approval">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
-
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">document Approval</t>
             </t>
-
             <div t-if="not documents" class="alert alert-warning" role="alert">
                 There are currently no pending document approvals for your account.
             </div>
-
+            <div t-if="documents">
+                <h1>Published documents</h1>
+            </div>
             <t t-if="documents" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
                         <th>Name</th>
-                        <th>Start Date</th>
-                        <th>State</th>
-                        <th></th>
+                        <th>Area</th>
+                        <th>Document type</th>
+                        <th>Version</th>
+<!--                        <th>Start Date</th>-->
+<!--                        <th>State</th>-->
+<!--                        <th></th>-->
                     </tr>
                 </thead>
 
                 <t t-foreach="documents" t-as="document">
                     <tr>
                         <td>
-                            <a t-attf-href="/my/documents/#{document.id}?{{ keep_query() }}"><t t-esc="document.name"/></a>
+                            <a t-attf-href="/web/content/#{document.id}" target="_blank">
+                                <t t-esc="document.name"/>
+                            </a>
+<!--                            <a t-attf-href="/my/documents/#{document.id}?{{ keep_query() }}"><t t-esc="document.name"/></a>-->
                         </td>
                         <td>
-                            <span t-field="document.project_id"/>
+                            <span t-field="document.name"/>
                         </td>
                         <td>
-                            <span t-field="document.role_id"/>
+                            <span t-field="document.area_id.name"/>
                         </td>
                         <td>
-                            <span t-field="document.date_start"/>
+                            <span t-field="document.document_file_type_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="document.version_id.name"/>
                         </td>
                         <td class="tx_status text-start">
-                            <t t-if="document.state == 'in_process'">
-                                <span class="badge rounded-pill text-bg-info">
-                                    <span class="d-none d-md-inline"> Draft</span>
-                                </span>
-                            </t>
-                            <t t-if="document.state == 'sent'">
-                                <span class="badge rounded-pill text-bg-warning">
-                                    <span class="d-none d-md-inline"> To Be Signed</span>
-                                </span>
-                            </t>
-                            <t t-if="document.state == 'delegated'">
-                                <span class="badge rounded-pill text-bg-success">
-                                    <span class="d-none d-md-inline"> Delegated</span>
-                                </span>
-                            </t>
-                            <t t-if="document.state == 'cancelled'">
-                                <span class="badge rounded-pill text-bg-danger">
-                                    <span class="d-none d-md-inline"> Cancelled </span>
-                                </span>
-                            </t>
-                            <t t-if="document.state == 'ended'">
-                                <span class="badge rounded-pill text-bg-success">
-                                    <span class="d-none d-md-inline"> Ended </span>
-                                </span>
-                            </t>
+<!--                            <t t-if="document.state == 'in_process'">-->
+<!--                                <span class="badge rounded-pill text-bg-info">-->
+<!--                                    <span class="d-none d-md-inline"> Draft</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="document.state == 'sent'">-->
+<!--                                <span class="badge rounded-pill text-bg-warning">-->
+<!--                                    <span class="d-none d-md-inline"> To Be Signed</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="document.state == 'delegated'">-->
+<!--                                <span class="badge rounded-pill text-bg-success">-->
+<!--                                    <span class="d-none d-md-inline"> Delegated</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="document.state == 'cancelled'">-->
+<!--                                <span class="badge rounded-pill text-bg-danger">-->
+<!--                                    <span class="d-none d-md-inline"> Cancelled </span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="document.state == 'ended'">-->
+<!--                                <span class="badge rounded-pill text-bg-success">-->
+<!--                                    <span class="d-none d-md-inline"> Ended </span>-->
+<!--                                </span>-->
+<!--                            </t>-->
                         </td>
-                        <td>
+                       <!-- <td>
                             <t>
                                 <a class="btn btn-primary" target="_blank" title="document PDF" t-att-href="'/report/pdf/trial_clinic.report_document_template/'+str(document.id)">Print PDF</a>
                             </t>
-                        </td>
+                        </td>-->
                     </tr>
                 </t>
             </t>
@@ -102,7 +111,7 @@
         <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
             <t t-set="o_portal_fullwidth_alert">
                 <t t-call="portal.portal_back_in_edit_mode">
-                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (document_log._name, document_log.id, action.id)"/>
+                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (document._name, document.id, action.id)"/>
                 </t>
             </t>
             <div class="row mt16 o_portal_doc_sidebar">
@@ -111,7 +120,7 @@
                     <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
 
                     <t t-set="title">
-                        <h2 class="mb-0"><b t-field="document_log.name"/> </h2>
+                        <h2 class="mb-0"><b t-field="document.name"/> </h2>
                     </t>
                     <t t-set="entries">
                         <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
@@ -123,10 +132,10 @@
 
                                 <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
                                     <div class="btn-group flex-grow-1 me-1 mb-1">
-                                        <a class="btn btn-secondary btn-block o_download_btn" t-attf-href="/my/document/#{document_log.id}?report_type=pdf&amp;download=True" title="Download"><i class="fa fa-download"/> Download</a>
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-attf-href="/my/document/#{document.id}?report_type=pdf&amp;download=True" title="Download"><i class="fa fa-download"/> Download</a>
                                     </div>
                                     <div class="btn-group flex-grow-1 mb-1">
-                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-attf-href="/my/document/#{document_log.id}?report_type=pdf" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-attf-href="/my/document/#{document.id}?report_type=pdf" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
                                     </div>
                                 </div>
                             </li>
@@ -142,11 +151,11 @@
                                 <div class="row flex-nowrap">
                                     <div class="col flex-grow-0 pe-2">
                                         <img class="rounded-circle mr4 float-start o_portal_contact_img"
-                                             t-att-src="image_data_uri(document_log.reviewer_id.avatar_128)"
+                                             t-att-src="image_data_uri(document.create_uid.avatar_128)"
                                              alt="Contact"/>
                                     </div>
                                     <div class="col ps-0" style="min-width: 150px">
-                                        <span t-field="document_log.reviewer_id"
+                                        <span t-field="document.create_uid"
                                             t-options='{"widget": "contact", "fields": ["name", "phone", "email"], "no_marker": True}'/>
                                         <a href="#discussion" class="small">
                                             <i class="fa fa-comment"></i> Send message
@@ -162,8 +171,8 @@
                 <div id="document_page_content" class="col-12 col-lg-9 col-xl-8 mt-5 mt-lg-0">
                     <!-- modal relative to the actions sign -->
                     <div role="dialog" class="modal fade" id="modalaccept">
-                        <div class="modal-dialog" t-if="document_log">
-                            <form id="accept" method="POST" t-att-data-order-id="document_log.id" class="js_accept_json modal-content js_website_submit_form">
+                        <div class="modal-dialog" t-if="document">
+                            <form id="accept" method="POST" t-att-data-order-id="document.id" class="js_accept_json modal-content js_website_submit_form">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <header class="modal-header">
                                     <h4 class="modal-title">Approve Needs Request Form </h4>
@@ -173,12 +182,12 @@
                                     <p>
                                         <span>By signing this document, I agree to the content :</span>
                                         <ul>
-                                            <li><span>Accepted on the behalf of:</span> <b t-field="document_log.reviewer_id.name"/></li>
+                                            <li><span>Accepted on the behalf of:</span> <b t-field="document.create_uid.name"/></li>
                                         </ul>
                                     </p>
                                     <t t-call="portal.signature_form">
-                                        <t t-set="call_url" t-value="document_log.get_portal_sign_url()"/>
-                                        <t t-set="default_name" t-value="document_log.reviewer_id.name"/>
+                                        <t t-set="call_url" t-value="document.get_portal_sign_url()"/>
+                                        <t t-set="default_name" t-value="document.create_uid.name"/>
                                     </t>
                                 </main>
                             </form>
@@ -191,22 +200,22 @@
                         <strong>Thank You!</strong>
                         Your document log has been signed.
                     </div>
-<!--                    <div t-if="document_log.state == 'delegated'" class="alert alert-success alert-dismissible d-print-none" role="alert">-->
+<!--                    <div t-if="document.state == 'delegated'" class="alert alert-success alert-dismissible d-print-none" role="alert">-->
 <!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>-->
 <!--                        <strong>This document is authorized and valid.</strong>-->
 <!--                    </div>-->
-<!--                    <div t-if="document_log.state == 'cancelled'" class="alert alert-danger alert-dismissible d-print-none" role="alert">-->
+<!--                    <div t-if="document.state == 'cancelled'" class="alert alert-danger alert-dismissible d-print-none" role="alert">-->
 <!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>-->
 <!--                        <strong>This document has been canceled.</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new document.</a>-->
 <!--                    </div>-->
-<!--                    <div t-if="document_log.state == 'ended'" class="alert alert-danger alert-dismissible d-print-none" role="alert">-->
+<!--                    <div t-if="document.state == 'ended'" class="alert alert-danger alert-dismissible d-print-none" role="alert">-->
 <!--                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>-->
 <!--                        <strong>This document has been ended.</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new document.</a>-->
 <!--                    </div>-->
 
 
                     <!-- main content -->
-                    <div t-attf-class="#{'pb-5' if report_type == 'html' else ''}" id="document_log_content">
+                    <div t-attf-class="#{'pb-5' if report_type == 'html' else ''}" id="document_content">
                         <div t-call="quality_control_bol.my_document_content"/>
                     </div>
 
@@ -224,10 +233,10 @@
 
                     <!-- chatter -->
                     <hr/>
-                    <div id="document_log_communication">
+                    <div id="document_communication">
                         <h3>Communication history</h3>
                         <t t-call="portal.message_thread">
-                            <t t-set="object" t-value="document_log"/>
+                            <t t-set="object" t-value="document"/>
                         </t>
                     </div>
 
@@ -239,9 +248,9 @@
     <template id="my_document_content" name="document Content">
         <div id="document_report_content" class="col-12 col-lg mt32">
             <div class="o_portal_html_view shadow p-3" style="background-color: white;">
-                <t t-if="document_log.datas">
+                <t t-if="document.document_signed">
                     <iframe
-                        t-att-src="'/pdf_inline/ir.attachment/%s/datas' % document_log.id"
+                        t-att-src="'/pdf_inline/ir.attachment/%s/document_signed' % document.id"
                         width="100%"
                         height="800px"
                         frameborder="0"
@@ -250,13 +259,6 @@
                 <t t-else="">
                     <p>No PDF attached to this document log.</p>
                 </t>
-
-<!--                <t t-else="">-->
-<!--                    <p>No PDF attached to this document log.</p>-->
-<!--                </t>-->
-<!--                <t t-call="trial_clinic.report_document_document" t-lang="document_log.requeste_by_id.lang">-->
-<!--                    <t t-set="doc" t-value="document_log.sudo()"/>-->
-<!--                </t>-->
             </div>
         </div>
     </template>

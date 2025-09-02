@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* project_bol
+# 	* quality_control_bol
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-11 11:59+0000\n"
-"PO-Revision-Date: 2025-08-11 11:59+0000\n"
+"POT-Creation-Date: 2025-09-01 16:17+0000\n"
+"PO-Revision-Date: 2025-09-01 16:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,1411 +15,1286 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: project_bol
-#: model:mail.template,body_html:project_bol.fsn_approval_email
-msgid ""
-"<div style=\"margin:auto;background: #FFFFFF;color:#777777\">\n"
-"                    <p>Hola</p>\n"
-"                    <p>Ha sido invitado a realizar la aprobación del FSN.</p>\n"
-"                    <ul>\n"
-"                        <li>\n"
-"                            FSN: <t t-out=\"object.name\"></t>\n"
-"                        </li>\n"
-"                        <li>\n"
-"                            Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a>\n"
-"                        </li>\n"
-"                    </ul>\n"
-"<!--                    <p>To complete the authorization process, please access our online delegation system to sign and accept the document.</p>-->\n"
-"<!--                    <p>Note: By electronically signing the form, you confirm that you have completed the applicable training and will only conduct delegated tasks for which you have been trained.</p>-->\n"
-"                    <p>This is an automatically generated email, please do not reply.</p>\n"
-"                    <p>Best regards.</p><br>\n"
-"                </div>\n"
-"            "
-msgstr ""
-"<div style=\"margin:auto;background: #FFFFFF;color:#777777\">\n"
-"                    <p>Hola</p>\n"
-"                    <p>Ha sido invitado a realizar la aprobación del FSN.</p>\n"
-"                    <ul>\n"
-"                        <li>\n"
-"                            FSN: <t t-out=\"object.name\"></t>\n"
-"                        </li>\n"
-"                        <li>\n"
-"                            Enlace de acceso al portal:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a>\n"
-"                        </li>\n"
-"                    </ul>\n"
-"                    <p>Este un correo electrónico generado de forma automática. Por favor no responda.</p>\n"
-"                    <p>Saludos.</p><br>\n"
-"                </div>\n"
-"            "
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_menu_fsn
-msgid "<em>Draft Delegation</em>"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_menu_document
+msgid "<em>Draft Document</em>"
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<i class=\"fa fa-check\"/> Accept &amp; Sign"
 msgstr "<i class=\"fa fa-check\"/> Aceptar &amp; Firmar"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<i class=\"fa fa-comment\"/> Feedback"
+msgstr "<i class=\"fa fa-comment\"/> Retroalimentación"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
+msgid "<i class=\"fa fa-comment\"/> Send message"
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "<i class=\"fa fa-comment\"/> Send message"
-msgstr  "<i class=\"fa fa-comment\"/> Enviar mensaje"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<i class=\"fa fa-download\"/> Download"
 msgstr "<i class=\"fa fa-download\"/> Descargar"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "<i class=\"fa fa-paper-plane\"/>Submit"
+msgstr "<i class=\"fa fa-paper-plane\"/>Enviar"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<i class=\"fa fa-print\"/> Print"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Imprimir"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid ""
-"<span class=\"badge rounded-pill text-bg-danger\">\n"
-"                                    <span class=\"d-none d-md-inline\"> Cancelled </span>\n"
-"                                </span>"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid ""
-"<span class=\"badge rounded-pill text-bg-info\">\n"
-"                                    <span class=\"d-none d-md-inline\"> Draft</span>\n"
-"                                </span>"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid ""
-"<span class=\"badge rounded-pill text-bg-success\">\n"
-"                                    <span class=\"d-none d-md-inline\"> Delegated</span>\n"
-"                                </span>"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid ""
-"<span class=\"badge rounded-pill text-bg-success\">\n"
-"                                    <span class=\"d-none d-md-inline\"> Ended </span>\n"
-"                                </span>"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid ""
-"<span class=\"badge rounded-pill text-bg-warning\">\n"
-"                                    <span class=\"d-none d-md-inline\"> To Be Signed</span>\n"
-"                                </span>"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<span>Accepted on the behalf of:</span>"
-msgstr ""
+msgstr "<span>Aceptado por:</span>"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "<span>By signing this FSN, I agree to the content :</span>"
-msgstr ""
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
+msgid "<span>By signing this document, I agree to the content :</span>"
+msgstr "<span>Al firmar este documento, acepto el contenido :</span>"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<strong class=\"text-muted\">Aprobador</strong>"
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid ""
 "<strong>Thank You!</strong>\n"
-"                        Your delegation log has been signed."
+"                        Your document log has been signed."
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__incident_description
-msgid "A description of the incident related to this ticket."
-msgstr "Descripción del incidente relacionado con este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__request_description
-msgid "A detailed description of the request related to this ticket."
-msgstr "Descripción detallada de la solicitud relacionada con este ticket."
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "Accept Delegation Role and Responsibilities"
+#. module: quality_control_bol
+#: model:mail.template,body_html:quality_control_bol.document_approval_email
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                       <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Dear <strong><t t-out=\"user.name\"></t></strong>, the following DOCUMENT requires your approval.<br>\n"
+"                                                            <ul>\n"
+"                                                                <li>Document: <t t-out=\"object.name\"></t></li>\n"
+"                                                                <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                            </ul>\n"
+"                                                            <br>\n"
+"                                                            <p>Greetings.</p>\n"
+"                                                            <p> This is an automatic message, please de not reply</p>\n"
+"                                                        </div>\n"
+"                                                    </td></tr>\n"
+"                                                    <tr>\n"
+"                                                        <td style=\"text-align:center;\">\n"
+"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                        </td>\n"
+"                                                    </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <!-- FOOTER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\">\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                        </t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                       <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente documento requiere su aprobación.<br>\n"
+"                                                            <ul>\n"
+"                                                                <li>Documento: <t t-out=\"object.name\"></t></li>\n"
+"                                                                <li>Enlace de acceso al portal:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                            </ul>\n"
+"                                                            <br>\n"
+"                                                            <p>Saludos.</p>\n"
+"                                                            <p>Este es un mensaje automático, por favor no responda.</p>\n"
+"                                                        </div>\n"
+"                                                    </td></tr>\n"
+"                                                    <tr>\n"
+"                                                        <td style=\"text-align:center;\">\n"
+"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                        </td>\n"
+"                                                    </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <!-- FOOTER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\">\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                        </t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__access_warning
+#. module: quality_control_bol
+#: model:mail.template,body_html:quality_control_bol.document_published_notification
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                       <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Dear <strong><t t-out=\"user.name\"></t></strong>, the following document has been published.<br>\n"
+"                                                            <ul>\n"
+"                                                                <li>Document: <t t-out=\"object.name\"></t></li>\n"
+"                                                                <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                            </ul>\n"
+"                                                            <br>\n"
+"                                                            <p>Greetings.</p>\n"
+"                                                            <p> This is an automatic message, please de not reply</p>\n"
+"                                                        </div>\n"
+"                                                    </td></tr>\n"
+"                                                    <tr>\n"
+"                                                        <td style=\"text-align:center;\">\n"
+"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                        </td>\n"
+"                                                    </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <!-- FOOTER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\">\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                        </t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                       <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente documento ha sido publicado.<br>\n"
+"                                                            <ul>\n"
+"                                                                <li>Documento: <t t-out=\"object.name\"></t></li>\n"
+"                                                                <li>Enlace de acceso al portal:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                            </ul>\n"
+"                                                            <br>\n"
+"                                                            <p>Saludos.</p>\n"
+"                                                            <p> This is an automatic message, please de not reply</p>\n"
+"                                                        </div>\n"
+"                                                    </td></tr>\n"
+"                                                    <tr>\n"
+"                                                        <td style=\"text-align:center;\">\n"
+"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                        </td>\n"
+"                                                    </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <!-- FOOTER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\">\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                        </t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__access_token
+msgid "Access Token"
+msgstr "Token de acceso"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__access_warning
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__access_warning
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__access_warning
 msgid "Access warning"
-msgstr ""
+msgstr "Aviso de acceso"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_needaction
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_needaction
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_needaction
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_needaction
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_needaction
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_needaction
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_needaction
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_needaction
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_needaction
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_needaction
 msgid "Action Needed"
-msgstr "Acción Necesaria"
+msgstr "Acción necesaria"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__active
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__active
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__active
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__active
 msgid "Active"
 msgstr "Activo"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_ids
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_ids
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_ids
 msgid "Activities"
 msgstr "Actividades"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_exception_decoration
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_exception_decoration
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_exception_decoration
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_exception_decoration
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_exception_decoration
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_exception_decoration
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_exception_decoration
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_exception_decoration
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_exception_decoration
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Decoración de Excepción de Actividad"
+msgstr "Decoración de excepción de actividad"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_state
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_state
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_state
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_state
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_state
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_state
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_state
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_state
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_state
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_state
 msgid "Activity State"
-msgstr "Estado de Actividad"
+msgstr "Estado de actividad"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_type_icon
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_type_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_type_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_type_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_type_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_type_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_type_icon
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_type_icon
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_type_icon
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "Icono de Tipo de Actividad"
+msgstr "Icono de tipo de actividad"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__affected_system_id
-msgid "Affected System"
-msgstr "Sistema Afectado"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__amount_assigned
-msgid "Amount Assigned"
-msgstr "Monto Asignado"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__amount_used
-msgid "Amount Used"
-msgstr "Monto Ejecutado"
-
-#. module: project_bol
-#: model:project.project.stage,name:project_bol.project_project_stage_0
-msgid "Análisis de Viabilidad"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.actions.act_window,name:project_bol.approval_log_action
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Approval Log"
+#. module: quality_control_bol
+#: model:ir.model,name:quality_control_bol.model_approval_log
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Approval log"
 msgstr "Registro de Aprobación"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__approval_log_ids
-msgid "Approval Log ids"
-msgstr "IDs de Registro de Aprobación"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
+msgid "Approve Needs Request Form"
+msgstr "Formulario de Aprobación de Requisitos"
 
-#. module: project_bol
-#: model:ir.actions.act_window,name:project_bol.action_approval_state
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__approval_state_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__approval_state_ids
-#: model:ir.ui.menu,name:project_bol.menu_approval_state
-msgid "Approval State"
-msgstr "Estado de Aprobación"
-
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_approval_log
-msgid "Approval log"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_approval_state
-msgid "Approval state"
-msgstr "Estado de Aprobación"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Approve"
-msgstr "Aprobar"
-
-#. module: project_bol
-#: model:approval.state,name:project_bol.order_approval_state_approved
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__approved
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__approved
 msgid "Approved"
 msgstr "Aprobado"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__area
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__approval_log_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__approval_log_ids
+msgid "Approvers"
+msgstr "Aprobadores"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_version_form_view
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_directory__area_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__area_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__area_id
 msgid "Area"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_attachment_count
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_attachment_count
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_attachment_count
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_attachment_count
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_attachment_count
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_attachment_count
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_attachment_count
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Area responsable"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model,name:quality_control_bol.model_ir_attachment
+#: model:ir.model.fields,field_description:quality_control_bol.field_approval_log__attachment_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_approval_log__document_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__attachment_id
+msgid "Attachment"
+msgstr "Archivo adjunto"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_attachment_count
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_attachment_count
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_attachment_count
 msgid "Attachment Count"
-msgstr "Número de Adjuntos"
+msgstr "Contador de archivos adjuntos"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__name
-msgid "Benefit Name"
-msgstr "Nombre del Beneficio"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Attachment(s)"
+msgstr "Archivos adjuntos"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_view_inh
+msgid "Avatar"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__child_type_ids
+msgid "Child Types"
+msgstr "Tipos hijos"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "Communication history"
-msgstr ""
+msgstr "Historial de comunicación"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__company_id
-msgid "Company"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_task__is_completed
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__is_completed
-msgid "Completed"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "Contact"
+msgstr "Contacto"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Correo"
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Controls"
-msgstr "Controles/excepciones/suposiciones"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__controls_exceptions_assumptions
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Controls/exceptions/assumptions"
-msgstr "Controles/excepciones/suposiciones"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__create_uid
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__create_uid
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__create_uid
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__create_uid
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__create_uid
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__create_uid
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__create_date
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__create_date
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__create_date
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__create_date
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__create_date
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__create_date
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__create_date
 msgid "Created on"
 msgstr "Creado el"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__access_url
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__access_url
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__access_url
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__access_url
 msgid "Customer Portal URL"
+msgstr "URL del portal del cliente"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__deactivate_date
+msgid "Deactivated date"
+msgstr "Fecha de desactivación"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Descripción"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__date
-msgid "Date"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_end_project
-msgid "Date End Project"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_requested
-msgid "Date Requested"
-msgstr "Fecha de Solicitud"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_start_project
-msgid "Date Start Project"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__delay_days
-msgid "Delay Days"
-msgstr "Días de Retraso"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Description"
-msgstr "Descripción"
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__controls_exceptions_assumptions
-msgid ""
-"Details about controls, exceptions, and assumptions related to this ticket."
-msgstr ""
-"Detalles sobre controles, excepciones y suposiciones relacionadas con este "
-"ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__deviation
-msgid "Deviation in Execution"
-msgstr "Desviación en la Ejecución"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__sign_signature
-#: model:ir.model.fields,field_description:project_bol.field_res_users__sign_signature
-msgid "Digital Signature"
-msgstr "Firma Digital"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_res_users__sign_initials
-msgid "Digitial Initials"
-msgstr "Iniciales Digitales"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__display_name
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__display_name
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__display_name
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__display_name
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__display_name
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__display_name
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__display_name
 msgid "Display Name"
-msgstr "Nombre para Mostrar"
+msgstr "Nombre"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__document
-msgid "Document"
+#. module: quality_control_bol
+#: model:mail.template,name:quality_control_bol.document_approval_email
+msgid "Document Approval"
+msgstr "Aprobación de Documento"
+
+#. module: quality_control_bol
+#: model:ir.model,name:quality_control_bol.model_document_directory
+msgid "Document Directory"
+msgstr "carpeta de documentos"
+
+#. module: quality_control_bol
+#: model:ir.actions.act_window,name:quality_control_bol.document_file_type_action
+#: model:ir.model,name:quality_control_bol.model_document_file_type
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_directory__document_file_type_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__document_file_type_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__document_file_type_id
+#: model:ir.ui.menu,name:quality_control_bol.document_file_type_menu
+msgid "Document File Type"
+msgstr "Tipo de Documento"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__document_file_type_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__document_file_type_ids
+msgid "Document File Types"
+msgstr "Tipos de Documentos"
+
+#. module: quality_control_bol
+#: model:mail.template,name:quality_control_bol.document_published_notification
+msgid "Document Published"
+msgstr "Documento Publicado"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__document_signed_filename
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__document_signed_filename
+msgid "Document Signed File Name"
+msgstr "Nombre del archivo firmado"
+
+#. module: quality_control_bol
+#: model:ir.actions.act_window,name:quality_control_bol.document_version_action
+#: model:ir.model,name:quality_control_bol.model_document_version
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__version_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__version_id
+#: model:ir.ui.menu,name:quality_control_bol.document_version_menu
+msgid "Document Version"
+msgstr "Version del Documento"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__version_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__version_ids
+msgid "Document Versions"
+msgstr "Versiones del Documento"
+
+#. module: quality_control_bol
+#: model:mail.template,subject:quality_control_bol.document_approval_email
+msgid "Document approval request: {{ object.name }}"
+msgstr "Solicitud de Aprobación de Documento: {{ object.name }}"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_menu_document
+msgid "Document to approve"
+msgstr "Documento a Aprobar"
+
+#. module: quality_control_bol
+#: model:mail.template,subject:quality_control_bol.document_published_notification
+msgid "Document {{ object.name }} Published"
+msgstr "Documento {{ object.name }} Publicado"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Documento Firmado"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__document_filename
-msgid "Document File Name"
-msgstr ""
-
-#. module: project_bol
-#: model:project.task.type,name:project_bol.project_task_type_stage_2
-msgid "Done"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "Download"
+msgstr "Descargar"
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/models/ir_attachment.py:0
+#, python-format
+msgid "El documento ha sido publicado."
 msgstr ""
 
-#. module: project_bol
-#: model:project.project.stage,name:project_bol.project_project_stage_2
-msgid "Ejecución / Desarrollo"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Enviar para aprobación"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__mail_template_id
-msgid "Email Template"
-msgstr "Plantilla de Correo"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__executer_area_id
-msgid "Executer Area"
-msgstr "Área Ejecutora"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_fsn
-msgid "FSN"
-msgstr "FSN"
-
-#. module: project_bol
-#: model:mail.template,name:project_bol.fsn_approval_email
-msgid "FSN Approval"
-msgstr "Aprobación FSN"
-
-#. module: project_bol
-#: model:ir.module.category,name:project_bol.module_fsn_category
-msgid "FSN Approvals"
-msgstr "Aprobaciones FSN"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
-msgid "FSN Information"
-msgstr "Información FSN"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "FSN PDF"
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__state
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__state
+msgid "Estado"
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_menu_fsn
-msgid "FSN to approve"
-msgstr "FSN por aprobar"
+#. module: quality_control_bol
+#: model:document.file.type,name:quality_control_bol.document_file_type_1
+msgid "Fichas de Procesos"
+msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_follower_ids
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_follower_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_follower_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_follower_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_follower_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_follower_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_follower_ids
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__name
+msgid "File Type"
+msgstr "Tipo de documento"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_file_type_form_view
+msgid "File type"
+msgstr "Tipo de documento"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Firma del autor"
+msgstr ""
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_view_inh
+msgid "Folder"
+msgstr "Carpeta"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_follower_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_follower_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_follower_ids
 msgid "Followers"
 msgstr "Seguidores"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_partner_ids
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_partner_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_partner_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_partner_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_partner_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_partner_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_partner_ids
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_partner_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_partner_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguidores (Contactos)"
+msgstr "Seguidores (Partners)"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__activity_type_icon
-#: model:ir.model.fields,help:project_bol.field_approval_state__activity_type_icon
-#: model:ir.model.fields,help:project_bol.field_project_fsn__activity_type_icon
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_type_icon
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_type_icon
-#: model:ir.model.fields,help:project_bol.field_project_task__activity_type_icon
-#: model:ir.model.fields,help:project_bol.field_project_task_type__activity_type_icon
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_type_icon
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_type_icon
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Icono de Font Awesome p. ej. fa-tasks"
+msgstr "Icono de font awesome e.g. fa-tasks"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "Fsn Approval"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__fsn_id
-msgid "Needs Request Form"
-msgstr "Notas de Especificación Funcional"
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__project_fsn_id
-msgid "Needs Request Form related to this approval log."
-msgstr ""
-
-#. module: project_bol
-#: model:approval.state,name:project_bol.approval_general_manager_fsn
-#: model:res.groups,name:project_bol.group_fsn_general_manager
-msgid "Gerencia General (GG)"
-msgstr ""
-
-#. module: project_bol
-#: model:approval.state,name:project_bol.approval_manager_ti_fsn
-#: model:res.groups,name:project_bol.group_fsn_ti_manager
-msgid "Gerencia TI (GTI)"
-msgstr ""
-
-#. module: project_bol
-#: model:approval.state,name:project_bol.approval_manager_area_fsn
-#: model:res.groups,name:project_bol.group_fsn_area_manager
-msgid "Gerencia del Área"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_task__has_child
-msgid "Has Child"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__has_message
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__has_message
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__has_message
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__has_message
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__has_message
-#: model:ir.model.fields,field_description:project_bol.field_project_task__has_message
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__has_message
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__has_message
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__has_message
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__has_message
 msgid "Has Message"
-msgstr "Tiene un mensaje"
+msgstr "Tiene mensaje"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__strategic_alignment
-msgid "How this ticket aligns with the strategic goals of the organization."
-msgstr ""
-"Cómo este ticket se alinea con los objetivos estratégicos de la "
-"organización."
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__has_subcategories
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__has_subcategories
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__has_subcategories
+msgid "Has Subcategories"
+msgstr "Tiene subcategorias"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__id
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__id
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__id
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__id
 msgid "ID"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_exception_icon
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_exception_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_exception_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_exception_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_exception_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_exception_icon
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_exception_icon
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_exception_icon
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_exception_icon
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_exception_icon
 msgid "Icon"
-msgstr "Icono"
+msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__activity_exception_icon
-#: model:ir.model.fields,help:project_bol.field_approval_state__activity_exception_icon
-#: model:ir.model.fields,help:project_bol.field_project_fsn__activity_exception_icon
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_exception_icon
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_exception_icon
-#: model:ir.model.fields,help:project_bol.field_project_task__activity_exception_icon
-#: model:ir.model.fields,help:project_bol.field_project_task_type__activity_exception_icon
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_exception_icon
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_exception_icon
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Icono para indicar una actividad de excepción."
+msgstr "Icono para indicar una actividad con excepción."
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__problem_or_incident_identification
-msgid "Identification of the problem or incident related to this ticket."
-msgstr "Identificación del problema o incidente relacionado con este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__message_needaction
-#: model:ir.model.fields,help:project_bol.field_approval_state__message_needaction
-#: model:ir.model.fields,help:project_bol.field_project_fsn__message_needaction
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_needaction
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_needaction
-#: model:ir.model.fields,help:project_bol.field_project_task__message_needaction
-#: model:ir.model.fields,help:project_bol.field_project_task_type__message_needaction
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_needaction
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__message_needaction
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+msgstr "Si se marca, los nuevos mensajes requieren su atención."
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__message_has_error
-#: model:ir.model.fields,help:project_bol.field_approval_log__message_has_sms_error
-#: model:ir.model.fields,help:project_bol.field_approval_state__message_has_error
-#: model:ir.model.fields,help:project_bol.field_approval_state__message_has_sms_error
-#: model:ir.model.fields,help:project_bol.field_project_fsn__message_has_error
-#: model:ir.model.fields,help:project_bol.field_project_fsn__message_has_sms_error
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_has_error
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_has_sms_error
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_has_error
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_has_sms_error
-#: model:ir.model.fields,help:project_bol.field_project_task__message_has_error
-#: model:ir.model.fields,help:project_bol.field_project_task__message_has_sms_error
-#: model:ir.model.fields,help:project_bol.field_project_task_type__message_has_error
-#: model:ir.model.fields,help:project_bol.field_project_task_type__message_has_sms_error
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_has_error
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_has_sms_error
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__message_has_error
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__message_has_sms_error
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_has_error
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+msgstr "Si se marca, algunos mensajes tienen un error de entrega."
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_state__mail_template_id
-msgid ""
-"If set an email will be sent to the customer when the ticketreaches this "
-"step."
-msgstr ""
-"Si se establece, se enviará un correo electrónico al cliente cuando el "
-"ticket alcance este paso."
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__sent_approval_request
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__sent_approval_request
+msgid "Indicates whether the approval request has been sent."
+msgstr "Indica si la solicitud de aprobación ha sido enviada."
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__image
-msgid "Image"
-msgstr ""
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__active
+msgid "Indicates whether the document file type is active or not."
+msgstr "Indica si el tipo de documento está activo o no."
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__image
-msgid "Image of the user who made the approval."
-msgstr ""
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__signed_by_author
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__signed_by_author
+msgid "Indicates whether the document has been signed by the author."
+msgstr "Indica si el documento ha sido firmado por el autor."
 
-#. module: project_bol
-#: model:project.task.type,name:project_bol.project_task_type_stage_1
-msgid "In progress"
-msgstr ""
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__active
+msgid "Indicates whether the document version is active or not."
+msgstr "Indica si la versión del documento está activa o no."
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__incident_description
-msgid "Incident Description"
-msgstr "Descripción del Incidente"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Incident description"
-msgstr "Descripción del Incidente"
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__problem_incident_recurrence
-msgid "Indicates if the problem or incident has recurred."
-msgstr "Indica si el problema o incidente ha vuelto a ocurrir."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_task__is_completed
-#: model:ir.model.fields,help:project_bol.field_project_task_type__is_completed
-msgid "Indicates if the task is completed"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__has_subcategories
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__has_subcategories
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__has_subcategories
+msgid "Indicates whether this document file type has subcategories."
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__active
-msgid "Indicates whether this benefit is currently active."
-msgstr "Indica si este beneficio está actualmente activo."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__active
-msgid "Indicates whether this system is currently active."
-msgstr "Indica si este sistema está actualmente activo."
-
-#. module: project_bol
-#. odoo-python
-#: code:addons/project_bol/controllers/portal.py:0
-#, python-format
-msgid "Invalid signature data."
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__is_parent_type
+msgid "Indicates whether this document file type is a parent type."
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_is_follower
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_is_follower
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_is_follower
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_is_follower
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_is_follower
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_is_follower
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_is_follower
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_is_follower
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_is_follower
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_is_follower
 msgid "Is Follower"
-msgstr "Es un seguidor"
+msgstr "Es seguidor"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__write_uid
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__write_uid
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__write_uid
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__write_uid
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__write_uid
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__is_parent_type
+msgid "Is Parent Type"
+msgstr "Es tipo principal"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__write_uid
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__write_date
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__write_date
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__write_date
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__write_date
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__write_date
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__write_date
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__last_approval_role
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__last_approval_role
-msgid "Last approval role"
-msgstr "Último rol de aprobación"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__version_ids
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__version_ids
+msgid "List of versions for this document attachment."
+msgstr "Lista de versiones para este documento."
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_has_error
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_has_error
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_has_error
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_has_error
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_has_error
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_has_error
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_has_error
-msgid "Message Delivery error"
-msgstr "Error de envío de mensaje"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_ids
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_ids
-msgid "Messages"
-msgstr "Mensajes"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__model_id
-#: model_terms:ir.ui.view,arch_db:project_bol.view_order_approval_state_search
-msgid "Module"
+#. module: quality_control_bol
+#: model:document.file.type,name:quality_control_bol.document_file_type_3
+msgid "Manual de Organización y Funciones"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__my_activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__my_activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__my_activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__my_activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__my_activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_task__my_activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__my_activity_date_deadline
-msgid "My Activity Deadline"
-msgstr "Fecha límite de mi actividad"
+#. module: quality_control_bol
+#: model:document.file.type,name:quality_control_bol.document_file_type_2
+msgid "Manuales de Procedimientos"
+msgstr ""
 
-#. module: project_bol
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_has_error
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_has_error
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__my_activity_date_deadline
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__my_activity_date_deadline
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: quality_control_bol
 #. odoo-python
-#: code:addons/project_bol/controllers/portal.py:0
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__name
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
+#: code:addons/quality_control_bol/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
 #, python-format
 msgid "Name"
 msgstr "Título"
 
-#. module: project_bol
+#. module: quality_control_bol
 #. odoo-python
-#: code:addons/project_bol/controllers/portal.py:0
+#: code:addons/quality_control_bol/controllers/portal.py:0
 #, python-format
 msgid "Newest"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_date_deadline
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_date_deadline
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_date_deadline
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_date_deadline
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Fecha límite de la siguiente actividad"
+msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_summary
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_summary
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_summary
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_summary
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_summary
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_summary
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_summary
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_summary
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_summary
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_summary
 msgid "Next Activity Summary"
-msgstr "Resumen de la siguiente actividad"
+msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_type_id
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_type_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_type_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_type_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_type_id
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_type_id
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_type_id
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_type_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_type_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tipo de la siguiente actividad"
-
-#. module: project_bol
-#: model:ir.model.fields.selection,name:project_bol.selection__project_fsn__problem_incident_recurrence__no
-msgid "No"
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn_content
-msgid "No PDF attached to this FSN log."
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document_content
+msgid "No PDF attached to this document log."
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.actions.act_window,help:project_bol.approval_log_action
-msgid "No data yet!"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_needaction_counter
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_needaction_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_needaction_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_needaction_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_needaction_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_needaction_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_needaction_counter
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_needaction_counter
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_needaction_counter
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Número de acciones"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_has_error_counter
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_has_error_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_has_error_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_has_error_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_has_error_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_has_error_counter
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_has_error_counter
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_has_error_counter
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_has_error_counter
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_has_error_counter
 msgid "Number of errors"
 msgstr "Número de errores"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__message_needaction_counter
-#: model:ir.model.fields,help:project_bol.field_approval_state__message_needaction_counter
-#: model:ir.model.fields,help:project_bol.field_project_fsn__message_needaction_counter
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_needaction_counter
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_needaction_counter
-#: model:ir.model.fields,help:project_bol.field_project_task__message_needaction_counter
-#: model:ir.model.fields,help:project_bol.field_project_task_type__message_needaction_counter
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_needaction_counter
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__message_needaction_counter
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "Número de mensajes que requieren una acción"
+msgstr "Número de mensajes requiriendo acción"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__message_has_error_counter
-#: model:ir.model.fields,help:project_bol.field_approval_state__message_has_error_counter
-#: model:ir.model.fields,help:project_bol.field_project_fsn__message_has_error_counter
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__message_has_error_counter
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__message_has_error_counter
-#: model:ir.model.fields,help:project_bol.field_project_task__message_has_error_counter
-#: model:ir.model.fields,help:project_bol.field_project_task_type__message_has_error_counter
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_has_error_counter
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__message_has_error_counter
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Número de mensajes con error de envío"
+msgstr "Número de mensajes con error de entrega"
 
-#. module: project_bol
-#: model:approval.state,name:project_bol.order_approval_state_pending
-msgid "Pending"
-msgstr "Pendiente de aprobación"
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__obsolete
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__obsolete
+msgid "Obsolete"
+msgstr "Obsoleto"
 
-#. module: project_bol
-#: model:project.project.stage,name:project_bol.project_project_stage_1
-msgid "Planificación"
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__old_versions
+msgid "Old Versions"
+msgstr "Versiones antiguas"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__parent_version_id
+msgid "Parent Test"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__document_url
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__parent_type_id
+msgid "Parent Type"
+msgstr "Tipo padre"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__document_url
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__document_url
 msgid "Portal Access Link"
-msgstr "Enlace de Acceso al Portal"
+msgstr "Enlace de acceso al portal"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__access_url
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__access_url
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__access_url
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__access_url
 msgid "Portal Access URL"
-msgstr "Enlace de Acceso al Portal"
+msgstr "Enlace de acceso al portal"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "Print"
 msgstr "Imprimir"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
 msgid "Print PDF"
 msgstr "Imprimir PDF"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__problem_identification
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Problem Identification"
-msgstr "Identificación del problema"
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__privacy_type__private
+msgid "Private"
+msgstr "Privado"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Problem incident identification"
-msgstr "Identificación del incidente/problema/ necesidad que genera esta solicitud"
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__privacy_type__public
+msgid "Public"
+msgstr "Publico"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__problem_or_incident_identification
-msgid "Problem or Incident Identification"
-msgstr "Identificación del incidente/problema/ necesidad que genera esta solicitud"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__problem_incident_recurrence
-msgid "Problem/Incident Recurrence"
-msgstr "Recurrencia del Problema/Incidente"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__product_manager_id
-msgid "Product Manager"
-msgstr "Product Manager"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__product_owner_id
-msgid "Product Owner"
-msgstr "Dueño del Producto"
-
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_project_project
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__project_id
-msgid "Project"
-msgstr "Proyecto"
-
-#. module: project_bol
-#: model:ir.actions.act_window,name:project_bol.project_fsn_action
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__project_fsn_id
-#: model:ir.ui.menu,name:project_bol.project_fsn_main_menu
-msgid "Project FSN"
-msgstr "FSN del Proyecto"
-
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_project_fsn
-msgid "Project FSN (Needs Request Form)"
-msgstr "FSN del Proyecto (Formulario de Solicitud de Necesidades)"
-
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_project_fsn_benefit
-#: model:ir.ui.menu,name:project_bol.project_fsn_benefit_menu
-msgid "Project FSN Benefit"
-msgstr "Beneficios del FSN"
-
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_project_fsn_system
-msgid "Project FSN System"
-msgstr "Sistemas de FSN
-
-#. module: project_bol
-#: model:ir.ui.menu,name:project_bol.project_fsn_system_menu
-msgid "Project FSN system"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_kanban_inh
+msgid "Publicado"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.actions.act_window,name:project_bol.project_fsn_benefit_action
-msgid "Project Fsn Benefit"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Publicar"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.actions.act_window,name:project_bol.project_fsn_system_action
-msgid "Project Fsn System"
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__published
+msgid "Published"
+msgstr "Publicado"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "REGISTRE SU REQUERIMIENTO"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_task__project_stage_id
-msgid "Project Stage"
-msgstr ""
-
-#. module: project_bol
-#: model:project.project.stage,name:project_bol.project_project_stage_3
-msgid "Pruebas de Usuario"
-msgstr ""
-
-#. module: project_bol
-#: model:project.project.stage,name:project_bol.project_project_stage_4
-msgid "Puesta en Producción"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__rating_ids
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__rating_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__rating_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__rating_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__rating_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task__rating_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__rating_ids
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__rating_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__rating_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__rating_ids
 msgid "Ratings"
 msgstr "Calificaciones"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_benefits_ids
-msgid "Request Benefits"
-msgstr "Solicitud de Beneficios"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_description
-msgid "Request Description"
-msgstr "Descripción especifica de la solicitud"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_objective
-msgid "Request Objective"
-msgstr "Objetivo de la Solicitud"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Request description"
-msgstr "Descripción especifica de la solicitud"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Request objective"
-msgstr "Objetivo de la Solicitud"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__requested_area
-#: model:ir.model.fields,field_description:project_bol.field_project_project__requested_area_id
-msgid "Requested Area"
+#. module: quality_control_bol
+#: model:document.file.type,name:quality_control_bol.document_file_type_4
+msgid "Reglamentos"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__requested_by_id
-#: model:ir.model.fields,field_description:project_bol.field_project_project__requested_by_id
-msgid "Requested By"
-msgstr "Solicitado por"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__activity_user_id
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__activity_user_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_user_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__activity_user_id
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__activity_user_id
-#: model:ir.model.fields,field_description:project_bol.field_project_task__activity_user_id
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__activity_user_id
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_user_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_user_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_user_id
 msgid "Responsible User"
-msgstr "Usuario Responsable"
+msgstr "Usuario responsable"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__role_id
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__role_id
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "Role"
-msgstr "Rol"
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__reviewed
+msgid "Reviewed"
+msgstr "Revisado"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__message_has_sms_error
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__message_has_sms_error
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_has_sms_error
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__message_has_sms_error
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__message_has_sms_error
-#: model:ir.model.fields,field_description:project_bol.field_project_task__message_has_sms_error
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__message_has_sms_error
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__reviewer_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__reviewer_ids
+msgid "Reviewers"
+msgstr "Revisores"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Reviewers and Approvers"
+msgstr "Revisores y Aprobadores"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_has_sms_error
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_has_sms_error
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "Error de envío del SMS"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__access_token
-msgid "Security Token"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__sequence
-msgid "Sequence"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_users_form
-msgid "Signature"
-msgstr ""
-
-#. module: project_bol
+#. module: quality_control_bol
 #. odoo-python
-#: code:addons/project_bol/controllers/portal.py:0
+#: code:addons/quality_control_bol/models/ir_attachment.py:0
+#, python-format
+msgid "Se ha enviado para revisión."
+msgstr "Se ha enviado para revisión."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__access_token
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__access_token
+msgid "Security Token"
+msgstr "Token de seguridad"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__sent_approval_request
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__sent_approval_request
+msgid "Sent Approval Request"
+msgstr "Solicitud de aprobación enviada"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/controllers/portal.py:0
 #, python-format
 msgid "Signature is missing."
-msgstr ""
+msgstr "Firma ausente."
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__document_signed
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__document_signed
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__document_signed
 msgid "Signed Document"
-msgstr ""
+msgstr "Documento firmado"
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_fsn
-msgid "Sing, follow and download your fsn."
-msgstr ""
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__signed_by_author
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__signed_by_author
+msgid "Signed by Author"
+msgstr "Firmado por el autor"
 
-#. module: project_bol
-#: model:approval.state,name:project_bol.approval_requester_fsn
-#: model:res.groups,name:project_bol.group_fsn_requester
-msgid "Solicitante (GAS)"
-msgstr ""
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_document
+msgid "Sing, follow and download your document."
+msgstr "Firmar, seguir y descargar su documento."
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "Start Date"
-msgstr ""
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "State"
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__activity_state
-#: model:ir.model.fields,help:project_bol.field_approval_state__activity_state
-#: model:ir.model.fields,help:project_bol.field_project_fsn__activity_state
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_state
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_state
-#: model:ir.model.fields,help:project_bol.field_project_task__activity_state
-#: model:ir.model.fields,help:project_bol.field_project_task_type__activity_state
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_state
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_state
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_state
 msgid ""
 "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Estado basado en actividades\n"
-"Vencida: la fecha límite ya ha pasado\n"
-"Hoy: la fecha límite es hoy\n"
-"Planificada: actividades futuras."
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__strategic_alignment
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "Strategic Alignment"
-msgstr "Alineación Estratégica"
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__child_type_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__child_type_id
+msgid "Subcategory file type"
+msgstr "El tipo de subcategoría de archivo de documento."
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "Study"
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/models/ir_attachment.py:0
+#, python-format
+msgid "The approval request has been sent successfully."
+msgstr "La solicitud de aprobación ha sido enviada con éxito."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__area_id
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__area_id
+msgid ""
+"The area associated with the document, used for categorization and "
+"management."
 msgstr ""
 
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.project_fsn_benefit_form_view
-#: model_terms:ir.ui.view,arch_db:project_bol.project_fsn_system_form_view
-msgid "Sub-Category"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_directory__area_id
+msgid ""
+"The area associated with the document, useful for organizing documents by "
+"their relevant areas."
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__name
-msgid "System Name"
-msgstr "Nombre del Sistema"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_approval_log__attachment_id
+#: model:ir.model.fields,help:quality_control_bol.field_approval_log__document_id
+msgid "The attachment related to this approval log."
+msgstr "El adjunto relacionado con esta lista de aprobación."
 
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_project_task
-msgid "Task"
-msgstr "Tarea"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__attachment_id
+msgid "The attachment related to this document version."
+msgstr "El adjunto relacionado con esta versión del documento."
 
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_project_task_type
-msgid "Task Stage"
-msgstr "Etapa de la tarea"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__child_type_ids
+msgid "The child types of this document file type."
+msgstr "Los tipos hijos de este tipo de archivo de documento."
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__fsn_id
-msgid "The Needs Request Form related to this project."
-msgstr "Formulario de solicitud de necesidades"
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__name
+msgid "The name of the document file type."
+msgstr "El nombre del tipo de archivo de documento."
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__amount_assigned
-msgid "The amount of resources assigned to this project."
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__parent_type_id
+msgid "The parent type of this document file type."
+msgstr "El tipo padre de este tipo de archivo de documento."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__sequence
+msgid "The sequence used to order the file types."
+msgstr "La secuencia utilizada para ordenar los tipos de archivos."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_directory__document_file_type_ids
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__document_file_type_id
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__document_file_type_id
+msgid ""
+"The type of the document file, used to categorize and manage different file "
+"types."
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__amount_used
-msgid "The amount of resources used in this project."
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__document_file_type_ids
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__document_file_type_ids
+msgid "The types of document files associated with the selected directory."
+msgstr "Los tipos de archivos de documentos asociados con el directorio seleccionado."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__version_id
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__version_id
+msgid "The version of the document attachment."
+msgstr "La versión del documento adjunto."
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid "There are currently no pending document approvals for your account."
+msgstr "No hay documentos pendientes de aprobación para su cuenta."
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/models/ir_attachment.py:0
+#, python-format
+msgid "There are no users in the approval log to send the request."
+msgstr "No hay usuarios en el registro de aprobación para enviar la solicitud."
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Tipo de archivo"
 msgstr ""
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__area
-msgid "The area related to the user who requested this ticket."
-msgstr ""
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__privacy_type
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__privacy_type
+msgid "Tipo de privacidad"
+msgstr "Tipo de privacidad"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__executer_area_id
-msgid "The area responsible for executing this project."
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__requested_area_id
-msgid "The area that requested this project."
-msgstr ""
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__request_benefits_ids
-msgid "The benefits expected from this request."
-msgstr "Los beneficios esperados de esta solicitud."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__company_id
-msgid "The company this ticket is related to."
-msgstr "La empresa a la que está relacionado este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__date_end_project
-msgid "The date when the project is expected to end."
-msgstr "La fecha en que se espera que finalice el proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__date_start_project
-msgid "The date when the project is expected to start."
-msgstr "La fecha en que se espera que comience el proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__date_requested
-msgid "The date when this ticket was requested."
-msgstr "La fecha en que se solicitó este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__deviation
-msgid "The deviation percentage of the project budget."
-msgstr "El porcentaje de desviación del presupuesto del proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__name
-msgid "The name of the Needs Request Form."
-msgstr "El nombre de la Nota de Especificación Funcional."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__name
-msgid "The name of the benefit related to this FSN."
-msgstr "El nombre del beneficio relacionado con este FSN."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__name
-msgid "The name of the system related to this FSN."
-msgstr "El nombre del sistema relacionado con este FSN."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__delay_days
-msgid "The number of days this project is delayed."
-msgstr "El número de días de retraso de este proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__request_objective
-msgid "The objective of the request related to this ticket."
-msgstr "El objetivo de la solicitud relacionada con este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__project_id
-msgid "The project this ticket is related to."
-msgstr "El proyecto al que está relacionado este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_task__project_stage_id
-msgid "The stage of the project this task belongs to."
-msgstr "Etapa del proyecto a la que pertenece esta tarea."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__affected_system_id
-msgid "The system affected by this ticket."
-msgstr "El sistema afectado por este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__total_advance
-msgid "The total advance payment made for this project."
-msgstr "El avance total pagado por este proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__product_manager_id
-msgid "The user who is the product manager for this project."
-msgstr "El usuario que es el gerente del producto para este proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__product_owner_id
-msgid "The user who is the product owner for this project."
-msgstr "El usuario que es el propietario del producto para este proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__requested_by_id
-msgid "The user who requested this project."
-msgstr "El usuario que solicitó este proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__requested_by_id
-msgid "The user who requested this ticket."
-msgstr "El usuario que solicitó este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__version
-msgid "The version of the project this ticket is related to."
-msgstr "La versión del proyecto al que está relacionado este ticket."
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid "There are currently no pending fsn approvals for your account."
-msgstr "Actualmente no hay aprobaciones de fsn pendientes para usted."
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__name
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
 msgid "Title"
-msgstr "Título"
+msgstr "Titulo"
 
-#. module: project_bol
-#: model:project.task.type,name:project_bol.project_task_type_stage_0
-msgid "To do"
-msgstr "Por hacer"
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__to_approve
+msgid "To Approve"
+msgstr "Por aprobar"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__total_advance
-msgid "Total Advance"
-msgstr "Avance Total"
+#. module: quality_control_bol
+#: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__to_review
+msgid "To Review"
+msgstr "Por revisar"
 
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__activity_exception_decoration
-#: model:ir.model.fields,help:project_bol.field_approval_state__activity_exception_decoration
-#: model:ir.model.fields,help:project_bol.field_project_fsn__activity_exception_decoration
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__activity_exception_decoration
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__activity_exception_decoration
-#: model:ir.model.fields,help:project_bol.field_project_task__activity_exception_decoration
-#: model:ir.model.fields,help:project_bol.field_project_task_type__activity_exception_decoration
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_exception_decoration
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_exception_decoration
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Tipo de actividad de excepción en el registro."
 
-#. module: project_bol
-#: model:ir.model,name:project_bol.model_res_users
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__user_id
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__user_id
-msgid "User"
-msgstr "Usuario"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_view_inh
+msgid "Users"
+msgstr "Usuarios"
 
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__version
-msgid "Version"
-msgstr "Versión"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_approval_log__website_message_ids
-#: model:ir.model.fields,field_description:project_bol.field_approval_state__website_message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__website_message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__website_message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__website_message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task__website_message_ids
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__website_message_ids
-msgid "Website Messages"
-msgstr "Mensajes del sitio web"
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_approval_log__website_message_ids
-#: model:ir.model.fields,help:project_bol.field_approval_state__website_message_ids
-#: model:ir.model.fields,help:project_bol.field_project_fsn__website_message_ids
-#: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__website_message_ids
-#: model:ir.model.fields,help:project_bol.field_project_fsn_system__website_message_ids
-#: model:ir.model.fields,help:project_bol.field_project_task__website_message_ids
-#: model:ir.model.fields,help:project_bol.field_project_task_type__website_message_ids
-msgid "Website communication history"
-msgstr "Historial de comunicación del sitio web"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_task__weight
-#: model:ir.model.fields,field_description:project_bol.field_project_task_type__weight
-msgid "Weight"
-msgstr "Peso"
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_task__weight
-#: model:ir.model.fields,help:project_bol.field_project_task_type__weight
-msgid "Weight of the task in percentage (0-100)"
-msgstr "Peso de la tarea en porcentaje (0-100)"
-
-#. module: project_bol
-#: model:ir.model.fields.selection,name:project_bol.selection__project_fsn__problem_incident_recurrence__yes
-msgid "Yes"
-msgstr "Sí"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "close"
-msgstr "cerrar"
-
-#. module: project_bol
-#: model:mail.template,subject:project_bol.fsn_approval_email
-msgid "{{ object.name }}"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Usuario"
 msgstr ""
 
-#. module: windx_documents_management_preview
-#: model:ir.ui.menu,name:windx_documents_management_preview.menu_document_directory
-msgid "Directories"
-msgstr "Carpetas"
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Usuarios con acceso"
+msgstr ""
 
-#. module: windx_documents_management_preview
-#: model:ir.actions.act_window,name:windx_documents_management_preview.act_document_sub_directory
-#: model:ir.actions.act_window,name:windx_documents_management_preview.document_directory_kanban_action
-#: model:ir.actions.act_window,name:windx_documents_management_preview.document_directory_tree_action
-#: model:ir.model.fields,field_description:windx_documents_management_preview.field_ir_attachment__document_directory_id
-#: model:ir.model.fields,field_description:windx_documents_management_preview.field_product_document__document_directory_id
-msgid "Directory"
-msgstr "Carpeta"
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__user_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__user_ids
+msgid "Usuarios permitidos"
+msgstr "Usuarios"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_version_form_view
+msgid "Version"
+msgstr "Version"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__version
+msgid "Version Number"
+msgstr "Número de versión"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Versions"
+msgstr "Versiones"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__website_message_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__website_message_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes de la web"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_document_file_type__website_message_ids
+#: model:ir.model.fields,help:quality_control_bol.field_document_version__website_message_ids
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación web"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
+msgid "close"
+msgstr "Cerrar"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_document
+msgid "document"
+msgstr "Documento"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid "document Approval"
+msgstr "Aprobación de documentos"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid "document PDF"
+msgstr "Documento PDF"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_menu_document
+msgid "document to approve"
+msgstr "Documentos por aprobar"

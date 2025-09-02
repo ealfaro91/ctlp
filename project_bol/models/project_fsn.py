@@ -75,12 +75,6 @@ class ProjectFsn(models.Model):
         default=lambda self: fields.Datetime.now(),
         help="The date when this ticket was requested.",
     )
-    incident_description = fields.Text(
-        string="Incident Description",
-        tracking=True,
-        required=True,
-        help="A description of the incident related to this ticket.",
-    )
     request_objective = fields.Text(
         string="Request Objective",
         tracking=True,
@@ -372,7 +366,7 @@ class ProjectFsn(models.Model):
         self.ensure_one()
         project = self.env["project.project"].create({
             "name": self.name,
-            "description": self.incident_description,
+            "description": self.request_description,
             "requested_by_id": self.requested_by_id.id,
             "fsn_id": self.id,
             "requested_by_id": self.requested_by_id.id,
@@ -381,11 +375,12 @@ class ProjectFsn(models.Model):
             "requested_area": self.area
         })
         self.project_id = project.id
+        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
         mail_template = self.env.ref(
             "project_bol.project_creation_email", raise_if_not_found=True
         )
         mail_template.sudo().with_context(
-            email_to=self.requested_by_id.email_formatted,
+            email_to=manager.email_formatted,
         ).send_mail(self.project_id.id, force_send=False, raise_exception=True)
 
 

@@ -61,6 +61,8 @@ class DocumentPortal(CustomerPortal):
     def portal_my_document(
         self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
     ):
+        """ FILTRAR LOS PUBLICADOS PARA ESE USUARIO"""
+
         values = self._prepare_portal_layout_values()
         document = request.env["ir.attachment"]
         domain = self._prepare_document_domain()
@@ -69,12 +71,12 @@ class DocumentPortal(CustomerPortal):
         if not sortby:
             sortby = "date"
         order = searchbar_sortings[sortby]["order"]
-
-        if date_begin and date_end:
-            domain += [
-                ("create_date", ">", date_begin),
-                ("create_date", "<=", date_end),
-            ]
+        #
+        # if date_begin and date_end:
+        #     domain += [
+        #         ("create_date", ">", date_begin),
+        #         ("create_date", "<=", date_end),
+        #     ]
 
         # document count
         document_count = document.search_count(domain)
@@ -99,9 +101,9 @@ class DocumentPortal(CustomerPortal):
 
         values.update(
             {
-                "date": date_begin,
-                "date_end": date_end,
-                "document": document.sudo(),
+                # "date": date_begin,
+                # "date_end": date_end,
+                "documents": document.sudo().search([('state', '=', 'published')]),
                 "page_name": "document_log",
                 "default_url": "/my/document",
                 "pager": pager_values,
@@ -180,15 +182,21 @@ class DocumentPortal(CustomerPortal):
             return {"error": _("Signature is missing.")}
 
         try:
-            document_sudo.write({
-                'approval_log_ids': [(0, 0, {
-                    'date': fields.Datetime.now(),
-                    'sign_signature': signature,
-                    # 'employee_has_to_be_signed': False,  # Si quieres también incluir este campo
-                })]
+            document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id).write({
+                'sign_signature': signature,
+                'signed_date': fields.Datetime.now(),
+                'state': 'approved',
             })
-            document_sudo = request.env['ir.attachment'].sudo().browse(document_log_id)
-            document_sudo.signed()
+            log = document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
+            document_sudo.document_signed = log.attach_signature_to_pdf(document_sudo.document_signed,
+                                                                   request.env.user.sign_signature)
+
+            # document_sudo = request.env['ir.attachment'].sudo().browse(document_log_id)
+            #
+            # log = document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
+            # document_sudo.document_signed = log.attach_signature_to_pdf(document_sudo.document_signed,
+            #                                                        request.env.user.sign_signature)
+           # document_sudo.signed()
             #document_sudo.action_member_sign_off()
         except (TypeError, binascii.Error) as e:
             raise e

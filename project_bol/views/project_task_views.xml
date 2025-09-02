@@ -8,9 +8,16 @@
             <xpath expr="//field[@name='milestone_id']" position="after">
                 <field name="project_stage_id" required="1"/>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sub_tasks_page']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>
+
 
         </field>
     </record>
-
+<!--project.view_task_tree2-->
 
 </odoo>
