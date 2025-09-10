@@ -4,7 +4,7 @@
     <!-- FSN EMAILS -->
         <record id="fsn_approval_request_email" model="mail.template">
             <field name="name">FSN Approval</field>
-            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="email_from">{{ user.email }}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project_bol.model_project_fsn"/>
             <field name="auto_delete" eval="False"/>
@@ -90,7 +90,7 @@
 
         <record id="fsn_approved_notification" model="mail.template">
             <field name="name">FSN has been approved</field>
-            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="email_from">{{ user.email }}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project_bol.model_project_fsn"/>
             <field name="auto_delete" eval="False"/>
@@ -178,7 +178,7 @@
 
         <record id="project_creation_email" model="mail.template">
             <field name="name">Project Creation</field>
-            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="email_from">{{ user.email }}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project.model_project_project"/>
             <field name="auto_delete" eval="False"/>

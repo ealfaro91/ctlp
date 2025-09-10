@@ -181,6 +181,14 @@ class ProjectFsn(models.Model):
         help="Indicates whether the document has been signed by the author."
     )
 
+    def create(self, vals_list):
+        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
+        if not manager:
+            raise ValidationError(
+                _("The manager for the FSN TI group was not found. Try to add"
+                  " a manager in settings for notifications"))
+        return super(ProjectFsn, self).create(vals_list)
+
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
         """Adjunta una firma en un cuadrante específico de la última página."""
@@ -342,7 +350,7 @@ class ProjectFsn(models.Model):
                 )
                 # Aquí estamos pasando al contexto el usuario
                 mail_template.sudo().with_context(
-                    email_to=user.email_formatted,
+                    email_to=user.email,
                     user=user
                 ).send_mail(
                     rec.id, force_send=False, raise_exception=True
@@ -380,10 +388,8 @@ class ProjectFsn(models.Model):
             "project_bol.project_creation_email", raise_if_not_found=True
         )
         mail_template.sudo().with_context(
-            email_to=manager.email_formatted,
+            email_to=manager.email,
         ).send_mail(self.project_id.id, force_send=False, raise_exception=True)
-
-
 
     @api.model
     def get_dashboard_values(self):

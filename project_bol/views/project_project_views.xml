@@ -24,6 +24,7 @@
                         <field name="amount_used" widget="monetary"/>
                     </group>
                     <group group="Advance Information" name="advance_information">
+                        <field name="closed_date" invisible="not closed_date"/>
                         <field name="delay_days"/>
                         <field name="deviation"/>
                         <field name="total_advance" widget="progressbar"/>

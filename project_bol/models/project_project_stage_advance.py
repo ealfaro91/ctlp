@@ -1,5 +1,7 @@
 from odoo import api, fields, models
 
+from odoo.exceptions import ValidationError
+
 
 class ProjectProjectStageAdvance(models.Model):
     _name = "project.project.stage.advance"
@@ -25,15 +27,15 @@ class ProjectProjectStageAdvance(models.Model):
         help="The percentage of advance for this stage.",
     )
 
-
     def _compute_advance(self):
-        for record in self:
-            record.advance = 0.0
-            tasks = record.project_id.task_ids.filtered(lambda t: t.stage_id == record.stage_id)
+        """ Compute the advance for this project stage. """
+        for rec in self:
+            rec.advance = 0.0
+            tasks = rec.project_id.task_ids.filtered(lambda t: t.project_stage_id == rec.stage_id)
             if len(tasks) == 0:
                 continue
             total_task_weight = sum(task.stage_id.weight for task in tasks)
-            record.advance = total_task_weight / len(tasks)
+            rec.advance = total_task_weight / len(tasks)
 
 
 

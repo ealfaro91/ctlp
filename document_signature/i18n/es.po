@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240522\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-21 16:55+0000\n"
-"PO-Revision-Date: 2025-08-21 16:55+0000\n"
+"POT-Creation-Date: 2025-09-09 21:05+0000\n"
+"PO-Revision-Date: 2025-09-09 21:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,6 @@ msgstr "Aprobador"
 #: model:ir.model.fields,field_description:document_signature.field_approval_log__message_attachment_count
 msgid "Attachment Count"
 msgstr "Número de Adjuntos"
-
 
 #. module: document_signature
 #: model:ir.model.fields,field_description:document_signature.field_approval_log__create_uid
@@ -249,7 +248,7 @@ msgstr "Pendiente"
 #: model:ir.model.fields,field_description:document_signature.field_approval_log__position
 #: model:ir.model.fields,field_description:document_signature.field_document_signature_mixin__position
 msgid "Posición de la firma"
-msgstr "Posición de la firma"
+msgstr ""
 
 #. module: document_signature
 #: model:ir.model.fields,field_description:document_signature.field_approval_log__request_sign_date
@@ -304,7 +303,6 @@ msgstr ""
 "Hoy: la fecha límite es hoy\n"
 "Planificada: actividades futuras."
 
-
 #. module: document_signature
 #: model:ir.model.fields.selection,name:document_signature.selection__approval_log__position__top
 #: model:ir.model.fields.selection,name:document_signature.selection__document_signature_mixin__position__top
@@ -321,4 +319,3 @@ msgstr "Tipo de actividad de excepción en el registro."
 #: model:ir.model.fields,field_description:document_signature.field_approval_log__user_id
 msgid "User"
 msgstr "Usuario"
-

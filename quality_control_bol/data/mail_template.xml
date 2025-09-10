@@ -3,7 +3,7 @@
 
           <record id="document_approval_email" model="mail.template">
             <field name="name">Document Approval</field>
-            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="email_from">{{ user.email }}</field>
             <field name="subject">Document approval request: {{ object.name }}</field>
             <field name="model_id" ref="quality_control_bol.model_ir_attachment"/>
             <field name="auto_delete" eval="False"/>
@@ -89,7 +89,7 @@
 
         <record id="document_published_notification" model="mail.template">
             <field name="name">Document Published</field>
-            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="email_from">{{ user.email }}</field>
             <field name="subject">Document Published</field>
             <field name="model_id" ref="quality_control_bol.model_ir_attachment"/>
             <field name="auto_delete" eval="False"/>

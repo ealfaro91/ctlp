@@ -12,6 +12,8 @@
                     <field name="request_sign_date" readonly="1"/>
                     <field name="state" widget="badge" decoration-success="state == 'approved'" decoration-danger="state == 'pending'" readonly="1"/>
                     <field name="signed_date" readonly="1"/>
+                    <field name="x_coord" invisible="1"/>
+                    <field name="y_coord" invisible="1"/>
                     <field name="sign_signature" widget="signature" options="{'full_name': 'display_name', 'size': ['',50]}"/>
                 </tree>
             </field>

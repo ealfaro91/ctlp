@@ -1,39 +1,33 @@
 # -*- coding: utf-8 -*-
 
 import base64
-import io
-
 import datetime
+import io
+import pytz
 
 from dateutil.relativedelta import relativedelta
 
-import io
-import base64
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.lib.utils import ImageReader
 from PyPDF2 import PdfFileReader, PdfFileWriter  # 👈 API vieja
 
 
-# from reportlab.pdfgen import canvas
-# from reportlab.lib.pagesizes import letter
-# from reportlab.lib.utils import ImageReader
-# from reportlab.lib import colors
-
 from odoo import api, models, fields
-import pytz
 
 
 class DocumentSignature(models.AbstractModel):
-    _name = 'document.signature.mixin'
-    _description = 'Abstract Model for Document Signature'
+    _name = "document.signature.mixin"
+    _description = "Abstract Model for Document Signature"
 
     position = fields.Selection([
-        ('top', 'Top'),
-        ('footer', 'Footer'),],
-        string='Posición de la firma',
-        default='footer'
+        ("top", "Top"),
+        ("footer", "Footer"),],
+        string="Signature Position",
+        default="footer"
     )
+    x_coord = fields.Float(string="Position X")
+    y_coord = fields.Float(string="Position Y")
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=3):
@@ -84,7 +78,7 @@ class DocumentSignature(models.AbstractModel):
 
         # Obtener coordenadas según el cuadrante
         x, y = quadrant_positions.get(quadrant, quadrant_positions[4])
-        sig_width, sig_height = 120, 50
+        sig_width, sig_height = 80, 35
 
         # Crear PDF con la nueva firma
         packet = io.BytesIO()
@@ -92,7 +86,7 @@ class DocumentSignature(models.AbstractModel):
 
         # Dibujar la firma (sin borrar lo anterior)
         can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y,
-                      width=sig_width, height=sig_height, mask='auto')
+                      width=sig_width, height=sig_height, mask="auto")
 
         # Agregar texto debajo de la firma
         text_x = x

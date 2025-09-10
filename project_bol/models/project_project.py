@@ -86,6 +86,7 @@ class ProjectProject(models.Model):
         string="Closed Date",
         tracking=True,
         help="The date when the project was closed."
+        compute="_compute_closed_date",
     )
     stage_ids = fields.One2many(
         "project.project.stage.advance",
@@ -96,19 +97,34 @@ class ProjectProject(models.Model):
     )
 
     def _compute_total_advance(self):
-        """ REVISAR """
         for project in self:
-            tasks = project.task_ids
-            if not tasks:
+            if not project.stage_ids:
                 project.total_advance = 0.0
                 continue
-                # Sumamos los weights de las etapas de todas las tareas
-                total_weight = sum(task.stage_id.weight for task in tasks)
-                # Weight máximo de etapas en el proyecto (opcional)
-                max_weight = max(project.stage_ids.mapped('weight')) or 1
-                # Avance como porcentaje
-                project.progress = (total_weight / (len(tasks) * max_weight)) * 100
-            project.total_advance = 0.0
+            total = sum(stage.advance for stage in project.stage_ids)
+            project.total_advance = total / len(project.stage_ids)
+
+    # def _compute_total_advance(self):
+    #     """ REVISAR """
+    #     for project in self:
+    #         tasks = project.task_ids
+    #         if not tasks:
+    #             project.total_advance = 0.0
+    #             continue
+    #             # Sumamos los weights de las etapas de todas las tareas
+    #             total_weight = sum(task.stage_id.weight for task in tasks)
+    #             # Weight máximo de etapas en el proyecto (opcional)
+    #             max_weight = max(project.stage_ids.mapped('weight')) or 1
+    #             # Avance como porcentaje
+    #             project.progress = (total_weight / (len(tasks) * max_weight)) * 100
+    #         project.total_advance = 0.0
+
+    @api.depends("stage_id")
+    def _compute_closed_date(self):
+        for project in self:
+            project.closed_date = False
+            if project.stage_id.is_completed:
+                project.closed_date = fields.Datetime.now()
 
     def _compute_deviation(self):
         """ Compute delay days and deviation percentage for each project. """

@@ -195,7 +195,7 @@ class IrAttachment(models.Model):
                 "quality_control_bol.document_published_notification", raise_if_not_found=True
             )
             mail_template.sudo().with_context(
-                email_to=user.email_formatted,
+                email_to=user.email,
                 user=user
             ).send_mail(
                 self.id, force_send=False, raise_exception=True

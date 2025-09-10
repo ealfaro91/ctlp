@@ -29,9 +29,9 @@
                     <button name="button_send_approval_request" type="object" class="btn-primary"
                             invisible="sent_approval_request or not signed_by_author or state != 'to_approve'" string="Send approval request" icon="fa-envelope"/>
                     <button name="button_cancel" type="object" class="btn-secondary"
-                            invisible="state == 'cancelled'" string="Cancelar" icon="fa-ban"/>
+                            invisible="state == 'cancelled'" string="Cancel" icon="fa-ban"/>
                     <button name="button_author_sign" type="object" class="btn-primary"
-                            invisible="signed_by_author" string="Firma del revisor" icon="fa-pencil"/>
+                            invisible="signed_by_author or not document" string="Author signature" icon="fa-pencil"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -94,7 +94,7 @@
                             </group>
                         </page>
                         <page string="Approval Log">
-                            <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request"/>
+                            <field name="approval_log_ids" nolabel="1" readonly="sent_approval_request" context="{'default_project_fsn_id': active_id}"/>
                         </page>
                         <page string="FSN Sin Firma">
                             <group>
