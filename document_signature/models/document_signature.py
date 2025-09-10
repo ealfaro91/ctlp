@@ -86,7 +86,7 @@ class DocumentSignature(models.AbstractModel):
 
         # Dibujar la firma (sin borrar lo anterior)
         can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y,
-                      width=sig_width, height=sig_height, mask="auto")
+                      width=sig_width, height=sig_height, mask="None")
 
         # Agregar texto debajo de la firma
         text_x = x
