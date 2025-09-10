@@ -85,7 +85,7 @@ class ProjectProject(models.Model):
     closed_date = fields.Datetime(
         string="Closed Date",
         tracking=True,
-        help="The date when the project was closed."
+        help="The date when the project was closed.",
         compute="_compute_closed_date",
     )
     stage_ids = fields.One2many(
