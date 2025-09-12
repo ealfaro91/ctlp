@@ -4,7 +4,7 @@
     <!-- FSN EMAILS -->
         <record id="fsn_approval_request_email" model="mail.template">
             <field name="name">FSN Approval</field>
-            <field name="email_from">{{ user.email }}</field>
+            <field name="email_from">{{object.company_id.name}}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project_bol.model_project_fsn"/>
             <field name="auto_delete" eval="False"/>
@@ -24,7 +24,7 @@
                                                         <span style="font-size: 20px; font-weight: bold;" t-out="user.partner_id.name or ''"/>
                                                     </td>
                                                     <td valign="middle" align="right" t-if="not user.company_id.uses_default_logo">
-                                                        <img t-attf-src="/logo.png?company={{ user.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>
+                                                        <img t-attf-src="/logo.png?company=ctx.get('user.company_id.id')" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -42,7 +42,7 @@
                                                 <tr>
                                                     <td valign="top" style="font-size: 13px;">
                                                         <div>
-                                                            Dear <strong><t t-out="user.name"/></strong>, the following FSN requires your approval.<br/>
+                                                            Dear <strong>ctx.get('user.name')</strong>, the following FSN requires your approval.<br/>
                                                             <ul>
                                                                 <li>FSN: <t t-out="object.name"/></li>
                                                                 <li>Portal Access Link:  <a t-attf-href="{{ object.document_url }}"><t t-out="object.document_url"/></a></li>
@@ -90,7 +90,7 @@
 
         <record id="fsn_approved_notification" model="mail.template">
             <field name="name">FSN has been approved</field>
-            <field name="email_from">{{ user.email }}</field>
+            <field name="email_from">{{object.company_id.name}}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project_bol.model_project_fsn"/>
             <field name="auto_delete" eval="False"/>
@@ -128,10 +128,9 @@
                                                 <tr>
                                                     <td valign="top" style="font-size: 13px;">
                                                         <div>
-                                                            Dear <strong><t t-out="user.name"/></strong>, the following FSN requires has been approved.<br/>
+                                                            Dear <strong><t t-out="user.name"/></strong>, the following FSN has been approved.<br/>
                                                             <ul>
                                                                 <li>FSN: <t t-out="object.name"/></li>
-                                                                <li>Portal Access Link:  <a t-attf-href="{{ object.document_url }}"><t t-out="object.document_url"/></a></li>
                                                             </ul>
                                                             <br/>
                                                             <p>Greetings.</p>
@@ -178,7 +177,7 @@
 
         <record id="project_creation_email" model="mail.template">
             <field name="name">Project Creation</field>
-            <field name="email_from">{{ user.email }}</field>
+            <field name="email_from">{{object.company_id.name}}</field>
             <field name="subject">{{ object.name }}</field>
             <field name="model_id" ref="project.model_project_project"/>
             <field name="auto_delete" eval="False"/>

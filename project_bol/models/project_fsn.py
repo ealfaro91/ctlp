@@ -44,6 +44,12 @@ class ProjectFsn(models.Model):
         tracking=True,
         help="The project this ticket is related to.",
     )
+    # project_count = fields.Integer(
+    #     string="Project Count",
+    #     compute="_compute_project_count",
+    #     store=True,
+    #     help="The number of projects related to this ticket.",
+    # )
     date_start_project = fields.Datetime(
         string="Date Start Project",
         tracking=True,
@@ -178,8 +184,11 @@ class ProjectFsn(models.Model):
     signed_by_author = fields.Boolean(
         string="Signed by Author",
         default=False,
+        tracking=True,
         help="Indicates whether the document has been signed by the author."
     )
+
+
 
     def create(self, vals_list):
         manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
@@ -195,6 +204,8 @@ class ProjectFsn(models.Model):
 
         if not pdf_binary_base64 or not signature_image_base64:
             return pdf_binary_base64  # Si falta algo, no modificamos
+
+
 
         # Decodificar los datos binarios
         pdf_data = base64.b64decode(pdf_binary_base64)
@@ -277,9 +288,21 @@ class ProjectFsn(models.Model):
 
     def button_author_sign(self):
         """ Calls the method to attach the signature to the PDF document. """
+        if not self.requested_by_id.sign_signature:
+            raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
         new_pdf = self.attach_signature_to_pdf(self.document, self.requested_by_id.sign_signature)
         self.document_signed = new_pdf
         self.signed_by_author = True
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "message": _("The FSN has been signed by the author."),
+                "next": {"type": "ir.actions.act_window_close"},
+                "sticky": False,
+                "type": "success",
+            }
+        }
 
     def button_cancel(self):
         self.state = "cancelled"
@@ -349,8 +372,8 @@ class ProjectFsn(models.Model):
                     "project_bol.fsn_approval_request_email", raise_if_not_found=True
                 )
                 # Aquí estamos pasando al contexto el usuario
+                mail_template.write({"email_to": user.email})
                 mail_template.sudo().with_context(
-                    email_to=user.email,
                     user=user
                 ).send_mail(
                     rec.id, force_send=False, raise_exception=True
