@@ -37,3 +37,5 @@ class ApprovalLog(models.Model):
         for record in self:
             record.display_name = f"{record.user_id.name} - {record.role_id.name if record.role_id else ''}"
 
+
+

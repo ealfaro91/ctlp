@@ -199,7 +199,7 @@ class ProjectFsn(models.Model):
         return super(ProjectFsn, self).create(vals_list)
 
     @staticmethod
-    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
+    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=3):
         """Adjunta una firma en un cuadrante específico de la última página."""
 
         if not pdf_binary_base64 or not signature_image_base64:
@@ -249,7 +249,7 @@ class ProjectFsn(models.Model):
 
         # Obtener coordenadas según el cuadrante
         x, y = quadrant_positions.get(quadrant, quadrant_positions[1])
-        sig_width, sig_height = 120, 50
+        sig_width, sig_height = 80, 35
 
         # Crear PDF con la firma
         packet = io.BytesIO()
@@ -367,6 +367,7 @@ class ProjectFsn(models.Model):
                 raise ValidationError(
                     _("There are no users in the approval log to send the request.")
                 )
+            rec.assign_signature_coords(rec.approval_log_ids)
             for user in rec.approval_log_ids.mapped("user_id"):
                 mail_template = self.env.ref(
                     "project_bol.fsn_approval_request_email", raise_if_not_found=True
@@ -374,7 +375,7 @@ class ProjectFsn(models.Model):
                 # Aquí estamos pasando al contexto el usuario
                 mail_template.write({"email_to": user.email})
                 mail_template.sudo().with_context(
-                    user=user
+                    user_name=user.name,
                 ).send_mail(
                     rec.id, force_send=False, raise_exception=True
                 )
@@ -391,6 +392,34 @@ class ProjectFsn(models.Model):
                     "type": "success",
                 }
             }
+
+    @staticmethod
+    def assign_signature_coords(approval_logs, page_width=595, page_height=842):
+        """Assign signature coordinates to approval logs (always at bottom)."""
+        num_logs = len(approval_logs)
+        sig_width, sig_height = 80, 35
+        margin_x = 20  # margen lateral
+        margin_y = 20  # margen inferior
+
+        # Número de columnas que caben en la página
+        cols = max(1, (page_width - margin_x) // (sig_width + margin_x))
+        cols = int(cols)
+
+        coords = []
+        for idx, log in enumerate(approval_logs):
+            col = idx % cols  # columna en la que va la firma
+            row = idx // cols  # fila (hacia arriba desde el margen inferior)
+
+            x = margin_x + col * (sig_width + margin_x)
+            y = margin_y + row * (sig_height + margin_y)
+
+            coords.append((x, y))
+
+            # Guardar coordenadas en el registro
+            log.x_coord = x
+            log.y_coord = y
+
+        return coords
 
     def _action_create_project(self):
         """Creates a project with fsn values."""

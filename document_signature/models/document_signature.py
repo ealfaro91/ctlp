@@ -30,8 +30,19 @@ class DocumentSignature(models.AbstractModel):
     y_coord = fields.Float(string="Position Y")
 
     @staticmethod
-    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=3):
+    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, approval_type, x=None, y=None):
         """Adjunta una firma en un cuadrante específico de la última página."""
+
+
+        # Si no se pasa x, y, usar cuadrante 3 por defecto
+        if x is None or y is None:
+            quadrant_positions = {
+                1: (width - 150, height - 100),
+                2: (50, height - 100),
+                3: (width - 150, 50),
+                4: (50, 50),
+            }
+            x, y = quadrant_positions.get(3)
 
         if not pdf_binary_base64 or not signature_image_base64:
             return pdf_binary_base64  # Si falta algo, no modificamos
@@ -77,7 +88,7 @@ class DocumentSignature(models.AbstractModel):
         }
 
         # Obtener coordenadas según el cuadrante
-        x, y = quadrant_positions.get(quadrant, quadrant_positions[4])
+       # x, y = quadrant_positions.get(quadrant, quadrant_positions[4])
         sig_width, sig_height = 80, 35
 
         # Crear PDF con la nueva firma
@@ -86,14 +97,18 @@ class DocumentSignature(models.AbstractModel):
 
         # Dibujar la firma (sin borrar lo anterior)
         can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y,
-                      width=sig_width, height=sig_height, mask="None")
+                      width=sig_width, height=sig_height, mask="auto")
 
         # Agregar texto debajo de la firma
         text_x = x
         text_y = y - 12  # 12 puntos debajo de la firma
         can.setFont("Helvetica", 10)
         can.setFillColor(colors.black)
-        can.drawString(text_x, text_y, f"Aprobado por:")
+        if approval_type == "approver":
+            can.drawString(text_x, text_y, f"Aprobado por:")
+        elif approval_type == "reviewer":
+            can.drawString(text_x, text_y, f"Revisado por:")
+
 
         can.save()
 
@@ -112,5 +127,4 @@ class DocumentSignature(models.AbstractModel):
         output_stream = io.BytesIO()
         writer.write(output_stream)
         output_stream.seek(0)
-
         return base64.b64encode(output_stream.read())
