@@ -137,7 +137,7 @@ class ProjectProject(models.Model):
                     project.delay_days = max(0, delay)
 
                     # calcular duración original
-                    if project.start_date:
+                    if project.date_start:
                         duration = (project.date - project.date_start.date()).days or 1
                         project.deviation = (project.delay_days / duration) * 100
 
