@@ -377,7 +377,7 @@ class ProjectFsn(models.Model):
                 mail_template.sudo().with_context(
                     user_name=user.name,
                 ).send_mail(
-                    rec.id, force_send=False, raise_exception=True
+                    rec.id, force_send=True, raise_exception=True
                 )
             for log in rec.approval_log_ids:
                 log.request_sign_date = fields.Datetime.now()
