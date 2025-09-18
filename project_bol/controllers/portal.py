@@ -186,7 +186,7 @@ class Portalfsn(CustomerPortal):
                 'state': 'approved',
             })
             log = fsn_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
-            fsn_sudo.document_signed = log.attach_signature_to_pdf(fsn_sudo.document_signed, request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
+            fsn_sudo.document_signed = log.attach_signature_to_pdf(fsn_sudo.document_signed, signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
             #fsn_sudo.action_member_sign_off()
         except (TypeError, binascii.Error) as e:
             raise e

@@ -11,6 +11,7 @@ class ProjectTask(models.Model):
         string="Project Stage",
         tracking=True,
         help="The stage of the project this task belongs to.",
+        default=lambda self: self.project_id.stage_id.id,
     )
     advance = fields.Float(
         string="Advance",

@@ -10,6 +10,7 @@
         <record model="res.groups" id="group_fsn_requester">
             <field name="name">Solicitante (GAS)</field>
             <field name="category_id" ref="project_bol.module_fsn_category"/>
+            <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
         </record>
 
         <record model="res.groups" id="group_fsn_area_manager">
@@ -25,7 +26,6 @@
             <field name="name">Gerencia General (GG)</field>
             <field name="category_id" ref="project_bol.module_fsn_category"/>
         </record>
-
     </data>
 </odoo>
 

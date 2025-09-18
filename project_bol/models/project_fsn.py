@@ -335,7 +335,7 @@ class ProjectFsn(models.Model):
                     mail_template = self.env.ref(
                         "project_bol.fsn_approved_notification", raise_if_not_found=True
                     )
-                    mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
+                    mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
                     fsn._action_create_project()
 
     def get_document_url(self):
@@ -441,7 +441,7 @@ class ProjectFsn(models.Model):
         )
         mail_template.sudo().with_context(
             email_to=manager.email,
-        ).send_mail(self.project_id.id, force_send=False, raise_exception=True)
+        ).send_mail(self.project_id.id, force_send=True, raise_exception=True)
 
     @api.model
     def get_dashboard_values(self):
