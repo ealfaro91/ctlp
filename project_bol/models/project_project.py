@@ -22,21 +22,21 @@ class ProjectProject(models.Model):
         "res.users",
         string="Product Owner",
         tracking=True,
-        required=True,
+        required=False,
         help="The user who is the product owner for this project.",
     )
     product_manager_id = fields.Many2one(
         "res.users",
         string="Product Manager",
         tracking=True,
-        required=True,
+        required=False,
         help="The user who is the product manager for this project.",
     )
     requested_area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Requested Area",
         tracking=True,
-        required=True,
+        required=False,
         help="The area that requested this project.",
     )
     requested_area = fields.Char()
