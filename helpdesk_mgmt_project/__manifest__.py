@@ -14,6 +14,5 @@
         "views/project_view.xml",
         "views/project_task_view.xml",
     ],
-    "development_status": "Beta",
     "auto_install": False,
 }

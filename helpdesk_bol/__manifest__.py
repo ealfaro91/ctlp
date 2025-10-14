@@ -42,7 +42,6 @@
         'views/res_partner_views.xml',
         'views/res_users_views.xml',
     ],
-
     'assets': {'web.assets_frontend': [
         'helpdesk_bol/static/src/js/**',
         'helpdesk_bol/static/src/css/main.css']}

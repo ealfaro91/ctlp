@@ -9,14 +9,16 @@ class HelpdeskTicketTeam(models.Model):
     _sql_constraints = [("name_uniq", "unique(name)", "Team name must be unique")]
 
     area_id = fields.Many2one(
-        "helpdesk.ticket.area", string="Area",
-        required=True, tracking=True
+        "helpdesk.ticket.area",
+        string="Area",
+        required=True,
+        tracking=True
     )
     color = fields.Integer(
         string="Color Index",
         related="area_id.color",
-        default=False,
-        tracking=True, store=True
+        tracking=True,
+        store=True
     )
 
 

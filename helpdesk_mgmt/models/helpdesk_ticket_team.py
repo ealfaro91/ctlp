@@ -33,7 +33,7 @@ class HelpdeskTeam(models.Model):
         check_company=True,
         tracking=True
     )
-    color = fields.Integer(string="Color Index", default=0, tracking=True)
+    color = fields.Integer(string="Color Index", tracking=True)
     ticket_ids = fields.One2many(
         comodel_name="helpdesk.ticket",
         inverse_name="team_id",

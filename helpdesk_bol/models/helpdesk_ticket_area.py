@@ -125,7 +125,7 @@ class HelpdeskTicketArea(models.Model):
                 'area_id': area.id,
                 'color': area.color,
             })
-        return
+        return areas
 
     @api.constrains('default_reopen_area')
     def _check_unique_reopen_area(self):
