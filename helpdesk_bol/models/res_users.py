@@ -78,11 +78,11 @@ class ResUsers(models.Model):
 
     def write(self, vals):
         # Si no hay cambio de password, podemos excluir los users is_member si quieres
-        non_members = self.filtered(lambda u: not u.is_member)
-        if non_members:
-            non_members.sudo()).write(vals)
+        # non_members = self.filtered(lambda u: not u.is_member)
+        # if non_members:
+        #     non_members.sudo().write(vals)
         res = super().write(vals)
-        for user in self:
+        for user in self.filtered(lambda u: not u.is_member):
             if 'member_code' or 'is_member' or 'payment_status' in vals and user.partner_id:
                 user.partner_id.sudo().member_code = vals.get('member_code')
                 user.partner_id.sudo().is_member = vals.get('is_member')
