@@ -13,6 +13,8 @@ from datetime import datetime, timedelta
 from odoo import api, fields, models
 from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
 
+from odoo.exceptions import AccessError
+
 TODAY = fields.Datetime.now()
 _logger = logging.getLogger(__name__)
 
