@@ -15,7 +15,7 @@ class ProjectProject(models.Model):
         "helpdesk.ticket.area",
         string="Executer Area",
         tracking=True,
-        required=True,
+        required=False,
         help="The area responsible for executing this project.",
     )
     product_owner_id = fields.Many2one(
