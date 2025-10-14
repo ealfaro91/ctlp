@@ -90,7 +90,7 @@ class ResUsers(models.Model):
         return res
 
     def _compute_area_ids(self):
-        for user in self.filtered(lambda u: not u.is_member):
+        for user in self:
             area_ids = self.env['helpdesk.ticket.team'].search([('user_ids', 'in', user.id)]).mapped('area_id')
             user.area_ids = [(6, 0, area_ids.ids)]
 

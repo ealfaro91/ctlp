@@ -188,10 +188,8 @@ class ProjectFsn(models.Model):
         help="Indicates whether the document has been signed by the author."
     )
 
-
-
     def create(self, vals_list):
-        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
+        manager = self.env.ref("project_bol.group_fsn_ti_manager").users
         if not manager:
             raise ValidationError(
                 _("The manager for the FSN TI group was not found. Try to add"
