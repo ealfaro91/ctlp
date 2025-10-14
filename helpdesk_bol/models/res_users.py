@@ -48,7 +48,7 @@ class ResUsers(models.Model):
 
     @api.model
     def init(self):
-    """COLOCAMOS ESTO PORQUE LO EJECUTABA MASIVAMENTE PARA 7000 USUARIOS AL ACTUALIZAR""""
+        #COLOCAMOS ESTO PORQUE LO EJECUTABA MASIVAMENTE PARA 7000 USUARIOS AL ACTUALIZAR"""
         # Evita regenerar contraseñas al actualizar módulos
         import logging
         _logger = logging.getLogger(__name__)
