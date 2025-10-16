@@ -91,11 +91,11 @@
                 <group>
                     <field name="document_directory_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                    <field name="privacy_type"/>
-                    <field name="document_file_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    <field name="privacy_type" required="1"/>
+                    <field name="document_file_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="1"/>
                     <field name="has_subcategories" invisible="1"/>
                     <field name="child_type_id" invisible="not has_subcategories"/>
-                    <field name="version_id"/>
+                    <field name="version_id" required="1"/>
                 </group>
 
                 <group>

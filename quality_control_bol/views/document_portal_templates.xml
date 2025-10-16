@@ -28,20 +28,21 @@
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
             <t t-call="portal.portal_searchbar">
-                <t t-set="title">document Approval</t>
+                <t t-set="title">Documentos publicados</t>
             </t>
             <div t-if="not documents" class="alert alert-warning" role="alert">
-                There are currently no pending document approvals for your account.
+                No hay documentos publicados para su visualización.
+                Contacte al administrador en caso de que necesite acceso a algun documento.
             </div>
             <div t-if="documents">
-                <h1>Published documents</h1>
+                <h1>Documentos publicados</h1>
             </div>
             <t t-if="documents" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
                         <th>Name</th>
                         <th>Area</th>
-                        <th>Document type</th>
+                        <th>Tipo de documento</th>
                         <th>Version</th>
 <!--                        <th>Start Date</th>-->
 <!--                        <th>State</th>-->
@@ -67,7 +68,7 @@
                             <span t-field="document.document_file_type_id.name"/>
                         </td>
                         <td>
-                            <span t-field="document.version_id.name"/>
+                            <span t-field="document.version_id.version"/>
                         </td>
                         <td class="tx_status text-start">
 <!--                            <t t-if="document.state == 'in_process'">-->

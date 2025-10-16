@@ -3,6 +3,7 @@
 import binascii
 from odoo import http, fields, _
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
+from collections import OrderedDict
 
 # from odoo.addons.portal.controllers.mail import _message_post_helper
 from odoo.exceptions import AccessError, MissingError
@@ -71,6 +72,22 @@ class DocumentPortal(CustomerPortal):
         if not sortby:
             sortby = "date"
         order = searchbar_sortings[sortby]["order"]
+
+        # FILTROS
+        searchbar_filters = {
+            "all": {"label": _("All"), "domain": []},
+        }
+        # for stage in request.env["helpdesk.ticket.stage"].search([]):
+        #     searchbar_filters[str(stage.id)] = {
+        #         "label": stage.name,
+        #         "domain": [("stage_id", "=", stage.id)],
+        #     }
+        # for area in request.env["helpdesk.ticket.area"].search([]):
+        #     searchbar_filters[str(area.id)] = {
+        #         "label": area.name,
+        #         "domain": [("area_id", "=", area.id)],
+        #     }
+
         #
         # if date_begin and date_end:
         #     domain += [
@@ -103,12 +120,15 @@ class DocumentPortal(CustomerPortal):
             {
                 # "date": date_begin,
                 # "date_end": date_end,
-                "documents": document.sudo().search([('state', '=', 'published')]),
+                "documents": document.sudo().search([('state', '=', 'published'), ('user_ids', 'in', request.env.user.id)]),
                 "page_name": "document_log",
                 "default_url": "/my/document",
                 "pager": pager_values,
                 "searchbar_sortings": searchbar_sortings,
                 "sortby": sortby,
+                "searchbar_filters": OrderedDict(
+                    sorted(searchbar_filters.items(), key=lambda item: item[1]["label"])),
+              #  "filterby": filterby,
             }
         )
         return request.render("quality_control_bol.portal_my_document", values)
@@ -189,7 +209,7 @@ class DocumentPortal(CustomerPortal):
             })
             log = document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
             document_sudo.document_signed = log.attach_signature_to_pdf(document_sudo.document_signed,
-                                                                   signature or request.env.user.sign_signature)
+                                                                   signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
 
             # document_sudo = request.env['ir.attachment'].sudo().browse(document_log_id)
             #

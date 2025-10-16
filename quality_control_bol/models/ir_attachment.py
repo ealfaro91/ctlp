@@ -133,6 +133,8 @@ class IrAttachment(models.Model):
 
     def button_author_sign(self):
         """ Calls the method to attach the signature to the PDF document. """
+        if not self.create_uid.sign_signature:
+            raise ValidationError("El usuario no tiene firma digital configurada.")
         new_pdf = self.attach_signature_to_pdf(self.datas, self.create_uid.sign_signature)
         self.document_signed = new_pdf
         self.signed_by_author = True
