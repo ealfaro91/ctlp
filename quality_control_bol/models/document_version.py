@@ -46,6 +46,18 @@ class DocumentVersion(models.Model):
         comodel_name="ir.attachment",
         string="Attachment",
         help="The attachment related to this document version.",
+        domain="[('id', 'in', allowed_attachment_ids)]",
         tracking=True,
         required=True
     )
+    allowed_attachment_ids = fields.Many2many(
+        "ir.attachment",
+        string="Allowed Attachments",
+        compute="_compute_allowed_attachment_ids"
+    )
+
+    def _compute_allowed_attachment_ids(self):
+        for record in self:
+            record.allowed_attachment_ids = self.env['ir.attachment'].search(
+                [('document_directory_id', '!=', False)]
+            )

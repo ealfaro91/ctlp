@@ -80,6 +80,7 @@ class IrAttachment(models.Model):
     version_id = fields.Many2one(
         comodel_name='document.version',
         string='Document Version',
+        domain="[('active', '=', True)]",
         help="The version of the document attachment.",
         tracking=True
     )
