@@ -35,7 +35,12 @@ class IrAttachment(models.Model):
         string="Usuarios permitidos",
         related=False,
         readonly=False,
-       # domain="[('id','in', document_directory_id.user_ids)]"
+        domain="[('id','in', allowed_user_ids)]"
+    )
+    allowed_user_ids = fields.Many2many(
+        "res.users",
+        string="Usuarios permitidos",
+        related="document_directory_id.user_ids"
     )
     document_file_type_id = fields.Many2one(
         comodel_name="document.file.type",
@@ -167,12 +172,13 @@ class IrAttachment(models.Model):
          log and create a project if all approvals are done."""
         for fsn in self:
             fsn.state = "to_review"
-            if fsn.sent_approval_request and not all(log.state == "approved" for log in fsn.approval_log_ids):
-                fsn.state = "to_approve"
-            if all(log.state == "approved" for log in fsn.approval_log_ids):
-                fsn.state = "approved"
-            if fsn.published:
-                fsn.state = "published"
+            if fsn.approval_log_ids:
+                if fsn.sent_approval_request and not all(log.state == "approved" for log in fsn.approval_log_ids):
+                    fsn.state = "to_approve"
+                if all(log.state == "approved" for log in fsn.approval_log_ids):
+                    fsn.state = "approved"
+                if fsn.published:
+                    fsn.state = "published"
             # fsn.state = "approval_request" if fsn.sent_approval_request and not all(
             #     log.state == "approved" for log in fsn.approval_log_ids
             # ) else "to_approve"
@@ -194,11 +200,9 @@ class IrAttachment(models.Model):
             mail_template = self.env.ref(
                 "quality_control_bol.document_published_notification", raise_if_not_found=True
             )
-            mail_template.sudo().with_context(
-                email_to=user.email,
-                user=user
-            ).send_mail(
-                self.id, force_send=False, raise_exception=True
+            mail_template.write({"email_to": user.email})
+            mail_template.send_mail(
+                self.id, force_send=True, raise_exception=True
             )
         self.state = 'published'
         return {
@@ -301,8 +305,9 @@ class IrAttachment(models.Model):
         mail_template = self.env.ref(
             "quality_control_bol.document_approval_email", raise_if_not_found=True
         )
+        mail_template.write({"email_to": user.email})
         mail_template.send_mail(
-            self.id, force_send=False, raise_exception=True
+            self.id, force_send=True, raise_exception=True
         )
         return {
             'type': 'ir.actions.client',
@@ -347,8 +352,9 @@ class IrAttachment(models.Model):
                 mail_template = self.env.ref(
                     "quality_control_bol.document_approval_email", raise_if_not_found=True
                 )
+                mail_template.write({"email_to": user.email})
                 mail_template.send_mail(
-                    rec.id, force_send=False, raise_exception=True
+                    rec.id, force_send=True, raise_exception=True
                 )
             for log in rec.approval_log_ids:
                 log.request_sign_date = fields.Datetime.now()

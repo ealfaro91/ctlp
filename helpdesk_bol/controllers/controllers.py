@@ -78,10 +78,6 @@ class HelpdeskTicketController(http.Controller):
             return request.render("helpdesk_bol.ticket_register", {'error_message': _('Invalid or duplicate submission.')})
 
         user_id =  request.env['helpdesk.ticket.category'].sudo().browse(int(kw.get('category_id'))).user_id.id if kw.get('category_id') else False
-        import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info(kw.get('priority'))
-
 
         helpdesk_ticket = request.env['helpdesk.ticket'].sudo().create({
             'partner_id': request.env.user.partner_id.id,
