@@ -61,6 +61,7 @@ class ProjectProject(models.Model):
     delay_days = fields.Integer(
         string="Delay Days",
         tracking=True,
+        store=True,
         compute="_compute_deviation",
         help="The number of days this project is delayed.",
     )
@@ -68,6 +69,7 @@ class ProjectProject(models.Model):
         string="Deviation in Execution",
         tracking=True,
         compute="_compute_deviation",
+        store=True,
         help="The deviation percentage of the project budget.",
     )
     total_advance = fields.Float(
@@ -126,20 +128,19 @@ class ProjectProject(models.Model):
             if project.stage_id.is_completed:
                 project.closed_date = fields.Datetime.now()
 
+    @api.depends("date_start", "date", "closed_date")
     def _compute_deviation(self):
         """ Compute delay days and deviation percentage for each project. """
         for project in self:
             project.delay_days = 0
             project.deviation = 0.0
-            if project.date:
-                if project.closed_date:
-                    delay = (project.closed_date.date() - project.date).days
-                    project.delay_days = max(0, delay)
+            if project.date and project.date_start:
+                duration = (project.date - project.date_start).days or 1
+                ref_date = project.closed_date.date() if project.closed_date else fields.Date.today()
+                delay = (ref_date - project.date).days
+                project.delay_days = delay if delay > 0 else 0
+                project.deviation = (project.delay_days / duration) * 100
 
-                    # calcular duración original
-                  #  if project.date_start:
-                   #     duration = (project.date - project.date_start.date()).days or 1
-                    #    project.deviation = (project.delay_days / duration) * 100
 
     @api.model
     def create(self, vals):

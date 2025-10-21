@@ -521,6 +521,11 @@ msgid "Approval Request Sent"
 msgstr "Solicitud de Aprobación Enviada"
 
 #. module: project_bol
+#: model:mail.template,subject:project_bol.fsn_approval_request_email
+msgid "Approval Request: FSN {{ object.name }}"
+msgstr "Solicitud de Aprobación: FSN {{ object.name }}"
+
+#. module: project_bol
 #: model:ir.model,name:project_bol.model_approval_log
 msgid "Approval log"
 msgstr "Registro de Aprobación"
@@ -1267,17 +1272,17 @@ msgstr "Sistemas de FS"
 #. module: project_bol
 #: model:ir.ui.menu,name:project_bol.project_fsn_system_menu
 msgid "Project FSN system"
-msgstr ""
+msgstr "Sistemas del FSN"
 
 #. module: project_bol
 #: model:ir.actions.act_window,name:project_bol.project_fsn_benefit_action
 msgid "Project Fsn Benefit"
-msgstr ""
+msgstr "Beneficios del FSN"
 
 #. module: project_bol
 #: model:ir.actions.act_window,name:project_bol.project_fsn_system_action
 msgid "Project Fsn System"
-msgstr ""
+msgstr "Sistemas del FSN"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
@@ -1303,8 +1308,8 @@ msgstr "Calificaciones"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_benefits_ids
-msgid "Request Benefits"
-msgstr "Solicitud de Beneficios"
+msgid "Project Benefits"
+msgstr "Beneficios del proyecto"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_description

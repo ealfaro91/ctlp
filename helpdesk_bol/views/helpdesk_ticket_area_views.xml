@@ -32,6 +32,7 @@
                             <field name="mail_server_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                         </group>
                         <group string="Settings">
+                            <field name="show_in_portal"/>
                             <field name="show_in_external_portal"/>
                             <field name="default_reopen_area"/>
                             <field name="restricted_area"/>
@@ -62,6 +63,8 @@
                 <field name="code"/>
                 <field name="color" widget="color_picker"/>
                 <field name="type_ids" widget="many2many_tags"/>
+                <field name="show_in_portal"/>
+                <field name="show_in_external_portal"/>
             </tree>
         </field>
     </record>

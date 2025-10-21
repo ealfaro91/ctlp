@@ -68,6 +68,12 @@ class HelpdeskTicketArea(models.Model):
         help="If checked, this area will be displayed in the external portal for SDSS."
              " This means this area is for external customers"
     )
+    show_in_portal = fields.Boolean(
+        string="Show in Portal",
+        default=True,
+        tracking=True,
+        help="If checked, this area will be displayed in the portal for SDS."
+    )
     sequence_id = fields.Many2one(
         "ir.sequence",
         string="Sequence",
@@ -100,6 +106,7 @@ class HelpdeskTicketArea(models.Model):
         tracking=True,
         help="If checked, this area will be used as the default area when reopening a ticket."
     )
+
 
     def _compute_ticket_count(self):
         for area in self:

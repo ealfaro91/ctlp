@@ -11,7 +11,6 @@
                         <group>
                             <field name="fsn_id" invisible="not fsn_id" readonly="1"/>
                             <field name="product_owner_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                            <field name="product_manager_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                         </group>
                         <group>
                             <field name="executer_area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
@@ -26,7 +25,7 @@
                     <group group="Advance Information" name="advance_information">
                         <field name="closed_date" invisible="not closed_date"/>
                         <field name="delay_days"/>
-                        <field name="deviation"/>
+                        <field name="deviation" widget="progressbar"/>
                         <field name="total_advance" widget="progressbar"/>
                     </group>
                 </page>
@@ -73,8 +72,41 @@
                 <span title="Total Advance"/><field name="total_advance" widget="progressbar"/>
 <!--                <span title="Deviation"/><field name="deviation" widget="progressbar"/>-->
             </xpath>
+<!--            <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">-->
+<!--    on_create="quick_create"&lt;!&ndash;                <span title="Deviation"/><field name="deviation" widget="progressbar"/>&ndash;&gt;-->
+<!--            </xpath>-->
         </field>
     </record>
 
+    <record id="project_project_views_pivot" model="ir.ui.view">
+        <field name="name">project.project.view.pivot</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot Analysis" disable_linking="True">
+                <field name="stage_id" type="row"/>
+                <field name="user_id" type="row"/>
+                <field name="date_start" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_project_project_graph" model="ir.ui.view">
+        <field name="name">project.project.graph</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <graph string="Projects">
+                <field name="stage_id" type="row"/>
+                <field name="deviation" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="project.open_view_project_all_group_stage" model="ir.actions.act_window">
+        <field name="view_mode">kanban,tree,form,calendar,activity,graph,pivot</field>
+    </record>
+
+    <record id="project.menu_main_pm" model="ir.ui.menu">
+        <field name="name">FSN</field>
+    </record>
 
 </odoo>

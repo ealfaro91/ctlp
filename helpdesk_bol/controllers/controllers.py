@@ -55,7 +55,7 @@ class HelpdeskTicketController(http.Controller):
             return request.render("helpdesk_bol.gss_ticket_form", data)
         else:
             data.update({
-                'areas': request.env['helpdesk.ticket.area'].sudo().search([('show_in_external_portal', '=', False)]),
+                'areas': request.env['helpdesk.ticket.area'].sudo().search([('show_in_external_portal', '=', False), ('show_in_portal', '=', True)]),
             })
             return request.render("helpdesk_bol.ticket_form", data)
 

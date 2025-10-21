@@ -139,6 +139,9 @@ class IrAttachment(models.Model):
         self.document_signed = new_pdf
         self.signed_by_author = True
 
+    def button_replace_version(self):
+        self.version_id.active = False
+
 
     # @api.onchange('document_directory_id')
     # def _onchange_user_ids(self):

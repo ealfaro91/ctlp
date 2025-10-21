@@ -134,7 +134,7 @@ class ProjectFsn(models.Model):
     )
     request_benefits_ids = fields.Many2many(
         "project.fsn.benefit",
-        string="Request Benefits",
+        string="Project Benefits",
         tracking=True,
         required=True,
         help="The benefits expected from this request.",
@@ -422,24 +422,22 @@ class ProjectFsn(models.Model):
     def _action_create_project(self):
         """Creates a project with fsn values."""
         self.ensure_one()
+        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
         project = self.env["project.project"].create({
             "name": self.name,
             "description": self.request_description,
             "requested_by_id": self.requested_by_id.id,
             "fsn_id": self.id,
-            "requested_by_id": self.requested_by_id.id,
             "date_start": self.date_start_project,
             "date": self.date_end_project,
-            "requested_area": self.area
+            "requested_area": self.area,
+            "user_id": manager.id,
         })
         self.project_id = project.id
-        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
         mail_template = self.env.ref(
             "project_bol.project_creation_email", raise_if_not_found=True
         )
-        mail_template.sudo().with_context(
-            email_to=manager.email,
-        ).send_mail(self.project_id.id, force_send=True, raise_exception=True)
+        mail_template.sudo().send_mail(self.project_id.id, force_send=True, raise_exception=True)
 
     @api.model
     def get_dashboard_values(self):
