@@ -49,6 +49,9 @@
                 <field name="area_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                 <field name="document_file_type_ids" widget="many2many_tags"/>
             </xpath>
+             <xpath expr="//field[@name='child_ids']" position="replace">
+                 <field name="child_ids" mode="kanban" context="{'default_parent_id': id}" nolabel="1"/>
+             </xpath>
             <xpath expr="//page[@name='user_ids']" position="replace">
                 <page string="Users" name="user_ids">
                     <field name="user_ids" widget="many2many" options="{'not_delete': True}"  context="{'search_default_filter_no_share':1}">
@@ -74,6 +77,10 @@
                 </page>
             </xpath>
         </field>
+    </record>
+
+    <record id="windx_documents_management_preview.document_directory_kanban_action" model="ir.actions.act_window">
+        <field name="domain">[('parent_id','=', False)]</field>
     </record>
 
 

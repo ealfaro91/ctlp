@@ -42,23 +42,23 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                         <!--   &lt;!&ndash; Request Type Field &ndash;&gt;
-                                            <div class="mb-4">
-                                                <label for="type_id" class="form-label">Tipo de archivo</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-text bg-light">
-                                                        <i class="fa fa-tasks"/>
-                                                    </span>
-                                                    <select class="form-control" name="type_id" required="required">
-                                                        <option value=""/>
-                                                        <t t-foreach="document_types" t-as="type">
-                                                            <option t-att-value="type.id">
-                                                                <t t-esc="type.name"/>
-                                                            </option>
-                                                        </t>
-                                                    </select>
-                                                </div>
-                                            </div>-->
+<!--                                            &lt;!&ndash; Request Type Field &ndash;&gt;-->
+<!--                                            <div class="mb-4">-->
+<!--                                                <label for="type_id" class="form-label">Tipo de archivo</label>-->
+<!--                                                <div class="input-group">-->
+<!--                                                    <span class="input-group-text bg-light">-->
+<!--                                                        <i class="fa fa-tasks"/>-->
+<!--                                                    </span>-->
+<!--                                                    <select class="form-control" name="type_id" required="required">-->
+<!--                                                        <option value=""/>-->
+<!--                                                        <t t-foreach="document_types" t-as="type">-->
+<!--                                                            <option t-att-value="type.id">-->
+<!--                                                                <t t-esc="type.name"/>-->
+<!--                                                            </option>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                             <!-- Request Type Field -->
                                             <div class="mb-4">
                                                 <label for="type_id" class="form-label">Area responsable</label>
@@ -71,6 +71,24 @@
                                                         <t t-foreach="areas" t-as="area">
                                                             <option t-att-value="area.id">
                                                                 <t t-esc="area.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Directory -->
+                                            <div class="mb-4">
+                                                <label for="type_id" class="form-label">Directorio</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fa fa-tasks"/>
+                                                    </span>
+                                                    <select class="form-control" name="directory_id" required="required">
+                                                        <option value=""/>
+                                                        <t t-foreach="document_directories" t-as="directory">
+                                                            <option t-att-value="directory.id">
+                                                                <t t-esc="directory.name"/>
                                                             </option>
                                                         </t>
                                                     </select>

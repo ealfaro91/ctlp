@@ -36,7 +36,6 @@
                     </div>
                     <group>
                         <field name="attachment_id"/>
-                        <field name="allowed_attachment_ids" invisible="1"/>
                         <field name="parent_version_id"/>
                         <field name="deactivate_date"/>
                     </group>

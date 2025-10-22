@@ -1,0 +1,102 @@
+<odoo>
+
+    <!-- Acción del reporte -->
+    <record id="action_fsn_report" model="ir.actions.report">
+        <field name="name">FSN</field>
+        <field name="model">project.fsn</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">project_bol.report_fsn_template</field>
+        <field name="report_file">project_bol.report_fsn_template</field>
+        <field name="print_report_name">'Contactos - %s' % (object.name)</field>
+    </record>
+
+    <!-- Plantilla QWeb -->
+    <template id="report_fsn_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="page-break-inside: avoid;">
+                        <div class="row border border-dark position-relative">
+                            <div class="col-3 text-center border border-dark align-middle">
+                                <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height:50px;align-middle"/>
+                            </div>
+                            <div class="col-6 text-center border border-dark"><strong><h5>NEEDS REQUEST FORM</h5></strong></div>
+                            <div class="col-3 text-center border border-dark"><strong><h5>F-UEC008 <br/>V: 01</h5></strong></div>
+                        </div>
+                        <h3 style="text-align:left;">Project Information</h3>
+                        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                            <!-- Fila 1 -->
+                            <tr>
+                                <td style="background-color:#d9ead3; color:#000; font-weight:bold; border:1px solid #000; padding:6px; width:25%;">
+                                    Project
+                                </td>
+                                <td style="border:1px solid #000; padding:6px; width:25%;">
+                                    <t t-esc="o.name or '—'"/>
+                                </td>
+                                <td style="background-color:#d9ead3; color:#000; font-weight:bold; border:1px solid #000; padding:6px; width:25%;">
+                                    Date
+                                </td>
+                                <td style="border:1px solid #000; padding:6px; width:25%;">
+                                    <t t-esc="o.date_requested"/>
+                                </td>
+                            </tr>
+
+                            <!-- Fila 2 -->
+                            <tr>
+                                <td style="background-color:#d9ead3; color:#000; font-weight:bold; border:1px solid #000; padding:6px;">
+                                    Área
+                                </td>
+                                <td style="border:1px solid #000; padding:6px;">
+                                    <t t-esc="o.area"/>
+                                </td>
+                                <td style="background-color:#d9ead3; color:#000; font-weight:bold; border:1px solid #000; padding:6px;">
+                                    Solicitante
+                                </td>
+                                <td style="border:1px solid #000; padding:6px;">
+                                    <t t-esc="o.requested_by_id.name"/>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <h3 style="text-align:left;">2. Problem or Incident Identification</h3>
+                        <t t-esc="o.problem_or_incident_identification"/>
+
+                        <h3 style="text-align:left;">3. Request Objective</h3>
+                        <t t-esc="o.request_objective"/>
+
+
+                        <h3 style="text-align:left;">4. Request Description</h3>
+                        <t t-esc="o.request_description"/>
+
+                        <h3 style="text-align:left;">5. Controls/exceptions/assumptions</h3>
+                        <t t-esc="o.controls_exceptions_assumptions"/>
+
+
+                        <h3 style="text-align:left;">6. Strategic Alignment</h3>
+                        <t t-esc="o.strategic_alignment"/>
+
+                        <h3 style="text-align:left;">7. Problem or Incident Identification</h3>
+                        <t t-esc="o.problem_or_incident_identification"/>
+
+
+                        <h3 style="text-align:left;">7. Affected System</h3>
+                        <t t-esc="o.affected_system_id.name"/>
+
+                        <h3 style="text-align:left;">8. Project Benefits</h3>
+                        <t t-foreach="o.request_benefits_ids" t-as="rb">
+                            <span t-field="rb.name"
+                                  style="padding: 0% 1%;
+                                         display: inline-block;
+                                         margin-bottom:2px;
+                                         border: 1px solid black;
+                                         border-radius:10px;"/>
+                        </t>
+                        <br/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,40 @@
+<odoo>
+
+    <!-- FORM VIEW -->
+
+    <record id="replace_document_version_form_view" model="ir.ui.view">
+        <field name="name">replace.document.version.form.view</field>
+        <field name="model">replace.document.version</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="attachment_id"/>
+                        <field name="old_document_version_id"/>
+                    </group>
+                    <group>
+                        <field name="new_attachment_id"/>
+                        <field name="new_document_version_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_replace_version" string="Reemplazar" type="object" class="oe_highlight" confirm="¿Está seguro de reemplazar la versión?"/>
+                    <button special="cancel" string="Cancelar" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ACTION -->
+
+    <record id="replace_document_version_action" model="ir.actions.act_window">
+        <field name="name">Reemplazar versión</field>
+        <field name="res_model">replace.document.version</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+
+</odoo>

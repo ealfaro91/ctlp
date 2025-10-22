@@ -48,6 +48,7 @@
             <xpath expr="//header" position="inside">
                 <button name="button_author_sign" type="object" class="btn-primary"
                             invisible="signed_by_author" string="Firma del autor" icon="fa-pencil"/>
+                <button name="%(quality_control_bol.replace_document_version_action)d" type="action" class="btn-danger" string="Reemplazar versión" icon="fa-arrows"/>
                 <button name="button_publish_document" type="object" class="btn-primary" string="Publicar" icon="fa-bullhorn"
                         invisible="privacy_type != 'public' or state == 'published'"/>
                 <button name="button_send_approval_request" type="object"
@@ -55,6 +56,7 @@
                         icon="fa-envelope" invisible="sent_approval_request"/>
                 <field name="state" widget="statusbar"/>
                 <field name="signed_by_author" invisible="1"/>
+                <field name="active" invisible="1"/>
                 <field name="sent_approval_request" invisible="1"/>
                 <field name="published" invisible="1"/>
             </xpath>
@@ -95,7 +97,7 @@
                     <field name="document_file_type_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="1"/>
                     <field name="has_subcategories" invisible="1"/>
                     <field name="child_type_id" invisible="not has_subcategories"/>
-                    <field name="version_id" required="1"/>
+                    <field name="version_id" required="1" context="{'default_attachment_id': id}"/>
                 </group>
 
                 <group>

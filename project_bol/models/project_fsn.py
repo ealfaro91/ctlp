@@ -72,6 +72,7 @@ class ProjectFsn(models.Model):
         tracking=True,
         required=True,
         default=lambda self: self.env.user,
+        domain=[("share", "=", False)],
         help="The user who requested this ticket.",
     )
     date_requested = fields.Datetime(
@@ -114,7 +115,6 @@ class ProjectFsn(models.Model):
     problem_identification = fields.Text(
         string="Problem Identification",
         tracking=True,
-        required=True,
         help="Identification of the problem or incident related to this ticket.",
     )
     problem_incident_recurrence = fields.Selection(
@@ -168,7 +168,6 @@ class ProjectFsn(models.Model):
     document = fields.Binary(
         string="Document",
         attachment=True,
-        required=True,
     )
     document_signed = fields.Binary(
         string="Signed Document",
@@ -194,7 +193,23 @@ class ProjectFsn(models.Model):
             raise ValidationError(
                 _("The manager for the FSN TI group was not found. Try to add"
                   " a manager in settings for notifications"))
-        return super(ProjectFsn, self).create(vals_list)
+        res = super(ProjectFsn, self).create(vals_list)
+        res._generate_pdf_report()
+        return res
+
+    def write(self, vals_list):
+        res = super(ProjectFsn, self).write(vals_list)
+        self._generate_pdf_report()
+        return res
+
+    def _generate_pdf_report(self):
+        """Genera y guarda el PDF del reporte QWeb en el campo binario."""
+        for record in self:
+            pdf_content, _ =  self.env['ir.actions.report']._render_qweb_pdf('project_bol.action_fsn_report', record.id)
+            record.write({
+                'document': base64.b64encode(pdf_content),
+                'document_filename': f"{record.name}.pdf",
+            })
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=3):

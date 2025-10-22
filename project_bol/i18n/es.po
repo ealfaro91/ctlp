@@ -481,9 +481,14 @@ msgid "Activity Type Icon"
 msgstr "Icono de Tipo de Actividad"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "Add the document approvers."
+msgstr "Agregue los aprobadores del documento."
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_task__advance
 msgid "Advance"
-msgstr ""
+msgstr "Avance"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__advance
@@ -1580,7 +1585,8 @@ msgstr "El porcentaje de desviación del presupuesto del proyecto."
 msgid ""
 "The manager for the FSN TI group was not found. Try to add a manager in "
 "settings for notifications"
-msgstr ""
+msgstr "No se encontró un usuario para el grupo Gerente TI. Intenta agregar un manager en las"
+"configuraciones del sistema."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__name

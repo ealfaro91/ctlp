@@ -24,9 +24,8 @@ class DocumentController(http.Controller):
         domain = []
         data = {
             'user': request.env.user,
-            'document_types': request.env['document.file.type'].sudo().search(domain),
-            'areas': request.env['helpdesk.ticket.area'].sudo().search(domain),
-            'document_types': request.env['document.file.type'].sudo().search(domain),
+            'areas': request.env['helpdesk.ticket.area'].sudo().search([('show_in_directory', '=', True)]),
+            'document_directories': request.env['document.directory'].sudo().search(domain),
             'submission_token': submission_token
         }
         return request.render("quality_control_bol.document_form", data)

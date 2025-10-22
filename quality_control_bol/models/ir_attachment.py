@@ -15,7 +15,10 @@ class IrAttachment(models.Model):
     _name = "ir.attachment"
     _inherit = ["ir.attachment", "mail.thread", "mail.activity.mixin", "portal.mixin"]
 
-
+    active = fields.Boolean(
+        string="Active",
+        default=True,
+    )
     signed_by_author = fields.Boolean(
         string="Signed by Author",
         default=False,
@@ -104,7 +107,8 @@ class IrAttachment(models.Model):
         ('published', 'Published')],
         string='Estado',
         default='to_review',
-        compute='_compute_approval_state'
+        compute='_compute_approval_state',
+        store=True
     )
     privacy_type = fields.Selection([
          ('private', 'Private'), ('public', 'Public')],
@@ -141,6 +145,7 @@ class IrAttachment(models.Model):
 
     def button_replace_version(self):
         self.version_id.active = False
+        self.active = False
 
 
     # @api.onchange('document_directory_id')
