@@ -108,7 +108,7 @@ class IrAttachment(models.Model):
         string='Estado',
         default='to_review',
         compute='_compute_approval_state',
-        store=True
+     #   store=True
     )
     privacy_type = fields.Selection([
          ('private', 'Private'), ('public', 'Public')],
