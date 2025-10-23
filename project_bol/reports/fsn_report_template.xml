@@ -7,7 +7,8 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">project_bol.report_fsn_template</field>
         <field name="report_file">project_bol.report_fsn_template</field>
-        <field name="print_report_name">'Contactos - %s' % (object.name)</field>
+        <field name="print_report_name">'FSN - %s' % (object.name)</field>
+        <field name="binding_type">report</field>
     </record>
 
     <!-- Plantilla QWeb -->
@@ -21,9 +22,10 @@
                                 <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height:50px;align-middle"/>
                             </div>
                             <div class="col-6 text-center border border-dark"><strong><h5>NEEDS REQUEST FORM</h5></strong></div>
-                            <div class="col-3 text-center border border-dark"><strong><h5>F-UEC008 <br/>V: 01</h5></strong></div>
+                            <div class="col-3 text-center border border-dark"><strong><h5> <br/></h5></strong></div>
                         </div>
-                        <h3 style="text-align:left;">Project Information</h3>
+                        <br/>
+                        <h5 style="text-align:left;">1. Project Information</h5>
                         <table style="width:100%; border-collapse:collapse; font-size:13px;">
                             <!-- Fila 1 -->
                             <tr>
@@ -58,32 +60,26 @@
 
                             </tr>
                         </table>
-
-                        <h3 style="text-align:left;">2. Problem or Incident Identification</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">2. Problem or Incident Identification</h5>
                         <t t-esc="o.problem_or_incident_identification"/>
-
-                        <h3 style="text-align:left;">3. Request Objective</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">3. Request Objective</h5>
                         <t t-esc="o.request_objective"/>
-
-
-                        <h3 style="text-align:left;">4. Request Description</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">4. Request Description</h5>
                         <t t-esc="o.request_description"/>
-
-                        <h3 style="text-align:left;">5. Controls/exceptions/assumptions</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">5. Controls/exceptions/assumptions</h5>
                         <t t-esc="o.controls_exceptions_assumptions"/>
-
-
-                        <h3 style="text-align:left;">6. Strategic Alignment</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">6. Strategic Alignment</h5>
                         <t t-esc="o.strategic_alignment"/>
-
-                        <h3 style="text-align:left;">7. Problem or Incident Identification</h3>
-                        <t t-esc="o.problem_or_incident_identification"/>
-
-
-                        <h3 style="text-align:left;">7. Affected System</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">7. Affected System</h5>
                         <t t-esc="o.affected_system_id.name"/>
-
-                        <h3 style="text-align:left;">8. Project Benefits</h3>
+                        <br/> <br/>
+                        <h5 style="text-align:left;">8. Project Benefits</h5>
                         <t t-foreach="o.request_benefits_ids" t-as="rb">
                             <span t-field="rb.name"
                                   style="padding: 0% 1%;

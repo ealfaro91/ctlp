@@ -22,7 +22,8 @@ class ApprovalLog(models.Model):
         "res.users",
         string="User",
         required=True,
-        tracking=True
+        tracking=True,
+        domain=[("share", "=", False)]
     )
     image = fields.Binary(
         string="Image",

@@ -11,17 +11,17 @@ class ApprovalLog(models.Model):
         ]
 
     def _get_user_domain(self):
-        if self.env.context.get("default_project_fsn_id"):
-            return [
-                ('groups_id', 'in', self.role_id.id)
+       # if self.env.context.get("default_project_fsn_id") or self.project_fsn_id:
+        return [
+            ("share", "=", False), ('groups_id', 'in', self.role_id.id)
             ]
-        return []
+      #  return []
 
     role_id = fields.Many2one(
         domain=lambda self: self._get_role_domain(),
     )
     user_id = fields.Many2one(
-        domain=lambda self: self._get_user_domain(),
+   #     domain=lambda self: self._get_user_domain(),
     )
     project_fsn_id = fields.Many2one(
         "project.fsn",

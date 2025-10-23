@@ -63,6 +63,7 @@ class ProjectFsn(models.Model):
     area = fields.Char(
         related="requested_by_id.area",
         string="Area",
+        store=True,
         tracking=True,
         help="The area related to the user who requested this ticket."
     )
@@ -194,25 +195,33 @@ class ProjectFsn(models.Model):
                 _("The manager for the FSN TI group was not found. Try to add"
                   " a manager in settings for notifications"))
         res = super(ProjectFsn, self).create(vals_list)
-        res._generate_pdf_report()
+        pdf_content, _ = self.env['ir.actions.report'].with_context(
+            force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', res.id)
+        res.document = base64.b64encode(pdf_content)
+        res.document_filename = f"{self.name}.pdf"
+    #    res._generate_pdf_report()
         return res
 
-    def write(self, vals_list):
-        res = super(ProjectFsn, self).write(vals_list)
-        self._generate_pdf_report()
-        return res
+    # def write(self, vals_list):
+    #     res = super(ProjectFsn, self).write(vals_list)
+    #     for record in self:
+    #         pdf_content, _ = self.env['ir.actions.report'].with_context(
+    #             force_report_rendering=True
+    #         ).sudo()._render_qweb_pdf('project_bol.action_fsn_report', record.id)
+    #         # usar write directo, no asignación
+    #         record.sudo().write({'document': base64.b64encode(pdf_content)})
+    #     return res
 
-    def _generate_pdf_report(self):
-        """Genera y guarda el PDF del reporte QWeb en el campo binario."""
-        for record in self:
-            pdf_content, _ =  self.env['ir.actions.report']._render_qweb_pdf('project_bol.action_fsn_report', record.id)
-            record.write({
-                'document': base64.b64encode(pdf_content),
-                'document_filename': f"{record.name}.pdf",
-            })
+    # def _generate_pdf_report(self):
+    #     """Genera y guarda el PDF del reporte QWeb en el campo binario."""
+    #     pdf_content, _ =  self.env['ir.actions.report'].with_context(force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', self.id)
+    #     self.write({
+    #         'document': base64.b64encode(pdf_content),
+    #         'document_filename': f"{self.name}.pdf",
+    #     })
 
     @staticmethod
-    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=3):
+    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
         """Adjunta una firma en un cuadrante específico de la última página."""
 
         if not pdf_binary_base64 or not signature_image_base64:
@@ -252,12 +261,11 @@ class ProjectFsn(models.Model):
             except Exception:
                 width, height = 595, 842
 
-        # Configurar posiciones de cuadrantes
         quadrant_positions = {
-            1: (width - 150, height - 100),  # arriba derecha
-            2: (50, height - 100),  # arriba izquierda
-            3: (width - 150, 50),  # abajo derecha
-            4: (50, 50),  # abajo izquierda
+            1: (50, 180),  # abajo izquierda (más arriba)
+            2: (200, 180),  # un poco más al centro
+            3: (width - 350, 180),  # centro derecha
+            4: (width - 150, 180),  # abajo derecha
         }
 
         # Obtener coordenadas según el cuadrante
@@ -407,32 +415,29 @@ class ProjectFsn(models.Model):
             }
 
     @staticmethod
-    def assign_signature_coords(approval_logs, page_width=595, page_height=842):
-        """Assign signature coordinates to approval logs (always at bottom)."""
-        num_logs = len(approval_logs)
+    def assign_signature_coords(approval_logs, page_width=595, base_x=50, base_y=180):
+        """
+        Assign signature coordinates starting from an existing base signature at (base_x, base_y).
+        Places 2 signatures per row, going downward.
+        """
         sig_width, sig_height = 80, 35
-        margin_x = 20  # margen lateral
-        margin_y = 20  # margen inferior
+        margin_x = 20
+        margin_y = 40
 
-        # Número de columnas que caben en la página
-        cols = max(1, (page_width - margin_x) // (sig_width + margin_x))
-        cols = int(cols)
-
-        coords = []
         for idx, log in enumerate(approval_logs):
-            col = idx % cols  # columna en la que va la firma
-            row = idx // cols  # fila (hacia arriba desde el margen inferior)
+            # idx=0 → primera firma a la derecha de la base
+            # idx=1 → segunda fila, izquierda
+            # idx=2 → segunda fila, derecha, etc.
+            col = (idx + 1) % 2  # sumamos 1 porque la primera ya está
+            row = (idx + 1) // 2
 
-            x = margin_x + col * (sig_width + margin_x)
-            y = margin_y + row * (sig_height + margin_y)
+            x = base_x + col * (sig_width + margin_x)
+            y = base_y - row * (sig_height + margin_y)
 
-            coords.append((x, y))
+            log.write({'x_coord': x, 'y_coord': y})
 
-            # Guardar coordenadas en el registro
-            log.x_coord = x
-            log.y_coord = y
 
-        return coords
+      #  return coords
 
     def _action_create_project(self):
         """Creates a project with fsn values."""
@@ -443,8 +448,8 @@ class ProjectFsn(models.Model):
             "description": self.request_description,
             "requested_by_id": self.requested_by_id.id,
             "fsn_id": self.id,
-            "date_start": self.date_start_project,
-            "date": self.date_end_project,
+          #  "date_start": self.date_start_project,
+          #  "date": self.date_end_project,
             "requested_area": self.area,
             "user_id": manager.id,
         })

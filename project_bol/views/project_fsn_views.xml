@@ -85,7 +85,12 @@
                                     <label for="strategic_alignment" string="Strategic Alignment"/>
                                     <field name="strategic_alignment" nolabel="1" readonly="state != 'to_approve'"/>
                                 </group>
-                                <field name="problem_incident_recurrence" readonly="state != 'to_approve'"/>
+                                <group>
+                                     <field name="problem_incident_recurrence" readonly="state != 'to_approve'"/>
+                                </group>
+                                <group>
+                                     <field name="problem_incident_recurrence" readonly="state != 'to_approve'"/>
+                                </group>
                             </group>
                             <separator/>
                             <group>
@@ -96,7 +101,7 @@
                             </group>
                         </page>
                         <page string="Approval Log">
-                            <div class="alert alert-info" colspan="4" role="alert">
+                            <div class="alert alert-info" colspan="4" role="alert" invisible="state != 'to_approve'">
                                 Add the document approvers.
                             </div>
                             <field name="approval_log_ids" nolabel="1" context="{'default_project_fsn_id': active_id}" readonly="state != 'to_approve'"/>
@@ -107,7 +112,7 @@
                              </div>
                             <group>
                                 <field name="document_filename" invisible="1"/>
-                                <field name="document" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename"/>
+                                <field name="document" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename" readonly="1"/>
                             </group>
                         </page>
                         <page string="FSN Firmado">

@@ -16,6 +16,56 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: project_bol
+#: model:ir.actions.report,print_report_name:project_bol.action_fsn_report
+msgid "'FSN - %s' % (object.name)"
+msgstr "'FSN - %s' % (object.name)"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "1. Project Information"
+msgstr "1. Información del proyecto"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "2. Problem or Incident Identification"
+msgstr "2. Identificación del incidente/problema/ necesidad que genera esta solicitud"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "3. Request Objective"
+msgstr "3. Objetivo de la solicitud"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "4. Request Description"
+msgstr "4. Descripción especifica de la solicitud"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "5. Controls/exceptions/assumptions"
+msgstr "5. Controles/excepciones/suposiciones"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "6. Strategic Alignment"
+msgstr "6. Alineación estratégica"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "7. Affected System"
+msgstr "7. Sistema Afectado"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "8. Project Benefits"
+msgstr "8. Beneficios del proyecto"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "NEEDS REQUEST FORM"
+msgstr "FORMULARIO DE SOLICITUD DE NECESIDADES"
+
+#. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
 msgid "<i class=\"fa fa-check\"/> Accept &amp; Sign"
 msgstr "<i class=\"fa fa-check\"/> Aceptar &amp; Firmar"
@@ -332,6 +382,82 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                       <!-- CONTENT -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente FSN ha sido aprobado.<br>\n"
+"                                                            <ul>\n"
+"                                                                <li>FSN: <t t-out=\"object.name\"></t></li>\n"
+"                                                            </ul>\n"
+"                                                            <br>\n"
+"                                                            <p>Saludos.</p>\n"
+"                                                            <p>Este es un mensaje automático, por favor no responda.</p>\n"
+"                                                        </div>\n"
+"                                                    </td></tr>\n"
+"                                                    <tr>\n"
+"                                                        <td style=\"text-align:center;\">\n"
+"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                        </td>\n"
+"                                                    </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <!-- FOOTER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\">\n"
+"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                        <t t-if=\"user.company_id.website\">\n"
+"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                        </t>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
 
 #. module: project_bol
 #: model:mail.template,body_html:project_bol.project_creation_email
@@ -372,13 +498,14 @@ msgid ""
 "                                                </ul>\n"
 "                                                <br>\n"
 "                                                <p>Greetings.</p>\n"
+"                                        <p> This is an automatic message, please de not reply</p>\n"
 "                                            </div>\n"
 "                                        </td></tr>\n"
+
 "                                    <tr>\n"
 "                                        <td style=\"text-align:center;\">\n"
 "                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
 "                                        </td>\n"
-"                                        <p> This is an automatic message, please de not reply</p>\n"
 "                                    </tr>\n"
 "                                </table>\n"
 "                            </td>\n"
@@ -407,6 +534,76 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                    <tbody>\n"
+"                        <!-- HEADER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr>\n"
+"                                        <td valign=\"middle\">\n"
+"                                            <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
+"                                            <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.user_id.name or ''\"></span>\n"
+"                                        </td>\n"
+"                                        <td valign=\"middle\" align=\"right\" t-if=\"not object.user_id.company_id.uses_default_logo\">\n"
+"                                            <img t-attf-src=\"/logo.png?company={{ object.user_id.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.user_id.company_id.name\">\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <tr>\n"
+"                                        <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- CONTENT -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr>\n"
+"                                        <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                            <div>\n"
+"                                                Estimado/a <strong><t t-out=\"object.user_id.name\"></t></strong>, el siguiente proyecto ha sido creado.<br>\n"
+"                                                <ul>\n"
+"                                                    <li>Proyecto: <t t-out=\"object.name\"></t></li>\n"
+"                                                </ul>\n"
+"                                                <br>\n"
+"                                                <p>Saludos.</p>\n"
+"                                        <p> Este es un mensaje automático, por favor no responda.</p>\n"
+"                                            </div>\n"
+"                                        </td></tr>\n"
+"                                    <tr>\n"
+"                                        <td style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- FOOTER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr>\n"
+"                                        <td valign=\"middle\" align=\"left\">\n"
+"                                            <t t-out=\"object.user_id.company_id.name or ''\"></t>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <tr>\n"
+"                                        <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                            <t t-out=\"object.user_id.company_id.phone or ''\"></t>\n"
+"                                            <t t-if=\"object.user_id.company_id.website\">\n"
+"                                                | <a t-attf-href=\"'%s' % {{ object.user_id.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.user_id.company_id.website or ''\"></a>\n"
+"                                            </t>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            "
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__request_description
@@ -509,6 +706,11 @@ msgstr "Monto Asignado"
 #: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
 msgid "Amount Information"
 msgstr "Información de Montos"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
+msgid "Advance Information"
+msgstr "Información de Avance"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__amount_used
@@ -1064,14 +1266,14 @@ msgstr "Título"
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__fsn_id
 msgid "Needs Request Form"
-msgstr "Notas de Especificación Funcional"
+msgstr "Formulario de solicitud de necesidades"
 
 #. module: project_bol
 #. odoo-python
 #: code:addons/project_bol/controllers/portal.py:0
 #, python-format
 msgid "Newest"
-msgstr ""
+msgstr "Mas reciente"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__activity_date_deadline
@@ -1242,13 +1444,24 @@ msgstr "Dueño del Producto"
 #: model:ir.model,name:project_bol.model_project_project
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__project_id
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__project_id
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
 msgid "Project"
 msgstr "Proyecto"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "Área"
+msgstr "Área"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "Date"
+msgstr "Fecha"
+
+#. module: project_bol
 #: model:mail.template,name:project_bol.project_creation_email
 msgid "Project Creation"
-msgstr ""
+msgstr "Creación de proyecto"
 
 #. module: project_bol
 #: model:ir.actions.act_window,name:project_bol.project_fsn_action
@@ -1431,7 +1644,7 @@ msgstr "Documento Firmado"
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__signed_by_author
 msgid "Signed by Author"
-msgstr ""
+msgstr "Firmado por el Autor"
 
 #. module: project_bol
 #: model:res.groups,name:project_bol.group_fsn_requester
@@ -1498,6 +1711,13 @@ msgstr "Tarea"
 #: model:ir.model,name:project_bol.model_project_task_type
 msgid "Task Stage"
 msgstr "Etapa de la tarea"
+
+#. module: project_bol
+#. odoo-python
+#: code:addons/project_bol/models/project_fsn.py:0
+#, python-format
+msgid "The FSN has been signed by the author."
+msgstr "El FSN ha sido firmado por el autor."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_project__fsn_id
@@ -1682,6 +1902,11 @@ msgstr "El usuario que solicitó este ticket."
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
 msgid "There are currently no pending fsn approvals for your account."
 msgstr "Actualmente no hay aprobaciones de fsn pendientes para usted."
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "This is the file to be signed."
+msgstr "Este es el documento a firmar."
 
 #. module: project_bol
 #. odoo-python
