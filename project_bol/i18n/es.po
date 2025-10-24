@@ -57,8 +57,13 @@ msgstr "7. Sistema Afectado"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
-msgid "8. Project Benefits"
-msgstr "8. Beneficios del proyecto"
+msgid "8. Problem/Incident Recurrence"
+msgstr "8. Recurrencia del Problema/Incidente"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "9. Project Benefits"
+msgstr "9. Beneficios del proyecto"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template

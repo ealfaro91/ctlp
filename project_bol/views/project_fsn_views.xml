@@ -88,9 +88,6 @@
                                 <group>
                                      <field name="problem_incident_recurrence" readonly="state != 'to_approve'"/>
                                 </group>
-                                <group>
-                                     <field name="problem_incident_recurrence" readonly="state != 'to_approve'"/>
-                                </group>
                             </group>
                             <separator/>
                             <group>

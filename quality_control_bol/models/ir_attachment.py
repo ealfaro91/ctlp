@@ -15,10 +15,11 @@ class IrAttachment(models.Model):
     _name = "ir.attachment"
     _inherit = ["ir.attachment", "mail.thread", "mail.activity.mixin", "portal.mixin"]
 
-    active = fields.Boolean(
-        string="Active",
-        default=True,
-    )
+    # active = fields.Boolean(
+    #     string="Active",
+    #     default=True,
+    # )
+    #URGENTE MIGRATION DEL CAMPO ACTIVE
     signed_by_author = fields.Boolean(
         string="Signed by Author",
         default=False,
