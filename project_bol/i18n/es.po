@@ -703,6 +703,11 @@ msgid "Affected System"
 msgstr "Sistema Afectado"
 
 #. module: project_bol
+#: model:ir.model.fields.selection,name:project_bol.selection__project_project__project_status__alert
+msgid "Alert"
+msgstr "Alerta"
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__amount_assigned
 msgid "Amount Assigned"
 msgstr "Monto Asignado"
@@ -893,6 +898,11 @@ msgstr "Fecha de Inicio del Proyecto"
 #: model:ir.model.fields,field_description:project_bol.field_project_project__delay_days
 msgid "Delay Days"
 msgstr "Días de Retraso"
+
+#. module: project_bol
+#: model:ir.model.fields.selection,name:project_bol.selection__project_project__project_status__delayed
+msgid "Delayed"
+msgstr "En retraso"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
@@ -1368,6 +1378,11 @@ msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de envío"
 
 #. module: project_bol
+#: model:ir.model.fields.selection,name:project_bol.selection__project_project__project_status__on_time
+msgid "On Time"
+msgstr "En plazo"
+
+#. module: project_bol
 #: model:project.project.stage,name:project_bol.project_project_stage_4
 msgid "PASE A PRODUCCION"
 msgstr ""
@@ -1391,6 +1406,11 @@ msgstr ""
 #: model:project.project.stage,name:project_bol.project_project_stage_3
 msgid "PRUEBAS DE USUARIO"
 msgstr ""
+
+#. module: project_bol
+#: model:ir.model.fields.selection,name:project_bol.selection__project_project__project_status__on_pause
+msgid "Paused"
+msgstr "En pausa"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__document_url
@@ -1517,6 +1537,16 @@ msgstr "Información del Proyecto"
 #: model:ir.model.fields,field_description:project_bol.field_project_task__project_stage_id
 msgid "Project Stage"
 msgstr "Etapa del proyecto"
+
+#. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_project__project_status
+msgid "Project Status"
+msgstr "Salud del Proyecto"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_project_graph
+msgid "Projects"
+msgstr "Proyectos"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__rating_ids

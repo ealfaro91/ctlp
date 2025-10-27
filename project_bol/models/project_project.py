@@ -72,6 +72,20 @@ class ProjectProject(models.Model):
         store=True,
         help="The deviation percentage of the project budget.",
     )
+    project_status = fields.Selection(
+        string="Project Status",
+        selection=[
+            ("on_time", "On Time"),
+            ("on_pause", "Paused"),
+            ("alert", "Alert"),
+            ("delayed", "Delayed"),
+        ],
+        tracking=True,
+        compute="_compute_deviation",
+        inverse="_inverse_project_status",
+        store=True,
+        help="The status of the project.",
+    )
     total_advance = fields.Float(
         string="Total Advance",
         tracking=True,
@@ -128,19 +142,30 @@ class ProjectProject(models.Model):
             if project.stage_id.is_completed:
                 project.closed_date = fields.Datetime.now()
 
+
+    def _inverse_project_status(self):
+        for project in self:
+            project.project_status = project.project_status
+
     @api.depends("date_start", "date", "closed_date")
     def _compute_deviation(self):
         """ Compute delay days and deviation percentage for each project. """
         for project in self:
             project.delay_days = 0
             project.deviation = 0.0
+            project.project_status = "on_time"
             if project.date and project.date_start:
                 duration = (project.date - project.date_start).days or 1
                 ref_date = project.closed_date.date() if project.closed_date else fields.Date.today()
                 delay = (ref_date - project.date).days
                 project.delay_days = delay if delay > 0 else 0
                 project.deviation = (project.delay_days / duration) * 100
-
+                if project.deviation < 10:
+                    project.project_status = "on_time"
+                if  10 > project.deviation > 15:
+                    project.project_status = "alert"
+                elif project.deviation > 15:
+                    project.project_status = "delayed"
 
     @api.model
     def create(self, vals):

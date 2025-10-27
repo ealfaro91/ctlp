@@ -188,6 +188,12 @@ class ProjectFsn(models.Model):
         help="Indicates whether the document has been signed by the author."
     )
 
+    def button_generate_fsn(self):
+        pdf_content, _ = self.env['ir.actions.report'].with_context(
+            force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', self.id)
+        self.document = base64.b64encode(pdf_content)
+        self.document_filename = f"{self.name}.pdf"
+
     def create(self, vals_list):
         manager = self.env.ref("project_bol.group_fsn_ti_manager").users
         if not manager:
@@ -198,7 +204,7 @@ class ProjectFsn(models.Model):
         pdf_content, _ = self.env['ir.actions.report'].with_context(
             force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', res.id)
         res.document = base64.b64encode(pdf_content)
-        res.document_filename = f"{self.name}.pdf"
+        res.document_filename = f"{res.name}.pdf"
     #    res._generate_pdf_report()
         return res
 

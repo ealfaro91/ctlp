@@ -80,7 +80,7 @@
                         <t t-esc="o.affected_system_id.name"/>
                         <br/> <br/>
                         <h5 style="text-align:left;">8. Problem/Incident Recurrence</h5>
-                        <t t-esc="o.problem_incident_recurrence"/>
+                        <span t-field="o.problem_incident_recurrence"/>
                         <br/> <br/>
                         <h5 style="text-align:left;">9. Project Benefits</h5>
                         <t t-foreach="o.request_benefits_ids" t-as="rb">

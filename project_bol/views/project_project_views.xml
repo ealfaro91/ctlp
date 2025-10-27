@@ -26,6 +26,7 @@
                         <group string="Advance Information" name="advance_information">
                             <field name="closed_date" invisible="not closed_date"/>
                             <field name="delay_days"/>
+                            <field name="project_status"/>
                             <field name="deviation" widget="progressbar"/>
                             <field name="total_advance" widget="progressbar"/>
                         </group>
@@ -72,6 +73,7 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">
                 <span title="Total Advance"/><field name="total_advance" widget="progressbar"/>
+                <span title="Status"/><field name="project_status" widget="badge" decoration-danger="project_status == 'delayed'" decoration-warning="project_status == 'alert'" decoration-success="project_status == 'on_time'" decoration-info="project_status == 'on_pause'"/>
 <!--                <span title="Deviation"/><field name="deviation" widget="progressbar"/>-->
             </xpath>
 <!--            <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">-->
@@ -99,6 +101,7 @@
             <graph string="Projects">
                 <field name="stage_id" type="row"/>
                 <field name="deviation" type="row"/>
+                <field name="project_status" type="row"/>
             </graph>
         </field>
     </record>

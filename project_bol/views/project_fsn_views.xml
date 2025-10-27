@@ -32,6 +32,8 @@
                             invisible="state == 'cancelled'" string="Cancel" icon="fa-ban"/>
                     <button name="button_author_sign" type="object" class="btn-primary"
                             invisible="signed_by_author or not document" string="Author signature" icon="fa-pencil"/>
+                    <button name="button_generate_fsn" type="object" class="btn-primary"
+                            invisible="sent_approval_request or signed_by_author or not id" string="Generar FSN" icon="fa-file" confirm="Se generará el PDF de FSN nuevamente"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
