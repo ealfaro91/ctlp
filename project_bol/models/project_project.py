@@ -147,25 +147,67 @@ class ProjectProject(models.Model):
         for project in self:
             project.project_status = project.project_status
 
-    @api.depends("date_start", "date", "closed_date")
+    @api.depends("date_start", "date", "closed_date", "resource_calendar_id")
     def _compute_deviation(self):
-        """ Compute delay days and deviation percentage for each project. """
+        """Compute delay days and deviation percentage for each project, based on working days."""
+        from datetime import datetime, time
         for project in self:
             project.delay_days = 0
             project.deviation = 0.0
             project.project_status = "on_time"
-            if project.date and project.date_start:
-                duration = (project.date - project.date_start).days or 1
-                ref_date = project.closed_date.date() if project.closed_date else fields.Date.today()
-                delay = (ref_date - project.date).days
-                project.delay_days = delay if delay > 0 else 0
-                project.deviation = (project.delay_days / duration) * 100
-                if project.deviation < 10:
-                    project.project_status = "on_time"
-                if  10 > project.deviation > 15:
-                    project.project_status = "alert"
-                elif project.deviation > 15:
-                    project.project_status = "delayed"
+
+            if not (project.date_start and project.date):
+                continue
+
+            # Convierte fechas a datetime
+            start_dt = datetime.combine(project.date_start, time.min)
+            end_dt = datetime.combine(project.date, time.max)
+            ref_dt = datetime.combine(project.closed_date or fields.Date.today(), time.max)
+
+            # Usa el calendario del proyecto o el general de la compañía
+            calendar = project.resource_calendar_id or self.env.company.resource_calendar_id
+
+            # Duración planificada en días laborales
+            duration_hours = calendar.get_work_hours_count(start_dt, end_dt)
+            duration_days = duration_hours / (calendar.hours_per_day or 8.0)
+
+            # Retraso solo si ref_dt > fecha final planificada
+            if ref_dt > end_dt:
+                delay_hours = calendar.get_work_hours_count(end_dt, ref_dt)
+                delay_days = delay_hours / (calendar.hours_per_day or 8.0)
+            else:
+                delay_days = 0
+
+            project.delay_days = max(0, delay_days)
+            project.deviation = (project.delay_days / duration_days) * 100 if duration_days else 0
+
+            # Estado del proyecto según desviación
+            if project.deviation < 10:
+                project.project_status = "on_time"
+            elif 10 <= project.deviation <= 15:
+                project.project_status = "alert"
+            else:
+                project.project_status = "delayed"
+
+    # @api.depends("date_start", "date", "closed_date")
+    # def _compute_deviation(self):
+    #     """ Compute delay days and deviation percentage for each project. """
+    #     for project in self:
+    #         project.delay_days = 0
+    #         project.deviation = 0.0
+    #         project.project_status = "on_time"
+    #         if project.date and project.date_start:
+    #             duration = (project.date - project.date_start).days or 1
+    #             ref_date = project.closed_date.date() if project.closed_date else fields.Date.today()
+    #             delay = (ref_date - project.date).days
+    #             project.delay_days = delay if delay > 0 else 0
+    #             project.deviation = (project.delay_days / duration) * 100
+    #             if project.deviation < 10:
+    #                 project.project_status = "on_time"
+    #             if  10 > project.deviation > 15:
+    #                 project.project_status = "alert"
+    #             elif project.deviation > 15:
+    #                 project.project_status = "delayed"
 
     @api.model
     def create(self, vals):

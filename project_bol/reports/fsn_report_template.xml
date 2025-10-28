@@ -39,7 +39,7 @@
                                     Date
                                 </td>
                                 <td style="border:1px solid #000; padding:6px; width:25%;">
-                                    <t t-esc="o.date_requested"/>
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
                                 </td>
                             </tr>
 
