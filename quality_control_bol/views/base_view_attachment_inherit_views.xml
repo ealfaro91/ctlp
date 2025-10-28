@@ -42,13 +42,15 @@
     <record id="ir_attachment_view_form_inh" model="ir.ui.view">
         <field name="name">ir.attachment.view.form.inh</field>
         <field name="model">ir.attachment</field>
-        <field name="inherit_id" ref="base.view_attachment_form"/>
+        <field name="inherit_id" ref="windx_documents_management_preview.view_attachment_form_inherit_document_management"/>
         <field name="mode">extension</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="button_author_sign" type="object" class="btn-primary"
                             invisible="signed_by_author" string="Firma del autor" icon="fa-pencil"/>
-                <button name="%(quality_control_bol.replace_document_version_action)d" type="action" class="btn-danger" string="Reemplazar versión" icon="fa-arrows"/>
+                <button name="%(quality_control_bol.replace_document_version_action)d"
+                        context="{'default_attachment_id': id, 'default_old_document_version_id': version_id}"
+                        type="action" class="btn-danger" string="Reemplazar versión" icon="fa-arrows"/>
                 <button name="button_publish_document" type="object" class="btn-primary" string="Publicar" icon="fa-bullhorn"
                         invisible="privacy_type != 'public' or state == 'published'"/>
                 <button name="button_send_approval_request" type="object"
@@ -135,6 +137,17 @@
                             <field name="document_signed_filename" invisible="1"/>
                             <field name="document_signed" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename" readonly="1"/>
                         </group>
+                    </page>
+                    <page string="Solicitudes de revisión">
+                        <field name="attachment_review_request_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="attachment_id" column_invisible="1"/>
+                                <field name="user_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
+                                <field name="date"/>
+                                <field name="version_id"/>
+                                <field name="message"/>
+                            </tree>
+                        </field>
                     </page>
                 </notebook>
             </xpath>

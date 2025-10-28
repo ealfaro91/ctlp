@@ -2,4 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 acces_document_file_type,document_file_type_user,model_document_file_type,base.group_user,1,1,1,1
 acces_document_version,document_version_user,model_document_version,base.group_user,1,1,1,1
 acces_replace_document_version,replace_document_version_user,model_replace_document_version,base.group_user,1,1,1,1
-
+acces_attachment_review_request,attachment_review_request_user,model_attachment_review_request,base.group_user,1,1,1,1

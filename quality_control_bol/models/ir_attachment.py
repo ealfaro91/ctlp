@@ -20,19 +20,23 @@ class IrAttachment(models.Model):
     #     default=True,
     # )
     #URGENTE MIGRATION DEL CAMPO ACTIVE
+
     signed_by_author = fields.Boolean(
         string="Signed by Author",
         default=False,
+        tracking=True,
         help="Indicates whether the document has been signed by the author."
     )
     sent_approval_request = fields.Boolean(
         string="Sent Approval Request",
         default=False,
+        tracking=True,
         help="Indicates whether the approval request has been sent."
     )
     published = fields.Boolean(
         string="Publicado",
         default=False,
+        tracking=True,
     )
     user_ids = fields.Many2many(
         "res.users",
@@ -57,6 +61,7 @@ class IrAttachment(models.Model):
         comodel_name="document.file.type",
         string="Subcategory file type",
         domain="[('parent_type_id', '=', document_file_type_id)]",
+        tracking=True,
     )
     has_subcategories = fields.Boolean(
         string='Has Subcategories',
@@ -92,7 +97,14 @@ class IrAttachment(models.Model):
         comodel_name='document.version',
         inverse_name='attachment_id',
         string='Document Versions',
+        context={"active_test": False},
         help="List of versions for this document attachment.",
+    )
+    attachment_review_request_ids = fields.One2many(
+        comodel_name='attachment.review.request',
+        inverse_name='attachment_id',
+        string='Attachment Review Request',
+        help="The attachment review request associated with the document attachment.",
     )
     obsolete = fields.Boolean(
         string='Obsolete',
@@ -109,6 +121,7 @@ class IrAttachment(models.Model):
         string='Estado',
         default='to_review',
         compute='_compute_approval_state',
+        inverse='_inverse_compute_approval_state',
      #   store=True
     )
     privacy_type = fields.Selection([
@@ -116,6 +129,7 @@ class IrAttachment(models.Model):
          string='Tipo de privacidad',
         default='private',
         required=True,
+        tracking=True,
     )
     area_id = fields.Many2one(
         comodel_name='helpdesk.ticket.area',
@@ -135,6 +149,17 @@ class IrAttachment(models.Model):
     document_url = fields.Char(
         compute="get_document_url", string="Portal Access Link"
     )
+
+    def request_review(self):
+        for rec in self:
+            rec.attachment_review_request_ids.create({
+                'user_id': self.env.user.id,
+                'attachment_id': rec.id,
+                'date': fields.Datetime.now(),
+                'version_id': rec.version_id.id,
+                'message': 'Solicitud de revisión',
+            })
+            rec.state = 'to_review'
 
     def button_author_sign(self):
         """ Calls the method to attach the signature to the PDF document. """
@@ -178,6 +203,13 @@ class IrAttachment(models.Model):
             # elif fsn.state == "cancelled":
             #     fsn.sent_approval_request = False
 
+    def _inverse_compute_approval_state(self):
+        for fsn in self:
+            fsn.state = "to_review"
+            if fsn.approval_log_ids:
+                if fsn.sent_approval_request and not all(log.state == "approved" for log in fsn.approval_log_ids):
+                    fsn.state = "to_approve"
+
     @api.depends("approval_log_ids", "sent_approval_request", "approval_log_ids.state", "published")
     def _compute_approval_state(self):
         """Compute the approval state based on the approval
@@ -214,7 +246,7 @@ class IrAttachment(models.Model):
             )
             mail_template.write({"email_to": user.email})
             mail_template.send_mail(
-                self.id, force_send=True, raise_exception=True
+                self.id, force_send=False, raise_exception=True
             )
         self.state = 'published'
         return {
@@ -319,7 +351,7 @@ class IrAttachment(models.Model):
         )
         mail_template.write({"email_to": user.email})
         mail_template.send_mail(
-            self.id, force_send=True, raise_exception=True
+            self.id, force_send=False, raise_exception=True
         )
         return {
             'type': 'ir.actions.client',
@@ -366,7 +398,7 @@ class IrAttachment(models.Model):
                 )
                 mail_template.write({"email_to": user.email})
                 mail_template.send_mail(
-                    rec.id, force_send=True, raise_exception=True
+                    rec.id, force_send=False, raise_exception=True
                 )
             for log in rec.approval_log_ids:
                 log.request_sign_date = fields.Datetime.now()

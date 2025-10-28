@@ -27,4 +27,23 @@
     </record>
 
 
+
+    <!-- ACTION -->
+    <record id="helpdesk_ticket_area_document_action" model="ir.actions.act_window">
+        <field name="name">Areas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.ticket.area</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("show_in_directory", "=", True)]</field>
+    </record>
+
+       <!-- MENU -->
+    <menuitem
+        parent="windx_documents_management_preview.menu_document_configuration"
+        action="helpdesk_ticket_area_document_action"
+        id="helpdesk_ticket_area_document_main_menu"
+        name="Helpdesk Ticket Area"
+        sequence="0"/>
+
+
 </odoo>

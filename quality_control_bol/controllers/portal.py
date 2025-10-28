@@ -175,6 +175,33 @@ class DocumentPortal(CustomerPortal):
         return request.render("quality_control_bol.my_document", values)
 
     @http.route(
+        ["/request/review/<int:document_log_id>"],
+        type="http",
+        auth="public",
+        website=True,
+        sitemap=False,
+    )
+    def request_review(
+        self, document_log_id, access_token=None, name=None, signature=None
+    ):
+        # get from query string if not on json param
+        access_token = access_token or request.httprequest.args.get(
+            "access_token")
+        document_sudo = self._document_check_access(
+            "ir.attachment",
+            document_log_id,
+            access_token=access_token,
+        )
+        document_sudo.request_review()
+        values = {
+            "document": document_sudo,
+            "action": document_sudo._get_portal_return_action(),
+          #  "message": message,
+        }
+        return request.render("quality_control_bol.my_document", values)
+
+
+    @http.route(
         ["/my/document/<int:document_log_id>/sign"],
         type="json",
         auth="public",

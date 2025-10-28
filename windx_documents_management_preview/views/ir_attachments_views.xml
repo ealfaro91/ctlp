@@ -5,6 +5,7 @@
         <record id="view_attachment_form_inherit_document_management" model="ir.ui.view">
             <field name="name">ir.attachment.form.inherit.document.management</field>
             <field name="model">ir.attachment</field>
+            <field name="mode">primary</field>
             <field name="inherit_id" ref="base.view_attachment_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet" position="before">
@@ -24,6 +25,7 @@
                 </xpath>
             </field>
         </record>
+
         <record id="view_attachment_tree_inherit_document_management" model="ir.ui.view">
             <field name="name">ir.attachment.tree.inherit.document.management</field>
             <field name="model">ir.attachment</field>
@@ -35,6 +37,7 @@
                 </xpath>
             </field>
         </record>
+
         <record id="view_attachment_search_inherit_document_management" model="ir.ui.view">
             <field name="name">ir.attachment.search.inherit.document.management</field>
             <field name="model">ir.attachment</field>
@@ -55,6 +58,7 @@
                 </xpath>
             </field>
         </record>
+
         <record id="act_attachment_from_document_directory" model="ir.actions.act_window">
             <field name="name">Attachments</field>
             <field name="res_model">ir.attachment</field>
@@ -73,11 +77,17 @@
                 </p>
             </field>
         </record>
+
+
         <record id="act_all_attachment_from_document_directory" model="ir.actions.act_window">
             <field name="name">Attachments</field>
             <field name="res_model">ir.attachment</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="search_view_id" ref="view_attachment_search_inherit_document_management"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree'}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_attachment_form_inherit_document_management')})]"
+            />
             <field name="domain">[('document_directory_id', '!=', False)]</field>
             <field name="context">{
                 "search_default_group_document_directory": 1,
@@ -90,6 +100,7 @@
                 </p>
             </field>
         </record>
+
         <record id="act_my_attachment_from_document_directory" model="ir.actions.act_window">
             <field name="name">Attachments</field>
             <field name="res_model">ir.attachment</field>

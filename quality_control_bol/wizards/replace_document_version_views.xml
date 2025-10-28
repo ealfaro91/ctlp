@@ -9,12 +9,15 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="attachment_id"/>
-                        <field name="old_document_version_id"/>
+                        <field name="attachment_id" readonly="1"/>
+                        <field name="old_document_version_id" readonly="1"/>
                     </group>
                     <group>
-                        <field name="new_attachment_id"/>
-                        <field name="new_document_version_id"/>
+                        <field name="datas" filename="datas_filename"/>
+                        <field name="datas_filename" invisible="1"/>
+                        <field name="new_attachment_id" invisible="1"/>
+                        <field name="new_document_version_id" invisible="1"/>
+                        <field name="new_version"/>
                     </group>
                 </sheet>
                 <footer>
