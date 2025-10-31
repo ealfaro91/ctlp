@@ -179,7 +179,10 @@ class ProjectProject(models.Model):
                 delay_days = 0
 
             project.delay_days = max(0, delay_days)
-            project.deviation = (project.delay_days / duration_days) * 100 if duration_days else 0
+            project.deviation = (
+                (project.delay_days / duration_days if duration_days else 0)
+                * (100 - project.total_advance)
+            )
 
             # Estado del proyecto según desviación
             if project.deviation < 10:
