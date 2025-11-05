@@ -11,7 +11,7 @@
                         <div class="col-lg-10 col-xl-9 mx-auto">
                             <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
                                 <div class="card-body p-4 p-sm-5">
-                                    <h1 class="text-center mb-5 fw-bold fs-5">REGISTRE SU REQUERIMIENTO</h1>
+                                    <h1 class="text-center mb-5 fw-bold fs-5">UPLOAD DOCUMENT</h1>
                                     <form action="/document_creation" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <input type="hidden" name="submission_token" t-att-value="submission_token"/>
@@ -24,7 +24,7 @@
                                             <!-- Requester Name and Area Fields -->
                                             <div class="row mb-4">
                                                 <div class="col-md-4">
-                                                    <label for="name" class="form-label">Usuario</label>
+                                                    <label for="name" class="form-label">User</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-light">
                                                             <i class="fa fa-user"/>
@@ -33,7 +33,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="code" class="form-label">Correo</label>
+                                                    <label for="code" class="form-label">E-mail</label>
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-light">
                                                             <i class="fa fa-envelope"/>
@@ -43,7 +43,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-4">
-                                                <label for="type_id" class="form-label">Area responsable</label>
+                                                <label for="type_id" class="form-label">Responsible Area</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text bg-light">
                                                         <i class="fa fa-tasks"/>
@@ -61,7 +61,7 @@
 
                                             <!-- Directory -->
                                             <div class="mb-4">
-                                                <label for="type_id" class="form-label">Directorio</label>
+                                                <label for="type_id" class="form-label">Directory</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text bg-light">
                                                         <i class="fa fa-tasks"/>
@@ -89,7 +89,7 @@
                                             </div>
                                             <!-- Description Field -->
                                             <div class="mb-4">
-                                                <label for="description" class="form-label">Descripción</label>
+                                                <label for="description" class="form-label">Description</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text bg-light">
                                                         <i class="fa fa-pencil"/>
@@ -145,7 +145,7 @@
                         <!-- Main Card -->
                         <div class="card shadow-sm mx-auto" style="max-width: 600px; border: none; margin-top: -30px; border-radius: 10px 10px 10px 10px; overflow: hidden;">
                             <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
-                                Documento cargado exitosamente!
+                                Document uploaded successfully!
                             </h1>
                         </div>
                     </t>

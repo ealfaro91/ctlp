@@ -81,11 +81,6 @@ class IrAttachment(models.Model):
         inverse_name="attachment_id",
         string="Approvers",
     )
-    reviewer_ids = fields.One2many(
-        comodel_name="approval.log",
-        inverse_name="document_id",
-        string="Reviewers",
-    )
     version_id = fields.Many2one(
         comodel_name='document.version',
         string='Document Version',

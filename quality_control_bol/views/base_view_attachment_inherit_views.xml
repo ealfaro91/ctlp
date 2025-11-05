@@ -19,6 +19,7 @@
     <record id="ir_attachment_view_kanban_inh" model="ir.ui.view">
         <field name="name">ir.attachment.view.kanban.inh</field>
         <field name="model">ir.attachment</field>
+        <field name="mode">primary</field>
         <field name="inherit_id" ref="mail.view_document_file_kanban"/>
            <field name="arch" type="xml">
                <xpath expr="//kanban" position="attributes">
@@ -92,7 +93,7 @@
             </xpath>
             <xpath expr="//field[@name='datas']" position="after">
                 <separator/>
-                <group>
+                <group string="General Information">
                     <field name="document_directory_id"
                            options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     <field name="area_id"
@@ -157,6 +158,10 @@
         </field>
     </record>
 
-
+<!--    <record id="windx_documents_management_preview.act_all_attachment_from_document_directory">-->
+<!--        <field name="view_ids" eval="[(5, 0, 0),-->
+<!--               (0, 0, {'view_mode': 'kanban', 'view_id': ref('quality_control_bol.ir_attachment_view_kanban_inh')}),-->
+<!--               (0, 0, {'view_mode': 'form', 'view_id': ref('windx_documents_management_preview.view_attachment_form_inherit_document_management')})]"/>-->
+<!--    </record>-->
 
 </odoo>

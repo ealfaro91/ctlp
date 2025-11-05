@@ -32,13 +32,17 @@
                             <field name="mail_server_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                         </group>
                         <group string="Settings">
-                            <field name="show_in_portal"/>
-                            <field name="show_in_external_portal"/>
-                            <field name="default_reopen_area"/>
-                            <field name="restricted_area"/>
-                            <field name="has_locations"/>
-                            <field name="has_categories"/>
-                            <field name="has_origins"/>
+                            <group>
+                                <field name="show_in_portal"/>
+                                <field name="show_in_external_portal"/>
+                                <field name="default_reopen_area"/>
+                                <field name="restricted_area"/>
+                                <field name="has_locations"/>
+                                <field name="has_categories"/>
+                                <field name="has_origins"/>
+                            </group>
+                            <group>
+                            </group>
                         </group>
                     </group>
                 </sheet>

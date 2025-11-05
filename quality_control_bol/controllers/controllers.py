@@ -24,18 +24,18 @@ class DocumentController(http.Controller):
         domain = []
         data = {
             'user': request.env.user,
-            'areas': request.env['helpdesk.ticket.area'].sudo().search([('show_in_directory', '=', True)]),
-            'document_directories': request.env['document.directory'].sudo().search(),
+            'areas': request.env['helpdesk.ticket.area'].sudo().search(
+                [('show_in_directory', '=', True)]),
+            'document_directories': request.env['document.directory'].sudo().search(
+                [('parent_id', '=', False)]),
             'submission_token': submission_token
         }
         return request.render("quality_control_bol.document_form", data)
 
     @http.route("/document_creation", auth="user", type="http", website=True)
     def document_creation(self, **kw):
-        # Verify CSRF token and submission token
         submission_token = kw.get('submission_token')
         print(submission_token)
-
         if not submission_token or submission_token != request.session.pop('submission_token', None):
             return request.render("quality_control_bol.document_creation",
                                   {'error_message': _('Invalid or duplicate submission.')})

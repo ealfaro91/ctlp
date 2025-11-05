@@ -115,6 +115,15 @@ class HelpdeskTicketArea(models.Model):
         help="If checked, this area will be used as the default area when reopening a ticket."
     )
 
+    @api.onchange("show_in_portal")
+    def _onchange_show_in_portal(self):
+        for area in self:
+            team_id = self.env["helpdesk.ticket.team"].search([
+                ("area_id", "=", area.id)])
+            if not area.show_in_portal:
+              team_id.active = False
+            else:
+              team_id.active = True
 
     def _compute_ticket_count(self):
         for area in self:

@@ -100,17 +100,6 @@
                 <label class="col-form-label label-optional" for="zipcode">Zip / Postal Code</label>
                 <input type="text" name="zipcode" t-attf-class="form-control #{error.get('zip') and 'is-invalid' or ''}" t-att-value="zipcode or partner.zip" readonly="1"/>
             </div>
-<!--            <div t-attf-class="mb-3 #{error.get('country_id') and 'o_has_error' or ''} col-xl-6">-->
-<!--                <label class="col-form-label" for="country_id">Country</label>-->
-<!--                <select name="country_id" t-attf-class="form-select #{error.get('country_id') and 'is-invalid' or ''}" readonly="readonly">-->
-<!--                    <option value="" readonly="readonly">Country...</option>-->
-<!--                    <t t-foreach="countries or []" t-as="country" readonly="readonly">-->
-<!--                        <option t-att-value="country.id" t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id"  readonly="readonly">-->
-<!--                            <t t-esc="country.name" />-->
-<!--                        </option>-->
-<!--                    </t>-->
-<!--                </select>-->
-<!--            </div>-->
             <div t-attf-class="mb-3 #{error.get('state_id') and 'o_has_error' or ''} col-xl-6">
                 <label class="col-form-label label-optional" for="state_id">State / Province</label>
                 <select name="state_id" t-attf-class="form-select #{error.get('state_id') and 'is-invalid' or ''}" >
@@ -124,18 +113,5 @@
             </div>
         </xpath>
     </template>
-
-<!--    <template id="web.login_successful" name="Login successful">-->
-<!--        <t t-call="web.login_layout">-->
-<!--            <div class="oe_login_form">-->
-<!--                <p>-->
-<!--                    You are logged in.-->
-<!--                </p>-->
-<!--                <div t-attf-class="clearfix oe_login_buttons text-center mb-1 pt-3">-->
-<!--                    <a class="btn btn-primary btn-block" href="/web/session/logout">Log out</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </t>-->
-<!--    </template>-->
 
 </odoo>
