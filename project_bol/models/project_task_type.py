@@ -6,7 +6,8 @@ class ProjectTaskType(models.Model):
     _inherit = ["project.task.type", "mail.thread", "mail.activity.mixin"]
 
     weight = fields.Integer(
-        string="Weight", default=0,
+        string="Weight",
+        default=0,
         required=True,
         tracking=True,
         help="Weight of the task in percentage (0-100)"

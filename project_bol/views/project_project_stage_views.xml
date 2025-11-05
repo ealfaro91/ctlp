@@ -1,5 +1,7 @@
 <odoo>
 
+    <!-- TREE VIEW INHERIT -->
+
     <record id="view_project_project_stage_tree_inh" model="ir.ui.view">
         <field name="name">project.project.stage.tree.inh</field>
         <field name="model">project.project.stage</field>
@@ -11,6 +13,8 @@
             </xpath>
         </field>
     </record>
+
+    <!-- FORM VIEW INHERIT -->
 
     <record id="view_project_project_stage_form_inh" model="ir.ui.view">
         <field name="name">project.project.stage.form.inh</field>

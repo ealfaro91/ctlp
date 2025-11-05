@@ -1,4 +1,5 @@
 <odoo>
+
     <record id="view_change_ticket_area_wizard" model="ir.ui.view">
         <field name="name">change.ticket.area.wizard.form</field>
         <field name="model">change.ticket.area.wizard</field>
@@ -30,7 +31,7 @@
         </field>
     </record>
 
-     <record id="action_change_ticket_area_wizard" model="ir.actions.act_window">
+    <record id="action_change_ticket_area_wizard" model="ir.actions.act_window">
         <field name="name">Change Ticket Area</field>
         <field name="res_model">change.ticket.area.wizard</field>
         <field name="view_mode">form</field>

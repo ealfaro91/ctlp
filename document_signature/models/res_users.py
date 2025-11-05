@@ -13,9 +13,14 @@ class Users(models.Model):
         import logging
         _logger = logging.getLogger(__name__)
         _logger.warning("Saltando regeneración de contraseñas en res.users.init()")
-
         # No hacer nada (no llamar al super)
         return
 
-    sign_signature = fields.Binary(string="Digital Signature", groups=False)
-    sign_initials = fields.Binary(string="Digitial Initials", groups=False)
+    sign_signature = fields.Binary(
+        string="Digital Signature",
+        groups=False
+    )
+    sign_initials = fields.Binary(
+        string="Digitial Initials",
+        groups=False
+    )

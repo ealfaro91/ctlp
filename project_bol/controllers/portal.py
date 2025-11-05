@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 
 import binascii
+
 from odoo import http, fields, _
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
-
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 
-import base64
 
 class Portalfsn(CustomerPortal):
 
     def _prepare_home_portal_values(self, counters):
         """ Prepare the values for the home portal page."""
-
         values = super()._prepare_home_portal_values(counters)
         if "fsn_count" in counters:
             fsn_count = (
@@ -64,8 +62,10 @@ class Portalfsn(CustomerPortal):
     def portal_my_fsn(
         self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
     ):
+        """ FSN portal page."""
         values = self._prepare_portal_layout_values()
-        fsn = request.env["approval.log"].sudo().search([("user_id", "=", request.env.user.id)]).mapped("project_fsn_id")
+        fsn_ids = request.env["approval.log"].sudo().search([
+            ("user_id", "=", request.env.user.id)]).mapped("project_fsn_id")
         domain = self._prepare_fsn_domain()
         searchbar_sortings = self._prepare_searchbar_sortings()
         if not sortby:
@@ -89,7 +89,7 @@ class Portalfsn(CustomerPortal):
         )
 
         # content according to pager and archive selected
-        fsn = fsn.search(
+        fsn = fsn_ids.search(
             domain,
             order=order,
             limit=self._items_per_page,
@@ -161,7 +161,7 @@ class Portalfsn(CustomerPortal):
     def fsn_sign(
         self, fsn_id, access_token=None, name=None, signature=None
     ):
-        # get from query string if not on json param
+        """ Signature method for the fsn."""
         access_token = access_token or request.httprequest.args.get(
             "access_token")
         try:
@@ -172,39 +172,36 @@ class Portalfsn(CustomerPortal):
             )
         except (AccessError, MissingError):
             return request.redirect("/my")
-
+        #
         # if not fsn_sudo._has_to_be_signed():
-        #     return {"error": _("The fsn is not in a state that can be signed.")}
+        #      return {"error": _("The fsn is not in a state that can be signed.")}
         if not signature:
             return {"error": _("Signature is missing.")}
 
         try:
-            fsn_sudo = request.env['project.fsn'].sudo().browse(fsn_id)
-            fsn_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id).write({
+            log = fsn_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
+            fsn_sudo.document_signed = log.attach_signature_to_pdf(fsn_sudo.document_signed, signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
+            log.write({
                 'sign_signature': signature,
                 'signed_date': fields.Datetime.now(),
                 'state': 'approved',
             })
-            log = fsn_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
-            fsn_sudo.document_signed = log.attach_signature_to_pdf(fsn_sudo.document_signed, signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
-            #fsn_sudo.action_member_sign_off()
         except (TypeError, binascii.Error) as e:
             raise e
             # return {"error": _("Invalid signature data.")}
 
-        # _message_post_helper(
-        #     "project.fsn",
-        #     fsn_sudo.id,
-        #     _("fsn signed by %s") % (name,),
-        #     **(
-        #         {
-        #             "token": access_token if access_token else {},
-        #             "message_type": "notification",
-        #             "subtype_xmlid": "mail.mt_note",
-        #         }
-        #     ),
-        # )
-
+        _message_post_helper(
+            "project.fsn",
+            fsn_sudo.id,
+            _("FSN signed by %s") % (name,),
+            **(
+                {
+                    "token": access_token if access_token else {},
+                    "message_type": "notification",
+                    "subtype_xmlid": "mail.mt_note",
+                }
+            ),
+        )
         return {
             "force_refresh": True,
             "redirect_url": "/my/fsn/%s?message=sign_ok&access_token=%s"

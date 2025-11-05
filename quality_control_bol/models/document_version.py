@@ -15,7 +15,6 @@ class DocumentVersion(models.Model):
         string="Display Name",
         compute="_compute_display_name",
         store=True,
-        readonly=True
     )
     #MIGRATION PARA COLOCAR EN TRUE
     active = fields.Boolean(

@@ -64,11 +64,6 @@
                             <span t-field="f.area"/>
                         </td>
                         <td class="tx_status text-start">
-                            <t t-if="f.state == 'to_approve'">
-                                <span class="badge rounded-pill text-bg-info">
-                                    <span class="d-none d-md-inline"> Draft</span>
-                                </span>
-                            </t>
                             <t t-if="f.state == 'approval_request'">
                                 <span class="badge rounded-pill text-bg-warning">
                                     <span class="d-none d-md-inline"> To Be Signed</span>
@@ -76,7 +71,7 @@
                             </t>
                             <t t-if="f.state == 'approved'">
                                 <span class="badge rounded-pill text-bg-success">
-                                    <span class="d-none d-md-inline"> Delegated</span>
+                                    <span class="d-none d-md-inline"> Signed</span>
                                 </span>
                             </t>
                         </td>
@@ -113,14 +108,6 @@
                                 <a t-if="message != 'sign_ok'" role="button" class="btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" >
                                     <i class="fa fa-check"/> Accept &amp; Sign
                                 </a>
-<!--                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">-->
-<!--                                    <div class="btn-group flex-grow-1 me-1 mb-1">-->
-<!--                                        <a class="btn btn-secondary btn-block o_download_btn" t-attf-href="/my/fsn/#{fsn.id}?report_type=pdf&amp;download=True" title="Download"><i class="fa fa-download"/> Download</a>-->
-<!--                                    </div>-->
-<!--                                    <div class="btn-group flex-grow-1 mb-1">-->
-<!--                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-attf-href="/my/fsn/#{fsn.id}?report_type=pdf" id="print_fsn_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                             </li>
                             <li class="navspy list-group-item ps-0 flex-grow-1" t-ignore="true" role="complementary">
                                 <ul class="nav flex-column bs-sidenav"></ul>
@@ -208,7 +195,7 @@
     </template>
 
 
-     <!-- FSN ATTACHMENT CONTENT TEMPLATE -->
+    <!-- FSN ATTACHMENT CONTENT TEMPLATE -->
 
     <template id="my_fsn_content" name="FSN Content">
         <div id="fsn_report_content" class="col-12 col-lg mt32">

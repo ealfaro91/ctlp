@@ -2,7 +2,7 @@
 {
     'name': "Service Desk TI",
     'summary': """ Extensión de helpdesk para el control de tickets de TI """,
-    'author': "",
+    'author': "CTLP[elymar.alfaro@gmail.com]",
     'website': "http://www.ctlp.bo",
     'category': 'Helpdesk',
     'version': '17.0.1.1.1',

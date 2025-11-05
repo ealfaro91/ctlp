@@ -6,7 +6,7 @@ class HelpdeskTicketCategory(models.Model):
     _inherit = "helpdesk.ticket.category"
     _order = "sequence,name"
 
-    @api.onchange('area_id')
+    @api.onchange("area_id")
     def _onchange_area_id(self):
         self.type_id = False
 

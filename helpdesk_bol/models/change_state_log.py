@@ -12,19 +12,27 @@ class ChangeStateLog(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     ticket_id = fields.Many2one(
-        "helpdesk.ticket", string="Ticket",
-        required=True, tracking=True
+        "helpdesk.ticket",
+        string="Ticket",
+        required=True,
+        tracking=True
     )
     user_id = fields.Many2one(
-        "res.users", string="User",
-        required=True, tracking=True
+        "res.users",
+        string="User",
+        required=True,
+        tracking=True
     )
     stage_id = fields.Many2one(
-        "helpdesk.ticket.stage", string="Stage",
-        required=True, tracking=True
+        "helpdesk.ticket.stage",
+        string="Stage",
+        required=True,
+        tracking=True
     )
     date = fields.Datetime(
-        string="Date", required=True,
-        default=TODAY, tracking=True
+        string="Date",
+        required=True,
+        default=TODAY,
+        tracking=True
     )
 

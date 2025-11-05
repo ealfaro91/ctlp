@@ -5,13 +5,21 @@
         <field name="name">Project FSN Tree</field>
         <field name="model">project.fsn</field>
         <field name="arch" type="xml">
-            <tree string="FSN" decoration-info="state == 'to_approve'" decoration-warning="state == 'approval_request'" decoration-success="state == 'approved'"  decoration-muted="state == 'cancelled'" js_class="project_fsn_dashboard_list" sample="1">
+            <tree string="FSN" decoration-info="state == 'to_approve'"
+                  decoration-warning="state == 'approval_request'"
+                  decoration-success="state == 'approved'"
+                  decoration-muted="state == 'cancelled'"
+                  js_class="project_fsn_dashboard_list" sample="1">
                 <field name="name"/>
                 <field name="requested_by_id" widget="many2one_avatar_user"/>
                 <field name="area"/>
                 <field name="date_requested"/>
-                <field name="state" widget="badge" decoration-info="state == 'to_approve'" decoration-warning="state == 'approval_request'" decoration-success="state == 'approved'"  decoration-muted="state == 'cancelled'"/>
-                <field name="project_id"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'to_approve'"
+                       decoration-warning="state == 'approval_request'"
+                       decoration-success="state == 'approved'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="project_id" optional="hide"/>
                 <field name="active" column_invisible="1"/>
             </tree>
         </field>
@@ -33,15 +41,15 @@
                     <button name="button_author_sign" type="object" class="btn-primary"
                             invisible="signed_by_author or not document" string="Author signature" icon="fa-pencil"/>
                     <button name="button_generate_fsn" type="object" class="btn-primary"
-                            invisible="sent_approval_request or signed_by_author or not id" string="Generar FSN" icon="fa-file" confirm="Se generará el PDF de FSN nuevamente"/>
+                            invisible="sent_approval_request or signed_by_author or not id" string="Generate FSN" icon="fa-file" confirm="The FSN PDF will be generated again."/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-<!--                    <div name="button_box" id="button_box" class="oe_button_box">-->
-<!--                        <button name="action_view_project" class="oe_stat_button" type="object" icon="fa-user-secret">-->
-<!--                            <field string="Project" name="project_count" widget="statinfo"/>-->
-<!--                        </button>-->
-<!--                    </div>-->
+                    <div name="button_box" id="button_box" class="oe_button_box">
+                        <button name="action_view_project" class="oe_stat_button" type="object" icon="fa-list">
+                            <field string="Project" name="project_count" widget="statinfo"/>
+                        </button>
+                    </div>
                     <widget name="web_ribbon" title="Approved" bg_color="text-bg-success" invisible="state != 'approved'"/>
                     <widget name="web_ribbon" title="Approval pending" bg_color="text-bg-danger" invisible="state == 'approved'"/>
                     <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-muted" invisible="state != 'cancelled'"/>
@@ -56,7 +64,6 @@
                     <group>
                         <group>
                             <field name="company_id" invisible="1"/>
-                            <field name="project_id" invisible="project_id == False" readonly="1"/>
                             <field name="requested_by_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user" readonly="state != 'to_approve'"/>
                             <field name="area"/>
                             <field name="document_url" invisible="1"/>
@@ -103,7 +110,7 @@
                             <div class="alert alert-info" colspan="4" role="alert" invisible="state != 'to_approve'">
                                 Add the document approvers.
                             </div>
-                            <field name="approval_log_ids" nolabel="1" context="{'default_project_fsn_id': active_id}" readonly="state != 'to_approve'"/>
+                            <field name="approval_log_ids" nolabel="1" context="{'default_project_fsn_id': id}" readonly="state != 'to_approve'"/>
                         </page>
                         <page string="FSN Sin Firma">
                              <div class="alert alert-info" colspan="4" role="alert" invisible="document">
@@ -120,7 +127,6 @@
                                 <field name="document_signed" colspan="2" widget="pdf_viewer" nolabel="1" filename="document_filename" readonly="1"/>
                             </group>
                         </page>
-
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
@@ -161,7 +167,7 @@
     </record>
 
 
-    <!-- Menus -->
+    <!-- MENUS -->
     <menuitem
         parent="project.menu_main_pm"
         action="project_fsn_action"
@@ -169,17 +175,4 @@
         name="Project FSN"
         sequence="0"/>
 
-<!--    <record id="helpdesk_ticket_view_search" model="ir.ui.view">-->
-<!--        <field name="name">project.fsn.view.search</field>-->
-<!--        <field name="model">project.fsn</field>-->
-<!--        <field name="inherit_id" ref="helpdesk_mgmt.helpdesk_ticket_view_search"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//field[@name='stage_id']" position="after">-->
-<!--                <field name="type_id"/>-->
-<!--            </xpath>-->
-<!--            <xpath expr="//filter[@name='group_stage']" position="after">-->
-<!--                <filter string="Type" name="group_type" domain="[]" context="{'group_by':'type_id'}"/>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
 </odoo>

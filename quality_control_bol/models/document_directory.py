@@ -13,11 +13,12 @@ class DocumentDirectory(models.Model):
     area_id = fields.Many2one(
         comodel_name="helpdesk.ticket.area",
         string="Area",
+        domain=[('show_in_directory', '=', True)],
         help="The area associated with the document, useful for organizing documents by their relevant areas.",
         tracking=True
     )
 
-    @api.onchange('area_id')
+    @api.onchange("area_id")
     def _onchange_area_id(self):
         for dir in self:
             if dir.area_id:

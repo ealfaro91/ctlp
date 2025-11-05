@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-
 from odoo.exceptions import ValidationError
 
 
@@ -31,7 +30,9 @@ class ProjectProjectStageAdvance(models.Model):
         """ Compute the advance for this project stage. """
         for rec in self:
             rec.advance = 0.0
-            tasks = rec.project_id.task_ids.filtered(lambda t: t.project_stage_id == rec.stage_id)
+            tasks = rec.project_id.task_ids.filtered(
+                lambda t: t.project_stage_id == rec.stage_id
+            )
             if len(tasks) == 0:
                 continue
             total_task_weight = sum(task.stage_id.weight for task in tasks)

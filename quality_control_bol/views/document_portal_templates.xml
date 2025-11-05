@@ -228,12 +228,37 @@
                             </a>
                         </div>
                         <div class="col-sm-auto mt8">
-                            <a role="button" class="btn btn-primary" t-attf-href="/request/review/#{document.id}"><i class="fa fa-comment"/> Solicitar revisión</a>
+                            <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalreview"><i class="fa fa-comment"/> Solicitar revisión</a>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header bg-danger">
+                                    <h5 class="modal-title">Ingrese el comentario de revisión</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                    <form action="/request/review/#{document.id}" method="post" class="modal-body" id="modalreview">
+                                    <div>
+                                        <input name="message" type="text" required="1"
+                                            placeholder="Revisión"/>
+                                        <hr/>
+                                    </div>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    </form>
+                                    <div class="modal-footer justify-content-start">
+                                        <button type="submit" class="btn btn-danger"/>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-auto mt8">
-                            <a role="button" class="btn btn-secondary" href="#discussion"><i class="fa fa-comment"/> Feedback</a>
+                        <div class="d-flex justify-content-center gap-1 d-print-none">
+                            <div class="col-sm-auto mt8">
+                                <a role="button" class="btn btn-secondary" href="#discussion"><i class="fa fa-comment"/> Feedback</a>
+                            </div>
                         </div>
                     </div>
+
 
                     <!-- chatter -->
                     <hr/>

@@ -9,12 +9,19 @@ class HelpdeskTicketLocation(models.Model):
     _order = "sequence,name"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    active = fields.Boolean(default=True, tracking=True)
+    active = fields.Boolean(
+        default=True,
+        tracking=True
+    )
     sequence = fields.Integer(
         string="Sequence",
         default=10
     )
-    name = fields.Char(string="Location", tracking=True, translate=True)
+    name = fields.Char(
+        string="Location",
+        tracking=True,
+        translate=True
+    )
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",
@@ -23,8 +30,10 @@ class HelpdeskTicketLocation(models.Model):
         domain="[('has_locations', '=', True)]",
         ondelete="cascade"
     )
-    is_other = fields.Boolean(string="Other", tracking=True)
-
+    is_other = fields.Boolean(
+        string="Other",
+        tracking=True
+    )
 
     @api.constrains('is_other')
     def _check_unique_is_other(self):

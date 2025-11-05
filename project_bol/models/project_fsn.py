@@ -44,21 +44,11 @@ class ProjectFsn(models.Model):
         tracking=True,
         help="The project this ticket is related to.",
     )
-    # project_count = fields.Integer(
-    #     string="Project Count",
-    #     compute="_compute_project_count",
-    #     store=True,
-    #     help="The number of projects related to this ticket.",
-    # )
-    date_start_project = fields.Datetime(
-        string="Date Start Project",
-        tracking=True,
-        help="The date when the project is expected to start.",
-    )
-    date_end_project = fields.Datetime(
-        string="Date End Project",
-        tracking=True,
-        help="The date when the project is expected to end.",
+    project_count = fields.Integer(
+        string="Project Count",
+        compute="_compute_project_count",
+        store=True,
+        help="The number of projects related to this ticket.",
     )
     area = fields.Char(
         related="requested_by_id.area",
@@ -188,7 +178,23 @@ class ProjectFsn(models.Model):
         help="Indicates whether the document has been signed by the author."
     )
 
+    def _compute_project_count(self):
+        for fsn in self:
+            fsn.project_count = len(fsn.project_id)
+
+    def action_view_project(self):
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "project.project",
+            "domain": [("id", "=", self.project_id.id)],
+            "view_mode": "kanban,tree,form",
+            "create": False,
+            "name": "Projects",
+        }
+
     def button_generate_fsn(self):
+        """Generate the FSN PDF."""
+        self.ensure_one()
         pdf_content, _ = self.env['ir.actions.report'].with_context(
             force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', self.id)
         self.document = base64.b64encode(pdf_content)
@@ -201,47 +207,40 @@ class ProjectFsn(models.Model):
                 _("The manager for the FSN TI group was not found. Try to add"
                   " a manager in settings for notifications"))
         res = super(ProjectFsn, self).create(vals_list)
-        pdf_content, _ = self.env['ir.actions.report'].with_context(
-            force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', res.id)
-        res.document = base64.b64encode(pdf_content)
-        res.document_filename = f"{res.name}.pdf"
-    #    res._generate_pdf_report()
+        res.button_generate_fsn()
         return res
 
-    # def write(self, vals_list):
-    #     res = super(ProjectFsn, self).write(vals_list)
-    #     for record in self:
-    #         pdf_content, _ = self.env['ir.actions.report'].with_context(
-    #             force_report_rendering=True
-    #         ).sudo()._render_qweb_pdf('project_bol.action_fsn_report', record.id)
-    #         # usar write directo, no asignación
-    #         record.sudo().write({'document': base64.b64encode(pdf_content)})
-    #     return res
+    @staticmethod
+    def assign_signature_coords(approval_logs, page_width=595, base_x=50, base_y=180):
+        """
+        Assign signature coordinates starting from an existing base signature at (base_x, base_y).
+        Places 2 signatures per row, going downward.
+        """
+        sig_width, sig_height = 80, 35
+        margin_x = 20
+        margin_y = 40
+        for idx, log in enumerate(approval_logs):
+            # idx=0 → primera firma a la derecha de la base
+            # idx=1 → segunda fila, izquierda
+            # idx=2 → segunda fila, derecha, etc.
+            col = (idx + 1) % 2  # sumamos 1 porque la primera ya está
+            row = (idx + 1) // 2
 
-    # def _generate_pdf_report(self):
-    #     """Genera y guarda el PDF del reporte QWeb en el campo binario."""
-    #     pdf_content, _ =  self.env['ir.actions.report'].with_context(force_report_rendering=True).sudo()._render_qweb_pdf('project_bol.action_fsn_report', self.id)
-    #     self.write({
-    #         'document': base64.b64encode(pdf_content),
-    #         'document_filename': f"{self.name}.pdf",
-    #     })
+            x = base_x + col * (sig_width + margin_x)
+            y = base_y - row * (sig_height + margin_y)
+            log.write({'x_coord': x, 'y_coord': y})
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
-        """Adjunta una firma en un cuadrante específico de la última página."""
+        """ Attach signature to the last page of the PDF."""
 
         if not pdf_binary_base64 or not signature_image_base64:
             return pdf_binary_base64  # Si falta algo, no modificamos
-
-
-
         # Decodificar los datos binarios
         pdf_data = base64.b64decode(pdf_binary_base64)
         signature_image = base64.b64decode(signature_image_base64)
-
         # Leer el PDF original
         original_pdf = PdfFileReader(io.BytesIO(pdf_data))
-
         # Buscar última página válida
         last_page = None
         last_page_index = None
@@ -254,7 +253,6 @@ class ProjectFsn(models.Model):
                     break
             except Exception:
                 continue
-
         # Si no hay página válida, usar primera
         if last_page is None:
             last_page = original_pdf.getPage(0)
@@ -277,7 +275,6 @@ class ProjectFsn(models.Model):
         # Obtener coordenadas según el cuadrante
         x, y = quadrant_positions.get(quadrant, quadrant_positions[1])
         sig_width, sig_height = 80, 35
-
         # Crear PDF con la firma
         packet = io.BytesIO()
         can = canvas.Canvas(packet, pagesize=(width, height))
@@ -285,7 +282,6 @@ class ProjectFsn(models.Model):
         can.rect(x, y, sig_width, sig_height, fill=1, stroke=0)
         can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y,
                       width=sig_width, height=sig_height, mask='auto')
-
         # Agregar texto debajo de la firma
         text_x = x
         text_y = y - 12  # 12 puntos debajo de la firma
@@ -293,25 +289,20 @@ class ProjectFsn(models.Model):
         can.setFillColor(colors.black)
         can.drawString(text_x, text_y, f"Elaborado por:")
         can.save()
-
         # Fusionar firma con la última página
         packet.seek(0)
         signature_pdf = PdfFileReader(packet)
         writer = PdfFileWriter()
-
         for i in range(original_pdf.numPages):
             page = original_pdf.getPage(i)
             if i == last_page_index:
                 page.mergePage(signature_pdf.getPage(0))  # 👈 API vieja
             writer.addPage(page)
-
         # Guardar PDF final
         output_stream = io.BytesIO()
         writer.write(output_stream)
         output_stream.seek(0)
-
         return base64.b64encode(output_stream.read())
-
 
     def button_author_sign(self):
         """ Calls the method to attach the signature to the PDF document. """
@@ -420,31 +411,6 @@ class ProjectFsn(models.Model):
                 }
             }
 
-    @staticmethod
-    def assign_signature_coords(approval_logs, page_width=595, base_x=50, base_y=180):
-        """
-        Assign signature coordinates starting from an existing base signature at (base_x, base_y).
-        Places 2 signatures per row, going downward.
-        """
-        sig_width, sig_height = 80, 35
-        margin_x = 20
-        margin_y = 40
-
-        for idx, log in enumerate(approval_logs):
-            # idx=0 → primera firma a la derecha de la base
-            # idx=1 → segunda fila, izquierda
-            # idx=2 → segunda fila, derecha, etc.
-            col = (idx + 1) % 2  # sumamos 1 porque la primera ya está
-            row = (idx + 1) // 2
-
-            x = base_x + col * (sig_width + margin_x)
-            y = base_y - row * (sig_height + margin_y)
-
-            log.write({'x_coord': x, 'y_coord': y})
-
-
-      #  return coords
-
     def _action_create_project(self):
         """Creates a project with fsn values."""
         self.ensure_one()
@@ -454,8 +420,6 @@ class ProjectFsn(models.Model):
             "description": self.request_description,
             "requested_by_id": self.requested_by_id.id,
             "fsn_id": self.id,
-          #  "date_start": self.date_start_project,
-          #  "date": self.date_end_project,
             "requested_area": self.area,
             "user_id": manager.id,
         })
@@ -465,28 +429,28 @@ class ProjectFsn(models.Model):
         )
         mail_template.sudo().send_mail(self.project_id.id, force_send=True, raise_exception=True)
 
-    @api.model
-    def get_dashboard_values(self):
-        """This method returns values to the dashboard in project views."""
-        result = {
-            "to_request_approval": 0,
-            "my_fsn": 0,
-        }
-        fsn = self.env["project.fsn"]
-
-        result["today_appointments"] = appointments.search_count(
-            [("init_date", "=", fields.Date.context_today(self))]
-        )
-        result["my_appointments"] = appointments.search_count(
-            [
-                ("init_date", "=", fields.Date.context_today(self)),
-                "|",
-                "|",
-                ("monitoring_user_id", "=", self.env.user.id),
-                ("medical_user_id", "=", self.env.user.id),
-                ("user_ids", "in", self.env.user.id),
-            ]
-        )
-        return result
-
+    # @api.model
+    # def get_dashboard_values(self):
+    #     """This method returns values to the dashboard in project views."""
+    #     result = {
+    #         "to_request_approval": 0,
+    #         "my_fsn": 0,
+    #     }
+    #     fsn = self.env["project.fsn"]
+    #
+    #     result["today_appointments"] = appointments.search_count(
+    #         [("init_date", "=", fields.Date.context_today(self))]
+    #     )
+    #     result["my_appointments"] = appointments.search_count(
+    #         [
+    #             ("init_date", "=", fields.Date.context_today(self)),
+    #             "|",
+    #             "|",
+    #             ("monitoring_user_id", "=", self.env.user.id),
+    #             ("medical_user_id", "=", self.env.user.id),
+    #             ("user_ids", "in", self.env.user.id),
+    #         ]
+    #     )
+    #     return result
+    #
 

@@ -1,5 +1,7 @@
 <odoo>
 
+    <!-- FORM VIEW INHERIT -->
+
     <record id="view_project_task_type_form_inh" model="ir.ui.view">
         <field name="name">project.task.type.form.inh</field>
         <field name="model">project.task.type</field>

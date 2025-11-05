@@ -42,7 +42,6 @@
                                     <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
                                 </td>
                             </tr>
-
                             <!-- Fila 2 -->
                             <tr>
                                 <td style="background-color:#d9ead3; color:#000; font-weight:bold; border:1px solid #000; padding:6px;">

@@ -3,17 +3,15 @@
 import pytz
 import logging
 from markupsafe import Markup, escape
-from odoo.tools import is_html_empty, html_escape, html2plaintext, parse_contact_from_email
-
-from werkzeug import urls
-
 
 from datetime import datetime, timedelta
+from werkzeug import urls
 
 from odoo import api, fields, models
-from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
-
 from odoo.exceptions import AccessError
+from odoo.tools import datetime, DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import is_html_empty, html_escape, html2plaintext, parse_contact_from_email
+
 
 TODAY = fields.Datetime.now()
 _logger = logging.getLogger(__name__)
@@ -23,6 +21,11 @@ class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
     def check_access_rule(self, operation):
+        """ This method is to allow reading
+         for the new group
+         params : operation
+         return : None
+         """
         group = self.env['res.groups'].browse(197)
         if group and group in self.env.user.groups_id:
             return
@@ -75,9 +78,18 @@ class HelpdeskTicket(models.Model):
         compute="_compute_attention_time_state",
         search="_search_attention_time_state"
     )
-    resolution = fields.Text(string="Resolution", tracking=True)
-    reopen_reason = fields.Text(string="Reopen reason", tracking=True)
-    area = fields.Char(string="Requester area", tracking=True)
+    resolution = fields.Text(
+        string="Resolution",
+        tracking=True
+    )
+    reopen_reason = fields.Text(
+        string="Reopen reason",
+        tracking=True
+    )
+    area = fields.Char(
+        string="Requester area",
+        tracking=True
+    )
     area_id = fields.Many2one(
         "helpdesk.ticket.area",
         string="Area",
@@ -108,6 +120,7 @@ class HelpdeskTicket(models.Model):
 
     @api.depends('partner_id', 'partner_id.is_member')
     def _compute_portal(self):
+        """ To get the portal url based on the partner_id.is_member field """
         for ticket in self:
             if ticket.partner_id.is_member:
                 ticket.portal = "/web/socios/login?redirect="
@@ -118,7 +131,6 @@ class HelpdeskTicket(models.Model):
     def _compute_derived_from_sdss(self):
         for ticket in self:
             ticket.derived_from_sdss = ticket.derived_from_area_id.code == "SDSS"
-
 
     @api.depends('partner_id')
     def _compute_partner_address(self):
@@ -530,31 +542,5 @@ class HelpdeskTicket(models.Model):
         if headers:
             base_mail_values['headers'] = repr(headers)
         return base_mail_values
-
-    # @api.model
-    # def get_dashboard_values(self):
-    #     """This method returns values to the dashboard in project views."""
-    #     result = {
-    #         "my_open_tickets": 0
-    #         "all_my_tickets": 0,
-    #     }
-    #     tickets = self.env["helpdesk.ticket"]
-    #
-    #     result["today_appointments"] = appointments.search_count(
-    #         [("init_date", "=", fields.Date.context_today(self))]
-    #     )
-    #     result["my_appointments"] = appointments.search_count(
-    #         [
-    #             ("init_date", "=", fields.Date.context_today(self)),
-    #             "|",
-    #             "|",
-    #             ("monitoring_user_id", "=", self.env.user.id),
-    #             ("medical_user_id", "=", self.env.user.id),
-    #             ("user_ids", "in", self.env.user.id),
-    #         ]
-    #     )
-    #
-    #     return result
-
 
 

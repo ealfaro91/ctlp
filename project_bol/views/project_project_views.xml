@@ -1,5 +1,7 @@
 <odoo>
 
+    <!-- FORM VIEW INHERIT -->
+
     <record id="view_project_form_inh" model="ir.ui.view">
         <field name="name">Project Form inh</field>
         <field name="model">project.project</field>
@@ -51,9 +53,10 @@
             <xpath expr="//field[@name='date']" position="attributes">
                  <attribute name="required">1</attribute>
             </xpath>
-
         </field>
     </record>
+
+    <!-- TREE VIEW INHERIT -->
 
     <record id="project_view_tree_progress_inherit" model="ir.ui.view">
         <field name="name">project.view.tree.progress.inherit</field>
@@ -66,6 +69,8 @@
         </field>
     </record>
 
+    <!-- KANBAN VIEW INHERIT -->
+
     <record id="project_view_kanban_progress_inherit" model="ir.ui.view">
         <field name="name">project.view.kanban.progress.inherit</field>
         <field name="model">project.project</field>
@@ -74,13 +79,12 @@
             <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">
                 <span title="Total Advance"/><field name="total_advance" widget="progressbar"/>
                 <span title="Status"/><field name="project_status" widget="badge" decoration-danger="project_status == 'delayed'" decoration-warning="project_status == 'alert'" decoration-success="project_status == 'on_time'" decoration-info="project_status == 'on_pause'"/>
-<!--                <span title="Deviation"/><field name="deviation" widget="progressbar"/>-->
             </xpath>
-<!--            <xpath expr="//div[hasclass('o_primary')]/field[@name='tag_ids']" position="after">-->
-<!--    on_create="quick_create"&lt;!&ndash;                <span title="Deviation"/><field name="deviation" widget="progressbar"/>&ndash;&gt;-->
-<!--            </xpath>-->
         </field>
     </record>
+
+
+    <!-- PIVOT VIEW  -->
 
     <record id="project_project_views_pivot" model="ir.ui.view">
         <field name="name">project.project.view.pivot</field>
@@ -94,6 +98,8 @@
         </field>
     </record>
 
+    <!-- GRAPH VIEW  -->
+
     <record id="view_project_project_graph" model="ir.ui.view">
         <field name="name">project.project.graph</field>
         <field name="model">project.project</field>
@@ -105,6 +111,8 @@
             </graph>
         </field>
     </record>
+
+    <!-- ACTIONS AND MENU -->
 
     <record id="project.open_view_project_all_group_stage" model="ir.actions.act_window">
         <field name="view_mode">kanban,tree,form,calendar,activity,graph,pivot</field>

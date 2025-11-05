@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0-20240522\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-12 17:08+0000\n"
-"PO-Revision-Date: 2025-09-12 17:08+0000\n"
+"POT-Creation-Date: 2025-11-04 01:43+0000\n"
+"PO-Revision-Date: 2025-11-04 01:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: project_bol
 #: model:ir.actions.report,print_report_name:project_bol.action_fsn_report
 msgid "'FSN - %s' % (object.name)"
-msgstr "'FSN - %s' % (object.name)"
+msgstr ""
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
@@ -28,7 +28,9 @@ msgstr "1. Información del proyecto"
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
 msgid "2. Problem or Incident Identification"
-msgstr "2. Identificación del incidente/problema/ necesidad que genera esta solicitud"
+msgstr ""
+"2. Identificación del incidente/problema/ necesidad que genera esta "
+"solicitud"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
@@ -63,12 +65,7 @@ msgstr "8. Recurrencia del Problema/Incidente"
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
 msgid "9. Project Benefits"
-msgstr "9. Beneficios del proyecto"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
-msgid "NEEDS REQUEST FORM"
-msgstr "FORMULARIO DE SOLICITUD DE NECESIDADES"
+msgstr "8. Beneficios del proyecto"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
@@ -86,30 +83,15 @@ msgid "<i class=\"fa fa-comment\"/> Send message"
 msgstr "<i class=\"fa fa-comment\"/> Enviar mensaje"
 
 #. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "<i class=\"fa fa-download\"/> Download"
-msgstr "<i class=\"fa fa-download\"/> Descargar"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "<i class=\"fa fa-print\"/> Print"
-msgstr "<i class=\"fa fa-print\"/> Imprimir"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
-msgid ""
-"<span class=\"badge rounded-pill text-bg-info\">\n"
-"                                    <span class=\"d-none d-md-inline\"> Draft</span>\n"
-"                                </span>"
-msgstr ""
-
-#. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
 msgid ""
 "<span class=\"badge rounded-pill text-bg-success\">\n"
-"                                    <span class=\"d-none d-md-inline\"> Delegated</span>\n"
+"                                    <span class=\"d-none d-md-inline\"> Signed</span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"badge rounded-pill text-bg-success\">\n"
+"                                    <span class=\"d-none d-md-inline\"> Firmado</span>\n"
+"                                </span>"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
@@ -118,6 +100,14 @@ msgid ""
 "                                    <span class=\"d-none d-md-inline\"> To Be Signed</span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"badge rounded-pill text-bg-warning\">\n"
+"                                    <span class=\"d-none d-md-inline\"> Por Firmar</span>\n"
+"                                </span>"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.project_view_kanban_progress_inherit
+msgid "<span title=\"Status\"/>"
+msgstr "<span title=\"Estado\"/>"
 
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.project_view_kanban_progress_inherit
@@ -166,7 +156,7 @@ msgid ""
 "                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"ctx.get('user_name')\"></span>\n"
 "                                                    </td>\n"
 "                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
-"                                                        <img t-attf-src=\"/logo.png?company=ctx.get('user.company_id.id')\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company=user.company_id.id\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
 "                                                <tr>\n"
@@ -184,7 +174,7 @@ msgid ""
 "                                                <tr>\n"
 "                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                                        <div>\n"
-"                                                            Dear <strong><t t-out=\"ctx.get('user_name')\"></strong>, the following FSN requires your approval.<br>\n"
+"                                                            Dear <strong> <t t-out=\"ctx.get('user_name')\"></t> </strong>, the following FSN requires your approval.<br>\n"
 "                                                            <ul>\n"
 "                                                                <li>FSN: <t t-out=\"object.name\"></t></li>\n"
 "                                                                <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
@@ -420,7 +410,7 @@ msgstr ""
 "                                                <tr>\n"
 "                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                                        <div>\n"
-"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente FSN ha sido aprobado.<br>\n"
+"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente FSN ha sido aprovado.<br>\n"
 "                                                            <ul>\n"
 "                                                                <li>FSN: <t t-out=\"object.name\"></t></li>\n"
 "                                                            </ul>\n"
@@ -503,14 +493,13 @@ msgid ""
 "                                                </ul>\n"
 "                                                <br>\n"
 "                                                <p>Greetings.</p>\n"
-"                                        <p> This is an automatic message, please de not reply</p>\n"
 "                                            </div>\n"
 "                                        </td></tr>\n"
-
 "                                    <tr>\n"
 "                                        <td style=\"text-align:center;\">\n"
 "                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
 "                                        </td>\n"
+"                                        <p> This is an automatic message, please de not reply</p>\n"
 "                                    </tr>\n"
 "                                </table>\n"
 "                            </td>\n"
@@ -575,13 +564,13 @@ msgstr ""
 "                                                </ul>\n"
 "                                                <br>\n"
 "                                                <p>Saludos.</p>\n"
-"                                        <p> Este es un mensaje automático, por favor no responda.</p>\n"
 "                                            </div>\n"
 "                                        </td></tr>\n"
 "                                    <tr>\n"
 "                                        <td style=\"text-align:center;\">\n"
 "                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
 "                                        </td>\n"
+"                                        <p> Este es un mensaje automático, por favor no responda.</p>\n"
 "                                    </tr>\n"
 "                                </table>\n"
 "                            </td>\n"
@@ -618,7 +607,7 @@ msgstr "Descripción detallada de la solicitud relacionada con este ticket."
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__access_warning
 msgid "Access warning"
-msgstr ""
+msgstr "Advertencia de acceso"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_needaction
@@ -698,6 +687,11 @@ msgid "Advance (%)"
 msgstr "Avance (%)"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
+msgid "Advance Information"
+msgstr "Información de Avance"
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__affected_system_id
 msgid "Affected System"
 msgstr "Sistema Afectado"
@@ -716,11 +710,6 @@ msgstr "Monto Asignado"
 #: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
 msgid "Amount Information"
 msgstr "Información de Montos"
-
-#. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_form_inh
-msgid "Advance Information"
-msgstr "Información de Avance"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__amount_used
@@ -842,6 +831,11 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_project__requested_area_id
+msgid "Company Area"
+msgstr "Área Solicitante"
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage__is_completed
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__is_completed
 msgid "Completed"
@@ -880,19 +874,14 @@ msgid "Customer Portal URL"
 msgstr "URL del Portal del Cliente"
 
 #. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_end_project
-msgid "Date End Project"
-msgstr "Fecha de Fin del Proyecto"
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "Date"
+msgstr "Fecha"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_requested
 msgid "Date Requested"
 msgstr "Fecha de Solicitud"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_start_project
-msgid "Date Start Project"
-msgstr "Fecha de Inicio del Proyecto"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__delay_days
@@ -923,16 +912,6 @@ msgid "Deviation in Execution"
 msgstr "Desviación en la Ejecución"
 
 #. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_res_users__sign_signature
-msgid "Digital Signature"
-msgstr "Firma Digital"
-
-#. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_res_users__sign_initials
-msgid "Digitial Initials"
-msgstr "Iniciales Digitales"
-
-#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__display_name
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_benefit__display_name
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__display_name
@@ -956,11 +935,6 @@ msgid "Document Signed File Name"
 msgstr "Nombre del Archivo del Documento Firmado"
 
 #. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "Download"
-msgstr "Descargar"
-
-#. module: project_bol
 #: model:project.project.stage,name:project_bol.project_project_stage_2
 msgid "EJECUCION/ DESARROLLO"
 msgstr ""
@@ -981,6 +955,7 @@ msgid "Executer Area"
 msgstr "Área Ejecutora"
 
 #. module: project_bol
+#: model:ir.actions.report,name:project_bol.action_fsn_report
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_fsn
 #: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_tree
 msgid "FSN"
@@ -1023,6 +998,13 @@ msgid "FSN has been approved"
 msgstr "El FSN ha sido aprobado"
 
 #. module: project_bol
+#. odoo-python
+#: code:addons/project_bol/controllers/portal.py:0
+#, python-format
+msgid "FSN signed by %s"
+msgstr "FSN firmado por %s"
+
+#. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_home_menu_fsn
 msgid "FSN to approve"
 msgstr "FSN por aprobar"
@@ -1059,6 +1041,11 @@ msgstr "Seguidores (Contactos)"
 #: model:ir.model.fields,help:project_bol.field_project_task_type__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Icono de Font Awesome p. ej. fa-tasks"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "Generate FSN"
+msgstr "Generar FSN"
 
 #. module: project_bol
 #: model:res.groups,name:project_bol.group_fsn_general_manager
@@ -1172,27 +1159,27 @@ msgstr "Indica si el problema o incidente ha vuelto a ocurrir."
 #: model:ir.model.fields,help:project_bol.field_project_project_stage__is_completed
 #: model:ir.model.fields,help:project_bol.field_project_task_type__is_completed
 msgid "Indicates if the task is completed"
-msgstr ""
+msgstr "Indica si la etapa está completada"
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__sent_approval_request
 msgid "Indicates whether the approval request has been sent."
-msgstr ""
+msgstr "Indica si la solicitud de aprobación ha sido enviada."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__signed_by_author
 msgid "Indicates whether the document has been signed by the author."
-msgstr ""
+msgstr "Indica si el documento ha sido firmado por el autor."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_project__is_completed
 msgid "Indicates whether the project is completed."
-msgstr ""
+msgstr "Indica si el proyecto está completado."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__active
 msgid "Indicates whether this Needs Request Form is active or not."
-msgstr ""
+msgstr "Indica si esta solicitud de FSN está activa o no."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn_benefit__active
@@ -1207,7 +1194,7 @@ msgstr "Indica si este sistema está actualmente activo."
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__is_completed
 msgid "Is Completed"
-msgstr ""
+msgstr "Está completado"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_is_follower
@@ -1226,7 +1213,7 @@ msgstr "Es un seguidor"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn_system__write_uid
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Actualizado por"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__write_date
@@ -1268,6 +1255,11 @@ msgstr "Mensajes"
 #: model:ir.model.fields,field_description:project_bol.field_project_task_type__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Fecha límite de mi actividad"
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "NEEDS REQUEST FORM"
+msgstr "FORMULARIO DE SOLICITUD DE NECESIDADES"
 
 #. module: project_bol
 #. odoo-python
@@ -1331,7 +1323,7 @@ msgstr ""
 #. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.my_fsn_content
 msgid "No PDF attached to this FSN."
-msgstr ""
+msgstr "No se adjuntó ningún PDF a esta FSN."
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__message_needaction_counter
@@ -1413,6 +1405,11 @@ msgid "Paused"
 msgstr "En pausa"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.project_project_views_pivot
+msgid "Pivot Analysis"
+msgstr ""
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__document_url
 msgid "Portal Access Link"
 msgstr "Enlace de Acceso al Portal"
@@ -1423,18 +1420,12 @@ msgid "Portal Access URL"
 msgstr "Enlace de Acceso al Portal"
 
 #. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.my_fsn
-msgid "Print"
-msgstr "Imprimir"
-
-#. module: project_bol
 #: model_terms:ir.ui.view,arch_db:project_bol.portal_my_fsn
 msgid "Print PDF"
 msgstr "Imprimir PDF"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__problem_identification
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
 msgid "Problem Identification"
 msgstr "Identificación del problema"
 
@@ -1456,11 +1447,6 @@ msgid "Problem/Incident Recurrence"
 msgstr "Recurrencia del Problema/Incidente"
 
 #. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_project__product_manager_id
-msgid "Product Manager"
-msgstr ""
-
-#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__product_owner_id
 msgid "Product Owner"
 msgstr "Dueño del Producto"
@@ -1470,18 +1456,19 @@ msgstr "Dueño del Producto"
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__project_id
 #: model:ir.model.fields,field_description:project_bol.field_project_project_stage_advance__project_id
 #: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
 msgid "Project"
 msgstr "Proyecto"
 
 #. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
-msgid "Área"
-msgstr "Área"
+#: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_benefits_ids
+msgid "Project Benefits"
+msgstr "Beneficios del proyecto"
 
 #. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
-msgid "Date"
-msgstr "Fecha"
+#: model:ir.model.fields,field_description:project_bol.field_project_fsn__project_count
+msgid "Project Count"
+msgstr "Contador de proyectos"
 
 #. module: project_bol
 #: model:mail.template,name:project_bol.project_creation_email
@@ -1560,11 +1547,6 @@ msgid "Ratings"
 msgstr "Calificaciones"
 
 #. module: project_bol
-#: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_benefits_ids
-msgid "Project Benefits"
-msgstr "Beneficios del proyecto"
-
-#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__request_description
 msgid "Request Description"
 msgstr "Descripción especifica de la solicitud"
@@ -1591,7 +1573,6 @@ msgstr "Objetivo de la Solicitud"
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_project__requested_area
-#: model:ir.model.fields,field_description:project_bol.field_project_project__requested_area_id
 msgid "Requested Area"
 msgstr "Área Solicitante"
 
@@ -1682,6 +1663,11 @@ msgid "Signed by Author"
 msgstr "Firmado por el Autor"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "Solicitante"
+msgstr ""
+
+#. module: project_bol
 #: model:res.groups,name:project_bol.group_fsn_requester
 msgid "Solicitante (GAS)"
 msgstr ""
@@ -1748,6 +1734,11 @@ msgid "Task Stage"
 msgstr "Etapa de la tarea"
 
 #. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "The FSN PDF will be generated again."
+msgstr "El PDF del FSN se generará de nuevo."
+
+#. module: project_bol
 #. odoo-python
 #: code:addons/project_bol/models/project_fsn.py:0
 #, python-format
@@ -1796,7 +1787,9 @@ msgstr "El área que solicitó este proyecto."
 #: code:addons/project_bol/models/project_fsn.py:0
 #, python-format
 msgid "The author signature is required. Go to the user settings to add it."
-msgstr "La firma del autor es requerida. Vaya a la configuración del usuario para agregarla."
+msgstr ""
+"La firma del autor es requerida. Vaya a la configuración del usuario para "
+"agregarla."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__request_benefits_ids
@@ -1807,16 +1800,6 @@ msgstr "Los beneficios esperados de esta solicitud."
 #: model:ir.model.fields,help:project_bol.field_project_fsn__company_id
 msgid "The company this ticket is related to."
 msgstr "La empresa a la que está relacionado este ticket."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__date_end_project
-msgid "The date when the project is expected to end."
-msgstr "La fecha en que se espera que finalice el proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_fsn__date_start_project
-msgid "The date when the project is expected to start."
-msgstr "La fecha en que se espera que comience el proyecto."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_project__closed_date
@@ -1840,8 +1823,9 @@ msgstr "El porcentaje de desviación del presupuesto del proyecto."
 msgid ""
 "The manager for the FSN TI group was not found. Try to add a manager in "
 "settings for notifications"
-msgstr "No se encontró un usuario para el grupo Gerente TI. Intenta agregar un manager en las"
-"configuraciones del sistema."
+msgstr ""
+"No se encontró un usuario para el grupo Gerente TI. Intenta agregar un "
+"manager en lasconfiguraciones del sistema."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__name
@@ -1864,6 +1848,11 @@ msgid "The number of days this project is delayed."
 msgstr "El número de días de retraso de este proyecto."
 
 #. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_fsn__project_count
+msgid "The number of projects related to this ticket."
+msgstr "El número de proyectos relacionados con este ticket."
+
+#. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__request_objective
 msgid "The objective of the request related to this ticket."
 msgstr "El objetivo de la solicitud relacionada con este ticket."
@@ -1871,7 +1860,7 @@ msgstr "El objetivo de la solicitud relacionada con este ticket."
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_project_stage_advance__advance
 msgid "The percentage of advance for this stage."
-msgstr ""
+msgstr "El porcentaje de avance para esta etapa."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_task__advance
@@ -1904,6 +1893,11 @@ msgid "The stages and their advances for this project."
 msgstr "Las etapas y sus avances para este proyecto."
 
 #. module: project_bol
+#: model:ir.model.fields,help:project_bol.field_project_project__project_status
+msgid "The status of the project."
+msgstr "El estado del proyecto."
+
+#. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__affected_system_id
 msgid "The system affected by this ticket."
 msgstr "El sistema afectado por este ticket."
@@ -1912,11 +1906,6 @@ msgstr "El sistema afectado por este ticket."
 #: model:ir.model.fields,help:project_bol.field_project_project__total_advance
 msgid "The total advance payment made for this project."
 msgstr "El avance total pagado por este proyecto."
-
-#. module: project_bol
-#: model:ir.model.fields,help:project_bol.field_project_project__product_manager_id
-msgid "The user who is the product manager for this project."
-msgstr "El usuario que es el gerente del producto para este proyecto."
 
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_project__product_owner_id
@@ -1939,17 +1928,17 @@ msgid "There are currently no pending fsn approvals for your account."
 msgstr "Actualmente no hay aprobaciones de fsn pendientes para usted."
 
 #. module: project_bol
-#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
-msgid "This is the file to be signed."
-msgstr "Este es el documento a firmar."
-
-#. module: project_bol
 #. odoo-python
 #: code:addons/project_bol/models/project_fsn.py:0
 #, python-format
 msgid "There are no users in the approval log to send the request."
 msgstr ""
 "No hay usuarios en el registro de aprobación para enviar la solicitud."
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.view_project_fsn_form
+msgid "This is the file to be signed."
+msgstr "Este es el documento a firmar."
 
 #. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__name
@@ -1978,7 +1967,6 @@ msgid "Type of the exception activity on record."
 msgstr "Tipo de actividad de excepción en el registro."
 
 #. module: project_bol
-#: model:ir.model,name:project_bol.model_res_users
 #: model:ir.model.fields,field_description:project_bol.field_approval_log__user_id
 msgid "User"
 msgstr "Usuario"
@@ -1986,7 +1974,7 @@ msgstr "Usuario"
 #. module: project_bol
 #: model:ir.model.fields,help:project_bol.field_project_fsn__approval_log_ids
 msgid "Users who will review this Needs Request Form."
-msgstr ""
+msgstr "Usuarios que revisarán esta solicitud de FSN."
 
 #. module: project_bol
 #: model:project.project.stage,name:project_bol.project_project_stage_0
@@ -2043,8 +2031,12 @@ msgid "project.project.stage.advance"
 msgstr ""
 
 #. module: project_bol
-#: model:mail.template,subject:project_bol.fsn_approval_request_email
 #: model:mail.template,subject:project_bol.fsn_approved_notification
 #: model:mail.template,subject:project_bol.project_creation_email
 msgid "{{ object.name }}"
+msgstr ""
+
+#. module: project_bol
+#: model_terms:ir.ui.view,arch_db:project_bol.report_fsn_template
+msgid "Área"
 msgstr ""

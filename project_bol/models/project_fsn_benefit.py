@@ -7,7 +7,6 @@ class ProjectFsnBenefit(models.Model):
     _description = "Project FSN Benefit"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-
     name = fields.Char(
         string="Benefit Name",
         required=True,

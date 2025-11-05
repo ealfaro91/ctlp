@@ -25,21 +25,17 @@ class ProjectProject(models.Model):
         required=False,
         help="The user who is the product owner for this project.",
     )
-    product_manager_id = fields.Many2one(
-        "res.users",
-        string="Product Manager",
-        tracking=True,
-        required=False,
-        help="The user who is the product manager for this project.",
-    )
     requested_area_id = fields.Many2one(
         "helpdesk.ticket.area",
-        string="Requested Area",
+        string="Company Area",
         tracking=True,
         required=False,
         help="The area that requested this project.",
     )
-    requested_area = fields.Char()
+    requested_area = fields.Char(
+        string="Requested Area",
+        tracking=True
+    )
     requested_by_id = fields.Many2one(
         "res.users",
         string="Requested By",
@@ -96,7 +92,7 @@ class ProjectProject(models.Model):
         string="Is Completed",
         tracking=True,
         help="Indicates whether the project is completed.",
-        #related="stage_id.is_completed"
+        related="stage_id.is_completed"
     )
     closed_date = fields.Datetime(
         string="Closed Date",
@@ -120,28 +116,12 @@ class ProjectProject(models.Model):
             total = sum(stage.advance for stage in project.stage_ids)
             project.total_advance = total / len(project.stage_ids)
 
-    # def _compute_total_advance(self):
-    #     """ REVISAR """
-    #     for project in self:
-    #         tasks = project.task_ids
-    #         if not tasks:
-    #             project.total_advance = 0.0
-    #             continue
-    #             # Sumamos los weights de las etapas de todas las tareas
-    #             total_weight = sum(task.stage_id.weight for task in tasks)
-    #             # Weight máximo de etapas en el proyecto (opcional)
-    #             max_weight = max(project.stage_ids.mapped('weight')) or 1
-    #             # Avance como porcentaje
-    #             project.progress = (total_weight / (len(tasks) * max_weight)) * 100
-    #         project.total_advance = 0.0
-
     @api.depends("stage_id")
     def _compute_closed_date(self):
         for project in self:
             project.closed_date = False
             if project.stage_id.is_completed:
                 project.closed_date = fields.Datetime.now()
-
 
     def _inverse_project_status(self):
         for project in self:
@@ -192,26 +172,6 @@ class ProjectProject(models.Model):
             else:
                 project.project_status = "delayed"
 
-    # @api.depends("date_start", "date", "closed_date")
-    # def _compute_deviation(self):
-    #     """ Compute delay days and deviation percentage for each project. """
-    #     for project in self:
-    #         project.delay_days = 0
-    #         project.deviation = 0.0
-    #         project.project_status = "on_time"
-    #         if project.date and project.date_start:
-    #             duration = (project.date - project.date_start).days or 1
-    #             ref_date = project.closed_date.date() if project.closed_date else fields.Date.today()
-    #             delay = (ref_date - project.date).days
-    #             project.delay_days = delay if delay > 0 else 0
-    #             project.deviation = (project.delay_days / duration) * 100
-    #             if project.deviation < 10:
-    #                 project.project_status = "on_time"
-    #             if  10 > project.deviation > 15:
-    #                 project.project_status = "alert"
-    #             elif project.deviation > 15:
-    #                 project.project_status = "delayed"
-
     @api.model
     def create(self, vals):
         """ Override create method to set default values and link task types. """
@@ -248,5 +208,4 @@ class ProjectProject(models.Model):
                 "project_id": project.id,
             }),
         ]
-    #    project_project_stage_0
         return project

@@ -42,24 +42,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-<!--                                            &lt;!&ndash; Request Type Field &ndash;&gt;-->
-<!--                                            <div class="mb-4">-->
-<!--                                                <label for="type_id" class="form-label">Tipo de archivo</label>-->
-<!--                                                <div class="input-group">-->
-<!--                                                    <span class="input-group-text bg-light">-->
-<!--                                                        <i class="fa fa-tasks"/>-->
-<!--                                                    </span>-->
-<!--                                                    <select class="form-control" name="type_id" required="required">-->
-<!--                                                        <option value=""/>-->
-<!--                                                        <t t-foreach="document_types" t-as="type">-->
-<!--                                                            <option t-att-value="type.id">-->
-<!--                                                                <t t-esc="type.name"/>-->
-<!--                                                            </option>-->
-<!--                                                        </t>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-                                            <!-- Request Type Field -->
                                             <div class="mb-4">
                                                 <label for="type_id" class="form-label">Area responsable</label>
                                                 <div class="input-group">
@@ -165,23 +147,6 @@
                             <h1 style="font-size: 1.75rem; font-weight: bold; color: #555; margin-top: 20px; text-align: center;">
                                 Documento cargado exitosamente!
                             </h1>
-<!--                            <p style="font-size: 1rem; color: #555; margin:5%; line-height: 1.6; text-align: center;">-->
-<!--                                Thank you for sharing your concern with us. We are working on your request, and you will soon receive an email with the follow-up to your ticket. We also recommend checking your spam folder.                            </p>-->
-<!--                            &lt;!&ndash; Display Ticket Number if available &ndash;&gt;-->
-<!--                            <t t-if="not hide_number">-->
-<!--                                <p style="font-size: 1.25rem; font-weight: bold; color: #666; margin-top: 20px; text-align: center;">-->
-<!--                                    Your ticket number is:-->
-<!--                                    <span>-->
-<!--                                        <b><span t-esc="number"/></b>-->
-<!--                                    </span>-->
-<!--                                </p>-->
-<!--                            </t>-->
-<!--                            &lt;!&ndash; Action Button &ndash;&gt;-->
-<!--                            <div class="mt-4 text-center">-->
-<!--                                <a href="/my_tickets" class="btn btn-primary btn-lg mt-3" style="border: none; box-shadow: 0 2px 10px rgba(0, 123, 255, 0.5); margin-bottom:10%;">-->
-<!--                                    View My Tickets-->
-<!--                                </a>-->
-<!--                            </div>-->
                         </div>
                     </t>
                 </div>

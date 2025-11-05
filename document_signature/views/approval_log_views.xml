@@ -8,6 +8,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="role_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
                     <field name="user_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
+                    <field name="user_ids" column_invisible="1"/>
                     <field name="approval_type"/>
                     <field name="request_sign_date" readonly="1"/>
                     <field name="state" widget="badge" decoration-success="state == 'approved'" decoration-danger="state == 'pending'" readonly="1"/>
@@ -33,6 +34,7 @@
                     <widget name="web_ribbon" title="Approval pending" bg_color="text-bg-danger" invisible="state == 'approved'"/>
                         <group>
                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="user_ids" invisible="1"/>
                             <field name="request_sign_date" readonly="1"/>
                             <field name="role_id"/>
                             <field name="approval_type"/>

@@ -12,7 +12,6 @@ from reportlab.lib import colors
 from reportlab.lib.utils import ImageReader
 from PyPDF2 import PdfFileReader, PdfFileWriter  # 👈 API vieja
 
-
 from odoo import api, models, fields
 
 
@@ -32,7 +31,6 @@ class DocumentSignature(models.AbstractModel):
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, approval_type, x=None, y=None):
         """Adjunta una firma en un cuadrante específico de la última página."""
-
 
         # Si no se pasa x, y, usar cuadrante 3 por defecto
         if x is None or y is None:
@@ -108,7 +106,6 @@ class DocumentSignature(models.AbstractModel):
             can.drawString(text_x, text_y, f"Aprobado por:")
         elif approval_type == "reviewer":
             can.drawString(text_x, text_y, f"Revisado por:")
-
 
         can.save()
 

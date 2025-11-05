@@ -1,5 +1,7 @@
 <odoo>
 
+    <!-- KANBAN VIEW INHERIT -->
+
     <record id="document_directory_view_kanban_inh" model="ir.ui.view">
         <field name="name">document.directory.view.kanban.inh</field>
         <field name="model">document.directory</field>
@@ -18,7 +20,9 @@
         </field>
     </record>
 
-    <record id="document_directory_view_inh" model="ir.ui.view">
+    <!-- FORM VIEW INHERIT -->
+
+    <record id="document_directory_form_view_inh" model="ir.ui.view">
         <field name="name">document.directory.view.inh</field>
         <field name="model">document.directory</field>
         <field name="inherit_id" ref="windx_documents_management_preview.view_document_directory_form"/>
@@ -78,6 +82,8 @@
             </xpath>
         </field>
     </record>
+
+    <!-- ACTION -->
 
     <record id="windx_documents_management_preview.document_directory_kanban_action" model="ir.actions.act_window">
         <field name="domain">[('parent_id','=', False)]</field>

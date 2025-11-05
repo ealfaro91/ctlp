@@ -39,7 +39,6 @@
         </field>
     </record>
 
-
     <!-- SEARCH VIEW -->
 
     <record id="project_fsn_system_search_view" model="ir.ui.view">

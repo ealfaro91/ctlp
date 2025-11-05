@@ -10,14 +10,18 @@ class HelpdeskTicketArea(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin",]
     _sql_constraints = [("code_uniq", "unique(code)",  "Area code must be unique",)]
 
-    active = fields.Boolean(default=True, tracking=True)
+    active = fields.Boolean(
+        default=True,
+        tracking=True
+    )
     sequence = fields.Integer(
         string="Sequence",
         default=10,
         tracking=True,
     )
     name = fields.Char(
-        string="Area", tracking=True,
+        string="Area",
+        tracking=True,
         translate=True,
         required=True
     )
@@ -55,7 +59,11 @@ class HelpdeskTicketArea(models.Model):
         tracking=True,
         help="Display origins in the helpdesk ticket form view."
     )
-    color = fields.Integer(string="Color Index", default=0, tracking=True)
+    color = fields.Integer(
+        string="Color Index",
+        default=0,
+        tracking=True
+    )
     description = fields.Text(
         string="Description",
         tracking=True,
@@ -127,20 +135,20 @@ class HelpdeskTicketArea(models.Model):
     def create(self, vals):
         areas = super(HelpdeskTicketArea, self).create(vals)
         for area in areas:
-            self.env['helpdesk.ticket.team'].create({
-                'name': area.name,
-                'area_id': area.id,
-                'color': area.color,
+            self.env["helpdesk.ticket.team"].create({
+                "name": area.name,
+                "area_id": area.id,
+                "color": area.color,
             })
         return areas
 
-    @api.constrains('default_reopen_area')
+    @api.constrains("default_reopen_area")
     def _check_unique_reopen_area(self):
         for record in self:
             if record.default_reopen_area:
                 existing = self.search([
-                    ('default_reopen_area', '=', True),
-                    ('id', '!=', record.id)
+                    ("default_reopen_area", "=", True),
+                    ("id", "!=", record.id)
                 ], limit=1)
                 if existing:
                     raise ValidationError("Only one area can be set as reopen area.")
