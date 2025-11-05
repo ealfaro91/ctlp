@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0-20240522\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 16:28+0000\n"
-"PO-Revision-Date: 2025-04-25 16:28+0000\n"
+"POT-Creation-Date: 2025-11-05 15:17+0000\n"
+"PO-Revision-Date: 2025-11-05 15:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,13 +48,8 @@ msgstr "<option value=\"\" placeholder=\"Ubicación\"/>"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
-msgid "<option value=\"\" readonly=\"readonly\">Country...</option>"
-msgstr ""
-
-#. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
 msgid "<option value=\"\">select...</option>"
-msgstr ""
+msgstr "<option value=\"\">seleccionar...</option>"
 
 #. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
@@ -416,12 +411,6 @@ msgstr ""
 "        "
 
 #. module: helpdesk_bol
-#: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service
-#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_member_service
-msgid "ATENCIÓN AL SOCIO"
-msgstr "SERVICIO AL SOCIO"
-
-#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__area_ids
 msgid "Access Areas"
 msgstr "Áreas de acceso"
@@ -441,6 +430,7 @@ msgstr "Acción necesaria"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__active
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__active
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_origen__active
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_stage__active
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__active
 msgid "Active"
 msgstr "Activo"
@@ -661,13 +651,6 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: helpdesk_bol
-#. odoo-python
-#: code:addons/helpdesk_bol/models/res_users.py:0
-#, python-format
-msgid "Cannot send email: user %s has no email address."
-msgstr "No se puede enviar el correo: el usuario %s no tiene una dirección de correo."
-
-#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_type__category_ids
 msgid "Categories"
 msgstr "Categorías"
@@ -764,11 +747,6 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.portal_my_details_fields
-msgid "Country"
-msgstr "País"
-
-#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__create_date_utc
 msgid "Create Date Utc"
 msgstr "Fecha de creación UTC"
@@ -850,6 +828,7 @@ msgstr "Derivado de SDSS"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__description
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_area_form_view
 msgid "Description"
 msgstr "Descripción"
 
@@ -943,7 +922,13 @@ msgstr "Icono de fuente impresionante, por ejemplo fa-tasks"
 msgid ""
 "For expired password on login, user to be redirected to reset password."
 msgstr ""
-"Para la contraseña expirada al iniciar sesión, el usuario se redirigirá a restablecer la contraseña."
+"Para la contraseña expirada al iniciar sesión, el usuario se redirigirá a "
+"restablecer la contraseña."
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_area_form_view
+msgid "General"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:ir.actions.server,name:helpdesk_bol.get_members_ir_actions_server
@@ -1014,6 +999,11 @@ msgstr "Ubicación de la solicitud del servicio de asistencia"
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_origen
 msgid "Helpdesk Ticket Origen"
 msgstr "Origen de la solicitud del servicio de asistencia"
+
+#. module: helpdesk_bol
+#: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_stage
+msgid "Helpdesk Ticket Stage"
+msgstr "Estado de la solicitud del servicio de asistencia"
 
 #. module: helpdesk_bol
 #: model:ir.model,name:helpdesk_bol.model_helpdesk_ticket_subcategory
@@ -1118,12 +1108,17 @@ msgid ""
 msgstr "Si esta marcado, esta area se mostrara en el portal externo para SDSS"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__show_in_portal
+msgid "If checked, this area will be displayed in the portal for SDS."
+msgstr "Si está marcado, esta area se mostrara en el portal para SDS"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__default_reopen_area
 msgid ""
 "If checked, this area will be used as the default area when reopening a "
 "ticket."
 msgstr ""
-"Si esta marcado, esta área se usará como el área por defecto cuando se "
+"Si está marcado, esta área se usará como el área por defecto cuando se "
 "reabre un ticket."
 
 #. module: helpdesk_bol
@@ -1155,6 +1150,11 @@ msgstr ""
 #: model:helpdesk.ticket.type,name:helpdesk_bol.incident_type
 msgid "Incidente"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket__portal
+msgid "Indicates if the user is a portal user"
+msgstr "Indica si el usuario es un usuario del portal"
 
 #. module: helpdesk_bol
 #. odoo-python
@@ -1239,9 +1239,18 @@ msgstr "Baja"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_maintenance
+msgid "MAINTENANCE"
+msgstr "MANTENIMIENTO"
+
+#. module: helpdesk_bol
 #: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_maintenance
 msgid "MANTENIMIENTO"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service
+msgid "MEMBER SERVICE"
+msgstr "SERVICIO AL SOCIO"
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_member_service_sdss
@@ -1465,6 +1474,7 @@ msgstr "En plazo"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__origen_id
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_origen__name
 #: model:ir.ui.menu,name:helpdesk_bol.helpdesk_ticket_origen_menu
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Origen"
 msgstr ""
 
@@ -1474,12 +1484,8 @@ msgid "Other"
 msgstr "Otro"
 
 #. module: helpdesk_bol
-#: model:ir.model.constraint,message:helpdesk_bol.constraint_helpdesk_ticket_location_is_other_uniq
-msgid "Other location must be unique"
-msgstr "La ubicación Otros debe ser única"
-
-#. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__res_partner__payment_status__paid
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__res_users__payment_status__paid
 msgid "Paid"
 msgstr "Pagado"
 
@@ -1497,13 +1503,6 @@ msgstr "Caducidad de contraseña (días)"
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.base_setup_res_config_settings_view_form_ws
 msgid "Password Lifetime Configuration"
 msgstr "Configuración de caducidad de contraseña"
-
-#. module: helpdesk_bol
-#. odoo-python
-#: code:addons/helpdesk_bol/models/res_users.py:0
-#, python-format
-msgid "Password reset"
-msgstr "Restablecimiento de contraseña"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_partner__payment_status
@@ -1539,9 +1538,30 @@ msgid "Please provide a reason to reopen the ticket."
 msgstr "Por favor, proporcione un motivo para reabrir el ticket."
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__portal
+msgid "Portal"
+msgstr ""
+
+#. module: helpdesk_bol
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Priority"
 msgstr "Prioridad"
+
+#. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
+msgid "REGISTRE SU REQUERIMIENTO"
+msgstr ""
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__rating_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__rating_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__rating_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_location__rating_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_origen__rating_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__rating_ids
+#: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_config_settings__forced_password_change
@@ -1549,7 +1569,6 @@ msgid "Redirect to Change Password"
 msgstr "Redirigir a Cambiar Contraseña"
 
 #. module: helpdesk_bol
-#: model_terms:ir.ui.view,arch_db:helpdesk_bol.gss_ticket_form
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.ticket_form
 msgid "Register your requirement"
 msgstr "Registre su requerimiento"
@@ -1629,6 +1648,16 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__restricted_area
+msgid "Restricted Area"
+msgstr "Área restringida"
+
+#. module: helpdesk_bol
+#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_member_service
+msgid "SERVICIO AL SOCIO"
+msgstr ""
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_area_log__message_has_sms_error
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__message_has_sms_error
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__message_has_sms_error
@@ -1638,6 +1667,11 @@ msgstr "Usuario responsable"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_res_users__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "Error de entrega de SMS"
+
+#. module: helpdesk_bol
+#: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_sport
+msgid "SPORT"
+msgstr ""
 
 #. module: helpdesk_bol
 #: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_member_service_sport
@@ -1675,9 +1709,19 @@ msgid "Sessions"
 msgstr "Sesiones"
 
 #. module: helpdesk_bol
+#: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_area_form_view
+msgid "Settings"
+msgstr "Configuraciones"
+
+#. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__show_in_external_portal
 msgid "Show in External Portal"
 msgstr "Mostrar en portal externo"
+
+#. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_area__show_in_portal
+msgid "Show in Portal"
+msgstr "Mostrar en portal"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,field_description:helpdesk_bol.field_change_state_log__stage_id
@@ -1739,10 +1783,14 @@ msgid "Success message"
 msgstr "Mensaje de exito"
 
 #. module: helpdesk_bol
-#: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_ti
 #: model:helpdesk.ticket.team,name:helpdesk_bol.helpdesk_ticket_team_ti
-msgid "TI"
+msgid "TECNOLOGIA E INNOVACION"
 msgstr ""
+
+#. module: helpdesk_bol
+#: model:helpdesk.ticket.area,name:helpdesk_bol.helpdesk_ticket_area_ti
+msgid "TI"
+msgstr "TECNOLOGIA E INNOVACION"
 
 #. module: helpdesk_bol
 #: model:ir.model.constraint,message:helpdesk_bol.constraint_helpdesk_ticket_team_name_uniq
@@ -1756,9 +1804,8 @@ msgid ""
 "and you will soon receive an email with the follow-up to your ticket. We "
 "also recommend checking your spam folder."
 msgstr ""
-"Gracias por compartir su inquietud con nosotros. Estamos trabajando en "
-"su solicitud y pronto recibirá un correo electrónico con el seguimiento "
-"de su ticket. \n Le recomendamos revisar su bandeja de spam."
+"Gracias por compartir su inquietud con nosotros. Estamos trabajando en su solicitud y pronto recibirá un correo electrónico con el seguimiento de su ticket. \n"
+" Le recomendamos revisar su bandeja de spam."
 
 #. module: helpdesk_bol
 #. odoo-python
@@ -1766,13 +1813,6 @@ msgstr ""
 #, python-format
 msgid "The selected area is the same as the current area"
 msgstr "El área seleccionada es la misma que la actual"
-
-#. module: helpdesk_bol
-#. odoo-python
-#: code:addons/helpdesk_bol/wizards/change_ticket_area_wizard.py:0
-#, python-format
-msgid "The ticket area has been changed"
-msgstr "El area del ticket ha sido cambiado"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields,help:helpdesk_bol.field_helpdesk_ticket_area__mail_server_id
@@ -1854,6 +1894,7 @@ msgid "Title"
 msgstr "Título"
 
 #. module: helpdesk_bol
+#: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket_subcategory__type_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_bol.helpdesk_ticket_category_search_view
 msgid "Type"
 msgstr "Tipo de solicitud"
@@ -1876,6 +1917,7 @@ msgstr "Tipos de solicitud"
 
 #. module: helpdesk_bol
 #: model:ir.model.fields.selection,name:helpdesk_bol.selection__res_partner__payment_status__unpaid
+#: model:ir.model.fields.selection,name:helpdesk_bol.selection__res_users__payment_status__unpaid
 msgid "Unpaid"
 msgstr "No pagado"
 
@@ -2013,13 +2055,6 @@ msgstr "Asistente para cambiar el área del ticket"
 #: model:ir.model.fields,field_description:helpdesk_bol.field_helpdesk_ticket__resource_calendar_id
 msgid "Work schedule"
 msgstr "Horario de trabajo"
-
-#. module: helpdesk_bol
-#. odoo-python
-#: code:addons/helpdesk_bol/models/res_users.py:0
-#, python-format
-msgid "You cannot perform this action on an archived user."
-msgstr "No se puede realizar esta acción en un usuario archivado."
 
 #. module: helpdesk_bol
 #. odoo-python
