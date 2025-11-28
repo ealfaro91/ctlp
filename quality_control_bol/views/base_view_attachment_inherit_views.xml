@@ -24,6 +24,7 @@
            <field name="arch" type="xml">
                <xpath expr="//kanban" position="attributes">
                    <attribute name="default_group_by">document_file_type_id</attribute>
+                   <attribute name="default_create">False</attribute>
                </xpath>
                <xpath expr="//field[@name='name']" position="after">
                    <field name="state"/>
@@ -36,6 +37,21 @@
            </field>
     </record>
 
+    <!-- LIST VIEW INHERIT -->
+
+    <record id="ir_attachment_view_list_quality" model="ir.ui.view">
+        <field name="name">ir.attachment.view.list.quality</field>
+        <field name="model">ir.attachment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="document_directory_id"/>
+                <field name="document_file_type_id"/>
+                <field name="user_ids" widget="many2many_tags"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
 
     <!-- FORM VIEW INHERIT -->
 
@@ -46,10 +62,14 @@
         <field name="mode">extension</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="button_author_sign" type="object" class="btn-primary" invisible="signed_by_author" string="Author signature" icon="fa-pencil"/>
+                <button name="button_author_sign" type="object" class="btn-primary"
+                        invisible="signed_by_author"
+                        string="Author signature" icon="fa-pencil"/>
                 <button name="%(quality_control_bol.replace_document_version_action)d"
                         context="{'default_attachment_id': id, 'default_old_document_version_id': version_id}"
-                        type="action" class="btn-danger" string="Reemplazar versión" icon="fa-file"/>
+                        type="action" class="btn-danger" string="Reemplazar versión" icon="fa-file"
+                        invisible="state != 'to_review'"
+                />
                 <button name="button_publish_document" type="object" class="btn-primary" string="Publish" icon="fa-bullhorn"
                         invisible="privacy_type != 'public' or state == 'published'"/>
                 <button name="button_send_approval_request" type="object"
@@ -70,6 +90,13 @@
             <xpath expr="//field[@name='mimetype']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+             <xpath expr="//field[@name='datas']" position="attributes">
+                 <attribute name="readonly">state != 'to_review'</attribute>
+                 <attribute name="accept">.pdf</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">state != 'to_review'</attribute>
+            </xpath>
             <xpath expr="//field[@name='user_ids']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -85,6 +112,9 @@
             <xpath expr="//group[2]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//group[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
             <xpath expr="//group[4]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -94,27 +124,41 @@
             <xpath expr="//field[@name='datas']" position="after">
                 <separator/>
                 <group string="General Information">
+                    <field name="create_uid" readonly="1"/>
                     <field name="document_directory_id"
-                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                           readonly="state != 'to_review'"/>
                     <field name="area_id"
-                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                    <field name="privacy_type" required="1"/>
+                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                           readonly="state != 'to_review'"/>
+                    <field name="privacy_type" required="1" readonly="state != 'to_review'"/>
                     <field name="document_file_type_id"
-                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="1"/>
+                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="1"
+                           readonly="state != 'to_review'"/>
                     <field name="has_subcategories" invisible="1"/>
-                    <field name="child_type_id" invisible="not has_subcategories"/>
-                    <field name="version_id" required="1" context="{'default_attachment_id': id}"/>
+                    <field name="child_type_id" invisible="not has_subcategories"
+                           readonly="state != 'to_review'"/>
+                    <field name="version_id" required="1" context="{'default_attachment_id': id}"
+                           readonly="state != 'to_review'"/>
                 </group>
                 <group>
-                    <field name="document_file_type_ids" invisible="1"/>
-                    <field name="allowed_user_ids" invisible="1"/>
-                    <field name="user_ids" string="Users with access"  widget="many2many_tags"
-                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                    <field name="directory_tag_ids" widget="many2many_tags"
-                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                    <field name="document_tag_ids" widget="many2many_tags"
-                           options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                </group>
+                        <field name="document_file_type_ids" invisible="1"/>
+                        <field name="allowed_user_ids" invisible="1"/>
+                        <field name="user_ids"
+                               string="Users with access"
+                               widget="many2many_tags"
+                               options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                               readonly="state != 'to_review'"/>
+                        <field name="directory_tag_ids"
+                               widget="many2many_tags"
+                               options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                               readonly="state != 'to_review'"/>
+                        <field name="document_tag_ids"
+                               widget="many2many_tags"
+                               readonly="state != 'to_review'"
+                               options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                    </group>
+
             </xpath>
             <xpath expr="//field[@name='type']" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -127,7 +171,9 @@
                                context="{'default_document_id': id, 'tree_view_ref': 'quality_control.view_approval_log_document_tree'}"/>
                     </page>
                     <page string="Versions">
-                        <field name="version_ids" nolabel="1"/>
+                        <field name="version_ids"
+                               readonly="state != 'to_review'"
+                               nolabel="1"/>
                     </page>
                     <page string="Signed document">
                         <group>
@@ -136,7 +182,7 @@
                         </group>
                     </page>
                     <page string="Review requests">
-                        <field name="attachment_review_request_ids" nolabel="1">
+                        <field name="attachment_review_request_ids" nolabel="1" readonly="1">
                             <tree editable="bottom">
                                 <field name="attachment_id" column_invisible="1"/>
                                 <field name="user_id" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" widget="many2one_avatar_user"/>
@@ -158,10 +204,11 @@
         </field>
     </record>
 
-<!--    <record id="windx_documents_management_preview.act_all_attachment_from_document_directory">-->
-<!--        <field name="view_ids" eval="[(5, 0, 0),-->
-<!--               (0, 0, {'view_mode': 'kanban', 'view_id': ref('quality_control_bol.ir_attachment_view_kanban_inh')}),-->
-<!--               (0, 0, {'view_mode': 'form', 'view_id': ref('windx_documents_management_preview.view_attachment_form_inherit_document_management')})]"/>-->
-<!--    </record>-->
+    <record id="windx_documents_management_preview.act_all_attachment_from_document_directory" model="ir.actions.act_window">
+        <field name="view_ids" eval="[(5, 0, 0),
+               (0, 0, {'view_mode': 'kanban', 'view_id': ref('quality_control_bol.ir_attachment_view_kanban_inh')}),
+               (0, 0, {'view_mode': 'tree', 'view_id': ref('quality_control_bol.ir_attachment_view_list_quality')}),
+               (0, 0, {'view_mode': 'form', 'view_id': ref('windx_documents_management_preview.view_attachment_form_inherit_document_management')})]"/>
+    </record>
 
 </odoo>

@@ -386,7 +386,7 @@ class IrAttachment(models.Model):
                 raise ValidationError(
                     _("There are no users in the approval log to send the request.")
                 )
-            for user in rec.approval_log_ids.mapped("user_id") + rec.reviewer_ids.mapped("user_id"):
+            for user in rec.approval_log_ids.mapped("user_id"):
                 mail_template = self.env.ref(
                     "quality_control_bol.document_approval_email", raise_if_not_found=True
                 )

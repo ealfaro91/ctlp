@@ -23,7 +23,8 @@ class ApprovalLog(models.Model):
         string="User",
         required=True,
         tracking=True,
-        domain="[('id', 'in', user_ids)]",
+        domain="[('share', '=', False)]"
+    #    domain="[('id', 'in', user_ids)]",
     )
     user_ids = fields.Many2many(
         "res.users",
