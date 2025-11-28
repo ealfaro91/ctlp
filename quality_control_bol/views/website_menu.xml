@@ -1,0 +1,25 @@
+<odoo>
+
+<!--    <record id="menu_document_main" model="website.menu">-->
+<!--        <field name="name">Documents</field>-->
+<!--        <field name="parent_id" ref="__custom__.custom.main_menu"/>-->
+<!--        <field name="sequence" type="int">20</field>-->
+<!--    </record>-->
+
+    <record id="menu_document_upload" model="website.menu">
+        <field name="name">Document Upload</field>
+        <field name="url">/document_upload</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="is_mega_menu">False</field>
+        <field name="sequence" type="int">1</field>
+    </record>
+
+    <record id="menu_published_documents" model="website.menu">
+        <field name="name">Published documents</field>
+        <field name="url">/my/document</field>
+        <field name="is_mega_menu">False</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">2</field>
+    </record>
+
+</odoo>

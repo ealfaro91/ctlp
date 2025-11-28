@@ -32,8 +32,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">helpdesk.ticket.area</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[("show_in_directory", "=", True)]</field>
-        <field name="context"></field>
+        <field name="domain">[("show_in_directory", "=", True), ("show_in_portal", "=", False)]</field>
+        <field name="context">{'default_show_in_directory': True, 'default_show_in_portal': False}</field>
     </record>
 
        <!-- MENU -->

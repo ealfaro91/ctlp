@@ -30,6 +30,11 @@
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">Documentos publicados</t>
             </t>
+<!--            <t t-if="not grouped_document">-->
+<!--                <div class="alert alert-warning mt8" role="alert">-->
+<!--                    <p>No tickets found.</p>-->
+<!--                </div>-->
+<!--            </t>-->
             <div t-if="not documents" class="alert alert-warning" role="alert">
                 No hay documentos publicados para su visualización.
                 Contacte al administrador en caso de que necesite acceso a algun documento.
@@ -40,13 +45,10 @@
             <t t-if="documents" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
-                        <th>Name</th>
+                        <th>Nombre</th>
                         <th>Area</th>
                         <th>Tipo de documento</th>
                         <th>Version</th>
-<!--                        <th>Start Date</th>-->
-<!--                        <th>State</th>-->
-<!--                        <th></th>-->
                     </tr>
                 </thead>
 
@@ -57,9 +59,6 @@
                                 <t t-esc="document.name"/>
                             </a>
 <!--                            <a t-attf-href="/my/documents/#{document.id}?{{ keep_query() }}"><t t-esc="document.name"/></a>-->
-                        </td>
-                        <td>
-                            <span t-field="document.name"/>
                         </td>
                         <td>
                             <span t-field="document.area_id.name"/>
@@ -151,12 +150,12 @@
                                 </div>
                                 <div class="row flex-nowrap">
                                     <div class="col flex-grow-0 pe-2">
-                                        <img class="rounded-circle mr4 float-start o_portal_contact_img"
-                                             t-att-src="image_data_uri(document.create_uid.avatar_128)"
+                                      <img class="rounded-circle mr4 float-start o_portal_contact_img"
+                                             t-att-src="image_data_uri(approval_log.user_id.avatar_128)"
                                              alt="Contact"/>
                                     </div>
                                     <div class="col ps-0" style="min-width: 150px">
-                                        <span t-field="document.create_uid"
+                                        <span t-esc="approval_log.user_id"
                                             t-options='{"widget": "contact", "fields": ["name", "phone", "email"], "no_marker": True}'/>
                                         <a href="#discussion" class="small">
                                             <i class="fa fa-comment"></i> Send message
@@ -229,28 +228,28 @@
                         </div>
                         <div class="col-sm-auto mt8">
                             <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalreview"><i class="fa fa-comment"/> Solicitar revisión</a>
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header bg-danger">
-                                    <h5 class="modal-title">Ingrese el comentario de revisión</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                    <form action="/request/review/#{document.id}" method="post" class="modal-body" id="modalreview">
-                                    <div>
-                                        <input name="message" type="text" required="1"
-                                            placeholder="Revisión"/>
-                                        <hr/>
-                                    </div>
-                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                    </form>
-                                    <div class="modal-footer justify-content-start">
-                                        <button type="submit" class="btn btn-danger"/>
-                                        <button type="button" class="btn" data-bs-dismiss="modal">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="modal-dialog" role="document">-->
+<!--                                <div class="modal-content">-->
+<!--                                <div class="modal-header bg-danger">-->
+<!--                                    <h5 class="modal-title">Ingrese el comentario de revisión</h5>-->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+<!--                                </div>-->
+<!--                                    <form action="/request/review/#{document.id}" method="post" class="modal-body" id="modalreview">-->
+<!--                                    <div>-->
+<!--                                        <input name="message" type="text" required="1"-->
+<!--                                            placeholder="Revisión"/>-->
+<!--                                        <hr/>-->
+<!--                                    </div>-->
+<!--                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+<!--                                    </form>-->
+<!--                                    <div class="modal-footer justify-content-start">-->
+<!--                                        <button type="submit" class="btn btn-danger"/>-->
+<!--                                        <button type="button" class="btn" data-bs-dismiss="modal">-->
+<!--                                            Cancel-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div class="d-flex justify-content-center gap-1 d-print-none">
                             <div class="col-sm-auto mt8">

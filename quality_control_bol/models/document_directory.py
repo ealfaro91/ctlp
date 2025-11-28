@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class DocumentDirectory(models.Model):
@@ -17,6 +18,12 @@ class DocumentDirectory(models.Model):
         help="The area associated with the document, useful for organizing documents by their relevant areas.",
         tracking=True
     )
+
+    def unlink(self):
+        for dir in self:
+            if dir.attachment_ids:
+                raise ValidationError(_("The directory has attachments, please move them first."))
+        return super(DocumentDirectory, self).unlink()
 
     @api.onchange("area_id")
     def _onchange_area_id(self):

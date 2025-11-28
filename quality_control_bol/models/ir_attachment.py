@@ -158,11 +158,21 @@ class IrAttachment(models.Model):
 
     def button_author_sign(self):
         """ Calls the method to attach the signature to the PDF document. """
-        if not self.create_uid.sign_signature:
-            raise ValidationError("El usuario no tiene firma digital configurada.")
-        new_pdf = self.attach_signature_to_pdf(self.datas, self.create_uid.sign_signature)
+        if not self.env.user.sign_signature:
+            raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
+        new_pdf = self.attach_signature_to_pdf(self.datas, self.env.user.sign_signature)
         self.document_signed = new_pdf
         self.signed_by_author = True
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "message": _("The FSN has been signed by the author."),
+                "next": {"type": "ir.actions.act_window_close"},
+                "sticky": False,
+                "type": "success",
+            }
+        }
 
     def button_replace_version(self):
         self.version_id.active = False
@@ -257,18 +267,15 @@ class IrAttachment(models.Model):
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
-        """Adjunta una firma en un cuadrante específico de la última página."""
+        """ Attach signature to the last page of the PDF."""
 
         if not pdf_binary_base64 or not signature_image_base64:
             return pdf_binary_base64  # Si falta algo, no modificamos
-
         # Decodificar los datos binarios
         pdf_data = base64.b64decode(pdf_binary_base64)
         signature_image = base64.b64decode(signature_image_base64)
-
         # Leer el PDF original
         original_pdf = PdfFileReader(io.BytesIO(pdf_data))
-
         # Buscar última página válida
         last_page = None
         last_page_index = None
@@ -281,7 +288,6 @@ class IrAttachment(models.Model):
                     break
             except Exception:
                 continue
-
         # Si no hay página válida, usar primera
         if last_page is None:
             last_page = original_pdf.getPage(0)
@@ -294,18 +300,16 @@ class IrAttachment(models.Model):
             except Exception:
                 width, height = 595, 842
 
-        # Configurar posiciones de cuadrantes
         quadrant_positions = {
-            1: (width - 150, height - 100),  # arriba derecha
-            2: (50, height - 100),  # arriba izquierda
-            3: (width - 150, 50),  # abajo derecha
-            4: (50, 50),  # abajo izquierda
+            1: (50, 180),  # abajo izquierda (más arriba)
+            2: (200, 180),  # un poco más al centro
+            3: (width - 350, 180),  # centro derecha
+            4: (width - 150, 180),  # abajo derecha
         }
 
         # Obtener coordenadas según el cuadrante
         x, y = quadrant_positions.get(quadrant, quadrant_positions[1])
-        sig_width, sig_height = 120, 50
-
+        sig_width, sig_height = 80, 35
         # Crear PDF con la firma
         packet = io.BytesIO()
         can = canvas.Canvas(packet, pagesize=(width, height))
@@ -313,7 +317,6 @@ class IrAttachment(models.Model):
         can.rect(x, y, sig_width, sig_height, fill=1, stroke=0)
         can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y,
                       width=sig_width, height=sig_height, mask='auto')
-
         # Agregar texto debajo de la firma
         text_x = x
         text_y = y - 12  # 12 puntos debajo de la firma
@@ -321,23 +324,19 @@ class IrAttachment(models.Model):
         can.setFillColor(colors.black)
         can.drawString(text_x, text_y, f"Elaborado por:")
         can.save()
-
         # Fusionar firma con la última página
         packet.seek(0)
         signature_pdf = PdfFileReader(packet)
         writer = PdfFileWriter()
-
         for i in range(original_pdf.numPages):
             page = original_pdf.getPage(i)
             if i == last_page_index:
                 page.mergePage(signature_pdf.getPage(0))  # 👈 API vieja
             writer.addPage(page)
-
         # Guardar PDF final
         output_stream = io.BytesIO()
         writer.write(output_stream)
         output_stream.seek(0)
-
         return base64.b64encode(output_stream.read())
 
     def button_send_reviewer_request(self):

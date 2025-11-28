@@ -37,6 +37,25 @@ class DocumentPortal(CustomerPortal):
         #     )
         return values
 
+
+    def _document_get_searchbar_groupby(self):
+        # values = {
+        #     "none": {"input": "none", "label": _("None"), "order": 1},
+        #     "category": {
+        #         "input": "category",
+        #         "label": _("Category"),
+        #         "order": 2,
+        #     },
+        #     "stage": {"input": "stage", "label": _("Stage"), "order": 3},
+        # }
+        values = {"File type": {"input": "file_type", "label": _("File type"), "order": 4}}
+        return dict(sorted(values.items(), key=lambda item: item[1]["order"]))
+
+    def _document_get_groupby_mapping(self):
+        return {
+            "File type": "document_file_type_id",
+        }
+
     def _prepare_document_domain(self):
         # partner = request.env.user.partner_id
         # if partner.employee_ids:
@@ -60,7 +79,7 @@ class DocumentPortal(CustomerPortal):
         website=True,
     )
     def portal_my_document(
-        self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
+        self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None,  groupby=None, **kw
     ):
         """ FILTRAR LOS PUBLICADOS PARA ESE USUARIO"""
 
@@ -77,11 +96,11 @@ class DocumentPortal(CustomerPortal):
         searchbar_filters = {
             "all": {"label": _("All"), "domain": []},
         }
-        # for stage in request.env["helpdesk.ticket.stage"].search([]):
-        #     searchbar_filters[str(stage.id)] = {
-        #         "label": stage.name,
-        #         "domain": [("stage_id", "=", stage.id)],
-        #     }
+        for file_type in request.env["document.file.type"].search([]):
+            searchbar_filters[str(file_type.id)] = {
+                "label": file_type.name,
+                "domain": [("file_type_id", "=", file_type.id)],
+            }
         # for area in request.env["helpdesk.ticket.area"].search([]):
         #     searchbar_filters[str(area.id)] = {
         #         "label": area.name,
@@ -115,6 +134,9 @@ class DocumentPortal(CustomerPortal):
             offset=pager_values["offset"],
         )
         request.session["my_document_history"] = document.ids[:100]
+        searchbar_groupby = self._document_get_searchbar_groupby()
+        if not groupby:
+            groupby = "none"
 
         values.update(
             {
@@ -128,7 +150,9 @@ class DocumentPortal(CustomerPortal):
                 "sortby": sortby,
                 "searchbar_filters": OrderedDict(
                     sorted(searchbar_filters.items(), key=lambda item: item[1]["label"])),
-              #  "filterby": filterby,
+               # "searchbar_groupby": searchbar_groupby,
+                #"groupby": groupby,
+            #   "filterby": filterby,
             }
         )
         return request.render("quality_control_bol.portal_my_document", values)

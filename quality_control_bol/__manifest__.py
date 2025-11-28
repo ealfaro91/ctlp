@@ -17,8 +17,8 @@
         "views/document_portal_templates.xml",
         "views/document_templates.xml",
         "views/document_version_views.xml",
-        "views/helpdesk_ticket_area_views.xml"
+        "views/helpdesk_ticket_area_views.xml",
+     #   "views/website_menu.xml"
     ],
-        # "views/approval_log_views.xml",]]
-    "application": False,
+    'assets': {'web.assets_frontend': ['quality_control_bol/static/src/js/**',]}
 }

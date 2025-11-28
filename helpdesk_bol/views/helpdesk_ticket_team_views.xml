@@ -37,8 +37,8 @@
         </field>
     </record>
 
-<!--        <xpath expr="//div[hasclass('oe_title')]" position="before">-->
-<!--                <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>-->
-<!--            </xpath>-->
+    <record id="helpdesk_mgmt.helpdesk_ticket_dashboard_action" model="ir.actions.act_window">
+        <field name="domain">[('area_id.show_in_portal', '=', True)]</field>
+    </record>
 
 </odoo>

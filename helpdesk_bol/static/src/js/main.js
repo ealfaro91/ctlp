@@ -13,7 +13,7 @@ $("select[name='area_id']").change(function(){
           let $select_location = $("select[name='location_id']");
           $select_location.val(0);
           $select_location.find("option:not(:first)").hide();
-
+});
 
 $("select[name='area_id']").change(function(){
          let $select_location = $("select[name='location_id']");
