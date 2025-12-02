@@ -544,7 +544,7 @@ msgstr "Archivos adjuntos"
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
 msgid "Author signature"
-msgstr "Firma del aelaborador"
+msgstr "Firma del autor"
 
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_form_view_inh

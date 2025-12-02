@@ -160,7 +160,16 @@ class IrAttachment(models.Model):
         """ Calls the method to attach the signature to the PDF document. """
         if not self.env.user.sign_signature:
             raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
-        new_pdf = self.attach_signature_to_pdf(self.datas, self.env.user.sign_signature)
+        self.approval_log_ids.create({
+            'user_id': self.env.user.id,
+            'attachment_id': self.id,
+            'signed_date': fields.Datetime.now(),
+            'sign_signature': self.env.user.sign_signature,
+            'approval_type': 'author',
+        })
+        # Asignar coordenadas a todos los logs, incluyendo este
+        self.assign_signature_coords(self.approval_log_ids)
+        new_pdf = self.attach_signature_to_pdf(self.datas, self.env.user.sign_signature, self.approval_log_ids)
         self.document_signed = new_pdf
         self.signed_by_author = True
         return {
@@ -173,6 +182,35 @@ class IrAttachment(models.Model):
                 "type": "success",
             }
         }
+
+    @staticmethod
+    def assign_signature_coords(approval_logs, page_width=595, base_x=None, base_y=800):
+        """
+        Assign signature coordinates in a table at the top of the page.
+        Columns: author (left), reviewer (center), approver (right).
+        Multiple rows if needed.
+        """
+        sig_width, sig_height = 80, 35
+        margin_x = 20
+        margin_y = 40
+
+        # Column X positions
+        columns = {
+            'author': 50,
+            'reviewer': (page_width - sig_width) / 2,
+            'approver': page_width - sig_width - 50,
+        }
+
+        # Counters para filas por columna
+        row_counters = {'author': 0, 'reviewer': 0, 'approver': 0}
+
+        for log in approval_logs:
+            col_x = columns.get(log.approval_type, 50)  # default a author
+            row = row_counters[log.approval_type]
+            x = col_x
+            y = base_y - row * (sig_height + margin_y)
+            log.write({'x_coord': x, 'y_coord': y})
+            row_counters[log.approval_type] += 1
 
     def button_replace_version(self):
         self.version_id.active = False
@@ -238,7 +276,7 @@ class IrAttachment(models.Model):
             #         mail_template = self.env.ref(
             #             "project_bol.fsn_approved_notification", raise_if_not_found=True
             #         )
-            #         mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
+            #         mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
             #         fsn._action_create_project()
 
     def button_publish_document(self):
@@ -251,7 +289,7 @@ class IrAttachment(models.Model):
             )
             mail_template.write({"email_to": user.email})
             mail_template.send_mail(
-                self.id, force_send=True, raise_exception=True
+                self.id, force_send=False, raise_exception=True
             )
         self.state = 'published'
         return {
@@ -266,7 +304,7 @@ class IrAttachment(models.Model):
         }
 
     @staticmethod
-    def attach_signatures_to_pdf(pdf_binary_base64, elaborator_signature, approval_logs):
+    def attach_signature_to_pdf(pdf_binary_base64, signature, approval_logs):
         """
         Adjunta firmas en PDF A4:
         - Firma elaborador a la izquierda
@@ -311,8 +349,8 @@ class IrAttachment(models.Model):
         can = canvas.Canvas(packet, pagesize=(width, height))
 
         # Dibujar firma elaborador
-        if elaborator_signature:
-            sig_elab = base64.b64decode(elaborator_signature)
+        if signature:
+            sig_elab = base64.b64decode(signature)
             can.drawImage(ImageReader(io.BytesIO(sig_elab)), base_x_elab, base_y,
                           width=sig_width, height=sig_height, mask='auto')
             can.setFont("Helvetica", 10)
@@ -357,7 +395,7 @@ class IrAttachment(models.Model):
         )
         mail_template.write({"email_to": user.email})
         mail_template.send_mail(
-            self.id, force_send=True, raise_exception=True
+            self.id, force_send=False, raise_exception=True
         )
         return {
             'type': 'ir.actions.client',
@@ -398,6 +436,7 @@ class IrAttachment(models.Model):
                 raise ValidationError(
                     _("There are no users in the approval log to send the request.")
                 )
+            rec.assign_signature_coords(rec.approval_log_ids)
             for user in rec.approval_log_ids.mapped("user_id"):
                 mail_template = self.env.ref(
                     "quality_control_bol.document_approval_email", raise_if_not_found=True
@@ -407,7 +446,7 @@ class IrAttachment(models.Model):
                 mail_template.sudo().with_context(
                     user_name=user.name,
                 ).send_mail(
-                    rec.id, force_send=True, raise_exception=True
+                    rec.id, force_send=False, raise_exception=True
                 )
             for log in rec.approval_log_ids:
                 log.request_sign_date = fields.Datetime.now()

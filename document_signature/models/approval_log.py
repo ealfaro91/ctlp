@@ -45,7 +45,8 @@ class ApprovalLog(models.Model):
         tracking=True
     )
     approval_type = fields.Selection(
-        [("reviewer", "Reviewer"),
+        [("author", "Author"),
+         ("reviewer", "Reviewer"),
          ("approver", "Approver")],
         string="Approval Type",
         default="approver",

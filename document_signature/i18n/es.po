@@ -78,6 +78,12 @@ msgid "Approver"
 msgstr "Aprobador"
 
 #. module: document_signature
+#: model:ir.model.fields.selection,name:document_signature.selection__approval_log__approval_type__author
+msgid "Author"
+msgstr "Elaborador"
+
+
+#. module: document_signature
 #: model:ir.model.fields,field_description:document_signature.field_approval_log__message_attachment_count
 msgid "Attachment Count"
 msgstr "Número de Adjuntos"
