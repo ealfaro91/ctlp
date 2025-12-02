@@ -37,7 +37,7 @@
                     <group>
                         <field name="attachment_id"/>
                         <field name="parent_version_id"/>
-                        <field name="deactivate_date"/>
+                        <field name="deactivate_date" invisible="active"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

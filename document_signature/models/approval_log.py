@@ -5,7 +5,7 @@ from odoo import api, fields , models
 class ApprovalLog(models.Model):
     _name = "approval.log"
     _description = "Approval log"
-    _inherit = ["mail.thread", "mail.activity.mixin", "document.signature.mixin"]
+    _inherit = ["document.signature.mixin"]
     _order = "id desc"
 
     sequence = fields.Integer(

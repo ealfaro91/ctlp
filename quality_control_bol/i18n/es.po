@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0-20240522\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-01 16:17+0000\n"
-"PO-Revision-Date: 2025-09-01 16:17+0000\n"
+"POT-Creation-Date: 2025-12-02 19:08+0000\n"
+"PO-Revision-Date: 2025-12-02 19:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,11 @@ msgstr "<i class=\"fa fa-comment\"/> Retroalimentación"
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
 msgid "<i class=\"fa fa-comment\"/> Send message"
+msgstr "<i class=\"fa fa-comment\"/> Enviar mensaje"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document
+msgid "<i class=\"fa fa-comment\"/> Solicitar revisión"
 msgstr ""
 
 #. module: quality_control_bol
@@ -71,10 +76,90 @@ msgid ""
 "<strong>Thank You!</strong>\n"
 "                        Your document log has been signed."
 msgstr ""
+"<strong>Gracias!</strong>\n"
+"                       Su documento ha sido firmado."
 
 #. module: quality_control_bol
-#: model:mail.template,body_html:quality_control_bol.document_approval_email
+#: model:mail.template,body_html:quality_control_bol.document_published_notification
 msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                            <tbody>\n"
+"                                <!-- HEADER -->\n"
+"                                <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"ctx.get('user_name')\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company=user.company_id.id\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                <!-- CONTENT -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                    <div>\n"
+"                                                        Dear  <strong><t t-out=\"ctx.get('user_name')\"></t></strong>, the following document has been published.<br>\n"
+"                                                        <ul>\n"
+"                                                            <li>Document: <t t-out=\"object.name\"></t></li>\n"
+"                                                            <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                        </ul>\n"
+"                                                        <br>\n"
+"                                                        <p>Greetings.</p>\n"
+"                                                        <p> This is an automatic message, please de not reply</p>\n"
+"                                                    </div>\n"
+"                                                </td></tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- FOOTER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\" align=\"left\">\n"
+"                                                    <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                    <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                    <t t-if=\"user.company_id.website\">\n"
+"                                                        | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                    </t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        "
+msgstr ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
 "                    <tr>\n"
 "                        <td align=\"center\">\n"
@@ -86,7 +171,7 @@ msgid ""
 "                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                                                <tr>\n"
 "                                                    <td valign=\"middle\">\n"
-"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                        <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
 "                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
 "                                                    </td>\n"
 "                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
@@ -108,13 +193,13 @@ msgid ""
 "                                                <tr>\n"
 "                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                                        <div>\n"
-"                                                            Dear <strong><t t-out=\"user.name\"></t></strong>, the following DOCUMENT requires your approval.<br>\n"
+"                                                            Estimado/a <strong><t t-out=\"ctx.get('user_name')\"></t></strong>, el siguiente documento ha sido publicado.<br>\n"
 "                                                            <ul>\n"
-"                                                                <li>Document: <t t-out=\"object.name\"></t></li>\n"
-"                                                                <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                                <li>Documento: <t t-out=\"object.name\"></t></li>\n"
+"                                                                <li>Enlace de acceso al portal:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
 "                                                            </ul>\n"
 "                                                            <br>\n"
-"                                                            <p>Greetings.</p>\n"
+"                                                            <p>Saludos.</p>\n"
 "                                                            <p> This is an automatic message, please de not reply</p>\n"
 "                                                        </div>\n"
 "                                                    </td></tr>\n"
@@ -152,6 +237,87 @@ msgid ""
 "                    </tr>\n"
 "                </table>\n"
 "            "
+
+#. module: quality_control_bol
+#: model:mail.template,body_html:quality_control_bol.document_approval_email
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                            <tbody>\n"
+"                         <!-- HEADER -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"middle\">\n"
+"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
+"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"ctx.get('user_name')\"></span>\n"
+"                                                    </td>\n"
+"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
+"                                                        <img t-attf-src=\"/logo.png?company=user.company_id.id\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                <!-- CONTENT -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                    <div>\n"
+"                                                        Dear <strong><t t-out=\"ctx.get('user_name')\"></t></strong>, the following DOCUMENT requires your approval.<br>\n"
+"                                                        <ul>\n"
+"                                                            <li>Document: <t t-out=\"object.name\"></t></li>\n"
+"                                                            <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
+"                                                        </ul>\n"
+"                                                        <br>\n"
+"                                                        <p>Greetings.</p>\n"
+"                                                        <p> This is an automatic message, please de not reply</p>\n"
+"                                                    </div>\n"
+"                                                </td></tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- FOOTER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\" align=\"left\">\n"
+"                                                    <t t-out=\"user.company_id.name or ''\"></t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                            <tr>\n"
+"                                                <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                    <t t-out=\"user.company_id.phone or ''\"></t>\n"
+"                                                    <t t-if=\"user.company_id.website\">\n"
+"                                                        | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
+"                                                    </t>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        "
 msgstr ""
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
 "                    <tr>\n"
@@ -186,7 +352,7 @@ msgstr ""
 "                                                <tr>\n"
 "                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                                        <div>\n"
-"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente documento requiere su aprobación.<br>\n"
+"                                                            Estimado/a <strong><t t-out=\"ctx.get('user_name')\"></t></strong>, el siguiente documento requiere su aprobación.<br>\n"
 "                                                            <ul>\n"
 "                                                                <li>Documento: <t t-out=\"object.name\"></t></li>\n"
 "                                                                <li>Enlace de acceso al portal:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
@@ -232,170 +398,12 @@ msgstr ""
 "            "
 
 #. module: quality_control_bol
-#: model:mail.template,body_html:quality_control_bol.document_published_notification
-msgid ""
-"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
-"                    <tr>\n"
-"                        <td align=\"center\">\n"
-"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
-"                                <tbody>\n"
-"                                    <!-- HEADER -->\n"
-"                                    <tr>\n"
-"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"middle\">\n"
-"                                                        <span style=\"font-size: 10px;\">Your Account</span><br>\n"
-"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
-"                                                    </td>\n"
-"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
-"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                                <tr>\n"
-"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                            </table>\n"
-"                                        </td>\n"
-"                                    </tr>\n"
-"                       <!-- CONTENT -->\n"
-"                                    <tr>\n"
-"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
-"                                                        <div>\n"
-"                                                            Dear <strong><t t-out=\"user.name\"></t></strong>, the following document has been published.<br>\n"
-"                                                            <ul>\n"
-"                                                                <li>Document: <t t-out=\"object.name\"></t></li>\n"
-"                                                                <li>Portal Access Link:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
-"                                                            </ul>\n"
-"                                                            <br>\n"
-"                                                            <p>Greetings.</p>\n"
-"                                                            <p> This is an automatic message, please de not reply</p>\n"
-"                                                        </div>\n"
-"                                                    </td></tr>\n"
-"                                                    <tr>\n"
-"                                                        <td style=\"text-align:center;\">\n"
-"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
-"                                                        </td>\n"
-"                                                    </tr>\n"
-"                                            </table>\n"
-"                                        </td>\n"
-"                                    </tr>\n"
-"                                    <!-- FOOTER -->\n"
-"                                    <tr>\n"
-"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"middle\" align=\"left\">\n"
-"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
-"                                                        <t t-if=\"user.company_id.website\">\n"
-"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
-"                                                        </t>\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                            </table>\n"
-"                                        </td>\n"
-"                                    </tr>\n"
-"                                </tbody>\n"
-"                            </table>\n"
-"                        </td>\n"
-"                    </tr>\n"
-"                </table>\n"
-"            "
-msgstr ""
-"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
-"                    <tr>\n"
-"                        <td align=\"center\">\n"
-"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
-"                                <tbody>\n"
-"                                    <!-- HEADER -->\n"
-"                                    <tr>\n"
-"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"middle\">\n"
-"                                                        <span style=\"font-size: 10px;\">Su cuenta</span><br>\n"
-"                                                        <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"user.partner_id.name or ''\"></span>\n"
-"                                                    </td>\n"
-"                                                    <td valign=\"middle\" align=\"right\" t-if=\"not user.company_id.uses_default_logo\">\n"
-"                                                        <img t-attf-src=\"/logo.png?company={{ user.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"user.company_id.name\">\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                                <tr>\n"
-"                                                    <td colspan=\"2\" style=\"text-align:center;\">\n"
-"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                            </table>\n"
-"                                        </td>\n"
-"                                    </tr>\n"
-"                       <!-- CONTENT -->\n"
-"                                    <tr>\n"
-"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
-"                                                        <div>\n"
-"                                                            Estimado/a <strong><t t-out=\"user.name\"></t></strong>, el siguiente documento ha sido publicado.<br>\n"
-"                                                            <ul>\n"
-"                                                                <li>Documento: <t t-out=\"object.name\"></t></li>\n"
-"                                                                <li>Enlace de acceso al portal:  <a t-attf-href=\"{{ object.document_url }}\"><t t-out=\"object.document_url\"></t></a></li>\n"
-"                                                            </ul>\n"
-"                                                            <br>\n"
-"                                                            <p>Saludos.</p>\n"
-"                                                            <p> This is an automatic message, please de not reply</p>\n"
-"                                                        </div>\n"
-"                                                    </td></tr>\n"
-"                                                    <tr>\n"
-"                                                        <td style=\"text-align:center;\">\n"
-"                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
-"                                                        </td>\n"
-"                                                    </tr>\n"
-"                                            </table>\n"
-"                                        </td>\n"
-"                                    </tr>\n"
-"                                    <!-- FOOTER -->\n"
-"                                    <tr>\n"
-"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
-"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"middle\" align=\"left\">\n"
-"                                                        <t t-out=\"user.company_id.name or ''\"></t>\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                                <tr>\n"
-"                                                    <td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
-"                                                        <t t-out=\"user.company_id.phone or ''\"></t>\n"
-"                                                        <t t-if=\"user.company_id.website\">\n"
-"                                                            | <a t-attf-href=\"'%s' % {{ user.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"user.company_id.website or ''\"></a>\n"
-"                                                        </t>\n"
-"                                                    </td>\n"
-"                                                </tr>\n"
-"                                            </table>\n"
-"                                        </td>\n"
-"                                    </tr>\n"
-"                                </tbody>\n"
-"                            </table>\n"
-"                        </td>\n"
-"                    </tr>\n"
-"                </table>\n"
-"            "
-
-#. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__access_token
 msgid "Access Token"
 msgstr "Token de acceso"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__access_warning
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__access_warning
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__access_warning
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__access_warning
@@ -403,6 +411,7 @@ msgid "Access warning"
 msgstr "Aviso de acceso"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_needaction
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_needaction
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_needaction
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_needaction
@@ -416,6 +425,7 @@ msgid "Active"
 msgstr "Activo"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_ids
@@ -423,6 +433,7 @@ msgid "Activities"
 msgstr "Actividades"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_exception_decoration
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_exception_decoration
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_exception_decoration
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_exception_decoration
@@ -430,6 +441,7 @@ msgid "Activity Exception Decoration"
 msgstr "Decoración de excepción de actividad"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_state
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_state
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_state
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_state
@@ -437,11 +449,19 @@ msgid "Activity State"
 msgstr "Estado de actividad"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_type_icon
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_type_icon
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_type_icon
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "Icono de tipo de actividad"
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/controllers/portal.py:0
+#, python-format
+msgid "All"
+msgstr "Todo"
 
 #. module: quality_control_bol
 #: model:ir.model,name:quality_control_bol.model_approval_log
@@ -456,6 +476,8 @@ msgstr "Formulario de Aprobación de Requisitos"
 
 #. module: quality_control_bol
 #: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__approved
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_kanban_inh
 msgid "Approved"
 msgstr "Aprobado"
 
@@ -471,26 +493,36 @@ msgid "Archived"
 msgstr "Archivado"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__attachment_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__datas
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Archivo"
+msgstr ""
+
+#. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_directory__area_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__area_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_product_document__area_id
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
 msgid "Area"
 msgstr ""
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
-msgid "Area responsable"
+#: model:ir.actions.act_window,name:quality_control_bol.helpdesk_ticket_area_document_action
+#: model:ir.ui.menu,name:quality_control_bol.helpdesk_ticket_area_document_main_menu
+msgid "Areas"
 msgstr ""
 
 #. module: quality_control_bol
 #: model:ir.model,name:quality_control_bol.model_ir_attachment
 #: model:ir.model.fields,field_description:quality_control_bol.field_approval_log__attachment_id
-#: model:ir.model.fields,field_description:quality_control_bol.field_approval_log__document_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__attachment_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__attachment_id
 msgid "Attachment"
 msgstr "Archivo adjunto"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_attachment_count
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_attachment_count
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_attachment_count
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_attachment_count
@@ -498,13 +530,30 @@ msgid "Attachment Count"
 msgstr "Contador de archivos adjuntos"
 
 #. module: quality_control_bol
+#: model:ir.model,name:quality_control_bol.model_attachment_review_request
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__attachment_review_request_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__attachment_review_request_ids
+msgid "Attachment Review Request"
+msgstr "Solicitud de revisión de archivo adjunto"
+
+#. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
 msgid "Attachment(s)"
 msgstr "Archivos adjuntos"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_view_inh
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Author signature"
+msgstr "Firma del aelaborador"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_form_view_inh
 msgid "Avatar"
+msgstr ""
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.replace_document_version_form_view
+msgid "Cancelar"
 msgstr ""
 
 #. module: quality_control_bol
@@ -528,28 +577,33 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
-msgid "Correo"
-msgstr ""
-
-#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__create_uid
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__create_uid
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__create_uid
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__create_date
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__create_date
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__create_date
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__access_url
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__access_url
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__access_url
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__access_url
 msgid "Customer Portal URL"
 msgstr "URL del portal del cliente"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__date
+msgid "Date"
+msgstr "Fecha"
 
 #. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__deactivate_date
@@ -558,12 +612,19 @@ msgstr "Fecha de desactivación"
 
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
-msgid "Descripción"
-msgstr ""
+msgid "Description"
+msgstr "Descripción"
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Directory"
+msgstr "Directorio"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__display_name
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__display_name
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__display_name
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__display_name
 msgid "Display Name"
 msgstr "Nombre"
 
@@ -595,6 +656,7 @@ msgstr "Tipos de Documentos"
 
 #. module: quality_control_bol
 #: model:mail.template,name:quality_control_bol.document_published_notification
+#: model:mail.template,subject:quality_control_bol.document_published_notification
 msgid "Document Published"
 msgstr "Documento Publicado"
 
@@ -630,13 +692,13 @@ msgid "Document to approve"
 msgstr "Documento a Aprobar"
 
 #. module: quality_control_bol
-#: model:mail.template,subject:quality_control_bol.document_published_notification
-msgid "Document {{ object.name }} Published"
-msgstr "Documento {{ object.name }} Publicado"
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_creation
+msgid "Document uploaded successfully!"
+msgstr "Documento subido exitosamente!"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
-msgid "Documento Firmado"
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid "Documentos publicados"
 msgstr ""
 
 #. module: quality_control_bol
@@ -645,15 +707,15 @@ msgid "Download"
 msgstr "Descargar"
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "E-mail"
+msgstr ""
+
+#. module: quality_control_bol
 #. odoo-python
 #: code:addons/quality_control_bol/models/ir_attachment.py:0
 #, python-format
 msgid "El documento ha sido publicado."
-msgstr ""
-
-#. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
-msgid "Enviar para aprobación"
 msgstr ""
 
 #. module: quality_control_bol
@@ -673,21 +735,20 @@ msgid "File Type"
 msgstr "Tipo de documento"
 
 #. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.document_file_type_form_view
+#, python-format
 msgid "File type"
 msgstr "Tipo de documento"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
-msgid "Firma del autor"
-msgstr ""
-
-#. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_view_inh
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_form_view_inh
 msgid "Folder"
-msgstr "Carpeta"
+msgstr "Directorio"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_follower_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_follower_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_follower_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_follower_ids
@@ -695,6 +756,7 @@ msgid "Followers"
 msgstr "Seguidores"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_partner_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_partner_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_partner_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_partner_ids
@@ -702,6 +764,7 @@ msgid "Followers (Partners)"
 msgstr "Seguidores (Partners)"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__activity_type_icon
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_type_icon
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_type_icon
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_type_icon
@@ -709,6 +772,12 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Icono de font awesome e.g. fa-tasks"
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "General Information"
+msgstr "Información General"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__has_message
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__has_message
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__has_message
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__has_message
@@ -723,12 +792,20 @@ msgid "Has Subcategories"
 msgstr "Tiene subcategorias"
 
 #. module: quality_control_bol
+#: model:ir.model,name:quality_control_bol.model_helpdesk_ticket_area
+msgid "Helpdesk Ticket Area"
+msgstr "Área de la solicitud del servicio de asistencia"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__id
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__id
 msgid "ID"
 msgstr ""
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_exception_icon
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_exception_icon
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_exception_icon
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_exception_icon
@@ -736,6 +813,7 @@ msgid "Icon"
 msgstr ""
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__activity_exception_icon
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_exception_icon
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_exception_icon
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_exception_icon
@@ -743,6 +821,7 @@ msgid "Icon to indicate an exception activity."
 msgstr "Icono para indicar una actividad con excepción."
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__message_needaction
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_needaction
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__message_needaction
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_needaction
@@ -750,6 +829,8 @@ msgid "If checked, new messages require your attention."
 msgstr "Si se marca, los nuevos mensajes requieren su atención."
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__message_has_error
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__message_has_sms_error
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_has_error
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_has_sms_error
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__message_has_error
@@ -758,6 +839,11 @@ msgstr "Si se marca, los nuevos mensajes requieren su atención."
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se marca, algunos mensajes tienen un error de entrega."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_helpdesk_ticket_area__show_in_directory
+msgid "If checked, this area will be displayed in the directories."
+msgstr "Si se marca, esta área se mostrará en los directorios."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__sent_approval_request
@@ -786,14 +872,22 @@ msgstr "Indica si la versión del documento está activa o no."
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__has_subcategories
 #: model:ir.model.fields,help:quality_control_bol.field_product_document__has_subcategories
 msgid "Indicates whether this document file type has subcategories."
-msgstr ""
+msgstr "Indica si este tipo de documento tiene subcategorías."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__is_parent_type
 msgid "Indicates whether this document file type is a parent type."
-msgstr ""
+msgstr "Indica si este tipo de documento es un tipo padre."
 
 #. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/controllers/controllers.py:0
+#, python-format
+msgid "Invalid or duplicate submission."
+msgstr "Envío inválido o duplicado."
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_is_follower
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_is_follower
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_is_follower
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_is_follower
@@ -806,14 +900,18 @@ msgid "Is Parent Type"
 msgstr "Es tipo principal"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__write_uid
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__write_uid
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__write_uid
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__write_date
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__write_date
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__write_date
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -834,30 +932,37 @@ msgid "Manuales de Procedimientos"
 msgstr ""
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_has_error
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_has_error
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_has_error
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Error de envío de mensaje"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Mensajes"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__my_activity_date_deadline
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__my_activity_date_deadline
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__my_activity_date_deadline
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Fecha límite de actividad"
 
 #. module: quality_control_bol
 #. odoo-python
 #: code:addons/quality_control_bol/controllers/portal.py:0
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
 #, python-format
 msgid "Name"
 msgstr "Título"
@@ -867,9 +972,10 @@ msgstr "Título"
 #: code:addons/quality_control_bol/controllers/portal.py:0
 #, python-format
 msgid "Newest"
-msgstr ""
+msgstr "Mas reciente"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_date_deadline
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_date_deadline
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_date_deadline
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_date_deadline
@@ -877,6 +983,7 @@ msgid "Next Activity Deadline"
 msgstr ""
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_summary
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_summary
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_summary
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_summary
@@ -884,6 +991,7 @@ msgid "Next Activity Summary"
 msgstr ""
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_type_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_type_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_type_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_type_id
@@ -893,9 +1001,32 @@ msgstr ""
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.my_document_content
 msgid "No PDF attached to this document log."
+msgstr "No se ha adjuntado un PDF a este registro de documento."
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid ""
+"No hay documentos publicados para su visualización.\n"
+"                Contacte al administrador en caso de que necesite acceso a algun documento."
 msgstr ""
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid "Nombre"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__datas_filename
+msgid "Nombre del archivo"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__new_attachment_id
+msgid "Nuevo adjunto"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_needaction_counter
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_needaction_counter
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_needaction_counter
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_needaction_counter
@@ -903,6 +1034,7 @@ msgid "Number of Actions"
 msgstr "Número de acciones"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_has_error_counter
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_has_error_counter
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_has_error_counter
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_has_error_counter
@@ -910,6 +1042,7 @@ msgid "Number of errors"
 msgstr "Número de errores"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__message_needaction_counter
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_needaction_counter
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__message_needaction_counter
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_needaction_counter
@@ -917,6 +1050,7 @@ msgid "Number of messages requiring action"
 msgstr "Número de mensajes requiriendo acción"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__message_has_error_counter
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__message_has_error_counter
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__message_has_error_counter
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__message_has_error_counter
@@ -935,14 +1069,14 @@ msgid "Old Versions"
 msgstr "Versiones antiguas"
 
 #. module: quality_control_bol
-#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__parent_version_id
-msgid "Parent Test"
-msgstr ""
-
-#. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__parent_type_id
 msgid "Parent Type"
 msgstr "Tipo padre"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_document_version__parent_version_id
+msgid "Parent Version"
+msgstr "Version padre"
 
 #. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__document_url
@@ -951,6 +1085,7 @@ msgid "Portal Access Link"
 msgstr "Enlace de acceso al portal"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__access_url
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__access_url
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__access_url
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__access_url
@@ -963,11 +1098,6 @@ msgid "Print"
 msgstr "Imprimir"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
-msgid "Print PDF"
-msgstr "Imprimir PDF"
-
-#. module: quality_control_bol
 #: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__privacy_type__private
 msgid "Private"
 msgstr "Privado"
@@ -978,27 +1108,25 @@ msgid "Public"
 msgstr "Publico"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__published
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__published
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_kanban_inh
 msgid "Publicado"
 msgstr ""
 
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
-msgid "Publicar"
-msgstr ""
+msgid "Publish"
+msgstr "Publicar"
 
 #. module: quality_control_bol
 #: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__published
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_kanban_inh
 msgid "Published"
 msgstr "Publicado"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
-msgid "REGISTRE SU REQUERIMIENTO"
-msgstr ""
-
-#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__rating_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__rating_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__rating_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__rating_ids
@@ -1006,11 +1134,33 @@ msgid "Ratings"
 msgstr "Calificaciones"
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.replace_document_version_form_view
+msgid "Reemplazar"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.actions.act_window,name:quality_control_bol.replace_document_version_action
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Reemplazar versión"
+msgstr ""
+
+#. module: quality_control_bol
 #: model:document.file.type,name:quality_control_bol.document_file_type_4
 msgid "Reglamentos"
 msgstr ""
 
 #. module: quality_control_bol
+#: model:ir.model,name:quality_control_bol.model_replace_document_version
+msgid "Replace Document Version"
+msgstr "Reemplazar versión del documento"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "Responsible Area"
+msgstr "Área responsable"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__activity_user_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__activity_user_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__activity_user_id
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__activity_user_id
@@ -1018,15 +1168,14 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Review requests"
+msgstr "Solicitudes de revisión"
+
+#. module: quality_control_bol
 #: model:ir.model.fields.selection,name:quality_control_bol.selection__ir_attachment__state__reviewed
 msgid "Reviewed"
 msgstr "Revisado"
-
-#. module: quality_control_bol
-#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__reviewer_ids
-#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__reviewer_ids
-msgid "Reviewers"
-msgstr "Revisores"
 
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
@@ -1034,11 +1183,12 @@ msgid "Reviewers and Approvers"
 msgstr "Revisores y Aprobadores"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__message_has_sms_error
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__message_has_sms_error
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__message_has_sms_error
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Error de envío de SMS"
 
 #. module: quality_control_bol
 #. odoo-python
@@ -1048,10 +1198,16 @@ msgid "Se ha enviado para revisión."
 msgstr "Se ha enviado para revisión."
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__access_token
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__access_token
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__access_token
 msgid "Security Token"
 msgstr "Token de seguridad"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Send approval request"
+msgstr "Enviar solicitud de aprobación"
 
 #. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__sent_approval_request
@@ -1063,6 +1219,11 @@ msgstr "Solicitud de aprobación enviada"
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__sequence
 msgid "Sequence"
 msgstr "Secuencia"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_helpdesk_ticket_area__show_in_directory
+msgid "Show in Directories"
+msgstr "Mostrar en directorios"
 
 #. module: quality_control_bol
 #. odoo-python
@@ -1084,11 +1245,17 @@ msgid "Signed by Author"
 msgstr "Firmado por el autor"
 
 #. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
+msgid "Signed document"
+msgstr "Documento firmado"
+
+#. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_document
 msgid "Sing, follow and download your document."
 msgstr "Firmar, seguir y descargar su documento."
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__activity_state
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_state
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_state
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_state
@@ -1109,6 +1276,13 @@ msgstr "El tipo de subcategoría de archivo de documento."
 #. odoo-python
 #: code:addons/quality_control_bol/models/ir_attachment.py:0
 #, python-format
+msgid "The FSN has been signed by the author."
+msgstr "El FSN ha sido firmado por el autor."
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/models/ir_attachment.py:0
+#, python-format
 msgid "The approval request has been sent successfully."
 msgstr "La solicitud de aprobación ha sido enviada con éxito."
 
@@ -1119,6 +1293,8 @@ msgid ""
 "The area associated with the document, used for categorization and "
 "management."
 msgstr ""
+"El área asociada con el documento, utilizada para la categorización y "
+"gestión."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_document_directory__area_id
@@ -1126,10 +1302,11 @@ msgid ""
 "The area associated with the document, useful for organizing documents by "
 "their relevant areas."
 msgstr ""
+"El área asociada con el documento, útil para organizar documentos por "
+"sus áreas relevantes."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_approval_log__attachment_id
-#: model:ir.model.fields,help:quality_control_bol.field_approval_log__document_id
 msgid "The attachment related to this approval log."
 msgstr "El adjunto relacionado con esta lista de aprobación."
 
@@ -1139,9 +1316,29 @@ msgid "The attachment related to this document version."
 msgstr "El adjunto relacionado con esta versión del documento."
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__attachment_review_request_ids
+#: model:ir.model.fields,help:quality_control_bol.field_product_document__attachment_review_request_ids
+msgid "The attachment review request associated with the document attachment."
+msgstr "La solicitud de revisión del adjunto asociada con el adjunto del documento."
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/models/ir_attachment.py:0
+#, python-format
+msgid "The author signature is required. Go to the user settings to add it."
+msgstr "La firma del autor es obligatoria. Vaya a la configuración del usuario para agregarla."
+
+#. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__child_type_ids
 msgid "The child types of this document file type."
 msgstr "Los tipos hijos de este tipo de archivo de documento."
+
+#. module: quality_control_bol
+#. odoo-python
+#: code:addons/quality_control_bol/models/document_directory.py:0
+#, python-format
+msgid "The directory has attachments, please move them first."
+msgstr "El directorio tiene adjuntos, por favor, muevalos primero."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__name
@@ -1166,12 +1363,16 @@ msgid ""
 "The type of the document file, used to categorize and manage different file "
 "types."
 msgstr ""
+"El tipo de archivo de documento, utilizado para categorizar y gestionar "
+"diferentes tipos de archivos."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__document_file_type_ids
 #: model:ir.model.fields,help:quality_control_bol.field_product_document__document_file_type_ids
 msgid "The types of document files associated with the selected directory."
-msgstr "Los tipos de archivos de documentos asociados con el directorio seleccionado."
+msgstr ""
+"Los tipos de archivos de documentos asociados con el directorio "
+"seleccionado."
 
 #. module: quality_control_bol
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__version_id
@@ -1180,27 +1381,29 @@ msgid "The version of the document attachment."
 msgstr "La versión del documento adjunto."
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
-msgid "There are currently no pending document approvals for your account."
-msgstr "No hay documentos pendientes de aprobación para su cuenta."
-
-#. module: quality_control_bol
 #. odoo-python
 #: code:addons/quality_control_bol/models/ir_attachment.py:0
 #, python-format
 msgid "There are no users in the approval log to send the request."
-msgstr "No hay usuarios en el registro de aprobación para enviar la solicitud."
+msgstr ""
+"No hay usuarios en el registro de aprobación para enviar la solicitud."
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
-msgid "Tipo de archivo"
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_search_inh
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
+msgid "Tipo de documento"
+msgstr ""
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_file_type_search_view
+msgid "Tipo de documento principal"
 msgstr ""
 
 #. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__privacy_type
 #: model:ir.model.fields,field_description:quality_control_bol.field_product_document__privacy_type
 msgid "Tipo de privacidad"
-msgstr "Tipo de privacidad"
+msgstr ""
 
 #. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
@@ -1218,6 +1421,7 @@ msgid "To Review"
 msgstr "Por revisar"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__activity_exception_decoration
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__activity_exception_decoration
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__activity_exception_decoration
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__activity_exception_decoration
@@ -1225,30 +1429,41 @@ msgid "Type of the exception activity on record."
 msgstr "Tipo de actividad de excepción en el registro."
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_view_inh
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "UPLOAD DOCUMENT"
+msgstr "Subir documento"
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__user_id
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
+msgid "User"
+msgstr "Usuario"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_directory_form_view_inh
 msgid "Users"
 msgstr "Usuarios"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.document_form
-msgid "Usuario"
-msgstr ""
-
-#. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.ir_attachment_view_form_inh
-msgid "Usuarios con acceso"
-msgstr ""
+msgid "Users with access"
+msgstr "Usuarios con acceso"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__allowed_user_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__user_ids
+#: model:ir.model.fields,field_description:quality_control_bol.field_product_document__allowed_user_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_product_document__user_ids
 msgid "Usuarios permitidos"
 msgstr "Usuarios"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__version_id
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__new_version
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.document_version_form_view
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
 msgid "Version"
-msgstr "Version"
+msgstr ""
 
 #. module: quality_control_bol
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__version
@@ -1261,6 +1476,17 @@ msgid "Versions"
 msgstr "Versiones"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__old_document_version_id
+msgid "Versión actual"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_replace_document_version__new_document_version_id
+msgid "Versión nueva"
+msgstr ""
+
+#. module: quality_control_bol
+#: model:ir.model.fields,field_description:quality_control_bol.field_attachment_review_request__website_message_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_file_type__website_message_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_document_version__website_message_ids
 #: model:ir.model.fields,field_description:quality_control_bol.field_ir_attachment__website_message_ids
@@ -1268,6 +1494,7 @@ msgid "Website Messages"
 msgstr "Mensajes de la web"
 
 #. module: quality_control_bol
+#: model:ir.model.fields,help:quality_control_bol.field_attachment_review_request__website_message_ids
 #: model:ir.model.fields,help:quality_control_bol.field_document_file_type__website_message_ids
 #: model:ir.model.fields,help:quality_control_bol.field_document_version__website_message_ids
 #: model:ir.model.fields,help:quality_control_bol.field_ir_attachment__website_message_ids
@@ -1285,16 +1512,11 @@ msgid "document"
 msgstr "Documento"
 
 #. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
-msgid "document Approval"
-msgstr "Aprobación de documentos"
-
-#. module: quality_control_bol
-#: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_document
-msgid "document PDF"
-msgstr "Documento PDF"
-
-#. module: quality_control_bol
 #: model_terms:ir.ui.view,arch_db:quality_control_bol.portal_my_home_menu_document
 msgid "document to approve"
 msgstr "Documentos por aprobar"
+
+#. module: quality_control_bol
+#: model_terms:ir.ui.view,arch_db:quality_control_bol.replace_document_version_form_view
+msgid "¿Está seguro de reemplazar la versión?"
+msgstr ""

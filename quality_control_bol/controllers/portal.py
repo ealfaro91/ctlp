@@ -192,7 +192,7 @@ class DocumentPortal(CustomerPortal):
 
         values = {
             "document": document_sudo,
-            "approval_log": document_sudo.approval_log_ids.filtered(lambda log: log.user_id == request.env.user),
+            "approval_log": document_sudo.approval_log_ids.filtered(lambda x: x.user_id == request.env.user),
             "message": message,
             "action": document_sudo._get_portal_return_action(),
         }

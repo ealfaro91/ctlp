@@ -130,7 +130,8 @@
                            readonly="state != 'to_review'"/>
                     <field name="area_id"
                            options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
-                           readonly="state != 'to_review'"/>
+                           widget="badge"
+                           readonly="1"/>
                     <field name="privacy_type" required="1" readonly="state != 'to_review'"/>
                     <field name="document_file_type_id"
                            options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" required="1"
@@ -138,7 +139,7 @@
                     <field name="has_subcategories" invisible="1"/>
                     <field name="child_type_id" invisible="not has_subcategories"
                            readonly="state != 'to_review'"/>
-                    <field name="version_id" required="1" context="{'default_attachment_id': id}"
+                    <field name="version_id" required="id" invisible="not id" context="{'default_attachment_id': active_id}"
                            readonly="state != 'to_review'"/>
                 </group>
                 <group>

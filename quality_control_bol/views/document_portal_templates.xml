@@ -69,38 +69,6 @@
                         <td>
                             <span t-field="document.version_id.version"/>
                         </td>
-                        <td class="tx_status text-start">
-<!--                            <t t-if="document.state == 'in_process'">-->
-<!--                                <span class="badge rounded-pill text-bg-info">-->
-<!--                                    <span class="d-none d-md-inline"> Draft</span>-->
-<!--                                </span>-->
-<!--                            </t>-->
-<!--                            <t t-if="document.state == 'sent'">-->
-<!--                                <span class="badge rounded-pill text-bg-warning">-->
-<!--                                    <span class="d-none d-md-inline"> To Be Signed</span>-->
-<!--                                </span>-->
-<!--                            </t>-->
-<!--                            <t t-if="document.state == 'delegated'">-->
-<!--                                <span class="badge rounded-pill text-bg-success">-->
-<!--                                    <span class="d-none d-md-inline"> Delegated</span>-->
-<!--                                </span>-->
-<!--                            </t>-->
-<!--                            <t t-if="document.state == 'cancelled'">-->
-<!--                                <span class="badge rounded-pill text-bg-danger">-->
-<!--                                    <span class="d-none d-md-inline"> Cancelled </span>-->
-<!--                                </span>-->
-<!--                            </t>-->
-<!--                            <t t-if="document.state == 'ended'">-->
-<!--                                <span class="badge rounded-pill text-bg-success">-->
-<!--                                    <span class="d-none d-md-inline"> Ended </span>-->
-<!--                                </span>-->
-<!--                            </t>-->
-                        </td>
-                       <!-- <td>
-                            <t>
-                                <a class="btn btn-primary" target="_blank" title="document PDF" t-att-href="'/report/pdf/trial_clinic.report_document_template/'+str(document.id)">Print PDF</a>
-                            </t>
-                        </td>-->
                     </tr>
                 </t>
             </t>
@@ -182,12 +150,12 @@
                                     <p>
                                         <span>By signing this document, I agree to the content :</span>
                                         <ul>
-                                            <li><span>Accepted on the behalf of:</span> <b t-field="document.create_uid.name"/></li>
+                                            <li><span>Accepted on the behalf of:</span> <b t-field="approval_log.user_id.name"/></li>
                                         </ul>
                                     </p>
                                     <t t-call="portal.signature_form">
                                         <t t-set="call_url" t-value="document.get_portal_sign_url()"/>
-                                        <t t-set="default_name" t-value="document.create_uid.name"/>
+                                        <t t-set="default_name" t-value="approval_log.user_id.name"/>
                                     </t>
                                 </main>
                             </form>

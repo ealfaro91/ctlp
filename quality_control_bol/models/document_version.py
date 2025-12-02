@@ -5,6 +5,7 @@ class DocumentVersion(models.Model):
     _name = "document.version"
     _inherit = ["mail.thread", "mail.activity.mixin", "portal.mixin",]
     _description = "Document Version"
+    _rec_name = "version"
 
     @api.depends("attachment_id", "version")
     def _compute_display_name(self):
@@ -22,7 +23,7 @@ class DocumentVersion(models.Model):
         default=True,
         help="Indicates whether the document version is active or not."
     )
-    version = fields.Integer(
+    version = fields.Char(
         string="Version Number",
         default=0,
         copy=False

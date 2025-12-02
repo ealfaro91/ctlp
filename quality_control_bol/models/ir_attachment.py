@@ -266,74 +266,86 @@ class IrAttachment(models.Model):
         }
 
     @staticmethod
-    def attach_signature_to_pdf(pdf_binary_base64, signature_image_base64, quadrant=1):
-        """ Attach signature to the last page of the PDF."""
+    def attach_signatures_to_pdf(pdf_binary_base64, elaborator_signature, approval_logs):
+        """
+        Adjunta firmas en PDF A4:
+        - Firma elaborador a la izquierda
+        - Columnas de reviewer y approver a la derecha de la firma elaborador
+        - Firmas se apilan verticalmente sin solaparse
+        """
+        if not pdf_binary_base64:
+            return pdf_binary_base64
 
-        if not pdf_binary_base64 or not signature_image_base64:
-            return pdf_binary_base64  # Si falta algo, no modificamos
-        # Decodificar los datos binarios
         pdf_data = base64.b64decode(pdf_binary_base64)
-        signature_image = base64.b64decode(signature_image_base64)
-        # Leer el PDF original
         original_pdf = PdfFileReader(io.BytesIO(pdf_data))
-        # Buscar última página válida
-        last_page = None
+
+        # Última página válida
         last_page_index = None
         for idx in reversed(range(original_pdf.numPages)):
             page = original_pdf.getPage(idx)
             try:
                 if hasattr(page, "mediaBox") and len(page.mediaBox) == 4:
-                    last_page = page
                     last_page_index = idx
+                    width = float(page.mediaBox.getWidth())
+                    height = float(page.mediaBox.getHeight())
                     break
             except Exception:
                 continue
-        # Si no hay página válida, usar primera
-        if last_page is None:
-            last_page = original_pdf.getPage(0)
+        if last_page_index is None:
             last_page_index = 0
-            width, height = 595, 842  # tamaño A4 por defecto
-        else:
-            try:
-                width = float(last_page.mediaBox.getWidth())
-                height = float(last_page.mediaBox.getHeight())
-            except Exception:
-                width, height = 595, 842
+            width, height = 595, 842
 
-        quadrant_positions = {
-            1: (50, 180),  # abajo izquierda (más arriba)
-            2: (200, 180),  # un poco más al centro
-            3: (width - 350, 180),  # centro derecha
-            4: (width - 150, 180),  # abajo derecha
-        }
+        # Separar logs por tipo
+        reviewers = [log for log in approval_logs if log.approval_type == 'reviewer']
+        approvers = [log for log in approval_logs if log.approval_type == 'approver']
 
-        # Obtener coordenadas según el cuadrante
-        x, y = quadrant_positions.get(quadrant, quadrant_positions[1])
+        # Configuración
         sig_width, sig_height = 80, 35
-        # Crear PDF con la firma
+        margin_y = 20
+        base_y = height - 100  # desde la parte superior
+        base_x_elab = 50  # firma elaborador
+        base_x_review = base_x_elab + sig_width + 50  # columna reviewer
+        base_x_approve = base_x_review + sig_width + 50  # columna approver
+
         packet = io.BytesIO()
         can = canvas.Canvas(packet, pagesize=(width, height))
-        can.setFillColor(colors.white)
-        can.rect(x, y, sig_width, sig_height, fill=1, stroke=0)
-        can.drawImage(ImageReader(io.BytesIO(signature_image)), x, y,
-                      width=sig_width, height=sig_height, mask='auto')
-        # Agregar texto debajo de la firma
-        text_x = x
-        text_y = y - 12  # 12 puntos debajo de la firma
-        can.setFont("Helvetica", 10)
-        can.setFillColor(colors.black)
-        can.drawString(text_x, text_y, f"Elaborado por:")
+
+        # Dibujar firma elaborador
+        if elaborator_signature:
+            sig_elab = base64.b64decode(elaborator_signature)
+            can.drawImage(ImageReader(io.BytesIO(sig_elab)), base_x_elab, base_y,
+                          width=sig_width, height=sig_height, mask='auto')
+            can.setFont("Helvetica", 10)
+            can.setFillColor(colors.black)
+            can.drawString(base_x_elab, base_y - 12, "Elaborado por:")
+
+        # Función para dibujar columnas
+        def draw_column(logs, base_x, label):
+            for i, log in enumerate(logs):
+                x = base_x
+                y = base_y - i * (sig_height + margin_y)
+                sig_img = base64.b64decode(log.signature_image)
+                can.drawImage(ImageReader(io.BytesIO(sig_img)), x, y,
+                              width=sig_width, height=sig_height, mask='auto')
+                can.setFont("Helvetica", 10)
+                can.setFillColor(colors.black)
+                can.drawString(x, y - 12, f"{label}:")
+
+        draw_column(reviewers, base_x_review, "Revisado por")
+        draw_column(approvers, base_x_approve, "Aprobado por")
+
         can.save()
-        # Fusionar firma con la última página
+
+        # Fusionar con PDF original
         packet.seek(0)
         signature_pdf = PdfFileReader(packet)
         writer = PdfFileWriter()
         for i in range(original_pdf.numPages):
             page = original_pdf.getPage(i)
             if i == last_page_index:
-                page.mergePage(signature_pdf.getPage(0))  # 👈 API vieja
+                page.mergePage(signature_pdf.getPage(0))
             writer.addPage(page)
-        # Guardar PDF final
+
         output_stream = io.BytesIO()
         writer.write(output_stream)
         output_stream.seek(0)
@@ -390,8 +402,11 @@ class IrAttachment(models.Model):
                 mail_template = self.env.ref(
                     "quality_control_bol.document_approval_email", raise_if_not_found=True
                 )
+                # Aquí estamos pasando al contexto el usuario
                 mail_template.write({"email_to": user.email})
-                mail_template.send_mail(
+                mail_template.sudo().with_context(
+                    user_name=user.name,
+                ).send_mail(
                     rec.id, force_send=True, raise_exception=True
                 )
             for log in rec.approval_log_ids:
