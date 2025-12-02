@@ -276,7 +276,7 @@ class IrAttachment(models.Model):
             #         mail_template = self.env.ref(
             #             "project_bol.fsn_approved_notification", raise_if_not_found=True
             #         )
-            #         mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
+            #         mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
             #         fsn._action_create_project()
 
     def button_publish_document(self):
@@ -289,7 +289,7 @@ class IrAttachment(models.Model):
             )
             mail_template.write({"email_to": user.email})
             mail_template.send_mail(
-                self.id, force_send=False, raise_exception=True
+                self.id, force_send=True, raise_exception=True
             )
         self.state = 'published'
         return {
@@ -395,7 +395,7 @@ class IrAttachment(models.Model):
         )
         mail_template.write({"email_to": user.email})
         mail_template.send_mail(
-            self.id, force_send=False, raise_exception=True
+            self.id, force_send=True, raise_exception=True
         )
         return {
             'type': 'ir.actions.client',
@@ -446,7 +446,7 @@ class IrAttachment(models.Model):
                 mail_template.sudo().with_context(
                     user_name=user.name,
                 ).send_mail(
-                    rec.id, force_send=False, raise_exception=True
+                    rec.id, force_send=True, raise_exception=True
                 )
             for log in rec.approval_log_ids:
                 log.request_sign_date = fields.Datetime.now()
