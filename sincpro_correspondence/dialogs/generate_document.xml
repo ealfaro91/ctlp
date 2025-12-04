@@ -1,0 +1,84 @@
+<odoo>
+    <record model="ir.actions.act_window" id="render_dialog_generate_document">
+        <field name="name">Generar documento</field>
+        <field name="res_model">correspondence.dialog.generate.document</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="dialog_generate_document">
+        <field name="name">Generar documento</field>
+        <field name="model">correspondence.dialog.generate.document</field>
+        <field name="arch" type="xml">
+            <form string="Generar documento">
+                <field name="correspondence_id" invisible="1" force_save="1" />
+                <sheet>
+                    <div class="oe_title">
+                        <label for="correspondence_type_id" />
+                        <h1 class="w-100">
+                            <div class="d-flex">
+                                <field
+                                    class="w-100"
+                                    name="correspondence_type_id"
+                                    required="1"
+                                />
+                            </div>
+                        </h1>
+                    </div>
+
+                    <div invisible="not correspondence_type_id">
+                        <group>
+                            <group string="Interno">
+                                <field name="to_employee_id" widget="many2one_avatar_user" />
+                                <field name="via_employee_id" widget="many2one_avatar_user" />
+                                <field
+                                    name="from_employee_ids"
+                                    widget="many2many_avatar_employee"
+                                />
+                            </group>
+                            <group
+                                string="Documento generado"
+                                invisible="not to_employee_id or not via_employee_id or not from_employee_ids"
+                            >
+                                <field name="is_external" />
+                                <field
+                                    name="elaborated_by_partner_id"
+                                    widget="many2one_avatar_user"
+                                    readonly="is_external"
+                                />
+                                <field name="to_partner_id" widget="many2one_avatar_user" />
+                            </group>
+                        </group>
+                        <group
+                            string="Aprobadores"
+                            invisible="not elaborated_by_partner_id or not to_partner_id"
+                        >
+                            <field
+                                name="employees_to_approve_ids"
+                                widget="many2many_avatar_employee"
+                            />
+                        </group>
+                        <group
+                            string="Datos finales"
+                            invisible="not employees_to_approve_ids"
+                        >
+                            <field name="place" />
+                            <field name="date" widget="datetime" />
+                        </group>
+                    </div>
+                </sheet>
+
+                <footer>
+                    <button
+                        string="Generar"
+                        type="object"
+                        name="action_confirm"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -258,7 +258,7 @@ class DocumentPortal(CustomerPortal):
                 'signed_date': fields.Datetime.now(),
                 'state': 'approved',
             })
-            log = document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)
+            log = document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)[0]
             document_sudo.document_signed = log.attach_signature_to_pdf(document_sudo.document_signed,
                                                                    signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
 

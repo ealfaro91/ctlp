@@ -1,0 +1,110 @@
+<odoo>
+    <menuitem
+        id="sincpro_correspondence_app"
+        name="Correspondencia"
+        groups="sincpro_correspondence.group_correspondence_user"
+        sequence="50"
+        web_icon="sincpro_correspondence,static/description/icon.png"
+    />
+
+    <menuitem
+        id="menu_sincpro_correspondence_inbox"
+        name="Bandeja de entrada"
+        parent="sincpro_correspondence_app"
+        sequence="10"
+    >
+        <menuitem
+            id="menu_sincpro_correspondence_incoming_inbox"
+            name="Entrantes"
+            sequence="10"
+        >
+            <menuitem
+                id="menu_sincpro_correspondence_my_inbox_not_received"
+                name="No recepcionados"
+                sequence="1"
+                action="sincpro_correspondence.action_render_correspondence_messages_NO_ASSIGNED_by_user"
+            />
+
+            <menuitem
+                id="menu_sincpro_correspondence_my_inbox_received"
+                name="Recepcionados"
+                sequence="2"
+                action="sincpro_correspondence.action_render_correspondence_messages_ASSIGNED_by_user"
+            />
+
+            <menuitem
+                id="menu_sincpro_correspondence_incoming_my_inbox"
+                name="Todas correspondencias entrantes"
+                sequence="3"
+                action="sincpro_correspondence.action_render_correspondence_messages_all_incoming_by_user"
+            />
+        </menuitem>
+
+        <menuitem id="menu_sincpro_correspondence_operations" name="Crear" sequence="20">
+            <menuitem
+                id="menu_sincpro_correspondence_my_reasons"
+                name="Asuntos / Motivo"
+                sequence="1"
+                action="sincpro_correspondence.action_render_correspondence_reason_by_user"
+            />
+        </menuitem>
+
+        <menuitem
+            id="menu_sincpro_correspondence_my_sent_inbox"
+            name="Enviados"
+            sequence="30"
+            action="sincpro_correspondence.action_render_correspondence_messages_all_SENT_by_user"
+        />
+
+        <menuitem
+            id="menu_sincpro_correspondence_my_inbox"
+            name="Todas correspondencias"
+            sequence="40"
+            action="sincpro_correspondence.action_render_correspondence_messages_all_by_user"
+        />
+    </menuitem>
+
+    <menuitem
+        id="menu_sincpro_correspondence_manager"
+        name="Gestionar correspondencia"
+        parent="sincpro_correspondence_app"
+        groups="sincpro_correspondence.group_correspondence_manager"
+        sequence="30"
+    >
+        <menuitem
+            id="menu_sincpro_correspondence_all_inbox"
+            name="Todas las correspondencias"
+            sequence="3"
+            groups="sincpro_correspondence.group_correspondence_manager"
+            action="sincpro_correspondence.action_render_correspondence_messages"
+        />
+
+        <menuitem
+            id="menu_sincpro_correspondence_all_reasons"
+            name="Todos asuntos / motivos"
+            groups="sincpro_correspondence.group_correspondence_manager"
+            action="action_render_correspondence_reason"
+        />
+    </menuitem>
+
+    <menuitem
+        id="menu_sincpro_correspondence_settings"
+        name="Configuracion"
+        parent="sincpro_correspondence_app"
+        groups="sincpro_correspondence.group_correspondence_manager"
+        sequence="40"
+    >
+        <menuitem
+            id="menu_sincpro_correspondence_type"
+            name="Tipos de correspondencia"
+            action="sincpro_correspondence.render_correspondence_type"
+            groups="sincpro_correspondence.group_correspondence_manager"
+        />
+
+        <menuitem
+            id="menu_sincpro_correspondence_actions"
+            name="Acciones sobre correspondencias"
+            action="sincpro_correspondence.action_render_correspondence_action"
+        />
+    </menuitem>
+</odoo>

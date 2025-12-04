@@ -1,0 +1,89 @@
+<odoo>
+    <record model="ir.actions.act_window" id="render_assign_correspondence">
+        <field name="name">Asignar correspondencia</field>
+        <field name="res_model">correspondence.dialog.assign</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <record model="ir.ui.view" id="assign_correspondence_form">
+        <field name="name">correspondence.dialog.assign.form</field>
+        <field name="model">correspondence.dialog.assign</field>
+        <field name="arch" type="xml">
+            <form string="Asignar correspondencia">
+                <field name="reason_id" invisible="1" force_save="1" />
+                <sheet>
+                    <div class="oe_title">
+                        <label for="correspondence_issue" string="Asunto " />
+                        <h1>
+                            <div class="d-flex">
+                                <field
+                                    class="text-break border-primary"
+                                    name="correspondence_issue"
+                                    options="{'line_breaks': False}"
+                                    widget="text"
+                                    placeholder="RECLAMO DE CLIENTE"
+                                    required="1"
+                                />
+                            </div>
+                        </h1>
+                    </div>
+                    <div name="options">
+                        <span class="d-inline-block">
+                            <field name="from_id_is_external" />
+                            <label for="from_id_is_external" />
+                        </span>
+                        <br />
+                        <span class="d-inline-block">
+                            <field name="to_id_is_external" />
+                            <label for="to_id_is_external" />
+                        </span>
+                    </div>
+
+                    <group>
+                        <group string="Asginar">
+                            <field name="from_employee_id" widget="many2one_avatar_user" />
+                            <field name="to_employee_id" widget="many2one_avatar_user" />
+                        </group>
+
+                        <group
+                            string="Contacto"
+                            invisible="not to_id_is_external and not from_id_is_external"
+                        >
+                            <field
+                                name="from_partner_id"
+                                readonly="not from_id_is_external"
+                                force_save="1"
+                                widget="many2one_avatar_user"
+                                invisible="not from_id_is_external"
+                            />
+                            <field
+                                name="to_partner_id"
+                                readonly="not to_id_is_external"
+                                force_save="1"
+                                widget="many2one_avatar_user"
+                                invisible="not to_id_is_external"
+                            />
+                        </group>
+                    </group>
+                    <br />
+                    <div class="oe_title">
+                        <group>
+                            <field name="action_id" />
+                            <field name="document_ids" widget="many2many_tags" />
+                        </group>
+                    </div>
+                </sheet>
+                <footer>
+                    <button
+                        string="Confirmar"
+                        type="object"
+                        name="action_confirm"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

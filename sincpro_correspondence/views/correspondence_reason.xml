@@ -1,0 +1,185 @@
+<odoo>
+    <record model="ir.actions.act_window" id="action_render_correspondence_reason">
+        <field name="name">Asunto</field>
+        <field name="res_model">correspondence.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_reason_by_user">
+        <field name="name">Asunto</field>
+        <field name="res_model">correspondence.reason</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('create_uid', '=', uid)]</field>
+    </record>
+
+    <record model="ir.ui.view" id="correspondence_reason_tree">
+        <field name="name">correspondence.reason.tree</field>
+        <field name="model">correspondence.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="date" />
+                <field name="issue" />
+                <field name="origin" />
+                <field name="correspondence_message_ids" widget="badge" decoration-info="1" />
+                <field name="document_ids" widget="badge" decoration-warning="1" />
+                <field name="type" widget="badge" decoration-success="type == 'internal'" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'done'"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="correspondence_reason_form">
+        <field name="name">correspondence.reason.form</field>
+        <field name="model">correspondence.reason</field>
+        <field name="arch" type="xml">
+            <form string="Asunto">
+                <field name="count_correspondence" invisible="1" />
+                <header>
+                    <field name="state" widget="statusbar" />
+                    <button
+                        type="object"
+                        name="action_assign_correspondence"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    >
+                        <i class="fa fa-external-link" />
+                        Asignar
+                    </button>
+                    <button
+                        type="object"
+                        name="action_generate_document"
+                        class="btn-primary"
+                        data-hotkey="w"
+                    >
+                        <i class="fa fa-external-link" />
+                        Generar documento
+                    </button>
+                </header>
+
+                <sheet>
+                    <!--  Magic buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="action_redirect_correspondence"
+                            icon="fa-envelope"
+                        >
+                            <field
+                                name="count_correspondence"
+                                widget="statinfo"
+                                string="Correspondencia"
+                            />
+                        </button>
+                    </div>
+
+                    <!-- UX State-->
+                    <widget
+                        name="web_ribbon"
+                        title="Interno"
+                        invisible="type != 'internal'"
+                    />
+
+                    <widget
+                        name="web_ribbon"
+                        title="Externo"
+                        invisible="type != 'external'"
+                        bgcolor="text-bg-primary"
+                    />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" force_save="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="issue" readonly="state in ['done', 'cancel']" />
+                            <field name="origin" readonly="state in ['done', 'cancel']" />
+                        </group>
+                        <group>
+                            <field name="type" readonly="state in ['done', 'cancel']" />
+                            <field name="date" readonly="state in ['done', 'cancel']" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Mensajes">
+                            <field name="correspondence_message_ids" readonly="1">
+                                <tree>
+                                    <field name="sent_date" string="Fecha" />
+                                    <field name="name" optional="hide" />
+                                    <field name="ref" />
+                                    <field name="document_ids" widget="many2many_tags" />
+                                    <field
+                                        name="from_employee_id"
+                                        widget="many2one_avatar_user"
+                                    />
+                                    <field
+                                        name="to_employee_id"
+                                        widget="many2one_avatar_user"
+                                    />
+                                    <field name="action_id" widget="badge" />
+                                    <field
+                                        name="state"
+                                        widget="badge"
+                                        decoration-warning="state == 'sent'"
+                                        decoration-info="state == 'assigned'"
+                                        decoration-success="state in ['done', 'closed']"
+                                        decoration-danger="state in ['todo']"
+                                    />
+                                    <button
+                                        type="object"
+                                        name="action_show_correspondence"
+                                        class="btn-primary"
+                                        string="Ver"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Correspodencia Genrados/Asociados">
+                            <field name="document_ids" readonly="1">
+                                <tree open_form_view="0">
+                                    <field name="date" />
+                                    <field name="name" />
+                                    <field
+                                        name="elaborated_by_partner_id"
+                                        widget="many2one_avatar_user"
+                                    />
+                                    <field
+                                        name="to_partner_id"
+                                        widget="many2one_avatar_user"
+                                    />
+                                    <field name="document_type_id" />
+                                    <field
+                                        name="state"
+                                        decoration-success="state == 'assigned'"
+                                        widget="badge"
+                                    />
+                                    <field name="correspondence_message_id" />
+                                    <button
+                                        type="object"
+                                        name="action_show_correspondence_document"
+                                        class="btn-primary"
+                                        string="Ver"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

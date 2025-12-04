@@ -1,0 +1,19 @@
+<odoo>
+    <record model="ir.module.category" id="sincpro_correspondence">
+        <field name="name">Correspondencia</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <record model="res.groups" id="group_correspondence_user">
+        <field name="name">Usuario</field>
+        <field name="comment"> Accesso basico a aplicacion de correspondencia </field>
+        <field name="category_id" ref="sincpro_correspondence" />
+    </record>
+
+    <record model="res.groups" id="group_correspondence_manager">
+        <field name="name">Administrador</field>
+        <field name="comment"> Acceso total a aplicacion de correspondencia </field>
+        <field name="category_id" ref="sincpro_correspondence" />
+        <field name="implied_ids" eval="[(4, ref('group_correspondence_user'))]" />
+    </record>
+</odoo>

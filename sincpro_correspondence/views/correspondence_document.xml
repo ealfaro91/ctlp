@@ -1,0 +1,67 @@
+<odoo>
+    <record model="ir.ui.view" id="sp_correspondence_doc_form_view">
+        <field name="name">correspondence.document.form</field>
+        <field name="model">correspondence.document</field>
+        <field name="arch" type="xml">
+            <form string="Documento de correspondencia">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="document_type_id" />
+                        <h1 class="w-100">
+                            <div class="d-flex">
+                                <field class="w-100" name="document_type_id" readonly="1" />
+                            </div>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Interno">
+                            <field
+                                name="to_employee_id"
+                                widget="many2one_avatar_user"
+                                readonly="1"
+                            />
+                            <field
+                                name="via_employee_id"
+                                widget="many2one_avatar_user"
+                                readonly="1"
+                            />
+                            <field
+                                name="from_employee_ids"
+                                widget="many2many_avatar_employee"
+                                readonly="1"
+                            />
+                        </group>
+                        <group string="Documento generado">
+                            <field
+                                name="elaborated_by_partner_id"
+                                widget="many2one_avatar_user"
+                                readonly="1"
+                            />
+                            <field
+                                name="to_partner_id"
+                                widget="many2one_avatar_user"
+                                readonly="1"
+                            />
+                        </group>
+                    </group>
+                    <group string="Aprobadores">
+                        <field
+                            name="employees_to_approve_ids"
+                            widget="many2many_avatar_employee"
+                            readonly="1"
+                        />
+                    </group>
+                    <group string="Datos finales">
+                        <field name="place" readonly="1" />
+                        <field name="date" widget="datetime" readonly="1" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

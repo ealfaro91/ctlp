@@ -156,73 +156,9 @@ class IrAttachment(models.Model):
             })
             rec.state = 'to_review'
 
-    def button_author_sign(self):
-        """ Calls the method to attach the signature to the PDF document. """
-        if not self.env.user.sign_signature:
-            raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
-        self.approval_log_ids.create({
-            'user_id': self.env.user.id,
-            'attachment_id': self.id,
-            'signed_date': fields.Datetime.now(),
-            'sign_signature': self.env.user.sign_signature,
-            'approval_type': 'author',
-        })
-        # Asignar coordenadas a todos los logs, incluyendo este
-        self.assign_signature_coords(self.approval_log_ids)
-        new_pdf = self.attach_signature_to_pdf(self.datas, self.env.user.sign_signature, self.approval_log_ids)
-        self.document_signed = new_pdf
-        self.signed_by_author = True
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "message": _("The FSN has been signed by the author."),
-                "next": {"type": "ir.actions.act_window_close"},
-                "sticky": False,
-                "type": "success",
-            }
-        }
-
-    @staticmethod
-    def assign_signature_coords(approval_logs, page_width=595, base_x=None, base_y=800):
-        """
-        Assign signature coordinates in a table at the top of the page.
-        Columns: author (left), reviewer (center), approver (right).
-        Multiple rows if needed.
-        """
-        sig_width, sig_height = 80, 35
-        margin_x = 20
-        margin_y = 40
-
-        # Column X positions
-        columns = {
-            'author': 50,
-            'reviewer': (page_width - sig_width) / 2,
-            'approver': page_width - sig_width - 50,
-        }
-
-        # Counters para filas por columna
-        row_counters = {'author': 0, 'reviewer': 0, 'approver': 0}
-
-        for log in approval_logs:
-            col_x = columns.get(log.approval_type, 50)  # default a author
-            row = row_counters[log.approval_type]
-            x = col_x
-            y = base_y - row * (sig_height + margin_y)
-            log.write({'x_coord': x, 'y_coord': y})
-            row_counters[log.approval_type] += 1
-
     def button_replace_version(self):
         self.version_id.active = False
         self.active = False
-
-
-    # @api.onchange('document_directory_id')
-    # def _onchange_user_ids(self):
-    #     for rec in self:
-    #         rec.user_ids = False
-    #         if rec.document_directory_id:
-    #             rec.user_ids = rec.document_directory_id.user_ids
 
     @api.depends('version_id.deactivate_date', 'version_id')
     def _compute_obsolete(self):
@@ -276,7 +212,7 @@ class IrAttachment(models.Model):
             #         mail_template = self.env.ref(
             #             "project_bol.fsn_approved_notification", raise_if_not_found=True
             #         )
-            #         mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
+            #         mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
             #         fsn._action_create_project()
 
     def button_publish_document(self):
@@ -289,7 +225,7 @@ class IrAttachment(models.Model):
             )
             mail_template.write({"email_to": user.email})
             mail_template.send_mail(
-                self.id, force_send=True, raise_exception=True
+                self.id, force_send=False, raise_exception=True
             )
         self.state = 'published'
         return {
@@ -302,6 +238,101 @@ class IrAttachment(models.Model):
                 'type': 'success',
             }
         }
+
+    def get_document_url(self):
+        """Generate the URL for the document in the portal."""
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        for rec in self:
+            if not rec.access_token:
+                rec._portal_ensure_token()
+            rec.document_url = "%s/my/document/%s?access_token=%s" % (
+                base_url,
+                rec.id,
+                rec.access_token,
+            )
+
+    def _get_portal_return_action(self):
+        """Return the action used to display record when returning from customer portal."""
+        self.ensure_one()
+        return self.env.ref("document_signature.approval_log_action")
+
+    def get_portal_sign_url(self):
+        return "/my/document/%s/sign?access_token=%s" % (self.id, self.access_token)
+
+    def button_send_approval_request(self):
+        """Send approval request emails to all users in the approval log."""
+        for rec in self:
+            if not rec.approval_log_ids:
+                raise ValidationError(
+                    _("There are no users in the approval log to send the request.")
+                )
+            rec.assign_signature_coords(rec.approval_log_ids)
+            for user in rec.approval_log_ids.mapped("user_id"):
+                mail_template = self.env.ref(
+                    "quality_control_bol.document_approval_email", raise_if_not_found=True
+                )
+                # Aquí estamos pasando al contexto el usuario
+                mail_template.write({"email_to": user.email})
+                mail_template.sudo().with_context(
+                    user_name=user.name,
+                ).send_mail(
+                    rec.id, force_send=False, raise_exception=True
+                )
+            for log in rec.approval_log_ids:
+                log.request_sign_date = fields.Datetime.now()
+            rec.sent_approval_request = True
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'message': _("The approval request has been sent successfully."),
+                    'next': {'type': 'ir.actions.act_window_close'},
+                    'sticky': False,
+                    'type': 'success',
+                }}
+
+    @staticmethod
+    def assign_signature_coords(approval_logs, page_width=595, base_y=800):
+        """
+        Assign signature coordinates in a table at the top of the page.
+        Columns: author (left), reviewer (center), approver (right).
+        Multiple rows if needed.
+        """
+        sig_width, sig_height = 80, 35
+        margin_y = 40
+
+        # columnas
+        col_author = 50
+        col_reviewer = (page_width / 2) - (sig_width / 2)
+        col_approver = page_width - sig_width - 50
+
+        columns_x = {
+            "author": col_author,
+            "reviewer": col_reviewer,
+            "approver": col_approver,
+        }
+
+        # cómo se apilan verticalmente dentro de cada columna
+        row_counter = {
+            "author": 0,
+            "reviewer": 0,
+            "approver": 0,
+        }
+
+        for log in approval_logs:
+            t = log.approval_type or "author"
+            if t not in columns_x:
+                t = "author"
+
+            x = columns_x[t]
+            y = base_y - row_counter[t] * (sig_height + margin_y)
+
+            log.write({
+                "x_coord": x,
+                "y_coord": y
+            })
+
+            row_counter[t] += 1
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature, approval_logs):
@@ -389,74 +420,28 @@ class IrAttachment(models.Model):
         output_stream.seek(0)
         return base64.b64encode(output_stream.read())
 
-    def button_send_reviewer_request(self):
-        mail_template = self.env.ref(
-            "quality_control_bol.document_approval_email", raise_if_not_found=True
-        )
-        mail_template.write({"email_to": user.email})
-        mail_template.send_mail(
-            self.id, force_send=True, raise_exception=True
-        )
+    def button_author_sign(self):
+        """ Calls the method to attach the signature to the PDF document. """
+        if not self.env.user.sign_signature:
+            raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
+        self.approval_log_ids.create({
+            'attachment_id': self.id,
+            'user_id': self.env.user.id,
+            'signed_date': fields.Datetime.now(),
+            'sign_signature': self.env.user.sign_signature,
+            'approval_type': 'author',
+        })  # Asignar coordenadas a todos los logs, incluyendo este
+        self.assign_signature_coords(self.approval_log_ids)
+        new_pdf = self.attach_signature_to_pdf(self.datas, self.env.user.sign_signature, self.approval_log_ids)
+        self.document_signed = new_pdf
+        self.signed_by_author = True
         return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'message': _("Se ha enviado para revisión."),
-                'next': {'type': 'ir.actions.act_window_close'},
-                'sticky': False,
-                'type': 'success',
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "message": _("The Document has been signed by the author."),
+                "next": {"type": "ir.actions.act_window_close"},
+                "sticky": False,
+                "type": "success",
             }
         }
-
-    def get_document_url(self):
-        """Generate the URL for the document in the portal."""
-        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-        for rec in self:
-            if not rec.access_token:
-                rec._portal_ensure_token()
-            rec.document_url = "%s/my/document/%s?access_token=%s" % (
-                base_url,
-                rec.id,
-                rec.access_token,
-            )
-
-    def _get_portal_return_action(self):
-        """Return the action used to display record when returning from customer portal."""
-        self.ensure_one()
-        return self.env.ref("document_signature.approval_log_action")
-
-    def get_portal_sign_url(self):
-        return "/my/document/%s/sign?access_token=%s" % (self.id, self.access_token)
-
-
-    def button_send_approval_request(self):
-        """Send approval request emails to all users in the approval log."""
-        for rec in self:
-            if not rec.approval_log_ids:
-                raise ValidationError(
-                    _("There are no users in the approval log to send the request.")
-                )
-            rec.assign_signature_coords(rec.approval_log_ids)
-            for user in rec.approval_log_ids.mapped("user_id"):
-                mail_template = self.env.ref(
-                    "quality_control_bol.document_approval_email", raise_if_not_found=True
-                )
-                # Aquí estamos pasando al contexto el usuario
-                mail_template.write({"email_to": user.email})
-                mail_template.sudo().with_context(
-                    user_name=user.name,
-                ).send_mail(
-                    rec.id, force_send=True, raise_exception=True
-                )
-            for log in rec.approval_log_ids:
-                log.request_sign_date = fields.Datetime.now()
-            rec.sent_approval_request = True
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'message': _("The approval request has been sent successfully."),
-                    'next': {'type': 'ir.actions.act_window_close'},
-                    'sticky': False,
-                    'type': 'success',
-                }}

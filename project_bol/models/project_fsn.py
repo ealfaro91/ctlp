@@ -210,6 +210,115 @@ class ProjectFsn(models.Model):
         res.button_generate_fsn()
         return res
 
+
+    def button_cancel(self):
+        self.state = "cancelled"
+
+    def _inverse_compute_approval_state(self):
+        """Inverse method to set the state of the FSN based on the approval log."""
+        for fsn in self:
+            if fsn.state == "to_approve":
+                fsn.sent_approval_request = False
+            elif fsn.state == "approval_request":
+                fsn.sent_approval_request = True
+            elif fsn.state == "approved":
+                fsn.sent_approval_request = True
+            elif fsn.state == "cancelled":
+                fsn.sent_approval_request = False
+
+    @api.depends("approval_log_ids", "sent_approval_request", "approval_log_ids.state")
+    def _compute_approval_state(self):
+        """Compute the approval state based on the approval
+         log and create a project if all approvals are done."""
+        for fsn in self:
+            fsn.state = "to_approve" if not fsn.sent_approval_request and not fsn.approval_log_ids else fsn.state
+            fsn.state = "approval_request" if fsn.sent_approval_request and not all(
+                log.state == "approved" for log in fsn.approval_log_ids
+            ) else "to_approve"
+            if fsn.approval_log_ids:
+                if all(log.state == "approved" for log in fsn.approval_log_ids):
+                    fsn.state = "approved"
+                if fsn.state == "approved":
+                    mail_template = self.env.ref(
+                        "project_bol.fsn_approved_notification", raise_if_not_found=True
+                    )
+                    mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
+                    fsn._action_create_project()
+
+    def get_document_url(self):
+        """Generate the URL for the document in the portal."""
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        for rec in self:
+            if not rec.access_token:
+                rec._portal_ensure_token()
+            rec.document_url = "%s/my/fsn/%s?access_token=%s" % (
+                base_url,
+                rec.id,
+                rec.access_token,
+            )
+
+    def _get_portal_return_action(self):
+        """Return the action used to display record when returning from customer portal."""
+        self.ensure_one()
+        return self.env.ref("document_signature.approval_log_action")
+
+    def get_portal_sign_url(self):
+        return "/my/fsn/%s/sign?access_token=%s" % (self.id, self.access_token)
+
+    def _action_create_project(self):
+        """Creates a project with fsn values."""
+        self.ensure_one()
+        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
+        project = self.env["project.project"].create({
+            "name": self.name,
+            "description": self.request_description,
+            "requested_by_id": self.requested_by_id.id,
+            "fsn_id": self.id,
+            "requested_area": self.area,
+            "user_id": manager.id,
+        })
+        self.project_id = project.id
+        mail_template = self.env.ref(
+            "project_bol.project_creation_email", raise_if_not_found=True
+        )
+        mail_template.sudo().send_mail(self.project_id.id, force_send=True, raise_exception=True)
+
+    def button_send_approval_request(self):
+        """Send approval request emails to all users in the approval log.
+        returns a notification message."""
+
+        for rec in self:
+            if not rec.approval_log_ids:
+                raise ValidationError(
+                    _("There are no users in the approval log to send the request.")
+                )
+            rec.assign_signature_coords(rec.approval_log_ids)
+            for user in rec.approval_log_ids.mapped("user_id"):
+                mail_template = self.env.ref(
+                    "project_bol.fsn_approval_request_email", raise_if_not_found=True
+                )
+                # Aquí estamos pasando al contexto el usuario
+                mail_template.write({"email_to": user.email})
+                mail_template.sudo().with_context(
+                    user_name=user.name,
+                ).send_mail(
+                    rec.id, force_send=True, raise_exception=True
+                )
+            for log in rec.approval_log_ids:
+                log.request_sign_date = fields.Datetime.now()
+            rec.sent_approval_request = True
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "message": _("The approval request has been sent successfully."),
+                    "next": {"type": "ir.actions.act_window_close"},
+                    "sticky": False,
+                    "type": "success",
+                }
+            }
+
+
     @staticmethod
     def assign_signature_coords(approval_logs, page_width=595, base_x=50, base_y=180):
         """
@@ -303,131 +412,6 @@ class ProjectFsn(models.Model):
         writer.write(output_stream)
         output_stream.seek(0)
         return base64.b64encode(output_stream.read())
-
-    def button_author_sign(self):
-        """ Calls the method to attach the signature to the PDF document. """
-        if not self.requested_by_id.sign_signature:
-            raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
-        new_pdf = self.attach_signature_to_pdf(self.document, self.requested_by_id.sign_signature)
-        self.document_signed = new_pdf
-        self.signed_by_author = True
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {
-                "message": _("The FSN has been signed by the author."),
-                "next": {"type": "ir.actions.act_window_close"},
-                "sticky": False,
-                "type": "success",
-            }
-        }
-
-    def button_cancel(self):
-        self.state = "cancelled"
-
-    def _inverse_compute_approval_state(self):
-        """Inverse method to set the state of the FSN based on the approval log."""
-        for fsn in self:
-            if fsn.state == "to_approve":
-                fsn.sent_approval_request = False
-            elif fsn.state == "approval_request":
-                fsn.sent_approval_request = True
-            elif fsn.state == "approved":
-                fsn.sent_approval_request = True
-            elif fsn.state == "cancelled":
-                fsn.sent_approval_request = False
-
-    @api.depends("approval_log_ids", "sent_approval_request", "approval_log_ids.state")
-    def _compute_approval_state(self):
-        """Compute the approval state based on the approval
-         log and create a project if all approvals are done."""
-        for fsn in self:
-            fsn.state = "to_approve" if not fsn.sent_approval_request and not fsn.approval_log_ids else fsn.state
-            fsn.state = "approval_request" if fsn.sent_approval_request and not all(
-                log.state == "approved" for log in fsn.approval_log_ids
-            ) else "to_approve"
-            if fsn.approval_log_ids:
-                if all(log.state == "approved" for log in fsn.approval_log_ids):
-                    fsn.state = "approved"
-                if fsn.state == "approved":
-                    mail_template = self.env.ref(
-                        "project_bol.fsn_approved_notification", raise_if_not_found=True
-                    )
-                    mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
-                    fsn._action_create_project()
-
-    def get_document_url(self):
-        """Generate the URL for the document in the portal."""
-        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-        for rec in self:
-            if not rec.access_token:
-                rec._portal_ensure_token()
-            rec.document_url = "%s/my/fsn/%s?access_token=%s" % (
-                base_url,
-                rec.id,
-                rec.access_token,
-            )
-
-    def _get_portal_return_action(self):
-        """Return the action used to display record when returning from customer portal."""
-        self.ensure_one()
-        return self.env.ref("document_signature.approval_log_action")
-
-    def get_portal_sign_url(self):
-        return "/my/fsn/%s/sign?access_token=%s" % (self.id, self.access_token)
-
-    def button_send_approval_request(self):
-        """Send approval request emails to all users in the approval log.
-        returns a notification message."""
-
-        for rec in self:
-            if not rec.approval_log_ids:
-                raise ValidationError(
-                    _("There are no users in the approval log to send the request.")
-                )
-            rec.assign_signature_coords(rec.approval_log_ids)
-            for user in rec.approval_log_ids.mapped("user_id"):
-                mail_template = self.env.ref(
-                    "project_bol.fsn_approval_request_email", raise_if_not_found=True
-                )
-                # Aquí estamos pasando al contexto el usuario
-                mail_template.write({"email_to": user.email})
-                mail_template.sudo().with_context(
-                    user_name=user.name,
-                ).send_mail(
-                    rec.id, force_send=True, raise_exception=True
-                )
-            for log in rec.approval_log_ids:
-                log.request_sign_date = fields.Datetime.now()
-            rec.sent_approval_request = True
-            return {
-                "type": "ir.actions.client",
-                "tag": "display_notification",
-                "params": {
-                    "message": _("The approval request has been sent successfully."),
-                    "next": {"type": "ir.actions.act_window_close"},
-                    "sticky": False,
-                    "type": "success",
-                }
-            }
-
-    def _action_create_project(self):
-        """Creates a project with fsn values."""
-        self.ensure_one()
-        manager = self.env.ref("project_bol.group_fsn_ti_manager").users[0]
-        project = self.env["project.project"].create({
-            "name": self.name,
-            "description": self.request_description,
-            "requested_by_id": self.requested_by_id.id,
-            "fsn_id": self.id,
-            "requested_area": self.area,
-            "user_id": manager.id,
-        })
-        self.project_id = project.id
-        mail_template = self.env.ref(
-            "project_bol.project_creation_email", raise_if_not_found=True
-        )
-        mail_template.sudo().send_mail(self.project_id.id, force_send=True, raise_exception=True)
 
     # @api.model
     # def get_dashboard_values(self):
