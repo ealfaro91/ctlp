@@ -438,3 +438,20 @@ class ProjectFsn(models.Model):
     #     return result
     #
 
+    def button_author_sign(self):
+        """ Calls the method to attach the signature to the PDF document. """
+        if not self.requested_by_id.sign_signature:
+            raise ValidationError(_("The author signature is required. Go to the user settings to add it."))
+        new_pdf = self.attach_signature_to_pdf(self.document, self.requested_by_id.sign_signature)
+        self.document_signed = new_pdf
+        self.signed_by_author = True
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "message": _("The FSN has been signed by the author."),
+                "next": {"type": "ir.actions.act_window_close"},
+                "sticky": False,
+                "type": "success",
+            }
+        }

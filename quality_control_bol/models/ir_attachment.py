@@ -212,7 +212,7 @@ class IrAttachment(models.Model):
             #         mail_template = self.env.ref(
             #             "project_bol.fsn_approved_notification", raise_if_not_found=True
             #         )
-            #         mail_template.sudo().send_mail(fsn.id, force_send=True, raise_exception=True)
+            #         mail_template.sudo().send_mail(fsn.id, force_send=False, raise_exception=True)
             #         fsn._action_create_project()
 
     def button_publish_document(self):
@@ -225,7 +225,7 @@ class IrAttachment(models.Model):
             )
             mail_template.write({"email_to": user.email})
             mail_template.send_mail(
-                self.id, force_send=True, raise_exception=True
+                self.id, force_send=False, raise_exception=True
             )
         self.state = 'published'
         return {
@@ -276,7 +276,7 @@ class IrAttachment(models.Model):
                 mail_template.sudo().with_context(
                     user_name=user.name,
                 ).send_mail(
-                    rec.id, force_send=True, raise_exception=True
+                    rec.id, force_send=False, raise_exception=True
                 )
             for log in rec.approval_log_ids:
                 log.request_sign_date = fields.Datetime.now()
@@ -292,19 +292,21 @@ class IrAttachment(models.Model):
                 }}
 
     @staticmethod
-    def assign_signature_coords(approval_logs, page_width=595, base_y=800):
+    def assign_signature_coords(approval_logs, page_width=595):
         """
-        Assign signature coordinates in a table at the top of the page.
-        Columns: author (left), reviewer (center), approver (right).
-        Multiple rows if needed.
+        Align Author, Reviewer, Approver on the same first row.
+        Reviewer and Approver may stack below.
         """
         sig_width, sig_height = 80, 35
-        margin_y = 40
+        margin_y = 30
 
-        # columnas
-        col_author = 50
-        col_reviewer = (page_width / 2) - (sig_width / 2)
-        col_approver = page_width - sig_width - 50
+        # Esta es la altura REAL que quieres usar
+        base_y = 750
+
+        # Deja tus columnas como ya estaban (para no desalinear)
+        col_author = 200
+        col_reviewer = col_author + 100
+        col_approver = col_reviewer + 100
 
         columns_x = {
             "author": col_author,
@@ -312,7 +314,6 @@ class IrAttachment(models.Model):
             "approver": col_approver,
         }
 
-        # cómo se apilan verticalmente dentro de cada columna
         row_counter = {
             "author": 0,
             "reviewer": 0,
@@ -325,14 +326,24 @@ class IrAttachment(models.Model):
                 t = "author"
 
             x = columns_x[t]
-            y = base_y - row_counter[t] * (sig_height + margin_y)
+
+            # CORRECCIÓN CLAVE:
+            if t == "author":
+                y = base_y
+            else:
+                if row_counter[t] == 0:
+                    # PRIMERA FILA (igual que author)
+                    y = base_y
+                else:
+                    # FILAS ADICIONALES
+                    y = base_y - row_counter[t] * (sig_height + margin_y)
+
+                row_counter[t] += 1
 
             log.write({
                 "x_coord": x,
-                "y_coord": y
+                "y_coord": y,
             })
-
-            row_counter[t] += 1
 
     @staticmethod
     def attach_signature_to_pdf(pdf_binary_base64, signature, approval_logs):
@@ -365,8 +376,8 @@ class IrAttachment(models.Model):
             width, height = 595, 842
 
         # Separar logs por tipo
-        reviewers = [log for log in approval_logs if log.approval_type == 'reviewer']
-        approvers = [log for log in approval_logs if log.approval_type == 'approver']
+        reviewers = approval_logs.filtered(lambda l: l.approval_type == "reviewer" and l.sign_signature)
+        approvers =  approval_logs.filtered(lambda l: l.approval_type == "approver" and l.sign_signature)
 
         # Configuración
         sig_width, sig_height = 80, 35
@@ -393,7 +404,7 @@ class IrAttachment(models.Model):
             for i, log in enumerate(logs):
                 x = base_x
                 y = base_y - i * (sig_height + margin_y)
-                sig_img = base64.b64decode(log.signature_image)
+                sig_img = base64.b64decode(log.sign_signature)
                 can.drawImage(ImageReader(io.BytesIO(sig_img)), x, y,
                               width=sig_width, height=sig_height, mask='auto')
                 can.setFont("Helvetica", 10)
@@ -402,7 +413,7 @@ class IrAttachment(models.Model):
 
         draw_column(reviewers, base_x_review, "Revisado por")
         draw_column(approvers, base_x_approve, "Aprobado por")
-
+        can.showPage()
         can.save()
 
         # Fusionar con PDF original
