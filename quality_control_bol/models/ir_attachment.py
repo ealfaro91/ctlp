@@ -266,8 +266,9 @@ class IrAttachment(models.Model):
                 raise ValidationError(
                     _("There are no users in the approval log to send the request.")
                 )
-            rec.assign_signature_coords(rec.approval_log_ids)
-            for user in rec.approval_log_ids.mapped("user_id"):
+          #  rec.assign_signature_coords(rec.approval_log_ids)
+            for user in rec.approval_log_ids.filtered(
+                lambda x: x.approval_type in ("approver", "reviewer")).mapped("user_id"):
                 mail_template = self.env.ref(
                     "quality_control_bol.document_approval_email", raise_if_not_found=True
                 )
@@ -304,7 +305,7 @@ class IrAttachment(models.Model):
         base_y = 750
 
         # Deja tus columnas como ya estaban (para no desalinear)
-        col_author = 200
+        col_author = 400
         col_reviewer = col_author + 100
         col_approver = col_reviewer + 100
 
@@ -327,18 +328,9 @@ class IrAttachment(models.Model):
 
             x = columns_x[t]
 
-            # CORRECCIÓN CLAVE:
-            if t == "author":
-                y = base_y
-            else:
-                if row_counter[t] == 0:
-                    # PRIMERA FILA (igual que author)
-                    y = base_y
-                else:
-                    # FILAS ADICIONALES
-                    y = base_y - row_counter[t] * (sig_height + margin_y)
-
-                row_counter[t] += 1
+            # Todas las columnas usan la MISMA fórmula:
+            y = base_y - row_counter[t] * (sig_height + margin_y)
+            row_counter[t] += 1
 
             log.write({
                 "x_coord": x,
@@ -376,6 +368,7 @@ class IrAttachment(models.Model):
             width, height = 595, 842
 
         # Separar logs por tipo
+        authors = approval_logs.filtered(lambda l: l.approval_type == "author" and l.sign_signature)
         reviewers = approval_logs.filtered(lambda l: l.approval_type == "reviewer" and l.sign_signature)
         approvers =  approval_logs.filtered(lambda l: l.approval_type == "approver" and l.sign_signature)
 
@@ -383,21 +376,21 @@ class IrAttachment(models.Model):
         sig_width, sig_height = 80, 35
         margin_y = 20
         base_y = height - 100  # desde la parte superior
-        base_x_elab = 50  # firma elaborador
+        base_x_elab = 100  # firma elaborador
         base_x_review = base_x_elab + sig_width + 50  # columna reviewer
         base_x_approve = base_x_review + sig_width + 50  # columna approver
 
         packet = io.BytesIO()
         can = canvas.Canvas(packet, pagesize=(width, height))
-
-        # Dibujar firma elaborador
-        if signature:
-            sig_elab = base64.b64decode(signature)
-            can.drawImage(ImageReader(io.BytesIO(sig_elab)), base_x_elab, base_y,
-                          width=sig_width, height=sig_height, mask='auto')
-            can.setFont("Helvetica", 10)
-            can.setFillColor(colors.black)
-            can.drawString(base_x_elab, base_y - 12, "Elaborado por:")
+        #
+        # # Dibujar firma elaborador
+        # if signature:
+        #     sig_elab = base64.b64decode(signature)
+        #     can.drawImage(ImageReader(io.BytesIO(sig_elab)), base_x_elab, base_y,
+        #                   width=sig_width, height=sig_height, mask='auto')
+        #     can.setFont("Helvetica", 10)
+        #     can.setFillColor(colors.black)
+        #     can.drawString(base_x_elab, base_y - 12, "Elaborado por:")
 
         # Función para dibujar columnas
         def draw_column(logs, base_x, label):
@@ -411,6 +404,7 @@ class IrAttachment(models.Model):
                 can.setFillColor(colors.black)
                 can.drawString(x, y - 12, f"{label}:")
 
+        draw_column(authors, base_x_elab, "Elaborado por")
         draw_column(reviewers, base_x_review, "Revisado por")
         draw_column(approvers, base_x_approve, "Aprobado por")
         can.showPage()

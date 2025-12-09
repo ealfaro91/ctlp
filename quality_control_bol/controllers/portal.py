@@ -259,8 +259,10 @@ class DocumentPortal(CustomerPortal):
                 'state': 'approved',
             })
             log = document_sudo.approval_log_ids.filtered(lambda log: log.user_id.id == request.env.user.id)[0]
-            document_sudo.document_signed = log.attach_signature_to_pdf(document_sudo.document_signed,
-                                                                   signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
+            document_sudo.document_signed = document_sudo.attach_signature_to_pdf(
+                document_sudo.document_signed, signature or request.env.user.sign_signature, document_sudo.approval_log_ids)
+            # document_sudo.document_signed = log.attach_signature_to_pdf(
+            #     document_sudo.document_signed, signature or request.env.user.sign_signature, log.approval_type, log.x_coord, log.y_coord)
 
             # document_sudo = request.env['ir.attachment'].sudo().browse(document_log_id)
             #
