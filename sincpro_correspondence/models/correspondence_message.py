@@ -56,21 +56,27 @@ class Correspondence(models.Model):
         string="Todas las correspondencias",
     )
 
-    from_employee_id = fields.Many2one("hr.employee", string="De:", tracking=True)
-    to_employee_id = fields.Many2one("hr.employee", string="A:", tracking=True)
+    from_employee_id = fields.Many2one("res.users", string="De:", tracking=True)
+    to_employee_id = fields.Many2one("res.users", string="A:", tracking=True)
+    area_from = fields.Char(string="Area remitente",)
+    area_to = fields.Char(string="Area destinatario",)
+
 
     from_partner_id = fields.Many2one("res.partner", string="De:", tracking=True)
     to_partner_id = fields.Many2one("res.partner", string="A:", tracking=True)
-
-    from_user_id = fields.Many2one(
-        "res.users", string="De:", tracking=True, compute="_update_user_id", store=True
-    )
-
-    to_user_id = fields.Many2one(
-        "res.users", string="A:", tracking=True, compute="_update_user_id", store=True
-    )
+    #
+    # from_user_id = fields.Many2one(
+    #     "res.users", string="De:", tracking=True, compute="_update_user_id", store=True
+    # )
+    #
+    # to_user_id = fields.Many2one(
+    #     "res.users", string="A:", tracking=True, compute="_update_user_id", store=True
+    # )
 
     action_id = fields.Many2one("correspondence.action", string="Actividad", tracking=True)
+
+    document = fields.Binary(string="Documento")
+    document_name = fields.Char(string="Nombre del documento")
     document_ids = fields.One2many(
         "correspondence.document",
         inverse_name="correspondence_message_id",
@@ -101,18 +107,18 @@ class Correspondence(models.Model):
                     or "Nuevo"
                 )
 
-    @api.depends("to_employee_id", "from_employee_id")
-    def _update_user_id(self):
-        for record in self:
-            if record.from_employee_id.exists():
-                record.from_user_id = record.from_employee_id.user_id
-            else:
-                record.from_user_id = False
-
-            if record.to_employee_id.exists():
-                record.to_user_id = record.to_employee_id.user_id
-            else:
-                record.to_user_id = False
+    # @api.depends("to_employee_id", "from_employee_id")
+    # def _update_user_id(self):
+    #     for record in self:
+    #         if record.from_employee_id.exists():
+    #             record.from_user_id = record.from_employee_id.user_id
+    #         else:
+    #             record.from_user_id = False
+    #
+    #         if record.to_employee_id.exists():
+    #             record.to_user_id = record.to_employee_id.user_id
+    #         else:
+    #             record.to_user_id = False
 
     @api.onchange("to_employee_id")
     def _ui_update_to_id(self):
@@ -169,8 +175,8 @@ class Correspondence(models.Model):
             constructor_dict["page_quantity"] = self.quantity_pages
 
         record = self.env["correspondence.dialog.assign"].create(constructor_dict)
-        record._onchange_from_employee_id()
-        record._onchange_to_employee_id()
+        # record._onchange_from_employee_id()
+        # record._onchange_to_employee_id()
 
         return {
             "type": "ir.actions.act_window",
@@ -230,7 +236,13 @@ class Correspondence(models.Model):
         """Opens a wizard to compose an email, with relevant mail template loaded by default"""
         self.ensure_one()
         attachments_ids = self.reason_id.message_ids.attachment_ids.mapped("id")
-        print(attachments_ids)
+        attachment = self.env['ir.attachment'].create({
+            'name': self.document_name,
+            'type': 'binary',
+            'datas': self.document,  # tu binario en base64
+            'mimetype': 'application/pdf',
+            'res_model': 'tu.modelo',
+            'res_id': self.id,})
         ctx = {
             "default_model": "correspondence.message",
             "default_res_ids": self.ids,
@@ -239,9 +251,10 @@ class Correspondence(models.Model):
             "default_partner_ids": self.to_partner_id.ids,
             "default_composition_mode": "comment",
             "mark_so_as_sent": True,
-            "default_email_layout_xmlid": "mail.mail_notification_layout_with_responsible_signature",
+            "default_email_layout_xmlid": "sincpro_correspondence.correspondence_delegation",
             "force_email": True,
-            "default_attachment_ids": attachments_ids,
+            "default_attachment_ids": [attachment.id],
+            #"default_attachment_ids": attachments_ids,
         }
 
         return {

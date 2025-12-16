@@ -10,6 +10,8 @@ class Reason(models.Model):
     _order = "id DESC"
 
     name = fields.Char(string="Referencia", tracking=True, default="Nuevo", store=True)
+    user_id = fields.Many2one("res.users", string="Usuario", default=lambda self: self.env.user)
+    area = fields.Char(string="Area", related="user_id.area")
     issue = fields.Char(string="Asunto", required=True, tracking=True)
     origin = fields.Char(string="Origen/Referencia", tracking=True)
     date = fields.Date(

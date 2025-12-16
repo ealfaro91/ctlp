@@ -21,6 +21,7 @@
         "pre_configure/sequence_reason.xml",
         "security/groups.xml",
         "security/ir.model.access.csv",
+        "views/mail_template_data.xml",
         "views/correspondence_type.xml",
         "views/correspondence_actions.xml",
         "views/correspondence_reason.xml",

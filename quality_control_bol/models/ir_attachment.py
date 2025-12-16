@@ -344,6 +344,7 @@ class IrAttachment(models.Model):
         - Firma elaborador a la izquierda
         - Columnas de reviewer y approver a la derecha de la firma elaborador
         - Firmas se apilan verticalmente sin solaparse
+        - SIEMPRE en la primera página
         """
         if not pdf_binary_base64:
             return pdf_binary_base64
@@ -351,55 +352,47 @@ class IrAttachment(models.Model):
         pdf_data = base64.b64decode(pdf_binary_base64)
         original_pdf = PdfFileReader(io.BytesIO(pdf_data))
 
-        # Última página válida
-        last_page_index = None
-        for idx in reversed(range(original_pdf.numPages)):
-            page = original_pdf.getPage(idx)
-            try:
-                if hasattr(page, "mediaBox") and len(page.mediaBox) == 4:
-                    last_page_index = idx
-                    width = float(page.mediaBox.getWidth())
-                    height = float(page.mediaBox.getHeight())
-                    break
-            except Exception:
-                continue
-        if last_page_index is None:
-            last_page_index = 0
-            width, height = 595, 842
+        # 👉 SIEMPRE usar la PRIMERA página
+        page_index = 0
+        page = original_pdf.getPage(0)
+
+        try:
+            width = float(page.mediaBox.getWidth())
+            height = float(page.mediaBox.getHeight())
+        except Exception:
+            width, height = 595, 842  # A4
 
         # Separar logs por tipo
         authors = approval_logs.filtered(lambda l: l.approval_type == "author" and l.sign_signature)
         reviewers = approval_logs.filtered(lambda l: l.approval_type == "reviewer" and l.sign_signature)
-        approvers =  approval_logs.filtered(lambda l: l.approval_type == "approver" and l.sign_signature)
+        approvers = approval_logs.filtered(lambda l: l.approval_type == "approver" and l.sign_signature)
 
         # Configuración
         sig_width, sig_height = 80, 35
         margin_y = 20
-        base_y = height - 100  # desde la parte superior
-        base_x_elab = 100  # firma elaborador
-        base_x_review = base_x_elab + sig_width + 50  # columna reviewer
-        base_x_approve = base_x_review + sig_width + 50  # columna approver
+        base_y = height - 100
+        base_x_elab = 100
+        base_x_review = base_x_elab + sig_width + 50
+        base_x_approve = base_x_review + sig_width + 50
 
         packet = io.BytesIO()
         can = canvas.Canvas(packet, pagesize=(width, height))
-        #
-        # # Dibujar firma elaborador
-        # if signature:
-        #     sig_elab = base64.b64decode(signature)
-        #     can.drawImage(ImageReader(io.BytesIO(sig_elab)), base_x_elab, base_y,
-        #                   width=sig_width, height=sig_height, mask='auto')
-        #     can.setFont("Helvetica", 10)
-        #     can.setFillColor(colors.black)
-        #     can.drawString(base_x_elab, base_y - 12, "Elaborado por:")
 
-        # Función para dibujar columnas
+        # Dibujar columnas
         def draw_column(logs, base_x, label):
             for i, log in enumerate(logs):
                 x = base_x
                 y = base_y - i * (sig_height + margin_y)
                 sig_img = base64.b64decode(log.sign_signature)
-                can.drawImage(ImageReader(io.BytesIO(sig_img)), x, y,
-                              width=sig_width, height=sig_height, mask='auto')
+
+                can.drawImage(
+                    ImageReader(io.BytesIO(sig_img)),
+                    x,
+                    y,
+                    width=sig_width,
+                    height=sig_height,
+                    mask="auto"
+                )
                 can.setFont("Helvetica", 10)
                 can.setFillColor(colors.black)
                 can.drawString(x, y - 12, f"{label}:")
@@ -407,16 +400,17 @@ class IrAttachment(models.Model):
         draw_column(authors, base_x_elab, "Elaborado por")
         draw_column(reviewers, base_x_review, "Revisado por")
         draw_column(approvers, base_x_approve, "Aprobado por")
-        can.showPage()
+
         can.save()
 
-        # Fusionar con PDF original
+        # Fusionar SOLO en la primera página
         packet.seek(0)
         signature_pdf = PdfFileReader(packet)
         writer = PdfFileWriter()
+
         for i in range(original_pdf.numPages):
             page = original_pdf.getPage(i)
-            if i == last_page_index:
+            if i == 0:  # 👈 AQUÍ está la clave
                 page.mergePage(signature_pdf.getPage(0))
             writer.addPage(page)
 

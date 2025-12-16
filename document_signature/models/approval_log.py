@@ -119,29 +119,39 @@ class ApprovalLog(models.Model):
         original_pdf = PdfFileReader(io.BytesIO(pdf_data))
 
         # Buscar última página válida
-        last_page = None
-        last_page_index = None
-        for idx in reversed(range(original_pdf.numPages)):
-            page = original_pdf.getPage(idx)
-            try:
-                if hasattr(page, "mediaBox") and len(page.mediaBox) == 4:
-                    last_page = page
-                    last_page_index = idx
-                    break
-            except Exception:
-                continue
+        # last_page = None
+        # last_page_index = None
+        # for idx in reversed(range(original_pdf.numPages)):
+        #     page = original_pdf.getPage(idx)
+        #     try:
+        #         if hasattr(page, "mediaBox") and len(page.mediaBox) == 4:
+        #             last_page = page
+        #             last_page_index = idx
+        #             break
+        #     except Exception:
+        #         continue
+
+        # SIEMPRE usar la primera página
+        page_index = 0
+        page = original_pdf.getPage(0)
+
+        try:
+            width = float(page.mediaBox.getWidth())
+            height = float(page.mediaBox.getHeight())
+        except Exception:
+            width, height = 595, 842  # A4
 
         # Si no hay página válida, usar primera
-        if last_page is None:
-            last_page = original_pdf.getPage(0)
-            last_page_index = 0
-            width, height = 595, 842  # tamaño A4 por defecto
-        else:
-            try:
-                width = float(last_page.mediaBox.getWidth())
-                height = float(last_page.mediaBox.getHeight())
-            except Exception:
-                width, height = 595, 842
+        # if last_page is None:
+        #     last_page = original_pdf.getPage(0)
+        #     last_page_index = 0
+        #     width, height = 595, 842  # tamaño A4 por defecto
+        # else:
+        #     try:
+        #         width = float(last_page.mediaBox.getWidth())
+        #         height = float(last_page.mediaBox.getHeight())
+        #     except Exception:
+        #         width, height = 595, 842
 
         # Configurar posiciones de cuadrantes
         quadrant_positions = {

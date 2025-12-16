@@ -16,14 +16,18 @@ class AssignCorrespondence(models.TransientModel):
     to_partner_id = fields.Many2one("res.partner", string="A")
 
     from_employee_id = fields.Many2one(
-        "hr.employee", string="De", default=lambda self: self.env.user.employee_id.id
+        "res.users", string="De", #default=lambda self: self.env.user.employee_id.id
     )
-    to_employee_id = fields.Many2one("hr.employee", string="A")
+    to_employee_id = fields.Many2one("res.users", string="A")
+    area_from = fields.Char(string="Area remitente", )
+    area_to = fields.Char(string="Area destinatario",)
 
     from_id_is_external = fields.Boolean(string="De: es externo", default=False)
     to_id_is_external = fields.Boolean(string="A: es externo", default=False)
 
     action_id = fields.Many2one("correspondence.action", string="Actividad")
+    document = fields.Binary(string="Documento")
+    document_name = fields.Char(string="Nombre del documento")
     document_ids = fields.Many2many(
         "correspondence.document",
         string="Documento",
@@ -38,13 +42,13 @@ class AssignCorrespondence(models.TransientModel):
 
     page_quantity = fields.Integer(string="Cantidad de hojas")
 
-    @api.onchange("from_employee_id")
-    def _onchange_from_employee_id(self):
-        self.from_partner_id = self.from_employee_id.user_partner_id.id
-
-    @api.onchange("to_employee_id")
-    def _onchange_to_employee_id(self):
-        self.to_partner_id = self.to_employee_id.user_partner_id.id
+    # @api.onchange("from_employee_id")
+    # def _onchange_from_employee_id(self):
+    #     self.from_partner_id = self.from_employee_id.user_partner_id.id
+    #
+    # @api.onchange("to_employee_id")
+    # def _onchange_to_employee_id(self):
+    #     self.to_partner_id = self.to_employee_id.user_partner_id.id
 
     def action_confirm(self):
         """
@@ -91,6 +95,9 @@ class AssignCorrespondence(models.TransientModel):
         if self.action_id.exists():
             constructor_dict["action_id"] = self.action_id.id
             constructor_dict["state"] = "sent"
+        if self.document:
+            constructor_dict["document"] = self.document
+            constructor_dict["document_name"] = self.document_name
         # Create correspondence
         correspondence_record = self.env["correspondence.message"].create(constructor_dict)
 
@@ -109,6 +116,9 @@ class AssignCorrespondence(models.TransientModel):
         correspondence_record.from_employee_id = self.from_employee_id.id
         correspondence_record.to_employee_id = self.to_employee_id.id
         correspondence_record.quantity_pages = self.page_quantity
+        if self.document:
+            correspondence_record.document = self.document
+            correspondence_record.document_filename = self.document_name
         if self.action_id.exists():
             correspondence_record.action_id = self.action_id.id
             correspondence_record.state = "sent"
