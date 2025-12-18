@@ -2,11 +2,12 @@ from odoo import api, fields, models
 from ..odoo_utils import fns_chatter
 
 
-class AssignCorrespondence(models.TransientModel):
+class CorrespondenceDialogAssign(models.TransientModel):
     _name = "correspondence.dialog.assign"
     _description = "Asignar correspondencia"
 
     reason_id = fields.Many2one("correspondence.reason", string="Motivo", required=True)
+    reason = fields.Char(string="Motivo", required=True)
 
     parent_correspondence_id = fields.Many2one(
         "correspondence.message", string="Correspondencia anterior"
@@ -15,17 +16,31 @@ class AssignCorrespondence(models.TransientModel):
     from_partner_id = fields.Many2one("res.partner", string="De")
     to_partner_id = fields.Many2one("res.partner", string="A")
 
-    from_employee_id = fields.Many2one(
-        "res.users", string="De", #default=lambda self: self.env.user.employee_id.id
+    from_user_id = fields.Many2one(
+        "res.users", string="De",
+        domain=[("share", "=", False)],
+        default=lambda self: self.env.user.id
     )
-    to_employee_id = fields.Many2one("res.users", string="A")
-    area_from = fields.Char(string="Area remitente", )
-    area_to = fields.Char(string="Area destinatario",)
+    to_user_id = fields.Many2one(
+        "res.users", string="A",
+        domain=[("share", "=", False)]
+    )
+    area_from = fields.Char(
+        string="Area remitente",
+        #related="from_user_id.area",
+        store=True
+    )
+    area_to = fields.Char(
+        string="Area destinatario",
+        #related="to_user_id.area",
+        store=True
 
-    from_id_is_external = fields.Boolean(string="De: es externo", default=False)
-    to_id_is_external = fields.Boolean(string="A: es externo", default=False)
+    )
 
-    action_id = fields.Many2one("correspondence.action", string="Actividad")
+    action_id = fields.Many2one(
+        "correspondence.action",
+        string="Actividad"
+    )
     document = fields.Binary(string="Documento")
     document_name = fields.Char(string="Nombre del documento")
     document_ids = fields.Many2many(
@@ -42,13 +57,13 @@ class AssignCorrespondence(models.TransientModel):
 
     page_quantity = fields.Integer(string="Cantidad de hojas")
 
-    # @api.onchange("from_employee_id")
+    # @api.onchange("from_user_id")
     # def _onchange_from_employee_id(self):
-    #     self.from_partner_id = self.from_employee_id.user_partner_id.id
+    #     self.from_partner_id = self.from_user_id.user_partner_id.id
     #
-    # @api.onchange("to_employee_id")
+    # @api.onchange("to_user_id")
     # def _onchange_to_employee_id(self):
-    #     self.to_partner_id = self.to_employee_id.user_partner_id.id
+    #     self.to_partner_id = self.to_user_id.user_partner_id.id
 
     def action_confirm(self):
         """
@@ -82,8 +97,8 @@ class AssignCorrespondence(models.TransientModel):
         constructor_dict = {
             "ref": self.correspondence_issue,
             "reason_id": self.reason_id.id,
-            "from_employee_id": self.from_employee_id.id,
-            "to_employee_id": self.to_employee_id.id,
+            "from_user_id": self.from_user_id.id,
+            "to_user_id": self.to_user_id.id,
             "sent_date": fields.Datetime.now(),
         }
         if self.from_partner_id.exists():
@@ -113,8 +128,8 @@ class AssignCorrespondence(models.TransientModel):
         correspondence_record.sent_date = fields.Datetime.now()
         correspondence_record.from_partner_id = self.from_partner_id.id
         correspondence_record.to_partner_id = self.to_partner_id.id
-        correspondence_record.from_employee_id = self.from_employee_id.id
-        correspondence_record.to_employee_id = self.to_employee_id.id
+        correspondence_record.from_user_id = self.from_user_id.id
+        correspondence_record.to_user_id = self.to_user_id.id
         correspondence_record.quantity_pages = self.page_quantity
         if self.document:
             correspondence_record.document = self.document

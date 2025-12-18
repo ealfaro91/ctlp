@@ -5,11 +5,11 @@
 
         <record id="correspondence_delegation" model="mail.template">
             <field name="name">Delegación</field>
-            <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket"/>
+            <field name="model_id" ref="sincpro_correspondence.model_correspondence_message"/>
             <field name="email_from">{{object.company_id.name}}</field>
-            <field name="email_to">{{ (object.partner_id.email) }}</field>
-            <field name="email_cc">{{ (object.user_id.partner_id.email) }}</field>
-            <field name="lang">{{ (object.partner_id.lang) }}</field>
+            <field name="email_to">{{ (object.to_user_id.email) }}</field>
+<!--            <field name="email_cc">{{ (object.to_user_id.partner_id.email) }}</field>-->
+<!--            <field name="lang">{{ (object.partner_id.lang) }}</field>-->
             <field name="subject">Delegación : {{ (object.name) }}</field>
             <field name="auto_delete" eval="False"/>
             <field name="body_html" type="html">
@@ -25,10 +25,10 @@
                                             <tr>
                                                 <td valign="middle">
                                                     <span style="font-size: 10px;">Your Account</span><br/>
-                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.partner_id.name or ''"/>
+                                                    <span style="font-size: 20px; font-weight: bold;" t-out="object.to_user_id.name or ''"/>
                                                 </td>
-                                                <td valign="middle" align="right" t-if="not object.user_id.company_id.uses_default_logo">
-                                                    <img t-attf-src="/logo.png?company={{ object.user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.user_id.company_id.name"/>
+                                                <td valign="middle" align="right" t-if="not object.to_user_id.company_id.uses_default_logo">
+                                                    <img t-attf-src="/logo.png?company={{ object.to_user_id.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="object.to_user_id.company_id.name"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -46,17 +46,17 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <div>
-                                                        Estimado <strong><t t-out="object.user_id.name"/></strong>,<br/>
+                                                        Estimado <strong><t t-out="object.to_user_id.name"/></strong>,<br/> a continuación se hace la delegación de la correspondencia:
 <!--                                                        <p> This automatic message is to notify that the ticket <span style="font-weight:bold;" t-out="object.number or ''"/>-->
 <!--                                                        with subject <span style="font-weight:bold;" t-out="object.name or ''"/> has been received. </p>-->
 <!--                                                        <p> Creation datetime: <span style="font-weight:bold;" t-out="object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') "/></p>-->
 
 <!--                                                        <br/>-->
-                                                        <p>Greetings.</p>
+                                                        <p>Saludos.</p>
                                                         <div style="margin: 16px 0px 16px 0px; text-align: center;">
-                                                            <a href="/my_tickets" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">
-                                                                <strong>View my tickets</strong>
-                                                            </a>
+<!--                                                            <a href="/my_tickets" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">-->
+<!--                                                                <strong>View my tickets</strong>-->
+<!--                                                            </a>-->
                                                         </div>
                                                     </div>
                                                 </td></tr>
@@ -75,14 +75,14 @@
                                         <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
                                             <tr>
                                                 <td valign="middle" align="left">
-                                                    <t t-out="object.user_id.company_id.name or ''"/>
+                                                    <t t-out="object.to_user_id.company_id.name or ''"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td valign="middle" align="left" style="opacity: 0.7;">
-                                                    <t t-out="object.user_id.company_id.phone or ''"/>
-                                                    <t t-if="object.user_id.company_id.website">
-                                                        | <a t-attf-href="'%s' % {{ object.user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.user_id.company_id.website or ''"/>
+                                                    <t t-out="object.to_user_id.company_id.phone or ''"/>
+                                                    <t t-if="object.to_user_id.company_id.website">
+                                                        | <a t-attf-href="'%s' % {{ object.to_user_id.company_id.website }}" style="text-decoration:none; color: #454748;" t-out="object.to_user_id.company_id.website or ''"/>
                                                     </t>
                                                 </td>
                                             </tr>

@@ -87,9 +87,9 @@
                                     <field name="name" optional="hide"/>
                                     <field name="ref"/>
                                     <field name="document_ids" widget="many2many_tags"/>
-                                    <field name="from_employee_id" widget="many2one_avatar_user"/>
+                                    <field name="from_user_id" widget="many2one_avatar_user"/>
                                     <field name="area_from"/>
-                                    <field name="to_employee_id" widget="many2one_avatar_user"/>
+                                    <field name="to_user_id" widget="many2one_avatar_user"/>
                                     <field name="area_to"/>
                                     <field name="action_id" widget="badge"/>
                                     <field name="state" widget="badge" decoration-warning="state == 'sent'" decoration-info="state == 'assigned'" decoration-success="state in ['done', 'closed']" decoration-danger="state in ['todo']"/>

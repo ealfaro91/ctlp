@@ -16,7 +16,7 @@
     "website": "https://sincpro.com.bo",
     "category": "Sincpro/Sincpro",
     "version": "17.240729",
-    "depends": ["base", "mail", "hr"],
+    "depends": ["helpdesk_bol"],
     "data": [
         "pre_configure/sequence_reason.xml",
         "security/groups.xml",
@@ -27,8 +27,7 @@
         "views/correspondence_reason.xml",
         "views/correspondence_document.xml",
         "views/correspondence_message.xml",
-        "dialogs/assign_correspondence.xml",
-        "dialogs/generate_document.xml",
+        "views/assign_correspondence.xml",
         "views/app_menu.xml",
     ],
     "demo": [],

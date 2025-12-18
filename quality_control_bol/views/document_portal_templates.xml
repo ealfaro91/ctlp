@@ -55,7 +55,7 @@
                 <t t-foreach="documents" t-as="document">
                     <tr>
                         <td>
-                            <a t-attf-href="/web/content/#{document.id}" target="_blank">
+                            <a t-attf-href="/web/content/#{document._name}/#{document.id}/document_signed" target="_blank">
                                 <t t-esc="document.name"/>
                             </a>
 <!--                            <a t-attf-href="/my/documents/#{document.id}?{{ keep_query() }}"><t t-esc="document.name"/></a>-->

@@ -34,15 +34,15 @@ class CorrespondenceDocument(models.Model):
         store=True,
         tracking=True,
     )
-    to_employee_id = fields.Many2one("hr.employee", string="A:", tracking=True)
+    to_user_id = fields.Many2one("hr.employee", string="A:", tracking=True)
     via_employee_id = fields.Many2one("hr.employee", string="Via:", tracking=True)
-    from_employee_ids = fields.Many2many(
-        "hr.employee",
-        "document_from_employee_rel",
-        "document_id",
-        "employee_id",
-        string="De:",
-    )
+    # from_employee_ids = fields.Many2many(
+    #     "hr.employee",
+    #     "document_from_employee_rel",
+    #     "document_id",
+    #     "employee_id",
+    #     string="De:",
+    # )
 
     is_external = fields.Boolean(string="Es externo", tracking=True)
     elaborated_by_partner_id = fields.Many2one(
@@ -50,13 +50,13 @@ class CorrespondenceDocument(models.Model):
     )
     to_partner_id = fields.Many2one("res.partner", string="Destinatario", tracking=True)
 
-    employees_to_approve_ids = fields.Many2many(
-        "hr.employee",
-        "document_to_approve_employee_rel",
-        "document_id",
-        "employee_id",
-        string="Aprobadores",
-    )
+    # employees_to_approve_ids = fields.Many2many(
+    #     "hr.employee",
+    #     "document_to_approve_employee_rel",
+    #     "document_id",
+    #     "employee_id",
+    #     string="Aprobadores",
+    # )
 
     place = fields.Char(string="Lugar", tracking=True)
     date = fields.Datetime(string="Fecha", default=fields.Datetime.now(), tracking=True)

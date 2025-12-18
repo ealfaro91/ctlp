@@ -1,46 +1,35 @@
 <odoo>
     <!--  Actions  -->
+
     <record model="ir.actions.act_window" id="action_render_correspondence_messages">
         <field name="name">Correspondencia</field>
         <field name="res_model">correspondence.message</field>
         <field name="view_mode">tree,form,gantt,calendar</field>
     </record>
 
-    <record
-        model="ir.actions.act_window"
-        id="action_render_correspondence_messages_NO_ASSIGNED_by_user"
-    >
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_NO_ASSIGNED_by_user">
         <field name="name">Mi correspondencia no recepcionadas</field>
         <field name="res_model">correspondence.message</field>
         <field name="view_mode">tree,form,gantt</field>
-<!--        <field name="domain">[('state', '=', 'sent'), ('to_user_id', '=', uid)]</field>-->
+        <field name="domain">[('state', '=', 'sent'), ('to_user_id', '=', uid)]</field>
     </record>
 
-    <record
-        model="ir.actions.act_window"
-        id="action_render_correspondence_messages_ASSIGNED_by_user"
-    >
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_ASSIGNED_by_user">
         <field name="name">Correspondencia no asignada</field>
         <field name="res_model">correspondence.message</field>
         <field name="view_mode">tree,form,gantt,calendar</field>
-<!--        <field name="domain">[('state', '=', 'assigned'), ('to_user_id', '=', uid)]</field>-->
+       <field name="domain">[('state', '=', 'assigned'), ('to_user_id', '=', uid)]</field>
     </record>
 
-    <record
-        model="ir.actions.act_window"
-        id="action_render_correspondence_messages_all_incoming_by_user"
-    >
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_incoming_by_user">
         <field name="name">Mis correspondencia recepcionadas</field>
         <field name="res_model">correspondence.message</field>
         <field name="view_mode">tree,form,gantt,calendar</field>
         <field name="context">{'search_default_group_state_id': 1}</field>
-<!--        <field name="domain">[('to_user_id', '=', uid)]</field>-->
+        <field name="domain">[('to_user_id', '=', uid)]</field>
     </record>
 
-    <record
-        model="ir.actions.act_window"
-        id="action_render_correspondence_messages_all_by_user"
-    >
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_by_user">
         <field name="name">Mis correspondencia recepcionadas</field>
         <field name="res_model">correspondence.message</field>
         <field name="view_mode">tree,form,gantt,calendar</field>
@@ -152,100 +141,79 @@
                     </div>
 
                     <group>
-                        <group string="Empleados">
-                            <field name="from_employee_id" readonly="1" widget="many2one_avatar_user"/>
-                            <field name="to_employee_id" readonly="1" widget="many2one_avatar_user"/>
+                        <group string="Usuarios">
+                            <field name="from_user_id" readonly="1" widget="many2one_avatar_user"/>
+                            <field name="area_from" />
+                            <field name="to_user_id" widget="many2one_avatar_user"/>
+                            <field name="area_to"/>
                         </group>
-<!--                        <group string="Contactos">-->
-<!--                            <field-->
-<!--                                name="from_partner_id"-->
-<!--                                readonly="1"-->
-<!--                                widget="many2one_avatar_user"-->
-<!--                            />-->
-<!--                            <field-->
-<!--                                name="to_partner_id"-->
-<!--                                readonly="1"-->
-<!--                                widget="many2one_avatar_user"-->
-<!--                            />-->
-<!--                        </group> -->
                     </group>
                     <br /><br />
                     <notebook>
                         <page string="Correspondencia adjunta a mensaje">
-                            <field name="document_ids" readonly="1">
-                                <tree editable="bottom">
-                                    <field name="date"/>
-                                    <field name="name"/>
-                                    <field name="elaborated_by_partner_id" widget="many2one_avatar_user"/>
-                                    <field name="to_partner_id" widget="many2one_avatar_user"/>
-                                    <field name="document_type_id"/>
-                                    <field name="state" decoration-success="state == 'assigned'" widget="badge"/>
-                                    <field name="correspondence_message_id"/>
-                                    <button type="object" name="action_show_correspondence_document" class="btn-primary" string="Ver"/>
-                                </tree>
-                            </field>
+                            <field name="attachment_ids" widget="many2many_binary"/>
                         </page>
-                        <page string="Historial de mensaje">
-                            <field name="all_correspondence_ids" readonly="1">
-                                <tree editable="bottom">
-                                    <field name="sent_date" string="Fecha"/>
-                                    <field name="received_date" string="Fecha de recepcion"/>
-                                    <field name="name" optional="hide"/>
-                                    <field name="ref"/>
-                                    <field name="from_employee_id" widget="many2one_avatar_user"/>
-                                    <field
-                                        name="to_employee_id"
-                                        widget="many2one_avatar_user"
-                                    />
-                                    <field name="document_ids"/>
-                                    <field name="action_id"/>
-                                    <field
-                                        name="state"
-                                        widget="badge"
-                                        decoration-warning="state == 'sent'"
-                                        decoration-info="state == 'assigned'"
-                                        decoration-success="state in ['done', 'closed']"
-                                        decoration-danger="state in ['todo']"
-                                    />
-                                    <button
-                                        type="object"
-                                        name="action_show_correspondence"
-                                        class="btn-primary"
-                                        string="Ver"
-                                    />
-                                </tree>
-                            </field>
+                        <page string="Soporte">
+                            <field name="document_ids" widget="many2many_binary"/>
                         </page>
-                        <page string="Historial de correspondencia">
-                            <field name="all_document_ids" invisible="1"/>
-                            <field name="all_document_ids" readonly="1">
-                                <tree editable="bottom">
-                                    <field name="date"/>
-                                    <field name="name"/>
-                                    <field
-                                        name="elaborated_by_partner_id"
-                                        widget="many2one_avatar_user"
-                                    />
-                                    <field
-                                        name="to_partner_id"
-                                        widget="many2one_avatar_user"
-                                    />
-                                    <field name="document_type_id"/>
-                                    <field
-                                        name="state"
-                                        decoration-success="state == 'assigned'"
-                                        widget="badge"
-                                    />
-                                    <field name="correspondence_message_id"/>
-                                    <button
-                                        type="object"
-                                        name="action_show_correspondence_document"
-                                        class="btn-primary"
-                                        string="Ver"
-                                    />
-                                </tree>
-                            </field>
-                        </page>
+<!--                        <page string="Historial de mensaje">-->
+<!--                            <field name="all_correspondence_ids" readonly="1">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="sent_date" string="Fecha"/>-->
+<!--                                    <field name="received_date" string="Fecha de recepcion"/>-->
+<!--                                    <field name="name" optional="hide"/>-->
+<!--                                    <field name="ref"/>-->
+<!--                                    <field name="from_user_id" widget="many2one_avatar_user"/>-->
+<!--                                    <field name="to_user_id" widget="many2one_avatar_user"/>-->
+<!--                                    <field name="document_ids"/>-->
+<!--                                    <field name="action_id"/>-->
+<!--                                    <field-->
+<!--                                        name="state"-->
+<!--                                        widget="badge"-->
+<!--                                        decoration-warning="state == 'sent'"-->
+<!--                                        decoration-info="state == 'assigned'"-->
+<!--                                        decoration-success="state in ['done', 'closed']"-->
+<!--                                        decoration-danger="state in ['todo']"-->
+<!--                                    />-->
+<!--                                    <button-->
+<!--                                        type="object"-->
+<!--                                        name="action_show_correspondence"-->
+<!--                                        class="btn-primary"-->
+<!--                                        string="Ver"-->
+<!--                                    />-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                        <page string="Historial de correspondencia">-->
+<!--                            <field name="all_document_ids" invisible="1"/>-->
+<!--                            <field name="all_document_ids" readonly="1">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="date"/>-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field-->
+<!--                                        name="elaborated_by_partner_id"-->
+<!--                                        widget="many2one_avatar_user"-->
+<!--                                    />-->
+<!--                                    <field-->
+<!--                                        name="to_partner_id"-->
+<!--                                        widget="many2one_avatar_user"-->
+<!--                                    />-->
+<!--                                    <field name="document_type_id"/>-->
+<!--                                    <field-->
+<!--                                        name="state"-->
+<!--                                        decoration-success="state == 'assigned'"-->
+<!--                                        widget="badge"-->
+<!--                                    />-->
+<!--                                    <field name="correspondence_message_id"/>-->
+<!--                                    <button-->
+<!--                                        type="object"-->
+<!--                                        name="action_show_correspondence_document"-->
+<!--                                        class="btn-primary"-->
+<!--                                        string="Ver"-->
+<!--                                    />-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
                     </notebook>
                 </sheet>
 
@@ -265,7 +233,7 @@
             <gantt
                 date_start="sent_date"
                 date_stop="received_date"
-                default_group_by="to_employee_id"
+                default_group_by="to_user_id"
                 string="Mensajes"
                 disable_drag_drop="1"
                 color="color"

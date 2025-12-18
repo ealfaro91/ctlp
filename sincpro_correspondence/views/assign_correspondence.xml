@@ -27,44 +27,15 @@
                             </div>
                         </h1>
                     </div>
-<!--                    <div name="options">-->
-<!--                        <span class="d-inline-block">-->
-<!--                            <field name="from_id_is_external" />-->
-<!--                            <label for="from_id_is_external" />-->
-<!--                        </span>-->
-<!--                        <br />-->
-<!--                        <span class="d-inline-block">-->
-<!--                            <field name="to_id_is_external" />-->
-<!--                            <label for="to_id_is_external" />-->
-<!--                        </span>-->
-<!--                    </div>-->
-
-                    <group>
-                        <group string="Asignar">
-                            <field name="from_employee_id" widget="many2one_avatar_user"/>
+                    <group string="Asignar">
+                        <group>
+                            <field name="from_user_id" widget="many2one_avatar_user"/>
                             <field name="area_from"/>
-                            <field name="to_employee_id" widget="many2one_avatar_user"/>
+                        </group>
+                        <group>
+                            <field name="to_user_id" widget="many2one_avatar_user"/>
                             <field name="area_to"/>
                         </group>
-<!--                        <group-->
-<!--                            string="Contacto"-->
-<!--                            invisible="not to_id_is_external and not from_id_is_external"-->
-<!--                        >-->
-<!--                            <field-->
-<!--                                name="from_partner_id"-->
-<!--                                readonly="not from_id_is_external"-->
-<!--                                force_save="1"-->
-<!--                                widget="many2one_avatar_user"-->
-<!--                                invisible="not from_id_is_external"-->
-<!--                            />-->
-<!--                            <field-->
-<!--                                name="to_partner_id"-->
-<!--                                readonly="not to_id_is_external"-->
-<!--                                force_save="1"-->
-<!--                                widget="many2one_avatar_user"-->
-<!--                                invisible="not to_id_is_external"-->
-<!--                            />-->
-<!--                        </group>-->
                     </group>
                     <br />
                     <div class="oe_title">

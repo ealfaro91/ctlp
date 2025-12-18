@@ -9,35 +9,66 @@ class Reason(models.Model):
     _description = "Motivo o asunto"
     _order = "id DESC"
 
-    name = fields.Char(string="Referencia", tracking=True, default="Nuevo", store=True)
-    user_id = fields.Many2one("res.users", string="Usuario", default=lambda self: self.env.user)
-    area = fields.Char(string="Area", related="user_id.area")
-    issue = fields.Char(string="Asunto", required=True, tracking=True)
-    origin = fields.Char(string="Origen/Referencia", tracking=True)
+    name = fields.Char(
+        string="Referencia",
+        tracking=True,
+        default="Nuevo",
+        store=True
+    )
+    issue = fields.Char(
+        string="Asunto",
+        required=True,
+        tracking=True
+    )
+    origin = fields.Char(
+        string="Origen/Referencia",
+        tracking=True
+    )
+    user_id = fields.Many2one(
+        "res.users",
+        string="Usuario",
+        default=lambda self: self.env.user
+    )
+    area = fields.Char(
+        string="Area",
+        related="user_id.area"
+    )
     date = fields.Date(
-        string="Fecha", required=True, default=fields.Date.today(), tracking=True
+        string="Fecha",
+        required=True,
+        default=fields.Date.today(),
+        tracking=True
+    )
+    type = fields.Selection(
+        TYPE_CORRESPONDENCE,
+        string="Tipo",
+        required=True,
+        tracking=True
     )
 
-    type = fields.Selection(TYPE_CORRESPONDENCE, string="Tipo", required=True, tracking=True)
-
     state = fields.Selection(
-        [("draft", "Borrador"), ("done", "Generado"), ("cancel", "Cancelado")],
+        [("draft", "Borrador"),
+         ("done", "Generado"),
+         ("cancel", "Cancelado")],
         string="Estado",
         default="draft",
         tracking=True,
     )
-
     correspondence_message_ids = fields.One2many(
-        "correspondence.message", "reason_id", string="Correspondencias"
+        "correspondence.message",
+        "reason_id",
+        string="Correspondencias"
     )
-
     count_correspondence = fields.Integer(
         string="Cantidad de Correspondencias",
         compute="_compute_count_correspondence",
     )
-
-    document_ids = fields.One2many(
-        "correspondence.document", "reason_id", string="Documentos"
+    document_ids = fields.Many2many(
+        "ir.attachment",
+        "correspondence_reason_document_rel",
+        "correspondence_reason_id",
+        "attachment_id",
+        string="Documentos",
     )
 
     def action_assign_correspondence(self):
@@ -45,34 +76,34 @@ class Reason(models.Model):
         default_context = {
             "default_reason_id": self.id,
             "default_correspondence_issue": self.issue,
-            "default_from_employee_id": self.env.user.employee_id.id,
+            "default_from_user_id": self.env.user.id,
         }
 
         return {
             "type": "ir.actions.act_window",
             "name": "Crear Correspondencia",
-            "res_model": "correspondence.dialog.assign",
+            "res_model": "correspondence.message",
             "view_mode": "form",
-            "view_id": self.env.ref("sincpro_correspondence.assign_correspondence_form").id,
+           # "view_id": self.env.ref("sincpro_correspondence.assign_correspondence_form").id,
             "target": "new",
             "context": default_context,
         }
 
-    def action_generate_document(self):
-        self.ensure_one()
-        default_context = {
-            "default_reason_id": self.id,
-        }
-
-        return {
-            "type": "ir.actions.act_window",
-            "name": "Generar Documento",
-            "res_model": "correspondence.dialog.generate.document",
-            "view_mode": "form",
-            "view_id": self.env.ref("sincpro_correspondence.dialog_generate_document").id,
-            "target": "new",
-            "context": default_context,
-        }
+    # def action_generate_document(self):
+    #     self.ensure_one()
+    #     default_context = {
+    #         "default_reason_id": self.id,
+    #     }
+    #
+    #     return {
+    #         "type": "ir.actions.act_window",
+    #         "name": "Generar Documento",
+    #         "res_model": "correspondence.dialog.generate.document",
+    #         "view_mode": "form",
+    #         "view_id": self.env.ref("sincpro_correspondence.dialog_generate_document").id,
+    #         "target": "new",
+    #         "context": default_context,
+    #     }
 
     def set_sequence(self):
         for record in self:
