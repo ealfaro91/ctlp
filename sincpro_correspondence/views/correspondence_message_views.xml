@@ -1,57 +1,10 @@
 <odoo>
-    <!--  Actions  -->
 
-    <record model="ir.actions.act_window" id="action_render_correspondence_messages">
-        <field name="name">Correspondencia</field>
-        <field name="res_model">correspondence.message</field>
-        <field name="view_mode">tree,form,gantt,calendar</field>
-    </record>
 
-    <record model="ir.actions.act_window" id="action_render_correspondence_messages_NO_ASSIGNED_by_user">
-        <field name="name">Mi correspondencia no recepcionadas</field>
-        <field name="res_model">correspondence.message</field>
-        <field name="view_mode">tree,form,gantt</field>
-        <field name="domain">[('state', '=', 'sent'), ('to_user_id', '=', uid)]</field>
-    </record>
+    <!--  VIEWS  -->
 
-    <record model="ir.actions.act_window" id="action_render_correspondence_messages_ASSIGNED_by_user">
-        <field name="name">Correspondencia no asignada</field>
-        <field name="res_model">correspondence.message</field>
-        <field name="view_mode">tree,form,gantt,calendar</field>
-       <field name="domain">[('state', '=', 'assigned'), ('to_user_id', '=', uid)]</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_incoming_by_user">
-        <field name="name">Mis correspondencia recepcionadas</field>
-        <field name="res_model">correspondence.message</field>
-        <field name="view_mode">tree,form,gantt,calendar</field>
-        <field name="context">{'search_default_group_state_id': 1}</field>
-        <field name="domain">[('to_user_id', '=', uid)]</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_by_user">
-        <field name="name">Mis correspondencia recepcionadas</field>
-        <field name="res_model">correspondence.message</field>
-        <field name="view_mode">tree,form,gantt,calendar</field>
-        <field name="context">{'search_default_group_state_id': 1}</field>
-<!--        <field name="domain"-->
-<!--            >['|', ('to_user_id', '=', uid), ('from_user_id', '=', uid)]</field-->
-<!--        >-->
-    </record>
-
-    <record
-        model="ir.actions.act_window"
-        id="action_render_correspondence_messages_all_SENT_by_user"
-    >
-        <field name="name">Mi correspondencia redireeccionada</field>
-        <field name="res_model">correspondence.message</field>
-        <field name="view_mode">tree,form,gantt,calendar</field>
-<!--        <field name="domain">[('from_user_id', '=', uid)]</field>-->
-    </record>
-
-    <!--    VIEWS    -->
-    <record model="ir.ui.view" id="correspondence_filter_bar">
-        <field name="name">correspondence.filter.bar</field>
+    <record model="ir.ui.view" id="correspondence_search_view">
+        <field name="name">correspondence.message.search.view</field>
         <field name="model">correspondence.message</field>
         <field name="arch" type="xml">
             <search>
@@ -59,18 +12,9 @@
                 <field name="to_partner_id"/>
                 <field name="action_id"/>
                 <separator />
-                <filter
-                    name="not_assigned"
-                    string="Enviado"
-                    domain="[('state', '=', 'sent')]"
-                />
-                <filter
-                    name="assigned"
-                    string="Asignadas"
-                    domain="[('state', '=', 'assigned')]"
-                />
+                <filter name="not_assigned" string="Enviado" domain="[('state', '=', 'sent')]"/>
+                <filter name="assigned" string="Asignadas" domain="[('state', '=', 'assigned')]"/>
                 <separator />
-
                 <group expand="0" string="Agrupar por">
                     <filter string="Estado" name="group_state_id" context="{'group_by': 'state'}"/>
                     <filter string="Accion" name="group_action_id" context="{'group_by': 'action_id'}"/>
@@ -80,8 +24,8 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="correspondence_tree">
-        <field name="name">correspondence.message.tree</field>
+    <record model="ir.ui.view" id="correspondence_tree_view">
+        <field name="name">correspondence.message.tree.view</field>
         <field name="model">correspondence.message</field>
         <field name="arch" type="xml">
             <tree string="Mensaje" create="0">
@@ -98,8 +42,8 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="correspondence_form">
-        <field name="name">correspondence.message.form</field>
+    <record model="ir.ui.view" id="correspondence_form_view">
+        <field name="name">correspondence.message.form.view</field>
         <field name="model">correspondence.message</field>
         <field name="arch" type="xml">
             <form string="Correspondencia">
@@ -109,23 +53,20 @@
                         <i class="fa fa-external-link"/>
                         Enviar mail
                     </button>
-                    <button type="object" name="action_assign_correspondence" class="btn-primary" data-hotkey="q" invisible="state not in ['todo', 'assigned']">
+                    <button type="object" name="action_assign_correspondence" class="btn-primary" data-hotkey="q" invisible="state not in ['todo', 'assigned', 'done']">
                         <i class="fa fa-external-link"/>
                         Asignar
                     </button>
-<!--                    <button type="object" name="action_generate_document" class="btn-primary" data-hotkey="w" invisible="state not in ['todo', 'assigned']">-->
-<!--                        <i class="fa fa-external-link"/>-->
-<!--                        Generar documento-->
-<!--                    </button>-->
-                    <button string="Recepcionar" type="object" name="action_receive_correspondence" class="btn-primary" invisible="state != 'sent'"/>
-                    <button string="Cerrar/Finalizar" type="object" name="action_close_correspondence" class="btn-warning" invisible="state != 'assigned'"/>
+                    <button string="Recepcionar" type="object" name="action_receive_correspondence"
+                            class="btn-primary" invisible="state != 'sent'"/>
+                    <button string="Cerrar/Archivar" type="object" name="action_close_correspondence"
+                            icon="fa-solid fa-box-archive" class="btn-warning" invisible="state != 'assigned'"/>
                 </header>
                 <sheet>
-                    <!--  Magic buttons -->
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" icon="fa-envelope">Asunto</button>
-                        <button class="oe_stat_button" icon="fa-envelope">Historial</button>
-                        <button class="oe_stat_button" icon="fa-envelope">Documentos</button>
+<!--                        <button class="oe_stat_button" icon="fa-envelope">Asunto</button>-->
+<!--                        <button class="oe_stat_button" icon="fa-envelope">Historial</button>-->
+<!--                        <button class="oe_stat_button" icon="fa-envelope">Documentos</button>-->
                     </div>
                     <div class="oe_title">
                         <div class="d-flex w-100 justify-content-between">
@@ -139,21 +80,25 @@
                             </div>
                         </div>
                     </div>
-
-                    <group>
-                        <group string="Usuarios">
-                            <field name="from_user_id" readonly="1" widget="many2one_avatar_user"/>
-                            <field name="area_from" />
+                    <group string="Asignar">
+                        <group>
+                            <field name="from_user_id" widget="many2one_avatar_user"/>
+                            <field name="area_from"/>
+                        </group>
+                        <group>
                             <field name="to_user_id" widget="many2one_avatar_user"/>
                             <field name="area_to"/>
                         </group>
                     </group>
-                    <br /><br />
+                    <group string="Acciones">
+                        <field name="action_id"/>
+                    </group>
+                    <br/><br/>
                     <notebook>
-                        <page string="Correspondencia adjunta a mensaje">
+                        <page string="Correspondencia">
                             <field name="attachment_ids" widget="many2many_binary"/>
                         </page>
-                        <page string="Soporte">
+                        <page string="Adjuntos">
                             <field name="document_ids" widget="many2many_binary"/>
                         </page>
 <!--                        <page string="Historial de mensaje">-->
@@ -216,7 +161,6 @@
 <!--                        </page>-->
                     </notebook>
                 </sheet>
-
                 <div class="oe_chatter">
                     <field name="message_follower_ids" groups="base.group_user"/>
                     <field name="activity_ids"/>
@@ -230,14 +174,8 @@
         <field name="name">correspondence.message.kanban</field>
         <field name="model">correspondence.message</field>
         <field name="arch" type="xml">
-            <gantt
-                date_start="sent_date"
-                date_stop="received_date"
-                default_group_by="to_user_id"
-                string="Mensajes"
-                disable_drag_drop="1"
-                color="color"
-            >
+            <gantt date_start="sent_date" date_stop="received_date" default_group_by="to_user_id"
+                   string="Mensajes" disable_drag_drop="1" color="color">
                 <field name="ref"/>
                 <field name="state"/>
             </gantt>
@@ -248,15 +186,88 @@
         <field name="name">correspondence_message_calendar_view</field>
         <field name="model">correspondence.message</field>
         <field name="arch" type="xml">
-            <calendar
-                date_start="sent_date"
-                mode="month"
-                color="color"
-                date_stop="received_date"
-                create="0"
-            >
+            <calendar date_start="sent_date" mode="month" color="color" date_stop="received_date" create="0">
                 <field name="ref"/>
             </calendar>
         </field>
     </record>
+
+    <!-- PIVOT VIEW  -->
+
+    <record id="correspondence_message_view_pivot" model="ir.ui.view">
+        <field name="name">correspondence.message.view.pivot</field>
+        <field name="model">correspondence.message</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot Analysis" disable_linking="True">
+                <field name="state" type="row"/>
+                <field name="from_user_id" type="row"/>
+                <field name="to_user_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- GRAPH VIEW  -->
+
+    <record id="correspondence_message_graph_view" model="ir.ui.view">
+        <field name="name">correspondence.message.graph</field>
+        <field name="model">correspondence.message</field>
+        <field name="arch" type="xml">
+            <graph string="Projects">
+                <field name="state" type="row"/>
+                <field name="from_user_id" type="row"/>
+                <field name="to_user_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <!--  ACTIONS  -->
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages">
+        <field name="name">Correspondencia</field>
+        <field name="res_model">correspondence.message</field>
+        <field name="view_mode">tree,form,gantt,calendar,graph,pivot</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_NO_ASSIGNED_by_user">
+        <field name="name">Mi correspondencia no recepcionadas</field>
+        <field name="res_model">correspondence.message</field>
+        <field name="view_mode">tree,form,gantt,calendar,graph,pivot</field>
+        <field name="domain">[('state', '=', 'sent'), ('to_user_id', '=', uid)]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_ASSIGNED_by_user">
+        <field name="name">Correspondencia no asignada</field>
+        <field name="res_model">correspondence.message</field>
+        <field name="view_mode">tree,form,gantt,calendar,graph,pivot</field>
+       <field name="domain">[('state', '=', 'assigned'), ('to_user_id', '=', uid)]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_incoming_by_user">
+        <field name="name">Mis correspondencia recepcionadas</field>
+        <field name="res_model">correspondence.message</field>
+        <field name="view_mode">tree,form,gantt,calendar,graph,pivot</field>
+        <field name="context">{'search_default_group_state_id': 1}</field>
+        <field name="domain">[('to_user_id', '=', uid)]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_by_user">
+        <field name="name">Mis correspondencia recepcionadas</field>
+        <field name="res_model">correspondence.message</field>
+        <field name="view_mode">tree,form,gantt,calendar,graph,pivot</field>
+        <field name="context">{'search_default_group_state_id': 1}</field>
+        <field name="domain">['|', ('to_user_id', '=', uid), ('from_user_id', '=', uid)]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_messages_all_SENT_by_user">
+        <field name="name">Mi correspondencia redireeccionada</field>
+        <field name="res_model">correspondence.message</field>
+        <field name="view_mode">tree,form,gantt,calendar,graph,pivot</field>
+        <field name="domain">[('from_user_id', '=', uid)]</field>
+    </record>
+
+
+
+
+
 </odoo>

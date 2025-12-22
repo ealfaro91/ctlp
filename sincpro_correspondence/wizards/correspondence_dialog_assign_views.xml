@@ -10,10 +10,10 @@
         <field name="model">correspondence.dialog.assign</field>
         <field name="arch" type="xml">
             <form string="Asignar correspondencia">
-                <field name="reason_id" invisible="1" force_save="1" />
+                <field name="reason_id" invisible="1" force_save="1"/>
                 <sheet>
                     <div class="oe_title">
-                        <label for="correspondence_issue" string="Asunto " />
+                        <label for="correspondence_issue" string="Asunto "/>
                         <h1>
                             <div class="d-flex">
                                 <field
@@ -40,10 +40,10 @@
                     <br />
                     <div class="oe_title">
                         <group>
-                            <field name="action_id" />
-                            <field name="document" filename="document_name"/>
-                            <field name="document_name" invisible="1"/>
-<!--                            <field name="document_ids" widget="many2many_tags" />-->
+                            <field name="action_id"/>
+                            <field name="document_ids" widget="many2many_binary"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+<!--                            <field name="document_ids" widget="many2many_tags"/>-->
                         </group>
                     </div>
                 </sheet>
@@ -55,7 +55,7 @@
                         class="btn-primary"
                         data-hotkey="q"
                     />
-                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>

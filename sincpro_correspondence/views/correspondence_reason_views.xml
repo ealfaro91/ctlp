@@ -1,19 +1,7 @@
 <odoo>
-    <record model="ir.actions.act_window" id="action_render_correspondence_reason">
-        <field name="name">Asunto</field>
-        <field name="res_model">correspondence.reason</field>
-        <field name="view_mode">tree,form</field>
-    </record>
 
-    <record model="ir.actions.act_window" id="action_render_correspondence_reason_by_user">
-        <field name="name">Asunto</field>
-        <field name="res_model">correspondence.reason</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('create_uid', '=', uid)]</field>
-    </record>
-
-    <record model="ir.ui.view" id="correspondence_reason_tree">
-        <field name="name">correspondence.reason.tree</field>
+    <record model="ir.ui.view" id="correspondence_reason_tree_view">
+        <field name="name">correspondence.reason.tree.view</field>
         <field name="model">correspondence.reason</field>
         <field name="arch" type="xml">
             <tree>
@@ -24,18 +12,13 @@
                 <field name="correspondence_message_ids" widget="badge" decoration-info="1"/>
                 <field name="document_ids" widget="badge" decoration-warning="1"/>
                 <field name="type" widget="badge" decoration-success="type == 'internal'"/>
-                <field
-                    name="state"
-                    widget="badge"
-                    decoration-info="state == 'draft'"
-                    decoration-success="state == 'done'"
-                />
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'done'"/>
             </tree>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="correspondence_reason_form">
-        <field name="name">correspondence.reason.form</field>
+    <record model="ir.ui.view" id="correspondence_reason_form_view">
+        <field name="name">correspondence.reason.form.view</field>
         <field name="model">correspondence.reason</field>
         <field name="arch" type="xml">
             <form string="Asunto">
@@ -46,35 +29,29 @@
                         <i class="fa fa-external-link"/>
                         Asignar
                     </button>
-<!--                    <button type="object" name="action_generate_document" class="btn-primary" data-hotkey="w"><i class="fa fa-external-link"/>-->
-<!--                        Generar documento-->
-<!--                    </button>-->
                 </header>
-
                 <sheet>
-                    <!--  Magic buttons -->
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="object" name="action_redirect_correspondence" icon="fa-envelope">
                             <field name="count_correspondence" widget="statinfo" string="Correspondencia"/>
                         </button>
                     </div>
-
-                    <!-- UX State-->
                     <widget name="web_ribbon" title="Interno" invisible="type != 'internal'"/>
                     <widget name="web_ribbon" title="Externo" invisible="type != 'external'" bgcolor="text-bg-primary"/>
                     <div class="oe_title">
+                        <label for="name" class="form-label">Nª</label>
                         <h1>
-                            <field name="name" readonly="1" force_save="1"/>
+                            <field name="issue" readonly="state in ['done', 'cancel']"/>
                         </h1>
                     </div>
                     <group>
                         <group>
                             <field name="user_id" readonly="1"/>
                             <field name="area" readonly="1"/>
-                            <field name="issue" readonly="state in ['done', 'cancel']"/>
                             <field name="origin" readonly="state in ['done', 'cancel']"/>
                         </group>
                         <group>
+                            <field name="name"/>
                             <field name="type" readonly="state in ['done', 'cancel']"/>
                             <field name="date" readonly="state in ['done', 'cancel']"/>
                         </group>
@@ -121,4 +98,19 @@
             </form>
         </field>
     </record>
+
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_reason">
+        <field name="name">Asunto</field>
+        <field name="res_model">correspondence.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_render_correspondence_reason_by_user">
+        <field name="name">Asunto</field>
+        <field name="res_model">correspondence.reason</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('create_uid', '=', uid)]</field>
+    </record>
+
 </odoo>

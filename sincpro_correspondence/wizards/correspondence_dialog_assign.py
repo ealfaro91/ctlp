@@ -6,16 +6,21 @@ class CorrespondenceDialogAssign(models.TransientModel):
     _name = "correspondence.dialog.assign"
     _description = "Asignar correspondencia"
 
-    reason_id = fields.Many2one("correspondence.reason", string="Motivo", required=True)
-    reason = fields.Char(string="Motivo", required=True)
-
+    reason_id = fields.Many2one(
+        "correspondence.reason",
+        string="Motivo",
+        required=True
+    )
+    message_id = fields.Many2one(
+        "correspondence.message",
+        string="Correspondencia",
+        required=True
+    )
     parent_correspondence_id = fields.Many2one(
-        "correspondence.message", string="Correspondencia anterior"
+        "correspondence.message",
+        string="Correspondencia anterior"
     )
     correspondence_issue = fields.Char(string="Asunto")
-    from_partner_id = fields.Many2one("res.partner", string="De")
-    to_partner_id = fields.Many2one("res.partner", string="A")
-
     from_user_id = fields.Many2one(
         "res.users", string="De",
         domain=[("share", "=", False)],
@@ -27,43 +32,33 @@ class CorrespondenceDialogAssign(models.TransientModel):
     )
     area_from = fields.Char(
         string="Area remitente",
-        #related="from_user_id.area",
+        related="from_user_id.area",
         store=True
     )
     area_to = fields.Char(
         string="Area destinatario",
-        #related="to_user_id.area",
+        related="to_user_id.area",
         store=True
-
     )
-
     action_id = fields.Many2one(
         "correspondence.action",
         string="Actividad"
     )
-    document = fields.Binary(string="Documento")
-    document_name = fields.Char(string="Nombre del documento")
     document_ids = fields.Many2many(
-        "correspondence.document",
-        string="Documento",
-        domain="[('correspondence_message_id', '=', None), ('reason_id', '=?', reason_id)]",
-        default=lambda self: self.env["correspondence.document"].search(
-            [
-                ("correspondence_message_id", "=", None),
-                ("reason_id", "=", self.env.context.get("default_reason_id")),
-            ]
-        ),
+        "ir.attachment",
+        "correspondence_assign_document_rel",
+        "assign_id",
+        "attachment_id",
+        string="Documentos a enviar",
+    )
+    attachment_ids = fields.Many2many(
+        "ir.attachment",
+        "correspondence_assign_attachment_rel",
+        "assign_id",
+        "attachment_id",
+        string="Adjuntos",
     )
 
-    page_quantity = fields.Integer(string="Cantidad de hojas")
-
-    # @api.onchange("from_user_id")
-    # def _onchange_from_employee_id(self):
-    #     self.from_partner_id = self.from_user_id.user_partner_id.id
-    #
-    # @api.onchange("to_user_id")
-    # def _onchange_to_employee_id(self):
-    #     self.to_partner_id = self.to_user_id.user_partner_id.id
 
     def action_confirm(self):
         """
@@ -73,16 +68,10 @@ class CorrespondenceDialogAssign(models.TransientModel):
            Update the parent correspondence with the new info.
         """
         self.ensure_one()
+        if self.parent_correspondence_id:
+            self.parent_correspondence_id.state = "reassigned"
 
-        if self._is_new_correspondence():
-            correspondence_record = self._create_new_correspondence()
-        else:
-            correspondence_record = self._update_parent_correspondence()
-
-        self._post_into_chatter_related_info(correspondence_record)
-
-        self.reason_id.set_sequence()
-
+        self._create_new_correspondence()
         return True
 
     def _is_new_correspondence(self):
@@ -100,25 +89,27 @@ class CorrespondenceDialogAssign(models.TransientModel):
             "from_user_id": self.from_user_id.id,
             "to_user_id": self.to_user_id.id,
             "sent_date": fields.Datetime.now(),
+        #    "parent_correspondence_id": self.parent_correspondence_id.id,
+            "attachment_ids": self.attachment_ids.ids,
         }
-        if self.from_partner_id.exists():
-            constructor_dict["from_partner_id"] = self.from_partner_id.id
-        if self.to_partner_id.exists():
-            constructor_dict["to_partner_id"] = self.to_partner_id.id
-        if self.page_quantity:
-            constructor_dict["quantity_pages"] = self.page_quantity
-        if self.action_id.exists():
-            constructor_dict["action_id"] = self.action_id.id
-            constructor_dict["state"] = "sent"
-        if self.document:
-            constructor_dict["document"] = self.document
-            constructor_dict["document_name"] = self.document_name
-        # Create correspondence
+        # if self.from_partner_id.exists():
+        #     constructor_dict["from_partner_id"] = self.from_partner_id.id
+        # if self.to_partner_id.exists():
+        #     constructor_dict["to_partner_id"] = self.to_partner_id.id
+        # if self.page_quantity:
+        #     constructor_dict["quantity_pages"] = self.page_quantity
+        # if self.action_id.exists():
+        #     constructor_dict["action_id"] = self.action_id.id
+        #     constructor_dict["state"] = "sent"
+        # if self.document:
+        #     constructor_dict["document"] = self.document
+        #     constructor_dict["document_name"] = self.document_name
+        # # Create correspondence
         correspondence_record = self.env["correspondence.message"].create(constructor_dict)
-
-        # Update parent correspondence if it exists
-        if self.parent_correspondence_id.exists():
-            self.parent_correspondence_id.state = "done"
+        #
+        # # Update parent correspondence if it exists
+        # if self.parent_correspondence_id.exists():
+        #     self.parent_correspondence_id.state = "done"
 
         return correspondence_record
 

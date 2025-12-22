@@ -55,10 +55,16 @@ class Correspondence(models.Model):
          ("todo", "Por destinar"),
          ("sent", "Enviado / Para recepcionar"),
          ("assigned", "Recepcionado"),
-         ("done", "Finalizado")],
+         ("done", "Finalizado"),
+         ("reassigned", "Reasignado")
+    ],
         required=True,
         default="todo",
         string="Estado",
+    )
+    reason = fields.Text(
+        string="Motivo",
+        tracking=True
     )
 
     all_correspondence_ids = fields.One2many(
@@ -100,7 +106,7 @@ class Correspondence(models.Model):
         "correspondence_message_document_rel",
         "correspondence_message_id",
         "attachment_id",
-        string="Documentos a enviar",
+        string="Adjuntos",
     )
 
     attachment_ids = fields.Many2many(
@@ -108,7 +114,7 @@ class Correspondence(models.Model):
         "correspondence_message_attachment_rel",
         "correspondence_message_id",
         "attachment_id",
-        string="Adjuntos internos",
+        string="Correspondencia",
     )
 
     # all_document_ids = fields.One2many(
@@ -174,7 +180,7 @@ class Correspondence(models.Model):
 
     def action_show_correspondence(self):
         self.ensure_one()
-        form_id = self.env.ref("sincpro_correspondence.correspondence_form")
+        form_id = self.env.ref("sincpro_correspondence.correspondence_form_view")
         return {
             "type": "ir.actions.act_window",
             "name": "Correspondencia",
@@ -185,6 +191,21 @@ class Correspondence(models.Model):
         }
 
     def action_assign_correspondence(self):
+        if self.state == "done":
+            return {
+                "type": "ir.actions.act_window",
+                "name": "Correspondencia",
+                "res_model": "correspondence.dialog.assign",
+                "view_mode": "form",
+                "target": "new",
+                "context": {
+                    "default_parent_correspondence_id": self.id,
+                    "default_from_user_id": self.from_user_id.id,
+                    "default_reason_id": self.reason_id.id,
+                    "default_message_id": self.id,
+                    "default_attachment_ids": self.attachment_ids.ids
+                },
+            }
 
         self.ensure_one()
         self.state = "sent"
@@ -289,7 +310,7 @@ class Correspondence(models.Model):
             "mark_so_as_sent": True,
             "default_email_layout_xmlid": "sincpro_correspondence.correspondence_delegation",
             "force_email": True,
-            "default_attachment_ids": [attachment.id],
+            "default_attachment_ids": self.attachment_ids.ids,
             #"default_attachment_ids": attachments_ids,
         }
 

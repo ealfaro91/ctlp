@@ -12,8 +12,7 @@ class Reason(models.Model):
     name = fields.Char(
         string="Referencia",
         tracking=True,
-        default="Nuevo",
-        store=True
+        default=lambda self: self.env["ir.sequence"].next_by_code("correspondence.reason")
     )
     issue = fields.Char(
         string="Asunto",
