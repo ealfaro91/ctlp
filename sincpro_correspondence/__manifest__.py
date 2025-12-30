@@ -26,6 +26,7 @@
         "wizards/correspondence_dialog_assign_views.xml",
         "views/correspondence_type_views.xml",
         "views/correspondence_actions_views.xml",
+        "views/correspondence_document_type_views.xml",
         "views/correspondence_reason_views.xml",
         "views/correspondence_document.xml",
         "views/correspondence_message_views.xml",

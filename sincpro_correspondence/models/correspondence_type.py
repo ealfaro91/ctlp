@@ -3,17 +3,6 @@ from odoo import Command, api, fields, models
 TYPE_CORRESPONDENCE = [("internal", "Interno"), ("external", "Externo")]
 
 
-class Actions(models.Model):
-    _name = "correspondence.action"
-    _description = "Acciones de correspondencia"
-    _rec_name = "action"
-
-    action = fields.Char(string="Accion", required=True)
-    priority = fields.Integer(string="Prioridad", default=10)
-    active = fields.Boolean(default=True)
-    color = fields.Integer("Color Index")
-
-
 class CorrespondenceType(models.Model):
     _name = "correspondence.type"
     _description = "Tipo de correspodencia"

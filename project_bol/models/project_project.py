@@ -3,7 +3,9 @@ from odoo import fields, models, api, _
 
 
 class ProjectProject(models.Model):
-    _inherit = "project.project"
+    _name = "project.project"
+    _inherit = ["project.project", "mail.tracking.duration.mixin"]
+    _track_duration_field = "stage_id"
 
     fsn_id = fields.Many2one(
         "project.fsn",

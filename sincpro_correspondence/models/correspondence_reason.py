@@ -10,7 +10,7 @@ class Reason(models.Model):
     _order = "id DESC"
 
     name = fields.Char(
-        string="Referencia",
+        string="Correlativo",
         tracking=True,
         default=lambda self: self.env["ir.sequence"].next_by_code("correspondence.reason")
     )
@@ -20,7 +20,7 @@ class Reason(models.Model):
         tracking=True
     )
     origin = fields.Char(
-        string="Origen/Referencia",
+        string="Remitente/Origen",
         tracking=True
     )
     user_id = fields.Many2one(
@@ -34,6 +34,12 @@ class Reason(models.Model):
     )
     date = fields.Date(
         string="Fecha",
+        required=True,
+        default=fields.Date.today(),
+        tracking=True
+    )
+    reception_date = fields.Date(
+        string="Fecha de recepción",
         required=True,
         default=fields.Date.today(),
         tracking=True
@@ -67,7 +73,25 @@ class Reason(models.Model):
         "correspondence_reason_document_rel",
         "correspondence_reason_id",
         "attachment_id",
-        string="Documentos",
+        string="Correspondencia adjunta",
+    )
+    attachment_ids = fields.Many2many(
+        "ir.attachment",
+        "correspondence_reason_attachment_rel",
+        "correspondence_reason_id",
+        "attachment_id",
+        string="Adjuntos adicionales",
+    )
+    document_type_id = fields.Many2one(
+        "correspondence.document.type",
+        string="Tipo de documento",
+        tracking=True
+    )
+    signer_id = fields.Many2one(
+        "res.users",
+        string="Firmante",
+        domain=[("share", "=", False)],
+        tracking=True
     )
 
     def action_assign_correspondence(self):
@@ -76,14 +100,16 @@ class Reason(models.Model):
             "default_reason_id": self.id,
             "default_correspondence_issue": self.issue,
             "default_from_user_id": self.env.user.id,
+            "default_document_ids": self.document_ids.ids,
+            "default_attachment_ids": self.attachment_ids.ids,
         }
 
         return {
             "type": "ir.actions.act_window",
             "name": "Crear Correspondencia",
-            "res_model": "correspondence.message",
+            "res_model": "correspondence.dialog.assign",
             "view_mode": "form",
-           # "view_id": self.env.ref("sincpro_correspondence.assign_correspondence_form").id,
+            "view_id": self.env.ref("sincpro_correspondence.assign_correspondence_form").id,
             "target": "new",
             "context": default_context,
         }

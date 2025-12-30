@@ -53,7 +53,7 @@
         <field name="arch" type="xml">
             <form string="Helpdesk Ticket" create="0">
                 <header>
-                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    <field name="stage_id" widget="statusbar_duration" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active == True"/>

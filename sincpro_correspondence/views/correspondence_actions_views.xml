@@ -26,8 +26,8 @@
 
 
     <record model="ir.actions.act_window" id="action_render_correspondence_action">
-        <field name="name">Acciones</field>
-        <field name="res_model">correspondence.action</field>
+        <field name="name">Tipo de actividad</field>
+        <field name="res_model">mail.activity.type</field>
         <field name="view_mode">tree</field>
     </record>
 

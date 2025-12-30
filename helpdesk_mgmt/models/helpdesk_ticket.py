@@ -8,7 +8,8 @@ class HelpdeskTicket(models.Model):
     _rec_name = "number"
     _order = "create_date asc"
     _mail_post_access = "read"
-    _inherit = ["mail.thread.cc", "mail.activity.mixin", "portal.mixin"]
+    _track_duration_field = "stage_id"
+    _inherit = ["mail.thread.cc", "mail.activity.mixin", "portal.mixin", 'mail.tracking.duration.mixin']
 
     @api.model
     def _read_group_stage_ids(self, stages, domain, order):

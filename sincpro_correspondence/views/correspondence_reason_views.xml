@@ -6,8 +6,9 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="date"/>
                 <field name="issue"/>
+                <field name="date"/>
+                <field name="reception_date"/>
                 <field name="origin"/>
                 <field name="correspondence_message_ids" widget="badge" decoration-info="1"/>
                 <field name="document_ids" widget="badge" decoration-warning="1"/>
@@ -39,7 +40,7 @@
                     <widget name="web_ribbon" title="Interno" invisible="type != 'internal'"/>
                     <widget name="web_ribbon" title="Externo" invisible="type != 'external'" bgcolor="text-bg-primary"/>
                     <div class="oe_title">
-                        <label for="name" class="form-label">Nª</label>
+                        <label for="issue" class="form-label">Nª</label>
                         <h1>
                             <field name="issue" readonly="state in ['done', 'cancel']"/>
                         </h1>
@@ -49,14 +50,23 @@
                             <field name="user_id" readonly="1"/>
                             <field name="area" readonly="1"/>
                             <field name="origin" readonly="state in ['done', 'cancel']"/>
+                            <field name="signer_id" readonly="state in ['done', 'cancel']" options="{'no_create': True, 'no_create_edit': True}"/>
                         </group>
                         <group>
                             <field name="name"/>
                             <field name="type" readonly="state in ['done', 'cancel']"/>
                             <field name="date" readonly="state in ['done', 'cancel']"/>
+                            <field name="reception_date" readonly="state in ['done', 'cancel']"/>
+                            <field name="document_type_id" readonly="state in ['done', 'cancel']"/>
                         </group>
                     </group>
                     <notebook>
+                        <page string="Correspondencia adjunta">
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </page>
+                        <page string="Adjuntos adicionales">
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </page>
                         <page string="Mensajes">
                             <field name="correspondence_message_ids" readonly="1">
                                 <tree>
@@ -65,10 +75,8 @@
                                     <field name="ref"/>
                                     <field name="document_ids" widget="many2many_tags"/>
                                     <field name="from_user_id" widget="many2one_avatar_user"/>
-                                    <field name="area_from"/>
                                     <field name="to_user_id" widget="many2one_avatar_user"/>
-                                    <field name="area_to"/>
-                                    <field name="action_id" widget="badge"/>
+                                    <field name="activity_id"/>
                                     <field name="state" widget="badge" decoration-warning="state == 'sent'" decoration-info="state == 'assigned'" decoration-success="state in ['done', 'closed']" decoration-danger="state in ['todo']"/>
                                     <button type="object" name="action_show_correspondence" class="btn-primary" string="Ver"/>
                                 </tree>
@@ -101,13 +109,13 @@
 
 
     <record model="ir.actions.act_window" id="action_render_correspondence_reason">
-        <field name="name">Asunto</field>
+        <field name="name">Correspondencia</field>
         <field name="res_model">correspondence.reason</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_render_correspondence_reason_by_user">
-        <field name="name">Asunto</field>
+        <field name="name">Correspondencia</field>
         <field name="res_model">correspondence.reason</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('create_uid', '=', uid)]</field>

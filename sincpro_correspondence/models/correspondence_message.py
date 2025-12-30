@@ -63,7 +63,7 @@ class Correspondence(models.Model):
         string="Estado",
     )
     reason = fields.Text(
-        string="Motivo",
+        string="Motivo Finalización/Archivado",
         tracking=True
     )
 
@@ -77,13 +77,15 @@ class Correspondence(models.Model):
         "res.users",
         string="De:",
         tracking=True,
-        required=True
+        required=True,
+        domain=[("share", "=", False)],
     )
     to_user_id = fields.Many2one(
         "res.users",
         string="A:",
         tracking=True,
-        required=True
+        required=True,
+        domain=[("share", "=", False)],
     )
     area_from = fields.Char(
         string="Area remitente",
@@ -93,11 +95,13 @@ class Correspondence(models.Model):
         string="Area destinatario",
         related="to_user_id.area"
     )
-
-    from_partner_id = fields.Many2one("res.partner", string="De:", tracking=True)
-    to_partner_id = fields.Many2one("res.partner", string="A:", tracking=True)
     action_id = fields.Many2one(
         "correspondence.action",
+        string="Actividad",
+        tracking=True
+    )
+    activity_id = fields.Many2one(
+        "mail.activity.type",
         string="Actividad",
         tracking=True
     )
@@ -199,6 +203,7 @@ class Correspondence(models.Model):
                 "view_mode": "form",
                 "target": "new",
                 "context": {
+                    "is_reassign": True,
                     "default_parent_correspondence_id": self.id,
                     "default_from_user_id": self.from_user_id.id,
                     "default_reason_id": self.reason_id.id,
@@ -245,23 +250,6 @@ class Correspondence(models.Model):
         #     "res_id": record.id,
         # }
 
-    def action_generate_document(self):
-        self.ensure_one()
-        constructor_dict = {
-            "reason_id": self.reason_id.id,
-            "correspondence_id": self.id,
-        }
-        record = self.env["correspondence.dialog.generate.document"].create(constructor_dict)
-
-        return {
-            "type": "ir.actions.act_window",
-            "name": "Generar Documento",
-            "res_model": "correspondence.dialog.generate.document",
-            "view_mode": "form",
-            "view_id": self.env.ref("sincpro_correspondence.dialog_generate_document").id,
-            "target": "new",
-            "res_id": record.id,
-        }
 
     def action_receive_correspondence(self):
         self.ensure_one()
@@ -279,15 +267,22 @@ class Correspondence(models.Model):
 
     def action_close_correspondence(self):
         self.ensure_one()
-        # if self.env.user.has_group("sincpro_correspondence.group_correspondence_manager"):
-        #     self.state = "closed"
-        #     return
-
-        # if self.to_user_id.id != self.env.user.id:
-        #     raise exceptions.UserError(
-        #         "No puedes recibir correspondencia que no te corresponde"
-        #     )
-        self.state = "done"
+       # self.state = "done"
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Correspondencia",
+            "res_model": "correspondence.dialog.assign",
+            "view_mode": "form",
+            "target": "new",
+            "context": {
+                "is_close": True,
+                "default_parent_correspondence_id": self.id,
+                "default_from_user_id": self.from_user_id.id,
+                "default_reason_id": self.reason_id.id,
+                "default_message_id": self.id,
+                "default_attachment_ids": self.attachment_ids.ids
+            },
+        }
 
     def action_open_mail_composer(self):
         """Opens a wizard to compose an email, with relevant mail template loaded by default"""

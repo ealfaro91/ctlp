@@ -14,7 +14,6 @@ class CorrespondenceDialogAssign(models.TransientModel):
     message_id = fields.Many2one(
         "correspondence.message",
         string="Correspondencia",
-        required=True
     )
     parent_correspondence_id = fields.Many2one(
         "correspondence.message",
@@ -24,11 +23,13 @@ class CorrespondenceDialogAssign(models.TransientModel):
     from_user_id = fields.Many2one(
         "res.users", string="De",
         domain=[("share", "=", False)],
+        required=True,
         default=lambda self: self.env.user.id
     )
     to_user_id = fields.Many2one(
         "res.users", string="A",
-        domain=[("share", "=", False)]
+        domain=[("share", "=", False)],
+        required=True
     )
     area_from = fields.Char(
         string="Area remitente",
@@ -42,6 +43,10 @@ class CorrespondenceDialogAssign(models.TransientModel):
     )
     action_id = fields.Many2one(
         "correspondence.action",
+        string="Actividad"
+    )
+    activity_id = fields.Many2one(
+        "mail.activity.type",
         string="Actividad"
     )
     document_ids = fields.Many2many(
@@ -58,6 +63,7 @@ class CorrespondenceDialogAssign(models.TransientModel):
         "attachment_id",
         string="Adjuntos",
     )
+    reason = fields.Text(string="Motivo Finalización/Archivado")
 
 
     def action_confirm(self):
@@ -68,9 +74,14 @@ class CorrespondenceDialogAssign(models.TransientModel):
            Update the parent correspondence with the new info.
         """
         self.ensure_one()
+        if self._context.get('is_close'):
+            self.message_id.state = "done"
+            self.message_id.reason = self.reason
+            return
         if self.parent_correspondence_id:
-            self.parent_correspondence_id.state = "reassigned"
-
+            if  self._context.get('is_reassign'):
+                self.parent_correspondence_id.state = "reassigned"
+                self.message_id.reason = self.reason
         self._create_new_correspondence()
         return True
 
@@ -83,28 +94,19 @@ class CorrespondenceDialogAssign(models.TransientModel):
         return True
 
     def _create_new_correspondence(self):
+       # self.messaged
         constructor_dict = {
             "ref": self.correspondence_issue,
             "reason_id": self.reason_id.id,
             "from_user_id": self.from_user_id.id,
             "to_user_id": self.to_user_id.id,
             "sent_date": fields.Datetime.now(),
+            "activity_id": self.activity_id.id,
+            "document_ids": self.document_ids.ids,
+            "reason": self.reason,
         #    "parent_correspondence_id": self.parent_correspondence_id.id,
             "attachment_ids": self.attachment_ids.ids,
         }
-        # if self.from_partner_id.exists():
-        #     constructor_dict["from_partner_id"] = self.from_partner_id.id
-        # if self.to_partner_id.exists():
-        #     constructor_dict["to_partner_id"] = self.to_partner_id.id
-        # if self.page_quantity:
-        #     constructor_dict["quantity_pages"] = self.page_quantity
-        # if self.action_id.exists():
-        #     constructor_dict["action_id"] = self.action_id.id
-        #     constructor_dict["state"] = "sent"
-        # if self.document:
-        #     constructor_dict["document"] = self.document
-        #     constructor_dict["document_name"] = self.document_name
-        # # Create correspondence
         correspondence_record = self.env["correspondence.message"].create(constructor_dict)
         #
         # # Update parent correspondence if it exists
