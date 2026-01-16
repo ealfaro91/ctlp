@@ -35,6 +35,7 @@
         'views/helpdesk_ticket_team_views.xml',
         'views/helpdesk_ticket_subcategory_views.xml',
         'views/helpdesk_ticket_views.xml',
+        #'views/menu.xml',
         'views/login_template.xml',
         'views/gss_page_template.xml',
         'views/service_desk_page_template.xml',

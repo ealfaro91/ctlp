@@ -52,9 +52,8 @@ class Reason(models.Model):
     )
 
     state = fields.Selection(
-        [("draft", "Borrador"),
-         ("done", "Generado"),
-         ("cancel", "Cancelado")],
+        [("draft", "Abierto"),
+         ("done", "Cerrado")],
         string="Estado",
         default="draft",
         tracking=True,
@@ -87,10 +86,8 @@ class Reason(models.Model):
         string="Tipo de documento",
         tracking=True
     )
-    signer_id = fields.Many2one(
-        "res.users",
+    signer= fields.Char(
         string="Firmante",
-        domain=[("share", "=", False)],
         tracking=True
     )
 
@@ -129,6 +126,14 @@ class Reason(models.Model):
     #         "target": "new",
     #         "context": default_context,
     #     }
+
+    def action_close(self):
+        self.ensure_one()
+        self.state = "done"
+
+    def action_draft(self):
+        self.ensure_one()
+        self.state = "draft"
 
     def set_sequence(self):
         for record in self:

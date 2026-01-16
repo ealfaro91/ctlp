@@ -26,9 +26,17 @@
                 <field name="count_correspondence" invisible="1"/>
                 <header>
                     <field name="state" widget="statusbar"/>
-                    <button type="object" name="action_assign_correspondence" class="btn-primary" data-hotkey="q">
+                    <button type="object" name="action_assign_correspondence" class="btn-primary" data-hotkey="q" invisible="state != 'draft'">
                         <i class="fa fa-external-link"/>
                         Asignar
+                    </button>
+                    <button type="object" name="action_close" class="btn-primary" invisible="state != 'draft'">
+                        <i class="fas fa-xmark"/>
+                        Cerrar
+                    </button>
+                    <button type="object" name="action_draft" class="btn-primary" invisible="state != 'done'">
+                        <i class="fa fa-folder-open"/>
+                        Abrir
                     </button>
                 </header>
                 <sheet>
@@ -50,10 +58,10 @@
                             <field name="user_id" readonly="1"/>
                             <field name="area" readonly="1"/>
                             <field name="origin" readonly="state in ['done', 'cancel']"/>
-                            <field name="signer_id" readonly="state in ['done', 'cancel']" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="signer" readonly="state in ['done', 'cancel']" options="{'no_create': True, 'no_create_edit': True}"/>
                         </group>
                         <group>
-                            <field name="name"/>
+                            <field name="name" readonly="1"/>
                             <field name="type" readonly="state in ['done', 'cancel']"/>
                             <field name="date" readonly="state in ['done', 'cancel']"/>
                             <field name="reception_date" readonly="state in ['done', 'cancel']"/>
@@ -62,12 +70,12 @@
                     </group>
                     <notebook>
                         <page string="Correspondencia adjunta">
-                            <field name="document_ids" widget="many2many_binary"/>
+                            <field name="document_ids" widget="many2many_binary" readonly="state != 'draft'"/>
                         </page>
                         <page string="Adjuntos adicionales">
-                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="attachment_ids" widget="many2many_binary" readonly="state != 'draft'"/>
                         </page>
-                        <page string="Mensajes">
+                        <page string="Mensajes de seguimiento">
                             <field name="correspondence_message_ids" readonly="1">
                                 <tree>
                                     <field name="sent_date" string="Fecha"/>

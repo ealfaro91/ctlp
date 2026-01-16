@@ -61,11 +61,6 @@
                             icon="fa-box-archive" class="btn-warning" invisible="state != 'assigned'"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-<!--                        <button class="oe_stat_button" icon="fa-envelope">Asunto</button>-->
-<!--                        <button class="oe_stat_button" icon="fa-envelope">Historial</button>-->
-<!--                        <button class="oe_stat_button" icon="fa-envelope">Documentos</button>-->
-                    </div>
                     <div class="oe_title">
                         <div class="d-flex w-100 justify-content-between">
                             <div>
@@ -74,22 +69,27 @@
                                 </h1>
                                 <p>
                                     <field name="ref" readonly="1"/>
+                                    <field name="reason_state" invisible="1"/>
                                 </p>
                             </div>
                         </div>
                     </div>
                     <group string="Asignar">
                         <group>
-                            <field name="from_user_id" widget="many2one_avatar_user" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="from_user_id" widget="many2one_avatar_user"
+                                   options="{'no_create': True, 'no_create_edit': True}"
+                                   readonly="state != 'todo' or reason_state != 'draft'"/>
                             <field name="area_from"/>
                         </group>
                         <group>
-                            <field name="to_user_id" widget="many2one_avatar_user"  options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="to_user_id" widget="many2one_avatar_user"
+                                   options="{'no_create': True, 'no_create_edit': True}"
+                                   readonly="state != 'todo' or reason_state != 'draft'"/>
                             <field name="area_to"/>
                         </group>
                     </group>
                     <group string="Acciones">
-                        <field name="action_id"/>
+                        <field name="action_id" readonly="state != 'todo' or reason_state != 'draft'"/>
                     </group>
                     <group string="Motivo finalización/archivado" invisible="not reason">
                         <field name="reason"/>
@@ -99,66 +99,8 @@
                             <field name="attachment_ids" widget="many2many_binary"/>
                         </page>
                         <page string="Adjuntos adicionales">
-                            <field name="document_ids" widget="many2many_binary"/>
+                            <field name="document_ids" widget="many2many_binary" readonly="state != 'todo' or reason_state != 'draft'"/>
                         </page>
-<!--                        <page string="Historial de mensaje">-->
-<!--                            <field name="all_correspondence_ids" readonly="1">-->
-<!--                                <tree editable="bottom">-->
-<!--                                    <field name="sent_date" string="Fecha"/>-->
-<!--                                    <field name="received_date" string="Fecha de recepcion"/>-->
-<!--                                    <field name="name" optional="hide"/>-->
-<!--                                    <field name="ref"/>-->
-<!--                                    <field name="from_user_id" widget="many2one_avatar_user"/>-->
-<!--                                    <field name="to_user_id" widget="many2one_avatar_user"/>-->
-<!--                                    <field name="document_ids"/>-->
-<!--                                    <field name="action_id"/>-->
-<!--                                    <field-->
-<!--                                        name="state"-->
-<!--                                        widget="badge"-->
-<!--                                        decoration-warning="state == 'sent'"-->
-<!--                                        decoration-info="state == 'assigned'"-->
-<!--                                        decoration-success="state in ['done', 'closed']"-->
-<!--                                        decoration-danger="state in ['todo']"-->
-<!--                                    />-->
-<!--                                    <button-->
-<!--                                        type="object"-->
-<!--                                        name="action_show_correspondence"-->
-<!--                                        class="btn-primary"-->
-<!--                                        string="Ver"-->
-<!--                                    />-->
-<!--                                </tree>-->
-<!--                            </field>-->
-<!--                        </page>-->
-<!--                        <page string="Historial de correspondencia">-->
-<!--                            <field name="all_document_ids" invisible="1"/>-->
-<!--                            <field name="all_document_ids" readonly="1">-->
-<!--                                <tree editable="bottom">-->
-<!--                                    <field name="date"/>-->
-<!--                                    <field name="name"/>-->
-<!--                                    <field-->
-<!--                                        name="elaborated_by_partner_id"-->
-<!--                                        widget="many2one_avatar_user"-->
-<!--                                    />-->
-<!--                                    <field-->
-<!--                                        name="to_partner_id"-->
-<!--                                        widget="many2one_avatar_user"-->
-<!--                                    />-->
-<!--                                    <field name="document_type_id"/>-->
-<!--                                    <field-->
-<!--                                        name="state"-->
-<!--                                        decoration-success="state == 'assigned'"-->
-<!--                                        widget="badge"-->
-<!--                                    />-->
-<!--                                    <field name="correspondence_message_id"/>-->
-<!--                                    <button-->
-<!--                                        type="object"-->
-<!--                                        name="action_show_correspondence_document"-->
-<!--                                        class="btn-primary"-->
-<!--                                        string="Ver"-->
-<!--                                    />-->
-<!--                                </tree>-->
-<!--                            </field>-->
-<!--                        </page>-->
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

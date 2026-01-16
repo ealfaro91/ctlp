@@ -32,6 +32,11 @@ class Correspondence(models.Model):
         required=True,
         tracking=True
     )
+    reason_state = fields.Selection(
+        related="reason_id.state",
+        string="Estado",
+        store=True,
+    )
     name = fields.Char(
         string="Mensaje",
         tracking=True,
@@ -66,6 +71,7 @@ class Correspondence(models.Model):
         string="Motivo Finalización/Archivado",
         tracking=True
     )
+
 
     all_correspondence_ids = fields.One2many(
         "correspondence.message",
