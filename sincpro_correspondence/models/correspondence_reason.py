@@ -132,7 +132,7 @@ class Reason(models.Model):
         return super().create(vals)
 
     def fix_name(self):
-        for record in self:
+        for record in self.search([]):
             record.write({
             "name": self.env["ir.sequence"].next_by_code(
                 "correspondence.reason"
