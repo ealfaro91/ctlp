@@ -133,7 +133,11 @@ class Reason(models.Model):
 
     def fix_name(self):
         for record in self:
-            record.name = self.env["ir.sequence"].next_by_code("correspondence.reason")
+            record.write({
+            "name": self.env["ir.sequence"].next_by_code(
+                "correspondence.reason"
+            )
+        })
 
     def action_close(self):
         self.ensure_one()
