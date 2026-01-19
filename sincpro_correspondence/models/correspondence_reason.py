@@ -12,7 +12,6 @@ class Reason(models.Model):
     name = fields.Char(
         string="Correlativo",
         tracking=True,
-        default=lambda self: self.env["ir.sequence"].next_by_code("correspondence.reason")
     )
     issue = fields.Char(
         string="Asunto",
@@ -126,6 +125,15 @@ class Reason(models.Model):
     #         "target": "new",
     #         "context": default_context,
     #     }
+
+    def create(self, vals):
+        if not vals.get("name"):
+            vals["name"] = self.env["ir.sequence"].next_by_code("correspondence.reason")
+        return super().create(vals)
+
+    def fix_name(self):
+        for record in self:
+            record.name = self.env["ir.sequence"].next_by_code("correspondence.reason")
 
     def action_close(self):
         self.ensure_one()

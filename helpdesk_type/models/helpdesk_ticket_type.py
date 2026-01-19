@@ -11,8 +11,16 @@ class HelpdeskType(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
 
-    active = fields.Boolean(default=True, tracking=True)
-    name = fields.Char(string="Name", required=True, tracking=True, translate=True)
+    active = fields.Boolean(
+        default=True,
+        tracking=True
+    )
+    name = fields.Char(
+        string="Name",
+        required=True,
+        tracking=True,
+        translate=True
+    )
     team_ids = fields.Many2many(
         "helpdesk.ticket.team",
         string="Teams",

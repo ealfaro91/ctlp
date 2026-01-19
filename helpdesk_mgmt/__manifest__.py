@@ -3,7 +3,7 @@
 {
     "name": "Helpdesk Management",
     "summary": """Helpdesk""",
-    "version": "17.0",
+    "version": "17.0.0.0.0",
     "license": "AGPL-3",
     "category": "After-Sales",
     "author": "AdaptiveCity, "
@@ -34,7 +34,6 @@
         "views/helpdesk_ticket_views.xml",
         "views/helpdesk_dashboard_views.xml",
     ],
-    "demo": ["demo/helpdesk_demo.xml"],
     "application": True,
     "installable": True,
 }
