@@ -879,6 +879,11 @@ msgid "Date"
 msgstr "Fecha"
 
 #. module: project_bol
+#: model:ir.model.fields,field_description:project_bol.field_project_project__date_last_stage_update
+msgid "Date Last Stage Update"
+msgstr "Fecha de última actualización de etapa"
+
+#. module: project_bol
 #: model:ir.model.fields,field_description:project_bol.field_project_fsn__date_requested
 msgid "Date Requested"
 msgstr "Fecha de Solicitud"

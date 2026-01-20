@@ -26,6 +26,7 @@
                             <field name="amount_used" widget="monetary"/>
                         </group>
                         <group string="Advance Information" name="advance_information">
+                            <field name="date_last_stage_update" readonly="1"/>
                             <field name="closed_date" invisible="not closed_date"/>
                             <field name="delay_days"/>
                             <field name="project_status"/>

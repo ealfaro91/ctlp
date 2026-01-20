@@ -109,6 +109,16 @@ class ProjectProject(models.Model):
         tracking=True,
         help="The stages and their advances for this project.",
     )
+    date_last_stage_update = fields.Datetime(
+        string="Date Last Stage Update",
+        tracking=True,
+        help="The date when the last stage was updated.",
+    )
+
+    def write(self, vals):
+        if "stage_id" in vals:
+            self.date_last_stage_update = fields.Datetime.now()
+        return super().write(vals)
 
     def _compute_total_advance(self):
         for project in self:
