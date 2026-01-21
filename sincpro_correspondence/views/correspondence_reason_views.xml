@@ -75,7 +75,7 @@
                         <page string="Adjuntos adicionales">
                             <field name="attachment_ids" widget="many2many_binary" readonly="state != 'draft'"/>
                         </page>
-                        <page string="Mensajes de seguimiento">
+                        <page string="Flujo">
                             <field name="correspondence_message_ids" readonly="1">
                                 <tree>
                                     <field name="sent_date" string="Fecha"/>

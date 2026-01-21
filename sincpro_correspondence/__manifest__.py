@@ -18,7 +18,6 @@
     "version": "17.240729",
     "depends": ["helpdesk_bol"],
     "data": [
-        "pre_configure/sequence_reason.xml",
         "data/ir_sequence_data.xml",
         "security/groups.xml",
         "security/ir.model.access.csv",

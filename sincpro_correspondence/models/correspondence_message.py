@@ -306,12 +306,12 @@ class Correspondence(models.Model):
             "default_res_ids": self.ids,
             "default_subject": self.ref or self.reason_id.issue,
             "default_author_id": self.env.user.partner_id.id,
-            "default_partner_ids": self.to_partner_id.ids,
+            "default_partner_ids": [self.to_user_id.partner_id.id],
             "default_composition_mode": "comment",
             "mark_so_as_sent": True,
             "default_email_layout_xmlid": "sincpro_correspondence.correspondence_delegation",
             "force_email": True,
-            "default_attachment_ids": self.attachment_ids.ids,
+            "default_attachment_ids": self.attachment_ids.ids + self.document_ids.ids,
             #"default_attachment_ids": attachments_ids,
         }
 

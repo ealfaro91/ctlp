@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="0">
+<odoo noupdate="1">
 
     <record id="seq_correspondence_reason" model="ir.sequence">
         <field name="name">Correspondence reason</field>
@@ -7,6 +7,20 @@
         <field name="prefix">CO/</field>
         <field name="padding">5</field>
         <field name="company_id" eval="False"/>
+    </record>
+
+    <record model="ir.sequence" id="sequence_correspondence_reason_issue">
+        <field name="name">Asunto</field>
+        <field name="code">seq.correspondence.issue</field>
+        <field name="prefix">AS/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record model="ir.sequence" id="sequence_correspondence_message">
+        <field name="name">Mensaje</field>
+        <field name="code">seq.correspondence.message</field>
+        <field name="prefix">MJS/%(year)s/</field>
+        <field name="padding">5</field>
     </record>
 
 </odoo>
