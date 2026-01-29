@@ -8,8 +8,6 @@
             <field name="model_id" ref="sincpro_correspondence.model_correspondence_message"/>
             <field name="email_from">{{object.company_id.name}}</field>
             <field name="email_to">{{ (object.to_user_id.email) }}</field>
-<!--            <field name="email_cc">{{ (object.to_user_id.partner_id.email) }}</field>-->
-<!--            <field name="lang">{{ (object.partner_id.lang) }}</field>-->
             <field name="subject">Delegación : {{ (object.name) }}</field>
             <field name="auto_delete" eval="False"/>
             <field name="body_html" type="html">
@@ -46,18 +44,14 @@
                                             <tr>
                                                 <td valign="top" style="font-size: 13px;">
                                                     <div>
-                                                        Estimado <strong><t t-out="object.to_user_id.name"/></strong>,<br/> a continuación se hace la delegación de la correspondencia:
-<!--                                                        <p> This automatic message is to notify that the ticket <span style="font-weight:bold;" t-out="object.number or ''"/>-->
-<!--                                                        with subject <span style="font-weight:bold;" t-out="object.name or ''"/> has been received. </p>-->
-<!--                                                        <p> Creation datetime: <span style="font-weight:bold;" t-out="object.create_date_utc.strftime('%Y-%m-%d %H:%M:%S') "/></p>-->
-
-<!--                                                        <br/>-->
+                                                        Estimado <strong><t t-out="object.to_user_id.name"/></strong>, a continuación se hace la delegación de la correspondencia:
                                                         <p>Saludos.</p>
                                                         <div style="margin: 16px 0px 16px 0px; text-align: center;">
-<!--                                                            <a href="/my_tickets" style="display: inline-block; padding: 10px; text-decoration: none; font-size: 12px; background-color: #875A7B; color: #fff; border-radius: 5px;">-->
-<!--                                                                <strong>View my tickets</strong>-->
-<!--                                                            </a>-->
-                                                        </div>
+                                                        <a t-att-href="'%s/web#id=%s&amp;model=%s&amp;view_type=form' % (object.get_base_url(), object.id, object._name)"
+                                                           style="display:inline-block;padding:10px 16px;text-decoration:none;font-size:13px;background-color:#875A7B;color:#fff;border-radius:5px;">
+                                                            <strong>Ver correspondencia</strong>
+                                                        </a>
+                                                      </div>
                                                     </div>
                                                 </td></tr>
                                             <tr>

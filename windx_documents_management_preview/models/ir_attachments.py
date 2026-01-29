@@ -16,16 +16,16 @@ class IrAttachment(models.Model):
     user_ids = fields.Many2many(related="document_directory_id.user_ids",
                                          string="Users", readonly=True)
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        attachments = super().create(vals_list)
-        directory_model = self.env['document.directory']
-        for attachment in attachments:
-            if attachment.res_model:
-                records = directory_model.search([('model_id.model', '=', attachment.res_model)])
-                if records and len(records) > 0:
-                    attachment.document_directory_id = records[0].id
-        return attachments
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     attachments = super().create(vals_list)
+    #     directory_model = self.sudo().env['document.directory']
+    #     for attachment in attachments:
+    #         if attachment.res_model:
+    #             records = directory_model.search([('model_id.model', '=', attachment.res_model)])
+    #             if records and len(records) > 0:
+    #                 attachment.document_directory_id = records[0].id
+    #     return attachments
 
     def _check_for_message_composer(self):
         """ Purpose of this method is to actualize visitor model prior to contacting

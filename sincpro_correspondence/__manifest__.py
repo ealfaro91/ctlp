@@ -19,9 +19,9 @@
     "depends": ["helpdesk_bol"],
     "data": [
         "data/ir_sequence_data.xml",
+        "data/mail_template_data.xml",
         "security/groups.xml",
         "security/ir.model.access.csv",
-        "views/mail_template_data.xml",
         "wizards/correspondence_dialog_assign_views.xml",
         "views/correspondence_type_views.xml",
         "views/correspondence_actions_views.xml",
