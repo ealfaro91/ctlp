@@ -190,18 +190,18 @@ class Portalfsn(CustomerPortal):
             raise e
             # return {"error": _("Invalid signature data.")}
 
-        _message_post_helper(
-            "project.fsn",
-            fsn_sudo.id,
-            _("FSN signed by %s") % (name,),
-            **(
-                {
-                    "token": access_token if access_token else {},
-                    "message_type": "notification",
-                    "subtype_xmlid": "mail.mt_note",
-                }
-            ),
-        )
+        # _message_post_helper(
+        #     "project.fsn",
+        #     fsn_sudo.id,
+        #     _("FSN signed by %s") % (name,),
+        #     **(
+        #         {
+        #             "token": access_token if access_token else {},
+        #             "message_type": "notification",
+        #             "subtype_xmlid": "mail.mt_note",
+        #         }
+        #     ),
+        # )
         return {
             "force_refresh": True,
             "redirect_url": "/my/fsn/%s?message=sign_ok&access_token=%s"

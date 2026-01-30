@@ -192,8 +192,8 @@ class ApprovalLog(models.Model):
 
         for i in range(original_pdf.numPages):
             page = original_pdf.getPage(i)
-            if i == last_page_index:
-                page.mergePage(signature_pdf.getPage(0))  # API vieja
+          #  if i == last_page_index:
+            page.mergePage(signature_pdf.getPage(0))  # API vieja
             writer.addPage(page)
 
         # Guardar PDF final
